@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeetCode Daily | Dynamic Programming</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: #0f1117;
+    color: #e2e8f0;
+    padding: 16px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .header {
+    background: linear-gradient(135deg, #3730a3, #1e1b4b);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #4338ca;
+  }
+  .header-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .emoji { font-size: 28px; }
+  .title { font-size: 22px; font-weight: 800; color: #a5b4fc; }
+  .subtitle { font-size: 13px; color: #94a3b8; }
+  .type-badge {
+    display: inline-block;
+    background: #6366f1;
+    color: #e0e7ff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 8px;
+  }
+  .problem-card {
+    background: #1a1f2e;
+    border-radius: 16px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    border: 1px solid #2d3748;
+  }
+  .problem-header {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #2d3748;
+  }
+  .difficulty-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .easy { background: #064e3b; color: #6ee7b7; }
+  .medium { background: #451a03; color: #fcd34d; }
+  .hard { background: #4c0519; color: #fca5a5; }
+  .problem-num { color: #64748b; font-size: 13px; }
+  .problem-title { font-size: 16px; font-weight: 700; color: #f1f5f9; }
+  .section { padding: 16px 20px; border-bottom: 1px solid #2d3748; }
+  .section:last-child { border-bottom: none; }
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #64748b;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .section-text { color: #cbd5e1; font-size: 14px; line-height: 1.7; }
+  .ascii-art {
+    background: #0d1117;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: #c4b5fd;
+    white-space: pre;
+    overflow-x: auto;
+    line-height: 1.5;
+    margin: 10px 0;
+    border: 1px solid #4338ca;
+  }
+  .code-block {
+    background: #0d1117;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 10px 0;
+    border: 1px solid #2d3748;
+  }
+  .code-label {
+    background: #1e1b4b;
+    padding: 6px 14px;
+    font-size: 11px;
+    color: #a5b4fc;
+    font-weight: 600;
+  }
+  pre {
+    padding: 14px 16px;
+    font-family: 'Courier New', Menlo, Monaco, monospace;
+    font-size: 12.5px;
+    line-height: 1.8;
+    overflow-x: auto;
+    color: #e2e8f0;
+  }
+  .kw { color: #c084fc; font-weight: 600; }
+  .fn { color: #60a5fa; }
+  .cm { color: #4ade80; font-style: italic; }
+  .nm { color: #f97316; }
+  .op { color: #94a3b8; }
+  .complexity-box {
+    background: #0d1117;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 10px 0;
+    border: 1px solid #2d3748;
+  }
+  .complexity-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 8px 0;
+    border-bottom: 1px solid #1e2d3d;
+    gap: 12px;
+  }
+  .complexity-row:last-child { border-bottom: none; }
+  .complexity-label { font-size: 12px; color: #94a3b8; font-weight: 600; min-width: 80px; }
+  .complexity-value { font-family: 'Courier New', monospace; font-size: 13px; font-weight: 700; color: #fcd34d; }
+  .complexity-reason { font-size: 12px; color: #64748b; flex: 1; text-align: right; }
+  .line-analysis {
+    background: #0d1117;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 10px 0;
+    border: 1px solid #2d3748;
+  }
+  .line-row {
+    display: flex;
+    gap: 12px;
+    padding: 6px 0;
+    border-bottom: 1px dashed #1e2d3d;
+    align-items: flex-start;
+  }
+  .line-row:last-child { border-bottom: none; }
+  .line-code { font-family: 'Courier New', monospace; font-size: 11.5px; color: #c4b5fd; min-width: 180px; flex-shrink: 0; }
+  .line-explain { font-size: 12px; color: #94a3b8; line-height: 1.5; }
+  .highlight { color: #a5b4fc; font-weight: 600; }
+  .optimized-badge { display: inline-block; background: #14532d; color: #86efac; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; margin-left: 8px; }
+  .footer { text-align: center; color: #475569; font-size: 12px; padding: 16px 0; }
+  .back-link { display: block; text-align: center; margin-bottom: 16px; color: #a5b4fc; font-size: 13px; text-decoration: none; }
+</style>
+</head>
+<body>
+<a href="index.html" class="back-link">← 목록으로 돌아가기</a>
+<div class="header">
+  <div class="header-top">
+    <span class="emoji">🔢</span>
+    <div>
+      <div class="title">LeetCode Daily</div>
+      <div class="subtitle">Dynamic Programming 유형</div>
+    </div>
+  </div>
+  <span class="type-badge">📌 Dynamic Programming</span>
+</div>
+
+<!-- Problem 1: Climbing Stairs (Easy) -->
+<div class="problem-card">
+  <div class="problem-header">
+    <span class="difficulty-badge easy">EASY</span>
+    <div><div class="problem-num">#70</div><div class="problem-title">Climbing Stairs</div></div>
+  </div>
+  <div class="section">
+    <div class="section-label">🔍 High Level</div>
+    <div class="section-text">한 번에 1칸 또는 2칸씩 오를 때, n번째 계단에 도달하는 방법의 수. 점화식 dp[i] = dp[i-1] + dp[i-2] (피보나치).</div>
+    <div class="ascii-art">n = 5
+
+dp[1] = 1   (1)
+dp[2] = 2   (1+1, 2)
+dp[3] = 3   = dp[2] + dp[1]
+dp[4] = 5   = dp[3] + dp[2]
+dp[5] = 8   = dp[4] + dp[3] ✅
+
+상태: dp[i] = i번째 계단에 도달하는 경우의 수
+전이: dp[i] = dp[i-1] + dp[i-2]</div>
+  </div>
+  <div class="section">
+    <div class="section-label">💻 기본 풀이</div>
+    <div class="code-block"><div class="code-label">🐍 Python</div>
+    <pre><span class="kw">def</span> <span class="fn">climbStairs</span>(n):
+    <span class="kw">if</span> n &lt;= <span class="nm">2</span>: <span class="kw">return</span> n
+    dp = [<span class="nm">0</span>] * (n + <span class="nm">1</span>)
+    dp[<span class="nm">1</span>], dp[<span class="nm">2</span>] = <span class="nm">1</span>, <span class="nm">2</span>
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">3</span>, n + <span class="nm">1</span>):
+        dp[i] = dp[i - <span class="nm">1</span>] + dp[i - <span class="nm">2</span>]
+    <span class="kw">return</span> dp[n]</pre></div>
+  </div>
+  <div class="section">
+    <div class="section-label">⚡ 최적화 버전 <span class="optimized-badge">OPTIMAL</span></div>
+    <div class="section-text">배열 대신 변수 2개만 사용 → 공간 O(1)로 축소.</div>
+    <div class="code-block"><div class="code-label">🐍 Python</div>
+    <pre><span class="kw">def</span> <span class="fn">climbStairs</span>(n):
+    a, b = <span class="nm">1</span>, <span class="nm">1</span>
+    <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(n - <span class="nm">1</span>):
+        a, b = b, a + b
+    <span class="kw">return</span> b</pre></div>
+  </div>
+  <div class="section">
+    <div class="section-label">📊 복잡도 분석</div>
+    <div class="line-analysis">
+      <div class="line-row"><div class="line-code">a, b = 1, 1</div><div class="line-explain">변수 2개 초기화 → O(1)</div></div>
+      <div class="line-row"><div class="line-code">for _ in range(n-1):</div><div class="line-explain">n-1번 반복 → O(n)</div></div>
+      <div class="line-row"><div class="line-code">a, b = b, a + b</div><div class="line-explain">두 변수 갱신 → O(1)</div></div>
+    </div>
+    <div class="complexity-box">
+      <div class="complexity-row"><div class="complexity-label">⏱ 시간</div><div class="complexity-value">O(n)</div><div class="complexity-reason">한 번의 선형 루프</div></div>
+      <div class="complexity-row"><div class="complexity-label">💾 공간</div><div class="complexity-value">O(1)</div><div class="complexity-reason">변수 2개만 유지</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Problem 2: Coin Change (Medium) -->
+<div class="problem-card">
+  <div class="problem-header">
+    <span class="difficulty-badge medium">MEDIUM</span>
+    <div><div class="problem-num">#322</div><div class="problem-title">Coin Change</div></div>
+  </div>
+  <div class="section">
+    <div class="section-label">🔍 High Level</div>
+    <div class="section-text">동전 종류 coins로 금액 amount를 만들기 위한 최소 동전 개수. 만들 수 없으면 -1. 1차원 DP로 모든 금액에 대해 최솟값 탐색.</div>
+    <div class="ascii-art">coins = [1, 2, 5], amount = 11
+
+dp[0]  = 0
+dp[1]  = 1   (1)
+dp[2]  = 1   (2)
+dp[3]  = 2   (1+2)
+dp[4]  = 2   (2+2)
+dp[5]  = 1   (5)
+...
+dp[11] = 3   (5+5+1) ✅
+
+전이: dp[i] = min(dp[i - c] + 1) for c in coins</div>
+  </div>
+  <div class="section">
+    <div class="section-label">💻 기본 풀이</div>
+    <div class="code-block"><div class="code-label">🐍 Python</div>
+    <pre><span class="kw">def</span> <span class="fn">coinChange</span>(coins, amount):
+    INF = <span class="fn">float</span>(<span class="nm">'inf'</span>)
+    dp = [INF] * (amount + <span class="nm">1</span>)
+    dp[<span class="nm">0</span>] = <span class="nm">0</span>
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">1</span>, amount + <span class="nm">1</span>):
+        <span class="kw">for</span> c <span class="kw">in</span> coins:
+            <span class="kw">if</span> i - c &gt;= <span class="nm">0</span>:
+                dp[i] = <span class="fn">min</span>(dp[i], dp[i - c] + <span class="nm">1</span>)
+    <span class="kw">return</span> dp[amount] <span class="kw">if</span> dp[amount] != INF <span class="kw">else</span> -<span class="nm">1</span></pre></div>
+  </div>
+  <div class="section">
+    <div class="section-label">⚡ 최적화 버전 <span class="optimized-badge">OPTIMAL</span></div>
+    <div class="section-text">동전을 한 번 정렬해두면 i &lt; c인 동전은 즉시 break 가능 → 평균적으로 빠름.</div>
+    <div class="code-block"><div class="code-label">🐍 Python</div>
+    <pre><span class="kw">def</span> <span class="fn">coinChange</span>(coins, amount):
+    coins.<span class="fn">sort</span>()
+    dp = [<span class="nm">0</span>] + [amount + <span class="nm">1</span>] * amount
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">1</span>, amount + <span class="nm">1</span>):
+        <span class="kw">for</span> c <span class="kw">in</span> coins:
+            <span class="kw">if</span> c &gt; i: <span class="kw">break</span>
+            dp[i] = <span class="fn">min</span>(dp[i], dp[i - c] + <span class="nm">1</span>)
+    <span class="kw">return</span> dp[amount] <span class="kw">if</span> dp[amount] &lt;= amount <span class="kw">else</span> -<span class="nm">1</span></pre></div>
+  </div>
+  <div class="section">
+    <div class="section-label">📊 복잡도 분석</div>
+    <div class="line-analysis">
+      <div class="line-row"><div class="line-code">coins.sort()</div><div class="line-explain">동전 정렬 → O(k log k), k = 동전 수</div></div>
+      <div class="line-row"><div class="line-code">dp = [0] + [amount+1]*amount</div><div class="line-explain">dp 테이블 초기화 → O(amount)</div></div>
+      <div class="line-row"><div class="line-code">for i in range(1, amount+1)</div><div class="line-explain">바깥 루프 → amount번</div></div>
+      <div class="line-row"><div class="line-code">for c in coins</div><div class="line-explain">안쪽 루프 → 동전 수만큼 (최악 k)</div></div>
+    </div>
+    <div class="complexity-box">
+      <div class="complexity-row"><div class="complexity-label">⏱ 시간</div><div class="complexity-value">O(n·k)</div><div class="complexity-reason">n = amount, k = 동전 개수</div></div>
+      <div class="complexity-row"><div class="complexity-label">💾 공간</div><div class="complexity-value">O(n)</div><div class="complexity-reason">dp 테이블 길이 = amount+1</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Problem 3: Edit Distance (Hard) -->
+<div class="problem-card">
+  <div class="problem-header">
+    <span class="difficulty-badge hard">HARD</span>
+    <div><div class="problem-num">#72</div><div class="problem-title">Edit Distance</div></div>
+  </div>
+  <div class="section">
+    <div class="section-label">🔍 High Level</div>
+    <div class="section-text">word1을 word2로 만드는 최소 편집 횟수 (삽입/삭제/교체). 2차원 DP — dp[i][j] = word1의 앞 i자 → word2의 앞 j자로 만드는 최소 비용.</div>
+    <div class="ascii-art">word1 = "horse", word2 = "ros"
+
+      ""  r  o  s
+   "" [0, 1, 2, 3]
+    h [1, 1, 2, 3]
+    o [2, 2, 1, 2]
+    r [3, 2, 2, 2]
+    s [4, 3, 3, 2]
+    e [5, 4, 4, 3] ✅
+
+전이:
+  같으면:    dp[i][j] = dp[i-1][j-1]
+  다르면:    dp[i][j] = 1 + min(
+                dp[i-1][j],    # 삭제
+                dp[i][j-1],    # 삽입
+                dp[i-1][j-1])  # 교체</div>
+  </div>
+  <div class="section">
+    <div class="section-label">💻 기본 풀이</div>
+    <div class="code-block"><div class="code-label">🐍 Python</div>
+    <pre><span class="kw">def</span> <span class="fn">minDistance</span>(word1, word2):
+    m, n = <span class="fn">len</span>(word1), <span class="fn">len</span>(word2)
+    dp = [[<span class="nm">0</span>] * (n + <span class="nm">1</span>) <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(m + <span class="nm">1</span>)]
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(m + <span class="nm">1</span>): dp[i][<span class="nm">0</span>] = i
+    <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(n + <span class="nm">1</span>): dp[<span class="nm">0</span>][j] = j
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">1</span>, m + <span class="nm">1</span>):
+        <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">1</span>, n + <span class="nm">1</span>):
+            <span class="kw">if</span> word1[i-<span class="nm">1</span>] == word2[j-<span class="nm">1</span>]:
+                dp[i][j] = dp[i-<span class="nm">1</span>][j-<span class="nm">1</span>]
+            <span class="kw">else</span>:
+                dp[i][j] = <span class="nm">1</span> + <span class="fn">min</span>(dp[i-<span class="nm">1</span>][j], dp[i][j-<span class="nm">1</span>], dp[i-<span class="nm">1</span>][j-<span class="nm">1</span>])
+    <span class="kw">return</span> dp[m][n]</pre></div>
+  </div>
+  <div class="section">
+    <div class="section-label">⚡ 최적화 버전 <span class="optimized-badge">OPTIMAL</span></div>
+    <div class="section-text">현재 행 계산에 직전 행만 필요 → 1차원 배열 2개로 공간 O(min(m,n))로 축소.</div>
+    <div class="code-block"><div class="code-label">🐍 Python</div>
+    <pre><span class="kw">def</span> <span class="fn">minDistance</span>(word1, word2):
+    <span class="kw">if</span> <span class="fn">len</span>(word1) &lt; <span class="fn">len</span>(word2):
+        word1, word2 = word2, word1
+    m, n = <span class="fn">len</span>(word1), <span class="fn">len</span>(word2)
+    prev = <span class="fn">list</span>(<span class="fn">range</span>(n + <span class="nm">1</span>))
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">1</span>, m + <span class="nm">1</span>):
+        curr = [i] + [<span class="nm">0</span>] * n
+        <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">1</span>, n + <span class="nm">1</span>):
+            <span class="kw">if</span> word1[i-<span class="nm">1</span>] == word2[j-<span class="nm">1</span>]:
+                curr[j] = prev[j-<span class="nm">1</span>]
+            <span class="kw">else</span>:
+                curr[j] = <span class="nm">1</span> + <span class="fn">min</span>(prev[j], curr[j-<span class="nm">1</span>], prev[j-<span class="nm">1</span>])
+        prev = curr
+    <span class="kw">return</span> prev[n]</pre></div>
+  </div>
+  <div class="section">
+    <div class="section-label">📊 복잡도 분석</div>
+    <div class="line-analysis">
+      <div class="line-row"><div class="line-code">prev = list(range(n+1))</div><div class="line-explain">초기 행 (빈 word1 기준 거리) → O(n)</div></div>
+      <div class="line-row"><div class="line-code">for i in range(1, m+1)</div><div class="line-explain">바깥 루프 → m번</div></div>
+      <div class="line-row"><div class="line-code">for j in range(1, n+1)</div><div class="line-explain">안쪽 루프 → n번</div></div>
+      <div class="line-row"><div class="line-code">curr[j] = 1 + min(...)</div><div class="line-explain">세 후보 중 최솟값 → O(1)</div></div>
+      <div class="line-row"><div class="line-code">prev = curr</div><div class="line-explain">행 교체 → 참조 변경 O(1)</div></div>
+    </div>
+    <div class="complexity-box">
+      <div class="complexity-row"><div class="complexity-label">⏱ 시간</div><div class="complexity-value">O(m·n)</div><div class="complexity-reason">모든 (i,j) 쌍 1회씩 채움</div></div>
+      <div class="complexity-row"><div class="complexity-label">💾 공간</div><div class="complexity-value">O(min(m,n))</div><div class="complexity-reason">두 개의 1차원 배열만 유지</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">🧩 LeetCode Daily by Crew · <a href="index.html" style="color:#a5b4fc;">목록으로</a></div>
+</body></html>

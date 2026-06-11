@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeetCode Daily | Sliding Window</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0f1117; color: #e2e8f0; font-family: 'Segoe UI', system-ui, sans-serif; padding: 16px; line-height: 1.6; }
+.header { text-align: center; padding: 24px 16px; background: linear-gradient(135deg, #1e3a5f 0%, #0f2942 100%); border-radius: 16px; margin-bottom: 24px; }
+.header h1 { font-size: 1.6rem; color: #60a5fa; font-weight: 800; }
+.header .date { font-size: 0.85rem; color: #94a3b8; margin-top: 6px; }
+.type-badge { display: inline-block; background: #1d4ed8; color: #bfdbfe; padding: 4px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-top: 10px; letter-spacing: 1px; }
+.problem-card { background: #1a1f2e; border-radius: 14px; padding: 20px; margin-bottom: 24px; border: 1px solid #2d3748; }
+.problem-title { font-size: 1.1rem; font-weight: 700; color: #f1f5f9; margin-bottom: 10px; }
+.problem-title span { color: #94a3b8; font-size: 0.9rem; font-weight: 400; }
+.badge { display: inline-block; padding: 3px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; margin-left: 8px; vertical-align: middle; }
+.easy { background: #064e3b; color: #34d399; }
+.medium { background: #451a03; color: #fb923c; }
+.hard { background: #450a0a; color: #f87171; }
+.section-title { font-size: 0.78rem; font-weight: 700; color: #60a5fa; text-transform: uppercase; letter-spacing: 1.2px; margin: 16px 0 8px; }
+pre.ascii { background: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 14px; font-size: 0.72rem; color: #7dd3fc; overflow-x: auto; white-space: pre; line-height: 1.5; }
+pre.code { background: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 14px; font-size: 0.75rem; overflow-x: auto; white-space: pre; line-height: 1.7; color: #f8f8f2; }
+.kw { color: #ff79c6; } .fn { color: #50fa7b; } .cm { color: #6272a4; } .st { color: #f1fa8c; }
+.num { color: #bd93f9; } .tp { color: #8be9fd; } .op { color: #ff79c6; } .var { color: #f8f8f2; }
+table { width: 100%; border-collapse: collapse; font-size: 0.76rem; margin-top: 8px; }
+th { background: #1e3a5f; color: #93c5fd; padding: 8px 10px; text-align: left; }
+td { padding: 7px 10px; border-bottom: 1px solid #2d3748; color: #cbd5e1; vertical-align: top; }
+tr:nth-child(even) td { background: #141824; }
+footer { text-align: center; padding: 20px; color: #64748b; font-size: 0.8rem; }
+footer a { color: #60a5fa; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="type-badge">SLIDING WINDOW</div>
+  <h1>🧩 LeetCode Daily</h1>
+  <div class="date">2026-06-11 (Thu)</div>
+</div>
+
+<!-- PROBLEM 1: Easy #643 -->
+<div class="problem-card">
+  <div class="problem-title">Maximum Average Subarray I <span>— by LeetCode</span> <span class="badge easy">Easy</span></div>
+  <div style="color:#94a3b8;font-size:0.82rem;margin-bottom:4px;">#643</div>
+
+  <div class="section-title">🎨 Algorithm Visualization</div>
+  <pre class="ascii">
+nums = [1, 12, -5, -6, 50, 3],  k = 4
+
+Window 1: [1, 12, -5, -6]   sum = 2
+Window 2: [12, -5, -6, 50]  sum = 51  ← MAX
+           sum = 2 - 1 + 50 = 51
+Window 3: [-5, -6, 50, 3]   sum = 42
+
+Answer = 51 / 4 = 12.75
+  </pre>
+
+  <div class="section-title">🐍 Basic Solution (Python)</div>
+  <pre class="code">from typing import List
+
+class Solution:
+    def findMaxAverage(self, nums: List[int], k: int) -> float:
+        window_sum = sum(nums[:k])
+        max_sum = window_sum
+        for i in range(k, len(nums)):
+            window_sum += nums[i] - nums[i - k]
+            max_sum = max(max_sum, window_sum)
+        return max_sum / k</pre>
+
+  <div class="section-title">⚡ Optimized Solution (Python)</div>
+  <pre class="code">import itertools
+
+class Solution:
+    def findMaxAverage(self, nums, k):
+        prefix = [0] + list(itertools.accumulate(nums))
+        return max(prefix[i+k] - prefix[i] for i in range(len(nums)-k+1)) / k</pre>
+
+  <div class="section-title">📊 Complexity Analysis</div>
+  <table>
+    <tr><th>Type</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>Basic</td><td>O(n)</td><td>O(1)</td><td>Single pass sliding window</td></tr>
+    <tr><td>Optimized</td><td>O(n)</td><td>O(n)</td><td>Prefix sum array of size n+1</td></tr>
+  </table>
+</div>
+
+<!-- PROBLEM 2: Medium #3 -->
+<div class="problem-card">
+  <div class="problem-title">Longest Substring Without Repeating Characters <span>— by LeetCode</span> <span class="badge medium">Medium</span></div>
+  <div style="color:#94a3b8;font-size:0.82rem;margin-bottom:4px;">#3</div>
+
+  <div class="section-title">🎨 Algorithm Visualization</div>
+  <pre class="ascii">
+s = "abcabcbb"
+
+l=0 r=0: [a]     set={a}     max=1
+l=0 r=1: [ab]    set={a,b}   max=2
+l=0 r=2: [abc]   set={a,b,c} max=3
+l=0 r=3: [abca]  'a' dup! → shrink
+l=1 r=3: [bca]   set={b,c,a} max=3
+l=1 r=4: [bcab]  'b' dup! → shrink
+l=2 r=4: [cab]   max=3
+...
+Final max = 3 ("abc")
+  </pre>
+
+  <div class="section-title">🐍 Basic Solution (Python)</div>
+  <pre class="code">class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        char_set, left, max_len = set(), 0, 0
+        for right in range(len(s)):
+            while s[right] in char_set:
+                char_set.remove(s[left]); left += 1
+            char_set.add(s[right])
+            max_len = max(max_len, right - left + 1)
+        return max_len</pre>
+
+  <div class="section-title">⚡ Optimized Solution (Python)</div>
+  <pre class="code">class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        # O(1) jump via last-seen index map
+        char_idx = {}; left = max_len = 0
+        for right, ch in enumerate(s):
+            if ch in char_idx and char_idx[ch] >= left:
+                left = char_idx[ch] + 1
+            char_idx[ch] = right
+            max_len = max(max_len, right - left + 1)
+        return max_len</pre>
+
+  <div class="section-title">📊 Complexity Analysis</div>
+  <table>
+    <tr><th>Type</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>Basic</td><td>O(n)</td><td>O(min(m,n))</td><td>Each char added/removed at most once</td></tr>
+    <tr><td>Optimized</td><td>O(n)</td><td>O(min(m,n))</td><td>O(1) jump with index hash map</td></tr>
+  </table>
+</div>
+
+<!-- PROBLEM 3: Hard #76 -->
+<div class="problem-card">
+  <div class="problem-title">Minimum Window Substring <span>— by LeetCode</span> <span class="badge hard">Hard</span></div>
+  <div style="color:#94a3b8;font-size:0.82rem;margin-bottom:4px;">#76</div>
+
+  <div class="section-title">🎨 Algorithm Visualization</div>
+  <pre class="ascii">
+s = "ADOBECODEBANC",  t = "ABC"
+need = {A:1, B:1, C:1}
+
+Expand right until all chars covered:
+  r=5 → "ADOBEC"  have=3 VALID! len=6
+  shrink: remove A → "DOBEC" invalid, expand...
+  r=10 → "DOBECODEBA" valid? shrink...
+  Best window found: "BANC" len=4 ← MINIMUM
+
+[A D O B E C O D E B A N C]
+               [B A N C]
+               ↑       ↑   len=4 MIN
+  </pre>
+
+  <div class="section-title">🐍 Basic Solution (Python)</div>
+  <pre class="code">from collections import Counter
+
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        if not t or not s: return ""
+        need = Counter(t); window = {}
+        have, req = 0, len(need)
+        res, rl = [-1, -1], float("inf"); left = 0
+        for right, ch in enumerate(s):
+            window[ch] = window.get(ch, 0) + 1
+            if ch in need and window[ch] == need[ch]: have += 1
+            while have == req:
+                if right - left + 1 < rl:
+                    rl = right - left + 1; res = [left, right]
+                window[s[left]] -= 1
+                if s[left] in need and window[s[left]] < need[s[left]]: have -= 1
+                left += 1
+        return "" if rl == float("inf") else s[res[0]:res[1]+1]</pre>
+
+  <div class="section-title">⚡ Optimized Solution (Python)</div>
+  <pre class="code">from collections import Counter
+
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        if not t: return ""
+        # Index compression: filter s to only chars in t
+        filtered = [(i, c) for i, c in enumerate(s) if c in set(t)]
+        need = Counter(t); window = Counter()
+        have, req = 0, len(need); res = ""; rl = float("inf"); left = 0
+        for right in range(len(filtered)):
+            ch = filtered[right][1]; window[ch] += 1
+            if window[ch] == need[ch]: have += 1
+            while have == req:
+                st, en = filtered[left][0], filtered[right][0]
+                if en - st + 1 < rl: rl = en - st + 1; res = s[st:en+1]
+                window[filtered[left][1]] -= 1
+                if window[filtered[left][1]] < need[filtered[left][1]]: have -= 1
+                left += 1
+        return res</pre>
+
+  <div class="section-title">📊 Complexity Analysis</div>
+  <table>
+    <tr><th>Type</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>Basic</td><td>O(|s|+|t|)</td><td>O(|s|+|t|)</td><td>Two pointer traversal + Counter</td></tr>
+    <tr><td>Optimized</td><td>O(|s|+|t|)</td><td>O(|s|+|t|)</td><td>Filtered array skips non-t chars</td></tr>
+  </table>
+</div>
+
+<footer>
+  <p>LeetCode Daily Practice</p>
+  <p style="margin-top:8px;"><a href="https://chloeyeo.github.io/leetcode-explanations">🌐 GitHub Pages</a></p>
+</footer>
+
+</body>
+</html>

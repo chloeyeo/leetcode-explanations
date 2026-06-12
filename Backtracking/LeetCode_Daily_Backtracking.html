@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeetCode Daily | Backtracking</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1117; color: #e6edf3; font-family: 'Segoe UI', system-ui, sans-serif; padding: 16px; line-height: 1.6; }
+  header { text-align: center; padding: 24px 16px 16px; border-bottom: 1px solid #21262d; margin-bottom: 24px; }
+  header h1 { font-size: 1.6rem; color: #58a6ff; margin-bottom: 6px; }
+  header .date { color: #8b949e; font-size: 0.9rem; }
+  .card { background: #161b22; border: 1px solid #21262d; border-radius: 12px; padding: 20px; margin-bottom: 28px; }
+  .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+  .card-header h2 { font-size: 1.1rem; color: #e6edf3; flex: 1; }
+  .badge { padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
+  .easy { background: #0f4c2a; color: #3fb950; border: 1px solid #3fb950; }
+  .medium { background: #4a2a00; color: #f0883e; border: 1px solid #f0883e; }
+  .hard { background: #4a0f0f; color: #f85149; border: 1px solid #f85149; }
+  .by { color: #8b949e; font-size: 0.8rem; }
+  .section-label { color: #58a6ff; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; margin-top: 18px; }
+  .ascii-box { background: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 14px; overflow-x: auto; margin-bottom: 4px; }
+  .ascii-box pre { font-family: 'Courier New', monospace; font-size: 0.75rem; color: #8b949e; white-space: pre; line-height: 1.5; }
+  .code-block { background: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 16px; overflow-x: auto; margin-bottom: 4px; }
+  .code-block pre { font-family: 'Courier New', monospace; font-size: 0.78rem; line-height: 1.7; white-space: pre; }
+  .kw { color: #ff7b72; }
+  .fn { color: #d2a8ff; }
+  .cm { color: #6e7681; font-style: italic; }
+  .st { color: #a5d6ff; }
+  .nm { color: #79c0ff; }
+  .op { color: #e6edf3; }
+  .complexity-table { width: 100%; border-collapse: collapse; margin-top: 6px; font-size: 0.82rem; }
+  .complexity-table th { background: #21262d; color: #8b949e; font-weight: 600; padding: 8px 10px; text-align: left; border: 1px solid #30363d; }
+  .complexity-table td { padding: 8px 10px; border: 1px solid #30363d; color: #e6edf3; vertical-align: top; }
+  .complexity-table tr:nth-child(even) td { background: #161b22; }
+  footer { text-align: center; padding: 24px 0 12px; color: #8b949e; font-size: 0.85rem; border-top: 1px solid #21262d; margin-top: 12px; }
+  footer a { color: #58a6ff; text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+  .divider { height: 1px; background: #21262d; margin: 20px 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🔁 Backtracking</h1>
+  <div class="date">LeetCode Daily — June 12, 2025</div>
+</header>
+
+<!-- ===== EASY ===== -->
+<div class="card">
+  <div class="card-header">
+    <h2>LeetCode #784 · Letter Case Permutation</h2>
+    <span class="badge easy">Easy</span>
+    <span class="by">by LeetCode</span>
+  </div>
+
+  <div class="section-label">🎨 Algorithm Visualization</div>
+  <div class="ascii-box"><pre>
+Input: s = "a1b2"
+
+Backtracking Tree:
+            ""
+           /  \
+          "a"  "A"
+         /  \   /  \
+       "a1" "a1" "A1" "A1"
+       /  \   /  \   /  \   /  \
+     a1b a1B a1b a1B A1b A1B A1b A1B
+      |   |   |   |   |   |   |   |
+    a1b2 a1B2 ...                A1B2
+
+Digits are kept as-is — only letters branch.
+Result: ["a1b2","a1B2","a1b2","a1B2","A1b2","A1B2","A1b2","A1B2"]
+  </pre></div>
+
+  <div class="section-label">💡 Basic Solution</div>
+  <div class="code-block"><pre>
+<span class="kw">def</span> <span class="fn">letterCasePermutation</span>(s: <span class="nm">str</span>) -&gt; <span class="nm">list</span>[<span class="nm">str</span>]:
+    result = []
+
+    <span class="kw">def</span> <span class="fn">backtrack</span>(index: <span class="nm">int</span>, current: <span class="nm">list</span>):
+        <span class="kw">if</span> index == <span class="fn">len</span>(s):
+            result.<span class="fn">append</span>(<span class="st">""</span>.<span class="fn">join</span>(current))
+            <span class="kw">return</span>
+
+        ch = s[index]
+        <span class="kw">if</span> ch.<span class="fn">isdigit</span>():
+            <span class="cm"># Digits don't branch</span>
+            current.<span class="fn">append</span>(ch)
+            <span class="fn">backtrack</span>(index + <span class="nm">1</span>, current)
+            current.<span class="fn">pop</span>()
+        <span class="kw">else</span>:
+            <span class="cm"># Branch: lowercase</span>
+            current.<span class="fn">append</span>(ch.<span class="fn">lower</span>())
+            <span class="fn">backtrack</span>(index + <span class="nm">1</span>, current)
+            current.<span class="fn">pop</span>()
+            <span class="cm"># Branch: uppercase</span>
+            current.<span class="fn">append</span>(ch.<span class="fn">upper</span>())
+            <span class="fn">backtrack</span>(index + <span class="nm">1</span>, current)
+            current.<span class="fn">pop</span>()
+
+    <span class="fn">backtrack</span>(<span class="nm">0</span>, [])
+    <span clas="kw">return</span> result
+  </pre></div>
+
+  <div class="section-label">⚡ Optimized Solution</div>
+  <div class="code-block"><pre>
+<span class="kw">def</span> <span class="fn">letterCasePermutation</span>(s: <span class="nm">str</span>) -&gt; <span class="nm">list</span>[<span class="nm">str</span>]:
+    <span class="cm"># BFS / iterative approach — avoids recursion overhead</span>
+    result = [<span class="st">""</span>]
+    <span class="kw">for</span> ch <span class="kw">in</span> s:
+        <span class="kw">if</span> ch.<span class="fn">isdigit</span>():
+            result = [r + ch <span class="kw">for</span> r <span class="kw">in</span> result]
+        <span class="kw">else</span>:
+            result = [r + c
+                      <span class="kw">for</span> r <span class="kw">in</span> result
+                      <span class="kw">for</span> c <span class="kw">in</span> (ch.<span class="fn">lower</span>(), ch.<span class="fn">upper</span>())]
+    <span class="kw">return</span> result
+  </pre></div>
+
+  <div class="section-label">📊 Complexity Analysis</div>
+  <table class="complexity-table">
+    <tr><th>Metric</th><th>Value</th><th>Reason</th></tr>
+    <tr><td>Time (Basic)</td><td>O(2ᴸ · n)</td><td>L = letter count; each letter doubles branches; building each string costs O(n)</td></tr>
+    <tr><td>Space (Basic)</td><td>O(n)</td><td>Recursion depth = n; current list of length n</td></tr>
+    <tr><td>Time (Optimized)</td><td>O(2���· n)</td><td>Same output size, but iterative — no call stack</td></tr>
+    <tr><td>Space (Optimized)</td><td>O(2ᴸ · n)</td><td>Stores all partial strings at once in result list</td></tr>
+  </table>
+</div>
+
+   <!-- ===== MEDIUM ===== -->
+<div class="card">
+  <div class="card-header">
+    <h2>LeetCode #46 · Permutations</h2>
+    <span class="badge medium">Medium</span>
+    <span class="by">by LeetCode</span>
+  </div>
+
+  <div class="section-label">🎨 Algorithm Visualization</div>
+  <div class="ascii-box"><pre>
+Input: nums = [1, 2, 3]
+
+Backtracking Tree:
+              []
+         /    |    \
+       [1]   [2]   [3]
+      /   \  /  \  /  \
+   [1,2][1,3][2,1][2,3][3,1][3,2]
+     |    |    |    |    |    |
+  [1,2,3][1,3,2I[2,1,3][2,3,1][3,1,2][3,2,1]
+
+used = {False, False, False} — track which nums are in current path
+  </pre></div>
+
+  <div class="section-label">💡 Basic Solution</div>
+  <div class="code-block"><pre>
+<span class="kw">def</span> <span class="fn">permute</span>(nums: <span class="nm">list</span>[<span class="nm">int</span>]) -&gt; <span class="nm">list</span>[<span class="nm">list</span>[<span class="nm">int</span>]]:
+    result = []
+    used = [<span class="kw">False</span>] * <span class="fn">len</span>(nums)
+
+    <span class="kw">def</span> <span class="fn">backtrack</span>(current: <span class="nm">list</span>):
+        <span class="kw">if</span> <span class="fn">len</span>(current) == <span class="fn">len</span>(nums):
+            result.<span class="fn">append</span>(current[:])<span class="cm">  # snapshot</span>
+            <span class="kw">return</span>
+        <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(nums)):
+            <span class="kw">if</span> used[i]:
+                <span class="kw">continue</span>
+            used[i] = <span class="kw">True</span>
+            current.<span class="fn">append</span>(nums[i])
+            <span class="fn">backtrack</span>(current)
+            current.<span class="fn">pop</span>()       <span class="cm"># undo choice</span>
+            used[i] = <span class="kw">False</span>    <span class="cm"># undo mark</span>
+
+    <span class="fn">backtrack</span>([])
+    <span class="kw">return</span> result
+  </pre></div>
+
+  <div class="section-label">⚡ Optimized Solution</div>
+  <div class="code-block"><pre>
+<span class="kw">def</span> <span class="fn">permute</span>(nums: <span class="nm">list</span>[<span class="nm">int</span>]) -&gt; <span class="nm">list</span>[<span class="nm">list</span>[<span class="nm">int</span>]]:
+    <span class="cm"># Swap-based: avoid extra `used` array; O(1) extra space per level</span>
+    result = []
+
+    <span class="kw">def</span> <span class="fn">backtrack</span>(start: <span class="nm">int</span>):
+        <span class="kw">if</span> start == <span class="fn">len</span>(nums):
+            result.<span class="fn">append</span>(nums[:])
+            <span class="kw">return</span>
+        <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(start, <span class="fn">len</span>(nums)):
+            nums[start], nums[i] = nums[i], nums[start]  <span class="cm"># swap in</span>
+            <span class="fn">backtrack</span>(start + <span class="nm">1</span>)
+            nums[start], nums[i] = nums[i], nums[start]  <span class="cm"># swap back</span>
+
+    <span class="fn">backtrack</span>(<span class="nm">0</span>)
+    <span class="kw">return</span> result
+  </pre></div>
+
+  <div class="section-label">📊 Complexity Analysis</div>
+  <table class="complexity-table">
+    <tr><th>Metric</th><th>Value</th><th>Reason</th></tr>
+    <tr><td>Time</td><td>O(n · n!)</td><td>n! permutations; copying each takes O(n)</td></tr>
+    <tr><td>Space (Basic)</td><td>O(n)</td><td>used[] array + recursion depth n</td></tr>
+    <tr><td>Space (Optimized)</td><td>O(n)</td><td>No extra array; in-place swaps; recursion depth n</td></tr>
+    <tr><td>Output Space</td><td>O(n · n!)</td><td>Storing all permutations dominates</td></tr>
+  </table>
+</div>
+
+<!-- ===== HARD ===== -->
+<div class="card">
+  <div class="card-header">
+    <h2>LeetCode #37 · Sudoku Solver</h2>
+    <span class="badge hard">Hard</span>
+    <span class="by">by LeetCode</span>
+  </div>
+
+  <div class="section-label">🎨 Algorithm Visualization</div>
+  <div class="ascii-box"><pre>
+9x9 board — fill each '.' with 1-9
+
+Constraint checks for placing digit d at (r,c):
+  ✒ Row r    : d not in row
+  ✒ Col c    : d not in col
+  ✒ Box 3x3  : d not in box (r//3, c//3)
+
+Backtracking flow:
+  find next empty cell ('.')
+  try digits 1–9:
+    if isValid(r, c, d):
+      place d
+      recurse()
+      if solved → return True
+      undo (board[r][c] = '.')   ← backtrack
+  return False (trigger backtrack)
+  </pre></div>
+
+  <div class="section-label">💡 Basic Solution</div>
+  <div class="code-block"><pre>
+<span class="kw">def</span> <span class="fn">solveSudoku</span>(board: <span class="nm">list</span>[<span class="nm">list</span>[<span class="nm">str</span>]]) -&gt; <span class="kw">None</span>:
+    <span class="kw">def</span> <span class="fn">is_valid</span>(r, c, d):
+        <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">9</span>):
+            <span class="kw">if</span> board[r][i] == d: <span class="kw">return False</span>
+            <span class="kw">if</span> board[i][c] == d: <span class="kw">return False</span>
+            br, bc = <span class="nm">3</span>*(r//<span class="nm">3</span>)+i//<span class="nm">3</span>, <span class="nm">3</span>*(c//<span class="nm">3</span>)+i%<span class="nm">3</span>
+            <span class="kw">if</span> board[br][bc] == d: <span class="kw">return False</span>
+        <span class="kw">return True</span>
+
+    <span class="kw">def</span> <span class="fn">backtrack</span>():
+        <span class="kw">for</span> r <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">9</span>):
+            <span class="kw">for</span> c <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">9</span>):
+                <span class="kw">if</span> board[r][c] == <span class="st">'.'</span>:
+                    <span class="kw">for</span> d <span class="kw">in</span> <span class="st">"123456789"</span>:
+                        <span class="kw">if</span> <span class="fn">is_valid</span>(r, c, d):
+                            board[r][c] = d
+                            <span class="kw">if</span> <span class="fn">backtrack</span>(): <span class="kw">return True</span>
+                            board[r][c] = <span class="st">'.'</span>
+                    <span class="kw">return False</span>  <span class="cm"># no digit worked → backtrack</span>
+        <span class="kw">return True</span>  <span class="cm"># no empty cell → solved</span>
+
+    <span class="fn">backtrack</span>()
+  </pre></div>
+
+  <div class="section-label">⚡ Optimized Solution</div>
+  <div class="code-block"><pre>
+<span class="kw">from</span> collections <span class="kw">import</span> defaultdict
+
+<span class="kw">def</span> <span class="fn">solveSudoku</span>(board: <span class="nm">list</span>[<span class="nm">list</span>[<span class="nm">str</span>]]) -&gt; <span class="kw">None</span>:
+    <span class="cm"># Pre-compute candidate sets per cell — prune search space early</span>
+    rows = [<span class="fn">set</span>() <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">9</span>)]
+    cols = [<span class="fn">set</span>() <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">9</span>)]
+    boxes = [<span class="fn">set</span>() <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">9</span>)]
+
+    empty = []
+    <span class="kw">for</span> r <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">9</span>):
+        <span class="kw">for</span> c <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">9</span>):
+            d = board[r][c]
+            <span class="kw">if</span> d == <span class="st">'.'</span>:
+                empty.<span class="fn">append</span>((r, c))
+            <span clas="kw">else</span>:
+                rows[r].<span class="fn">add</span>(d); cols[c].<span class="fn">add</span>(d)
+                boxes[r//<span class="nm">3</span>*<span class="nm">3</span>+c//<span class="nm">3</span>].<span class="fn">add</span>(d)
+
+    <span class="kw">def</span> <span class="fn">backtrack</span>(idx: <span class="nm">int</span>) -&gt; <span class="nm">bool</span>:
+        <span class="kw">if</span> idx == <span class="fn">len</span>(empty): <span class="kw">return True</span>
+        r, c = empty[idx]
+        b = r//<span class="nm">3</span>*<span class="nm">3</span>+c//<span class="nm">3</span>
+        <span class="kw">for</span> d <span class="kw">in</span> <span class="st">"123456789"</span>:
+            <span class="kw">if</span> d <span class="kw">not in</span> rows[r] | cols[c] | boxes[b]:
+                board[r][c] = d
+                rows[r].<span class="fn">add</span>(d); cols[c].<span class="fn">add</span>(d); boxes[b].<span class="fn">add</span>(d)
+                <span class="kw">if</span> <span class="fn">backtrack</span>(idx+<span class="nm">1</span>): <span class="kw">return True</span>
+                board[r][c] = <span class="st">'.'</span>
+                rows[r].<span class="fn">discard</span>(d); cols[c].<span class="fn">discard</span>(d); boxes[b].<span class="fn">discard</span>(d)
+        <span class="kw">return False</span>
+
+    <span class="fn">backtrack</span>(<span class="nm">0</span>)
+  </pre></div>
+
+  <div class="section-label">📊 Complexity Analysis</div>
+  <table class="complexity-table">
+    <tr><th>Metric</th><th>Value</th><th>Reason</th></tr>
+    <tr><td>Time (Basic)</td><td>O(9^m)</td><td>m = empty cells; each can try up to 9 digits; worst-case exponential</td></tr>
+    <tr><td>Time (Optimized)</td><td>O(9^m)</td><td>Same worst-case; but set lookups are O(1) — dramatically fewer actual branches</td></tr>
+    <tr><td>Space (Basic)</td><td>O(m)</td><td>Recursion depth = m (max 81)</td></tr>
+    <tr><td>Space (Optimized)</td><td>O(81)</td><td>Three arrays of 9 sets; total cells bounded by 81; O(1) extra beyond output</td></tr>
+  </table>
+</div>
+
+<footer>
+  <p>🌐 <a href="https://chloeyeo.github.io/leetcode-explanations" target="_blank">https://chloeyeo.github.io/leetcode-explanations</a></p>
+  <p style="margin-top:8px; font-size:0.78rem;">Made with 🤖 Crew · LeetCode Daily Series</p>
+</footer>
+
+</body>
+</html>

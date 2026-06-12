@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeetCode Daily | Trie 유형</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #21262d;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --easy: #3fb950;
+    --medium: #f0883e;
+    --hard: #f85149;
+    --accent: #58a6ff;
+    --purple: #bc8cff;
+    --yellow: #e3b341;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    padding: 16px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  header {
+    text-align: center;
+    padding: 28px 16px 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+  header h1 {
+    font-size: 1.8rem;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  header .subtitle {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 6px;
+  }
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+  }
+  .easy   { background: rgba(63,185,80,0.15);  color: var(--easy);   border: 1px solid var(--easy);   }
+  .medium { background: rgba(240,136,62,0.15); color: var(--medium); border: 1px solid var(--medium); }
+  .hard   { background: rgba(248,81,73,0.15);  color: var(--hard);   border: 1px solid var(--hard);   }
+
+  .problem-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 28px;
+  }
+  .problem-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .problem-meta {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--purple);
+    margin: 16px 0 8px;
+  }
+  pre.ascii {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: var(--yellow);
+    white-space: pre;
+  }
+  .code-block {
+    background: #0d1117;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 0.82rem;
+    line-height: 1.7;
+    white-space: pre;
+  }
+  .kw  { color: #ff7b72; }
+  .fn  { color: #d2a8ff; }
+  .cls { color: #ffa657; }
+  .str { color: #a5d6ff; }
+  .num { color: #79c0ff; }
+  .cm  { color: #8b949e; font-style: italic; }
+  .op  { color: #ff7b72; }
+  .var { color: #e6edf3; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 6px;
+    font-size: 0.82rem;
+  }
+  th {
+    background: var(--surface2);
+    padding: 8px 10px;
+    text-align: left;
+    border: 1px solid var(--border);
+    color: var(--accent);
+    font-weight: 600;
+  }
+  td {
+    padding: 7px 10px;
+    border: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: var(--surface2); }
+  footer {
+    text-align: center;
+    padding: 24px 0 12px;
+    border-top: 1px solid var(--border);
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+  .tag-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🌳 Trie (트라이) 유형</h1>
+  <p class="subtitle">LeetCode Daily Practice · 2026-06-13</p>
+</header>
+
+<!-- ═══════════════════════════════════════════════
+     PROBLEM 1 — EASY: #208 Implement Trie (Prefix Tree)
+     ═══════════════════════════════════════════════ -->

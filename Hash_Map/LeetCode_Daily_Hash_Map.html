@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeetCode Daily | Hash Map</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1117; color: #e6edf3; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 15px; line-height: 1.6; padding: 16px; }
+  h1 { font-size: 1.5rem; color: #58a6ff; margin-bottom: 4px; }
+  .date { color: #8b949e; font-size: 0.85rem; margin-bottom: 24px; }
+  .card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 20px; margin-bottom: 28px; }
+  .problem-title { font-size: 1.15rem; font-weight: 700; color: #e6edf3; margin-bottom: 8px; }
+  .by { color: #8b949e; font-size: 0.8rem; margin-bottom: 10px; }
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; margin-bottom: 14px; }
+  .easy { background: #1a4731; color: #3fb950; }
+  .medium { background: #4a2c00; color: #f78166; color: #e3a61a; }
+  .hard { background: #4a0f0f; color: #f85149; }
+  .section-label { color: #58a6ff; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin: 16px 0 8px; }
+  pre.ascii { background: #0d1117; border: 1px solid #21262d; border-radius: 8px; padding: 14px; font-family: 'Courier New', monospace; font-size: 0.78rem; color: #7ee787; overflow-x: auto; white-space: pre; margin-bottom: 0; }
+  pre.code { background: #0d1117; border: 1px solid #21262d; border-radius: 8px; padding: 14px; font-family: 'Courier New', monospace; font-size: 0.8rem; overflow-x: auto; white-space: pre; line-height: 1.55; }
+  .kw { color: #ff7b72; }
+  .fn { color: #d2a8ff; }
+  .str { color: #a5d6ff; }
+  .cm { color: #8b949e; font-style: italic; }
+  .num { color: #79c0ff; }
+  .var { color: #e6edf3; }
+  .op { color: #ff7b72; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-top: 4px; }
+  th { background: #21262d; color: #8b949e; padding: 8px 10px; text-align: left; border: 1px solid #30363d; }
+  td { padding: 8px 10px; border: 1px solid #30363d; color: #e6edf3; vertical-align: top; }
+  tr:nth-child(even) td { background: #161b22; }
+  tr:nth-child(odd) td { background: #0d1117; }
+  footer { text-align: center; margin-top: 32px; padding-top: 16px; border-top: 1px solid #30363d; color: #8b949e; font-size: 0.85rem; }
+  footer a { color: #58a6ff; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<h1>🗂️ Hash Map</h1>
+<div class="date">LeetCode Daily Practice — 2026-06-12</div>
+
+<!-- ======== EASY ======== -->
+<div class="card">
+  <div class="problem-title">Two Sum (LeetCode #1)</div>
+  <div class="by">by LeetCode</div>
+  <span class="badge easy">Easy</span>
+
+  <div class="section-label">📊 Algorithm Visualization</div>
+  <pre class="ascii">
+nums = [2, 7, 11, 15],  target = 9
+
+Step 1: i=0, num=2 → need=7
+  seen = {}
+  7 not in seen → store {2: 0}
+
+Step 2: i=1, num=7 → need=2
+  seen = {2: 0}
+  2 IS in seen! → return [seen[2], 1] = [0, 1]
+
+Hash Map:
+┌─────────────────────────────┐
+│  Key (num) │ Value (index)  │
+├────────────┼────────────────┤
+│     2      │       0        │  ← found at i=0
+└────────────┴────────────────┘
+  ↑
+  7 looks up 9-7=2 → HIT! O(1) lookup
+</pre>
+
+  <div class="section-label">💡 Basic Solution</div>
+  <pre class="code"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">twoSum</span>(<span class="var">self</span>, <span class="var">nums</span>: <span class="fn">list</span>[<span class="fn">int</span>], <span class="var">target</span>: <span class="fn">int</span>) -&gt; <span class="fn">list</span>[<span class="fn">int</span>]:
+        <span class="cm"># Brute force O(n²)</span>
+        <span class="kw">for</span> <span class="var">i</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(<span class="var">nums</span>)):
+            <span class="kw">for</span> <span class="var">j</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="var">i</span> <span class="op">+</span> <span class="num">1</span>, <span class="fn">len</span>(<span class="var">nums</span>)):
+                <span class="kw">if</span> <span class="var">nums</span>[<span class="var">i</span>] <span class="op">+</span> <span class="var">nums</span>[<span class="var">j</span>] <span class="op">==</span> <span class="var">target</span>:
+                    <span class="kw">return</span> [<span class="var">i</span>, <span class="var">j</span>]
+        <span class="kw">return</span> []</pre>
+
+  <div class="section-label">⚡ Optimized Solution</div>
+  <pre class="code"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">twoSum</span>(<span class="var">self</span>, <span class="var">nums</span>: <span class="fn">list</span>[<span class="fn">int</span>], <span class="var">target</span>: <span class="fn">int</span>) -&gt; <span class="fn">list</span>[<span class="fn">int</span>]:
+        <span class="cm"># One-pass Hash Map O(n)</span>
+        <span class="var">seen</span> = {}  <span class="cm"># {value: index}</span>
+        <span class="kw">for</span> <span class="var">i</span>, <span class="var">num</span> <span class="kw">in</span> <span class="fn">enumerate</span>(<span class="var">nums</span>):
+            <span class="var">need</span> = <span class="var">target</span> <span class="op">-</span> <span class="var">num</span>
+            <span class="kw">if</span> <span class="var">need</span> <span class="kw">in</span> <span class="var">seen</span>:
+                <span class="kw">return</span> [<span class="var">seen</span>[<span class="var">need</span>], <span class="var">i</span>]
+            <span class="var">seen</span>[<span class="var">num</span>] = <span class="var">i</span>
+        <span class="kw">return</span> []</pre>
+
+  <div class="section-label">📈 Complexity Analysis</div>
+  <table>
+    <tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>Basic</td><td>O(n²)</td><td>O(1)</td><td>Nested loops check every pair</td></tr>
+    <tr><td>Optimized</td><td>O(n)</td><td>O(n)</td><td>Single pass; hash map stores up to n values for O(1) lookup per step</td></tr>
+  </table>
+</div>
+
+<!-- ======== MEDIUM ======== -->
+<div class="card">
+  <div class="problem-title">Group Anagrams (LeetCode #49)</div>
+  <div class="by">by LeetCode</div>
+  <span class="badge medium">Medium</span>
+
+  <div class="section-label">📊 Algorithm Visualization</div>
+  <pre class="ascii">
+strs = ["eat","tea","tan","ate","nat","bat"]
+
+Sorted key → group mapping:
+┌─────────┬─────────────────────────┐
+│  Key    │  Group                   │
+├─────────┼──────────────────────────┤
+│  "aet"  │  ["eat", "tea", "ate"]   │
+│  "ant"  │  ["tan", "nat"]          │
+│  "abt"  │  ["bat"]                 │
+└─────────┴──────────────────────────┘
+
+"eat" → sort → "aet"  ──┐
+"tea" → sort → "aet"  ──┤→ same bucket
+"ate" → sort → "aet"  ──┘
+</pre>
+
+  <div class="section-label">💡 Basic Solution</div>
+  <pre class="code"><span class="kw">from</span> collections <span class="kw">import</span> defaultdict
+
+<span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">groupAnagrams</span>(<span class="var">self</span>, <span class="var">strs</span>: <span class="fn">list</span>[<span class="fn">str</span>]) -&gt; <span class="fn">list</span>[<span class="fn">list</span>[<span class="fn">str</span>]]:
+        <span class="cm"># Sort each word as key — O(n * k log k)</span>
+        <span class="var">groups</span> = <span class="fn">defaultdict</span>(<span class="fn">list</span>)
+        <span class="kw">for</span> <span class="var">word</span> <span class="kw">in</span> <span class="var">strs</span>:
+            <span class="var">key</span> = <span class="fn">tuple</span>(<span class="fn">sorted</span>(<span class="var">word</span>))
+            <span class="var">groups</span>[<span class="var">key</span>].<span class="fn">append</span>(<span class="var">word</span>)
+        <span class="kw">return</span> <span class="fn">list</span>(<span class="var">groups</span>.<span class="fn">values</span>())</pre>
+
+  <div class="section-label">⚡ Optimized Solution</div>
+  <pre class="code"><span class="kw">from</span> collections <span class="kw">import</span> defaultdict
+
+<span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">groupAnagrams</span>(<span class="var">self</span>, <span class="var">strs</span>: <span class="fn">list</span>[<span class="fn">str</span>]) -&gt; <span class="fn">list</span>[<span class="fn">list</span>[<span class="fn">str</span>]]:
+        <span class="cm"># Count array as key — O(n * k), avoids sort</span>
+        <span class="var">groups</span> = <span class="fn">defaultdict</span>(<span class="fn">list</span>)
+        <span class="kw">for</span> <span class="var">word</span> <span class="kw">in</span> <span class="var">strs</span>:
+            <span class="var">count</span> = [<span class="num">0</span>] <span class="op">*</span> <span class="num">26</span>
+            <span class="kw">for</span> <span class="var">c</span> <span class="kw">in</span> <span class="var">word</span>:
+                <span class="var">count</span>[<span class="fn">ord</span>(<span class="var">c</span>) <span class="op">-</span> <span class="fn">ord</span>(<span class="str">'a'</span>)] <span class="op">+=</span> <span class="num">1</span>
+            <span class="var">groups</span>[<span class="fn">tuple</span>(<span class="var">count</span>)].<span class="fn">append</span>(<span class="var">word</span>)
+        <span class="kw">return</span> <span class="fn">list</span>(<span class="var">groups</span>.<span class="fn">values</span>())</pre>
+
+  <div class="section-label">📈 Complexity Analysis</div>
+  <table>
+    <tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>Basic</td><td>O(n·k log k)</td><td>O(n·k)</td><td>Sorting each word of length k, storing all n words</td></tr>
+    <tr><td>Optimized</td><td>O(n·k)</td><td>O(n·k)</td><td>Count array traversal is O(k), no sorting; keys stored as 26-tuples</td></tr>
+  </table>
+</div>
+
+<!-- ======== HARD ======== -->
+<div class="card">
+  <div class="problem-title">Substring with Concatenation of All Words (LeetCode #30)</div>
+  <div class="by">by LeetCode</div>
+  <span class="badge hard">Hard</span>
+
+  <div class="section-label">📊 Algorithm Visualization</div>
+  <pre class="ascii">
+s = "barfoothefoobarman",  words = ["foo","bar"]
+word_len = 3,  total_len = 6
+
+Slide window of size 6, step 3:
+┌─────────────────────────────────────────┐
+│ i=0: s[0:6]="barfoo" → {bar:1,foo:1} ✓  │
+│ i=3: s[3:9]="foothe" → {foo:1,the:1} ✗  │
+│ i=6: s[6:12]="thefoo" → {the:1,foo:1} ✗ │
+│ i=9: s[9:15]="foobar" → {foo:1,bar:1} ✓  │
+│ i=12: s[12:18]="barman"→ {bar:1,man:1} ✗ │
+└──────────────────────────────────────────┘
+Result: [0, 9]
+
+Frequency Check (per window):
+need  = {foo:1, bar:1}
+have  = count chunks in window → compare maps
+</pre>
+
+  <div class="section-label">💡 Basic Solution</div>
+  <pre class="code"><span class="kw">from</span> collections <span class="kw">import</span> Counter
+
+<span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">findSubstring</span>(<span class="var">self</span>, <span class="var">s</span>: <span class="fn">str</span>, <span class="var">words</span>: <span class="fn">list</span>[<span class="fn">str</span>]) -&gt; <span class="fn">list</span>[<span class="fn">int</span>]:
+        <span class="kw">if</span> <span class="kw">not</span> <span class="var">s</span> <span class="kw">or</span> <span class="kw">not</span> <span class="var">words</span>:
+            <span class="kw">return</span> []
+        <span class="var">wl</span>, <span class="var">n</span>, <span class="var">wc</span> = <span class="fn">len</span>(<span class="var">words</span>[<span class="num">0</span>]), <span class="fn">len</span>(<span class="var">words</span>), <span class="fn">Counter</span>(<span class="var">words</span>)
+        <span class="var">total</span> = <span class="var">wl</span> <span class="op">*</span> <span class="var">n</span>
+        <span class="var">res</span> = []
+        <span class="cm"># Slide window of total length, step by wl</span>
+        <span class="kw">for</span> <span class="var">i</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(<span class="var">s</span>) <span class="op">-</span> <span class="var">total</span> <span class="op">+</span> <span class="num">1</span>):
+            <span class="var">seen</span> = <span class="fn">Counter</span>()
+            <span class="kw">for</span> <span class="var">j</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="var">i</span>, <span class="var">i</span> <span class="op">+</span> <span class="var">total</span>, <span class="var">wl</span>):
+                <span class="var">w</span> = <span class="var">s</span>[<span class="var">j</span>:<span class="var">j</span> <span class="op">+</span> <span class="var">wl</span>]
+                <span class="kw">if</span> <span class="var">w</span> <span class="kw">in</span> <span class="var">wc</span>:
+                    <span class="var">seen</span>[<span class="var">w</span>] <span class="op">+=</span> <span class="num">1</span>
+                    <span class="kw">if</span> <span class="var">seen</span>[<span class="var">w</span>] <span class="op">&gt;</span> <span class="var">wc</span>[<span class="var">w</span>]:
+                        <span class="kw">break</span>
+                <span class="kw">else</span>:
+                    <span class="kw">break</span>
+            <span class="kw">else</span>:
+                <span class="var">res</span>.<span class="fn">append</span>(<span class="var">i</span>)
+        <span class="kw">return</span> <span class="var">res</span></pre>
+
+  <div class="section-label">⚡ Optimized Solution</div>
+  <pre class="code"><span class="kw">from</span> collections <span class="kw">import</span> Counter, defaultdict
+
+<span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">findSubstring</span>(<span class="var">self</span>, <span class="var">s</span>: <span class="fn">str</span>, <span class="var">words</span>: <span class="fn">list</span>[<span class="fn">str</span>]) -&gt; <span class="fn">list</span>[<span class="fn">int</span>]:
+        <span class="kw">if</span> <span class="kw">not</span> <span class="var">s</span> <span class="kw">or</span> <span class="kw">not</span> <span class="var">words</span>:
+            <span class="kw">return</span> []
+        <span class="var">wl</span>, <span class="var">n</span> = <span class="fn">len</span>(<span class="var">words</span>[<span class="num">0</span>]), <span class="fn">len</span>(<span class="var">words</span>)
+        <span class="var">need</span> = <span class="fn">Counter</span>(<span class="var">words</span>)
+        <span class="var">res</span> = []
+        <span class="cm"># Run wl offset variants to cover all alignments</span>
+        <span class="kw">for</span> <span class="var">offset</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="var">wl</span>):
+            <span class="var">window</span> = <span class="fn">defaultdict</span>(<span class="fn">int</span>)
+            <span class="var">matched</span> = <span class="num">0</span>
+            <span class="var">left</span> = <span class="var">offset</span>
+            <span class="kw">for</span> <span class="var">right</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="var">offset</span>, <span class="fn">len</span>(<span class="var">s</span>) <span class="op">-</span> <span class="var">wl</span> <span class="op">+</span> <span class="num">1</span>, <span class="var">wl</span>):
+                <span class="var">w</span> = <span class="var">s</span>[<span class="var">right</span>:<span class="var">right</span> <span class="op">+</span> <span class="var">wl</span>]
+                <span class="kw">if</span> <span class="var">w</span> <span class="kw">in</span> <span class="var">need</span>:
+                    <span class="var">window</span>[<span class="var">w</span>] <span class="op">+=</span> <span class="num">1</span>
+                    <span class="kw">if</span> <span class="var">window</span>[<span class="var">w</span>] <span class="op">==</span> <span class="var">need</span>[<span class="var">w</span>]:
+                        <span class="var">matched</span> <span class="op">+=</span> <span class="num">1</span>
+                    <span class="kw">while</span> <span class="var">window</span>[<span class="var">w</span>] <span class="op">&gt;</span> <span class="var">need</span>[<span class="var">w</span>]:
+                        <span class="var">lw</span> = <span class="var">s</span>[<span class="var">left</span>:<span class="var">left</span> <span class="op">+</span> <span class="var">wl</span>]
+                        <span class="var">window</span>[<span class="var">lw</span>] <span class="op">-=</span> <span class="num">1</span>
+                        <span class="kw">if</span> <span class="var">window</span>[<span class="var">lw</span>] <span class="op">&lt;</span> <span class="var">need</span>[<span class="var">lw</span>]:
+                            <span class="var">matched</span> <span class="op">-=</span> <span class="num">1</span>
+                        <span class="var">left</span> <span class="op">+=</span> <span class="var">wl</span>
+                    <span class="kw">if</span> <span class="var">matched</span> <span class="op">==</span> <span class="fn">len</span>(<span class="var">need</span>):
+                        <span class="var">res</span>.<span class="fn">append</span>(<span class="var">left</span>)
+                        <span class="var">lw</span> = <span class="var">s</span>[<span class="var">left</span>:<span class="var">left</span> <span class="op">+</span> <span class="var">wl</span>]
+                        <span class="var">window</span>[<span class="var">lw</span>] <span class="op">-=</span> <span class="num">1</span>
+                        <span class="kw">if</span> <span class="var">window</span>[<span class="var">lw</span>] <span class="op">&lt;</span> <span class="var">need</span>[<span class="var">lw</span>]:
+                            <span class="var">matched</span> <span class="op">-=</span> <span class="num">1</span>
+                        <span class="var">left</span> <span class="op">+=</span> <span class="var">wl</span>
+                <span class="kw">else</span>:
+                    <span class="var">window</span>.<span class="fn">clear</span>()
+                    <span class="var">matched</span> = <span class="num">0</span>
+                    <span class="var">left</span> = <span class="var">right</span> <span class="op">+</span> <span class="var">wl</span>
+        <span class="kw">return</span> <span class="var">res</span></pre>
+
+  <div class="section-label">📈 Complexity Analysis</div>
+  <table>
+    <tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>Basic</td><td>O(n·m·wl)</td><td>O(m)</td><td>For each of n positions, check m words; m = word count, wl = word length</td></tr>
+    <tr><td>Optimized</td><td>O(n·wl)</td><td>O(m·wl)</td><td>Sliding window with wl offset runs; each char visited at most twice per offset — avoids re-scanning inner words</td></tr>
+  </table>
+</div>
+
+<footer>
+  <p>🌐 <a href="https://chloeyeo.github.io/leetcode-explanations" target="_blank">https://chloeyeo.github.io/leetcode-explanations</a></p>
+  <p style="margin-top:8px;font-size:0.78rem;">Generated by Crew · 2026-06-12</p>
+</footer>
+
+</body>
+</html>

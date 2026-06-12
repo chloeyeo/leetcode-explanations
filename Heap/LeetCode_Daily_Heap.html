@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeetCode Daily | Heap 유형 | 2026-06-12</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #1c2128;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --easy: #3fb950;
+    --medium: #d29922;
+    --hard: #f85149;
+    --accent: #58a6ff;
+    --purple: #bc8cff;
+    --orange: #ffa657;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    padding: 0 0 40px 0;
+  }
+  header {
+    background: linear-gradient(135deg, #1a1f35 0%, #0d1117 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 20px 24px;
+    text-align: center;
+  }
+  header .tag {
+    display: inline-block;
+    background: var(--purple);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+  header h1 {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+  header .subtitle {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 6px;
+  }
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin: 20px 16px;
+    padding: 16px 18px;
+  }
+  .toc h2 { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+  .toc ul { list-style: none; }
+  .toc li { padding: 4px 0; }
+  .toc a { color: var(--accent); text-decoration: none; font-size: 14px; }
+  .toc a:hover { text-decoration: underline; }
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-left: 8px;
+  }
+  .badge.easy { background: rgba(63,185,80,0.18); color: var(--easy); }
+  .badge.medium { background: rgba(210,153,34,0.18); color: var(--medium); }
+  .badge.hard { background: rgba(248,81,73,0.18); color: var(--hard); }
+  .problem-card {
+    margin: 20px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .problem-header {
+    padding: 18px 20px 14px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+  }
+  .problem-header .number {
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .problem-header h2 {
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .problem-header .credit {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 400;
+    margin-top: 4px;
+  }
+  .section {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section:last-child { border-bottom: none; }
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  pre.ascii {
+    background: #0a0e14;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    color: #7ee787;
+    overflow-x: auto;
+    white-space: pre;
+    line-height: 1.5;
+  }
+  .code-block {
+    background: #0a0e14;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .code-label {
+    background: var(--surface2);
+    padding: 7px 14px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .code-label .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .code-label .dot.basic { background: var(--orange); }
+  .code-label .dot.opt { background: var(--accent); }
+  pre.code {
+    padding: 14px 16px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12.5px;
+    line-height: 1.7;
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .kw { color: #ff7b72; }
+  .fn { color: #d2a8ff; }
+  .cl { color: #ffa657; }
+  .st { color: #a5d6ff; }
+  .cm { color: #8b949e; font-style: italic; }
+  .nm { color: #79c0ff; }
+  .op { color: #ff7b72; }
+  .num { color: #6e9fff; }
+  table.complexity {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  table.complexity th {
+    background: var(--surface2);
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 9px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  table.complexity td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  table.complexity tr:last-child td { border-bottom: none; }
+  table.complexity tr:hover td { background: rgba(88,166,255,0.05); }
+  .complexity-best { color: var(--easy); font-weight: 600; }
+  .complexity-avg { color: var(--medium); font-weight: 600; }
+  .complexity-bad { color: var(--hard); font-weight: 600; }
+  footer {
+    margin: 30px 16px 0;
+    text-align: center;
+    padding: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  footer a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  footer .footer-note { color: var(--muted); font-size: 12px; margin-top: 8px; }
+  .divider { height: 1px; background: var(--border); margin: 0 16px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="tag">Heap / Priority Queue</div>
+  <h1>🗓️ LeetCode Daily</h1>
+  <div class="subtitle">2026년 6월 12일 · Easy · Medium · Hard</div>
+</header>
+
+<!-- TOC -->
+<div class="toc">
+  <h2>문제 목록</h2>
+  <ul>
+    <li><a href="#p703">🟢 #703 Kth Largest Element in a Stream <span class="badge easy">Easy</span></a></li>
+    <li><a href="#p215">🟠 #215 Kth Largest Element in an Array <span class="badge medium">Medium</span></a></li>
+    <li><a href="#p295">🔴 #295 Find Median from Data Stream <span class="badge hard">Hard</span></a></li>
+  </ul>
+</div>
+
+<!-- ===== PROBLEM 1: Easy ===== -->
+<div class="problem-card" id="p703">
+  <div class="problem-header">
+    <div class="number">LeetCode #703 · by LeetCode</div>
+    <h2>Kth Largest Element in a Stream <span class="badge easy">Easy</span></h2>
+    <div class="credit">© LeetCode — for educational purposes</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">📐 알고리즘 시각화 (Min-Heap of size k)</div>
+<pre class="ascii">
+Stream: [4, 5, 8, 2], k=3   → 3번째로 큰 값을 항상 추적
+
+Step 1: heap = [4]           add(4)
+Step 2: heap = [4,5]         add(5)
+Step 3: heap = [4,5,8]       add(8) → size==k, top=4
+Step 4: heap = [5,8]         add(2) → 2 < top(4), skip → still top=4
+         heap = [4,5,8]      ← size-k min-heap
+
+add(3):  3 < heap[0]=4 → skip
+add(10): 10 > heap[0]=4 → push 10, pop 4
+         heap = [5,8,10] → top = 5  ✅ kth largest = 5
+
+  Min-Heap (size k):
+  ┌───────────────┐
+  │  heap[0]=MIN  │  ← always the kth largest
+  │  heap[1]      │
+  │  heap[2]=MAX  │
+  └───────────────┘
+</pre>
+  </div>
+</div>
+</body>
+</html>

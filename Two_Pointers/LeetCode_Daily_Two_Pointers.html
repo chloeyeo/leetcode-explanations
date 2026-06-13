@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeetCode Daily | Two Pointers</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1117; color: #e6edf3; font-family: 'Segoe UI', system-ui, sans-serif; padding: 16px; line-height: 1.6; }
+  .header { text-align: center; padding: 24px 16px 16px; border-bottom: 1px solid #21262d; margin-bottom: 24px; }
+  .header h1 { font-size: 1.6rem; color: #58a6ff; margin-bottom: 6px; }
+  .header .date { color: #8b949e; font-size: 0.9rem; }
+  .header .type-badge { display: inline-block; background: #1f6feb; color: #fff; padding: 4px 14px; border-radius: 20px; font-size: 0.85rem; margin-top: 8px; }
+  .problem-card { background: #161b22; border: 1px solid #21262d; border-radius: 12px; padding: 20px; margin-bottom: 24px; }
+  .problem-title { font-size: 1.15rem; font-weight: 700; color: #e6edf3; margin-bottom: 8px; }
+  .problem-title a { color: #58a6ff; text-decoration: none; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 0.78rem; font-weight: 600; margin-bottom: 12px; }
+  .easy { background: #0d4429; color: #3fb950; }
+  .medium { background: #3d2c00; color: #d29922; }
+  .hard { background: #4c1825; color: #f85149; }
+  .section-label { font-size: 0.8rem; color: #8b949e; text-transform: uppercase; letter-spacing: 0.08em; margin: 14px 0 6px; }
+  .ascii-art { background: #0d1117; border: 1px solid #21262d; border-radius: 8px; padding: 12px 14px; font-family: 'Courier New', monospace; font-size: 0.75rem; color: #7ee787; white-space: pre; overflow-x: auto; margin-bottom: 4px; }
+  .code-block { background: #0d1117; border: 1px solid #21262d; border-radius: 8px; padding: 14px; font-family: 'Courier New', monospace; font-size: 0.78rem; white-space: pre; overflow-x: auto; line-height: 1.7; margin-bottom: 4px; }
+  .kw { color: #ff7b72; } .fn { color: #d2a8ff; } .cm { color: #8b949e; font-style: italic; }
+  .st { color: #a5d6ff; } .nm { color: #79c0ff; } .op { color: #ff7b72; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-top: 6px; }
+  th { background: #21262d; color: #8b949e; padding: 8px 10px; text-align: left; font-weight: 600; }
+  td { padding: 7px 10px; border-top: 1px solid #21262d; color: #c9d1d9; vertical-align: top; }
+  .footer { text-align: center; padding: 20px; color: #8b949e; font-size: 0.85rem; border-top: 1px solid #21262d; margin-top: 8px; }
+  .footer a { color: #58a6ff; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>LeetCode Daily</h1>
+  <div class="date">2026-06-13 (Saturday)</div>
+  <div class="type-badge">Two Pointers</div>
+</div>
+
+<div class="problem-card">
+  <div class="problem-title"><a href="https://leetcode.com/problems/valid-palindrome/" target="_blank">LeetCode #125 - Valid Palindrome</a> <span style="color:#8b949e;font-size:0.8rem">- by LeetCode</span></div>
+  <span class="badge easy">Easy</span>
+  <div class="section-label">Algorithm Visualization</div>
+  <div class="ascii-art">Input: "A man, a plan, a canal: Panama"
+Cleaned: "amanaplanacanalpanama"
+
+L -&gt;                    &lt;- R
+a  m  a  n  a  p  l  a  n  a  c  a  n  a  l  p  a  n  a  m  a
+|                                                             |
+L=0                                                         R=20
+a == a check  -&gt; L++, R--
+m == m check  -&gt; L++, R--
+...eventually L &gt;= R  -&gt; return True</div>
+  <div class="section-label">Basic Solution</div>
+  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">isPalindrome</span>(<span class="nm">self</span>, s: <span class="nm">str</span>) -&gt; <span class="nm">bool</span>:
+        cleaned = [c.lower() <span class="kw">for</span> c <span class="kw">in</span> s <span class="kw">if</span> c.isalnum()]
+        left, right = <span class="nm">0</span>, <span class="nm">len</span>(cleaned) - <span class="nm">1</span>
+        <span class="kw">while</span> left &lt; right:
+            <span class="kw">if</span> cleaned[left] != cleaned[right]:
+                <span class="kw">return False</span>
+            left += <span class="nm">1</span>
+            right -= <span class="nm">1</span>
+        <span class="kw">return True</span></div>
+  <div class="section-label">Optimized Solution</div>
+  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">isPalindrome</span>(<span class="nm">self</span>, s: <span class="nm">str</span>) -&gt; <span class="nm">bool</span>:
+        left, right = <span class="nm">0</span>, <span class="nm">len</span>(s) - <span class="nm">1</span>
+        <span class="kw">while</span> left &lt; right:
+            <span class="kw">while</span> left &lt; right <span class="kw">and not</span> s[left].isalnum(): left += <span class="nm">1</span>
+            <span class="kw">while</span> left &lt; right <span class="kw">and not</span> s[right].isalnum(): right -= <span class="nm">1</span>
+            <span class="kw">if</span> s[left].lower() != s[right].lower(): <span class="kw">return False</span>
+            left += <span class="nm">1</span>; right -= <span class="nm">1</span>
+        <span class="kw">return True</span></div>
+  <div class="section-label">Complexity Analysis</div>
+  <table>
+    <tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>Basic</td><td>O(n)</td><td>O(n)</td><td>Creates new cleaned array of size n</td></tr>
+    <tr><td>Optimized</td><td>O(n)</td><td>O(1)</td><td>In-place pointer traversal, no extra array</td></tr>
+  </table>
+</div>
+
+<div class="problem-card">
+  <div class="problem-title"><a href="https://leetcode.com/problems/3sum/" target="_blank">LeetCode #15 - 3Sum</a> <span style="color:#8b949e;font-size:0.8rem">- by LeetCode</span></div>
+  <span class="badge medium">Medium</span>
+  <div class="section-label">Algorithm Visualization</div>
+  <div class="ascii-art">nums = [-4, -1, -1, 0, 1, 2]  (sorted)
+Fix i=0 (-4):  left=1(-1) right=5(2)  sum=-3 &lt;0 -&gt; left++
+               left=3(0)  right=5(2)  sum=-2 &lt;0 -&gt; left++
+               left=4(1)  right=5(2)  sum=-1 &lt;0 -&gt; exhausted
+Fix i=1 (-1):  left=2(-1) right=5(2)  sum=0  FOUND [-1,-1,2]
+               left=3(0)  right=4(1)  sum=0  FOUND [-1,0,1]
+Result: [[-1,-1,2], [-1,0,1]]</div>
+  <div class="section-label">Basic Solution</div>
+  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">threeSum</span>(<span class="nm">self</span>, nums: <span class="nm">list</span>[<span class="nm">int</span>]) -&gt; <span class="nm">list</span>[<span class="nm">list</span>[<span class="nm">int</span>]]:
+        nums.sort()
+        result = []
+        <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">len</span>(nums) - <span class="nm">2</span>):
+            <span class="kw">if</span> i &gt; <span class="nm">0</span> <span class="kw">and</span> nums[i] == nums[i - <span class="nm">1</span>]: <span class="kw">continue</span>
+            left, right = i + <span class="nm">1</span>, <span class="nm">len</span>(nums) - <span class="nm">1</span>
+            <span class="kw">while</span> left &lt; right:
+                total = nums[i] + nums[left] + nums[right]
+                <span class="kw">if</span> total == <span class="nm">0</span>:
+                    result.append([nums[i], nums[left], nums[right]])
+                    <span class="kw">while</span> left &lt; right <span class="kw">and</span> nums[left] == nums[left+<span class="nm">1</span>]: left += <span class="nm">1</span>
+                    <span class="kw">while</span> left &lt; right <span class="kw">and</span> nums[right] == nums[right-<span class="nm">1</span>]: right -= <span class="nm">1</span>
+                    left += <span class="nm">1</span>; right -= <span class="nm">1</span>
+                <span class="kw">elif</span> total &lt; <span class="nm">0</span>: left += <span class="nm">1</span>
+                <span class="kw">else</span>: right -= <span class="nm">1</span>
+        <span class="kw">return</span> result</div>
+  <div class="section-label">Optimized Solution</div>
+  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">threeSum</span>(<span class="nm">self</span>, nums: <span class="nm">list</span>[<span class="nm">int</span>]) -&gt; <span class="nm">list</span>[<span class="nm">list</span>[<span class="nm">int</span>]]:
+        nums.sort()
+        result = []
+        n = <span class="nm">len</span>(nums)
+        <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n - <span class="nm">2</span>):
+            <span class="kw">if</span> nums[i] &gt; <span class="nm">0</span>: <span class="kw">break</span>  <span class="cm"># early termination</span>
+            <span class="kw">if</span> i &gt; <span class="nm">0</span> <span class="kw">and</span> nums[i] == nums[i-<span class="nm">1</span>]: <span class="kw">continue</span>
+            left, right = i + <span class="nm">1</span>, n - <span class="nm">1</span>
+            <span class="kw">while</span> left &lt; right:
+                total = nums[i] + nums[left] + nums[right]
+                <span class="kw">if</span> total == <span class="nm">0</span>:
+                    result.append([nums[i], nums[left], nums[right]])
+                    <span class="kw">while</span> left &lt; right <span class="kw">and</span> nums[left] == nums[left+<span class="nm">1</span>]: left += <span class="nm">1</span>
+                    <span class="kw">while</span> left &lt; right <span class="kw">and</span> nums[right] == nums[right-<span class="nm">1</span>]: right -= <span class="nm">1</span>
+                    left += <span class="nm">1</span>; right -= <span class="nm">1</span>
+                <span class="kw">elif</span> total &lt; <span class="nm">0</span>: left += <span class="nm">1</span>
+                <span class="kw">else</span>: right -= <span class="nm">1</span>
+        <span class="kw">return</span> result</div>
+  <div class="section-label">Complexity Analysis</div>
+  <table>
+    <tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>Basic</td><td>O(n^2)</td><td>O(1)*</td><td>Outer O(n) * inner two-pointer O(n); *excl. output</td></tr>
+    <tr><td>Optimized</td><td>O(n^2)</td><td>O(1)*</td><td>Early break when nums[i]&gt;0 prunes the right half</td></tr>
+  </table>
+</div>
+
+<div class="problem-card">
+  <div class="problem-title"><a href="https://leetcode.com/problems/trapping-rain-water/" target="_blank">LeetCode #42 - Trapping Rain Water</a> <span style="color:#8b949e;font-size:0.8rem">- by LeetCode</span></div>
+  <span class="badge hard">Hard</span>
+  <div class="section-label">Algorithm Visualization</div>
+  <div class="ascii-art">height = [0,1,0,2,1,0,1,3,1,0,1,2]
+           0 1 2 3 4 5 6 7 8 9 ...
+
+Bars:        #                    
+       #     # # # # # # #   #  #
+     0 1 2 3 4 5 6 7 8 9 10 11
+
+Two Pointers: L=0, R=11, maxL=0, maxR=0
+  height[L]=0 &lt;= height[R]=2: maxL=0, water+=0-0=0, L++
+  height[L=1]=1: maxL=1, water+=0, L++
+  height[L=2]=0: maxL=1, water+=1-0=1, L++
+  ...
+  Total trapped = 6 units</div>
+  <div class="section-label">Basic Solution</div>
+  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">trap</span>(<span class="nm">self</span>, height: <span class="nm">list</span>[<span class="nm">int</span>]) -&gt; <span class="nm">int</span>:
+        n = <span class="nm">len</span>(height)
+        <span class="kw">if not</span> n: <span class="kw">return</span> <span class="nm">0</span>
+        max_left, max_right = [<span class="nm">0</span>]*n, [<span class="nm">0</span>]*n
+        max_left[<span class="nm">0</span>] = height[<span class="nm">0</span>]
+        <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">1</span>, n):
+            max_left[i] = <span class="nm">max</span>(max_left[i-<span class="nm">1</span>], height[i])
+        max_right[n-<span class="nm">1</span>] = height[n-<span class="nm">1</span>]
+        <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n-<span class="nm">2</span>, -<span class="nm">1</span>, -<span class="nm">1</span>):
+            max_right[i] = <span class="nm">max</span>(max_right[i+<span class="nm">1</span>], height[i])
+        <span class="kw">return</span> <span class="nm">sum</span>(<span class="nm">min</span>(max_left[i], max_right[i]) - height[i] <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n))</div>
+  <div class="section-label">Optimized Solution</div>
+  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">trap</span>(<span class="nm">self</span>, height: <span class="nm">list</span>[<span class="nm">int</span>]) -&gt; <span class="nm">int</span>:
+        left, right = <span class="nm">0</span>, <span class="nm">len</span>(height) - <span class="nm">1</span>
+        max_left = max_right = water = <span class="nm">0</span>
+        <span class="kw">while</span> left &lt; right:
+            <span class="kw">if</span> height[left] &lt;= height[right]:
+                <span class="kw">if</span> height[left] &gt;= max_left: max_left = height[left]
+                <span class="kw">else</span>: water += max_left - height[left]
+                left += <span class="nm">1</span>
+            <span class="kw">else</span>:
+                <span class="kw">if</span> height[right] &gt;= max_right: max_right = height[right]
+                <span class="kw">else</span>: water += max_right - height[right]
+                right -= <span class="nm">1</span>
+        <span class="kw">return</span> water</div>
+  <div class="section-label">Complexity Analysis</div>
+  <table>
+    <tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>Basic</td><td>O(n)</td><td>O(n)</td><td>Two auxiliary arrays max_left[], max_right[] of size n</td></tr>
+    <tr><td>Optimized</td><td>O(n)</td><td>O(1)</td><td>Single pass; running max in variables only</td></tr>
+  </table>
+</div>
+
+<div class="footer">
+  <p><a href="https://chloeyeo.github.io/leetcode-explanations" target="_blank">chloeyeo.github.io/leetcode-explanations</a></p>
+  <p style="margin-top:6px;font-size:0.78rem;">Generated by Crew AI - 2026-06-13</p>
+</div>
+</body>
+</html>

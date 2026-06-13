@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeetCode Daily | Math uyheong | 2026-06-13</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d1117;color:#e6edf3;font-family:'Courier New',monospace;padding:16px;font-size:14px}
+.header{text-align:center;padding:20px 0;border-bottom:2px solid #21262d;margin-bottom:24px}
+.header h1{color:#58a6ff;font-size:22px;margin-bottom:6px}
+.header .date{color:#8b949e;font-size:13px}
+.problem{background:#161b22;border:1px solid #21262d;border-radius:10px;margin-bottom:28px;overflow:hidden}
+.problem-header{padding:16px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #21262d}
+.problem-header h2{font-size:16px;color:#e6edf3;flex:1}
+.badge{padding:3;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:bold;letter-spacing:.5px}
+.easy{background:#1a4731;color:#3fb950}
+.medium{background:#4a3000;color:#d29922}
+ hard{background:#4a0000;color:#f85149}
+.section{padding:16px 18px;border-bottom:1px solid #21262d}
+.section:last-child{border-bottom:none}
+.section-title{color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.ascii{background:#0d1117;border-radius:6px;padding:12px;font-size:12px;color:#39d353;overflow-x:auto;white-space:pre;line-height:1.6}
+.code-block{background:#0d1117;border-radius:6px;padding:14px;overflow-x:auto;line-height:1.7;font-size:13px}
+.kw{color:#ff7b72}
+.fn{color:#d2a8ff}
+.str{color:#a5d6ff}
+.cm{color:#8b949e;font-style:italic}
+.num{color:#79c0ff}
+.var{color:#e6edf3}
+.op{color:#ff7b72}
+.builtin{color:#ffa657}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#21262d;color:#8b949e;padding:8px 10px;text-align:left;font-size:11px;text-transform:uppercase}
+td{padding:8px 10px;border-bottom:1px solid #21262d;color:#e6edf3;vertical-align:top}
+td:first-child{color:#58a6ff;white-space:nowrap;width:120px}
+td:nth-child(2){color:#3fb950;width:100px}
+.footer{text-align:center;margin-top:28px;padding:16px;border-top:1px solid #21262d;color:#8b949e;font-size:12px}
+.footer a{color:#58a6ff;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>ğŸ’¢ Math ìœ í™‰</h1>
+  <div class="date">ğŸ„… 2026ë„¸ç‰˜ 6æœˆ 13ç§Š (ä±©) Â· LeetCode Daily</div>
+</div>
+
+<!-- PROBLEM 1: EASY -->
+<div class="problem">
+  <div class="problem-header">
+    <h2>#9 í¬í‹8í ë¥¸ (Palindrome Number)</h2>
+    <span class="badge easy">Easy</span>
+  </div>
+  <div class="section">
+    <div class="section-title">ğŸØ ì,§ì½”ë°ì›¨ ì‹ ê°€íŠ¸</div>
+    <div class="ascii">
+Input: x = 121
+
+í•œìŠ¤ë¥¼ ë§¸ë¼™!ì—…ì›Œ ì•„ë²ˆê°€ ê²€ì” ê¶Œêµ¬ ì¸”ìŠ¤
+
+  x = 121
+  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”â”€
+  â”‚  Step 1: rev=0, x=121        â”‚
+  â”‚          x%10=1 â€“ rev=1    â”‚
+  â”‚          x=12                     â”‚
+  â”‚  Step 2: rev=1, x=12          â”‚
+  â”‚          x%10=2 â€“ rev=12    â”‚
+  â”‚          x=1                     â”‚
+  â”‚  Step 3: rev=12, x=1         â”‚
+  â”‚           x%10=1 â€“ rev=121   â”‚
+  â”‚          x=0                     â”‚
+  â””â”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”€"”˜
+  original(121) == rev(121) â†’ True âœ…
+
+Input: x = -121  â€’ ìŸ¤ìŠ¤ â‡’ í–‰ìŠ·†
+‰nput: x    -10   â€’ ä±£íŒ… n0 ëŸ­ 

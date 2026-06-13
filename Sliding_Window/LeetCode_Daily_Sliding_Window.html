@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeetCode Daily | Sliding Window</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d1117;color:#e6edf3;font-family:'Segoe UI',system-ui,sans-serif;font-size:15px;line-height:1.6;padding:16px}
+h1{font-size:1.5rem;color:#58a6ff;margin-bottom:4px}
+.date{color:#8b949e;font-size:0.85rem;margin-bottom:24px}
+.problem-card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:24px}
+.problem-title{font-size:1.1rem;font-weight:700;color:#e6edf3;margin-bottom:6px}
+.by{color:#8b949e;font-size:0.8rem;margin-bottom:10px}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:0.75rem;font-weight:700;margin-bottom:14px}
+.easy{background:#1a4731;color:#3fb950}
+.medium{background:#4a2d00;color:#d29922}
+.hard{background:#4a1515;color:#f85149}
+.section-title{color:#58a6ff;font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin:16px 0 8px}
+pre.ascii{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:14px;overflow-x:auto;font-size:0.78rem;color:#7ee787;font-family:'Courier New',monospace;line-height:1.5}
+pre.code{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:14px;overflow-x:auto;font-size:0.8rem;font-family:'Courier New',monospace;line-height:1.6}
+.kw{color:#ff7b72}.fn{color:#d2a8ff}.st{color:#a5d6ff}.cm{color:#8b949e}.num{color:#79c0ff}.bi{color:#ffa657}
+table{width:100%;border-collapse:collapse;margin-top:8px;font-size:0.8rem}
+th{background:#21262d;color:#58a6ff;padding:8px 10px;text-align:left;border:1px solid #30363d}
+td{padding:7px 10px;border:1px solid #30363d;vertical-align:top}
+tr:nth-child(even) td{background:#161b22}
+.complexity-label{color:#ffa657;font-weight:700}
+footer{text-align:center;margin-top:32px;padding-top:16px;border-top:1px solid #30363d;color:#8b949e;font-size:0.82rem}
+footer a{color:#58a6ff;text-decoration:none}
+</style>
+</head>
+<body>
+<h1>🪟 Sliding Window</h1>
+<div class="date">2026년 6월 13일 (토) · LeetCode Daily</div>
+
+<!-- EASY -->
+<div class="problem-card">
+  <div class="problem-title">LeetCode #643 — Maximum Average Subarray I</div>
+  <div class="by">by LeetCode</div>
+  <span class="badge easy">Easy</span>
+
+  <div class="section-title">🔭 Algorithm Visualization</div>
+<pre class="ascii">
+nums = [1, 12, -5, -6, 50, 3],  k = 4
+
+Window slides one step at a time:
+[1, 12, -5, -6] 50   3   → sum=2,  avg=0.5
+ 1 [12, -5, -6, 50]  3   → sum=51, avg=12.75  ← MAX
+ 1  12 [-5, -6, 50,  3]  → sum=42, avg=10.5
+
+Window: add right, remove left
+ ┌─────────────────────┐
+ │  [l ←───── r]       │
+ │   remove  add new   │
+ └─────────────────────┘
+</pre>
+
+  <div class="section-title">💻 기본 풀이 (Python)</div>
+<pre class="code"><span class="kw">def</span> <span class="fn">findMaxAverage</span>(nums, k):
+    <span class="cm"># 첫 윈도우 합 계산</span>
+    window_sum = <span class="bi">sum</span>(nums[:<span class="num">k</span>])
+    max_sum = window_sum
+
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(<span class="num">k</span>, <span class="bi">len</span>(nums)):
+        <span class="cm"># 오른쪽 추가, 왼쪽 제거</span>
+        window_sum += nums[i] - nums[i - k]
+        max_sum = <span class="bi">max</span>(max_sum, window_sum)
+
+    <span class="kw">return</span> max_sum / k</pre>
+
+  <div class="section-title">⚡ 최적화 버전 (Python)</div>
+<pre class="code"><span class="kw">def</span> <span class="fn">findMaxAverage</span>(nums, k):
+    <span class="cm"># 나눗셈 없이 정수 비교로 최적화</span>
+    s = <span class="bi">sum</span>(nums[:<span class="num">k</span>])
+    best = s
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(k, <span class="bi">len</span>(nums)):
+        s += nums[i] - nums[i-k]
+        <span class="kw">if</span> s &gt; best:
+            best = s
+    <span class="kw">return</span> best / k</pre>
+
+  <div class="section-title">📊 복잡도 분석</div>
+  <table>
+    <tr><th>구분</th><th>복잡도</th><th>이유</th></tr>
+    <tr><td class="complexity-label">Time</td><td>O(n)</td><td>배열을 한 번 순회. 초기 합 O(k) + 슬라이딩 O(n-k) = O(n)</td></tr>
+    <tr><td class="complexity-label">Space</td><td>O(1)</td><td>추가 자료구조 없이 변수 2개(s, best)만 사용</td></tr>
+  </table>
+</div>
+
+<!-- MEDIUM -->
+<div class="problem-card">
+  <div class="problem-title">LeetCode #3 — Longest Substring Without Repeating Characters</div>
+  <div class="by">by LeetCode</div>
+  <span class="badge medium">Medium</span>
+
+  <div class="section-title">🔭 Algorithm Visualization</div>
+<pre class="ascii">
+s = "abcabcbb"
+
+Variable-size sliding window:
+ a b c a b c b b
+ ↑               l=0
+ ↑   ↑           "abc" len=3  ← MAX
+     ↑   ↑       "cab" len=3
+         ↑ ↑     "cb"  len=2 (dup 'b')
+
+Char Set:  {a,b,c}
+When dup found: shrink from left until removed
+ ┌──────────────────────────────────┐
+ │  l ──────────────────► r          │
+ │  shrink ←          expand →      │
+└──────────────────────────────────┘
+</pre>
+
+  <div class="section-title">💻 기본 풀이 (Python)</div>
+<pre class="code"><span class="kw">def</span> <span class="fn">lengthOfLongestSubstring</span>(s):
+    char_set = <span class="bi">set</span>()
+    left = <span class="num">0</span>
+    max_len = <span class="num">0</span>
+
+    <span class="kw">for</span> right <span class="kw">in</span> <span class="bi">range</span>(<span class="bi">len</span>(s)):
+        <span class="cm"># 중복 문자가 있으면 왼쪽 포인터 이동</span>
+        <span class="kw">while</span> s[right] <span class="kw">in</span> char_set:
+            char_set.remove(s[left])
+            left += <span class="num">1</span>
+        char_set.add(s[right])
+        max_len = <span class="bi">max</span>(max_len, right - left + <span class="num">1</span>)
+
+    <span class="kw">return</span> max_len</pre>
+
+  <div class="section-title">⚡ 최적화 버전 (Python)</div>
+<pre class="code"><span class="kw">def</span> <span class="fn">lengthOfLongestSubstring</span>(s):
+    <span class="cm"># 딕셔너리로 인덱스 저장 → O(1)로 left 점프</span>
+    char_idx = {}
+    left = <span class="num">0</span>
+    best = <span class="num">0</span>
+
+    <span class="kw">for</span> right, ch <span class="kw">in</span> <span class="bi">enumerate</span>(s):
+        <span class="kw">if</span> ch <span class="kw">in</span> char_idx <span class="kw">and</span> char_idx[ch] &gt;= left:
+            <span class="cm"># 중복 위치 바로 다음으로 점프</span>
+            left = char_idx[ch] + <span class="num">1</span>
+        char_idx[ch] = right
+        best = <span class="bi">max</span>(best, right - left + <span class="num">1</span>)
+
+    <span class="kw">return</span> best</pre>
+
+  <div class="section-title">📊 복잡도 분석</div>
+  <table>
+    <tr><th>구분</th><th>기본</th><th>최적화</th><th>이유</th></tr>
+    <tr><td class="complexity-label">Time</td><td>O(n)</td><td>O(n)</td><td>최적화: while 루프 제거, dict로 O(1) 점프</td></tr>
+    <tr><td class="complexity-label">Space</td><td>O(min(n,m))</td><td>O(min(n,m))</td><td>set/dict 크기 = 고유 문자 수 m (ASCII 128)</td></tr>
+  </table>
+</div>
+
+<!-- HARD -->
+<div class="problem-card">
+  <div class="problem-title">LeetCode #76 — Minimum Window Substring</div>
+  <div class="by">by LeetCode</div>
+  <span class="badge hard">Hard</span>
+
+  <div class="section-title">🔭 Algorithm Visualization</div>
+<pre class="ascii">
+s = "ADOBECODEBANC",  t = "ABC"
+
+need = {A:1, B:1, C:1},  have = {}
+
+Expand right until valid, then shrink left:
+
+ A D O B E C O D E B A  N  C
+ ↑                         → expand
+ A D O B E C               formed! {A,B,C} ✓
+   ↑                       → shrink (remove A)
+   D O B E C               missing A ✗
+   D O B E C O D E B  A    → expand
+                     ↑     shrink
+               B  A  N  C  → "BANC" len=4 ← MIN
+</pre>
+
+  <div class="section-title">💻 기본 풀이 (Python)</div>
+<pre class="code"><span class="kw">from</span> collections <span class="kw">import</span> Counter
+
+<span class="kw">def</span> <span class="fn">minWindow</span>(s, t):
+    <span class="kw">if</span> <span class="kw">not</span> t <span class="kw">or</span> <span class="kw">not</span> s:
+        <span class="kw">return</span> <span class="st">""</span>
+
+    need = Counter(t)
+    have, required = {}, <span class="bi">len</span>(need)
+    formed = <span class="num">0</span>
+    left = <span class="num">0</span>
+    best = <span class="bi">float</span>(<span class="st">"inf"</span>), <span class="num">0</span>, <span class="num">0</span>
+
+    <span class="kw">for</span> right, ch <span class="kw">in</span> <span class="bi">enumerate</span>(s):
+        have[ch] = have.get(ch, <span class="num">0</span>) + <span class="num">1</span>
+        <span class="kw">if</span> ch <span class="kw">in</span> need <span class="kw">and</span> have[ch] == need[ch]:
+            formed += <span class="num">1</span>
+
+        <span class="cm"># 유효 윈도우이면 최소화 시도</span>
+        <span class="kw">while</span> formed == required:
+            <span class="kw">if</span> (right - left + <span class="num">1</span>) &lt; best[<span class="num">0</span>]:
+                best = (right - left + <span class="num">1</span>, left, right)
+            lc = s[left]
+            have[lc] -= <span class="num">1</span>
+            <span class="kw">if</span> lc <span class="kw">in</span> need <span class="kw">and</span> have[lc] &lt; need[lc]:
+                formed -= <span class="num">1</span>
+            left += <span class="num">1</span>
+
+    <span class="kw">return</span> <span class="st">""</span> <span class="kw">if</span> best[<span class="num">0</span>] == <span class="bi">float</span>(<span class="st">"inf"</span>) <span class="kw">else</span> s[best[<span class="num">1</span>]:best[<span class="num">2</span>]+<span class="num">1</span>]</pre>
+
+  <div class="section-title">⚡ 최적화 버전 (Python)</div>
+<pre class="code"><span class="kw">from</span> collections <span class="kw">import</span> Counter
+
+<span class="kw">def</span> <span class="fn">minWindow</span>(s, t):
+    <span class="cm"># 필터링: t에 있는 문자만 처리 (s가 길 때 효과적)</span>
+    filtered = [(i, c) <span class="kw">for</span> i, c <span class="kw">in</span> <span class="bi">enumerate</span>(s) <span class="kw">if</span> c <span class="kw">in</span> Counter(t)]
+    need = Counter(t)
+    have = {}
+    formed = <span class="num">0</span>
+    required = <span class="bi">len</span>(need)
+    l = <span class="num">0</span>
+    best = <span class="bi">float</span>(<span class="st">"inf"</span>), <span class="num">0</span>, <span class="num">0</span>
+
+    <span class="kw">for</span> r <span class="kw">in</span> <span class="bi">range</span>(<span class="bi">len</span>(filtered)):
+        ch = filtered[r][<span class="num">1</span>]
+        have[ch] = have.get(ch, <span class="num">0</span>) + <span class="num">1</span>
+        <span class="kw">if</span> have[ch] == need[ch]:
+            formed += <span class="num">1</span>
+        <span class="kw">while</span> formed == required:
+            lo, hi = filtered[l][<span class="num">0</span>], filtered[r][<span class="num">0</span>]
+            <span class="kw">if</span> hi - lo + <span class="num">1</span> &lt; best[<span class="num">0</span>]:
+                best = hi - lo + <span class="num">1</span>, lo, hi
+            lc = filtered[l][<span class="num">1</span>]
+            have[lc] -= <span class="num">1</span>
+            <span class="kw">if</span> have[lc] &lt; need[lc]:
+                formed -= <span class="num">1</span>
+            l += <span class="num">1</span>
+
+    <span class="kw">return</span> <span class="st">""</span> <span class="kw">if</span> best[<span class="num">0</span>] == <span class="bi">float</span>(<span class="st">"inf"</span>) <span class="kw">else</span> s[best[<span class="num">1</span>]:best[<span class="num">2</span>]+<span class="num">1</span>]</pre>
+
+  <div class="section-title">📊 복잡도 분석</div>
+  <table>
+    <tr><th>구분</th><th>기본</th><th>최적홐</th><th>이유</th></tr>
+    <tr><td class="complexity-label">Time</td><td>O(|s|+|t|)</td><td>O(|s|+|t|)</td><td>최적홐: s가 길고 t 문자 읬박할 때 filtered로 이터레이션 수 감셬</td></tr>
+    <tr><td class="complexity-label">Space</td><td>O(|t|)</td><td>O(|s|+|t|)</td><td>최적홐: filtered 배열 추가 O(|s|), 실제 긴 문자열엔 시간 이득</td></tr>
+  </table>
+</div>
+
+<footer>
+  <p>🌐 <a href="https://chloeyeo.github.io/leetcode-explanations" target="_blank">https://chloeyeo.github.io/leetcode-explanations</a></p>
+  <p style="margin-top:6px">LeetCode Daily Study · chloeyeo</p>
+</footer>
+</body>
+</html>

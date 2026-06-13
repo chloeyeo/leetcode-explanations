@@ -1,232 +1,166 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LeetCode Daily | Tree 유형</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#0d1117;color:#c9d1d9;font-family:'Segoe UI',system-ui,sans-serif;font-size:15px;line-height:1.6;padding:16px}
-h1{font-size:1.5rem;color:#58a6ff;text-align:center;margin-bottom:4px}
-.date{text-align:center;color:#8b949e;font-size:.85rem;margin-bottom:24px}
-.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:18px;margin-bottom:24px}
-.problem-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
-.problem-title{font-size:1.1rem;font-weight:700;color:#e6edf3}
-.badge{padding:2px 10px;border-radius:20px;font-size:.75rem;font-weight:700;white-space:nowrap}
-.easy{background:#1a4731;color:#3fb950}
-.medium{background:#4a2c00;color:#f0883e}
-.hard{background:#4a0000;color:#f85149}
-.by{font-size:.75rem;color:#8b949e}
-.section-label{font-size:.8rem;font-weight:700;color:#8b949e;text-transform:uppercase;letter-spacing:.05em;margin:14px 0 6px}
-.ascii{background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:12px;font-family:'Courier New',monospace;font-size:.75rem;color:#7ee787;overflow-x:auto;white-space:pre;line-height:1.5}
-.code-block{background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:12px;font-family:'Courier New',monospace;font-size:.78rem;overflow-x:auto;white-space:pre;line-height:1.7}
-.kw{color:#ff7b72}
-.fn{color:#d2a8ff}
-.cm{color:#8b949e;font-style:italic}
-.st{color:#a5d6ff}
-.nm{color:#79c0ff}
-.op{color:#ff7b72}
-table{width:100%;border-collapse:collapse;font-size:.8rem;margin-top:6px}
-th{background:#21262d;color:#8b949e;text-align:left;padding:7px 10px;font-weight:600}
-td{padding:7px 10px;border-bottom:1px solid #21262d;vertical-align:top}
-tr:last-child td{border-bottom:none}
-.tc{color:#3fb950;font-weight:700}
-.sc{color:#58a6ff;font-weight:700}
-footer{text-align:center;margin-top:32px;padding-top:16px;border-top:1px solid #21262d;color:#8b949e;font-size:.82rem}
-footer a{color:#58a6ff;text-decoration:none}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeetCode Daily | Tree</title>
+    <style>
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#121212;color:#e0e0e0;margin:0;padding:20px;line-height:1.6}
+        h1{color:#fff;text-align:center;border-bottom:1px solid #333;padding-bottom:10px}
+        .date{text-align:center;color:#aaa;margin-bottom:30px}
+        .problem{background:#1e1e1e;border-radius:8px;padding:20px;margin-bottom:30px;box-shadow:0 4px 6px rgba(0,0,0,.3)}
+        .title{font-size:1.2em;font-weight:bold;margin-top:0;color:#fff}
+        .badge{display:inline-block;padding:3px 8px;border-radius:4px;font-size:.8em;font-weight:bold;margin-left:10px;vertical-align:middle}
+        .easy{background:#28a745;color:#fff}
+        .medium{background:#ffc107;color:#000}
+        .hard{background:#dc3545;color:#fff}
+        pre{background:#2d2d2d;padding:15px;border-radius:5px;overflow-x:auto;color:#f8f8f2;font-size:.9em}
+        .kw{color:#ff79c6}.fn{color:#50fa7b}.st{color:#f1fa8c}.cm{color:#6272a4}
+        .ascii{font-family:monospace;white-space:pre;background:#000;padding:10px;border-radius:5px;color:#0f0;overflow-x:auto;font-size:.85em}
+        table{width:100%;border-collapse:collapse;margin-top:15px}
+        th,td{border:1px solid #444;padding:10px;text-align:left}
+        th{background:#333}
+        footer{text-align:center;margin-top:40px;padding-top:20px;border-top:1px solid #333}
+        a{color:#8be9fd;text-decoration:none}
+    </style>
 </head>
 <body>
-<h1>🌳 Tree 유형</h1>
-<div class="date">2026-06-13 (Saturday)</div>
+<h1>LeetCode Daily | Tree</h1>
+<div class="date">2026-06-13</div>
 
-<!-- ===== EASY ===== -->
-<div class="card">
-  <div class="problem-header">
-    <span class="problem-title">LeetCode #104 — Maximum Depth of Binary Tree</span>
-    <span class="badge easy">Easy</span>
-    <span class="by">by LeetCode</span>
-  </div>
-  <div class="section-label">🎨 알고리즘 시각화</div>
-  <div class="ascii">Binary Tree:        DFS (재귀) 탐색:
-       3               visit(3)
-      / \               /       \
-     9  20        visit(9)    visit(20)
-        / \          |           /   \
-       15   7      depth=1  visit(15) visit(7)
-                              |         |
-                           depth=2   depth=2
-                                \
-                             max(1, max(2,2)) + 1 = 3
-결과: maxDepth = 3</div>
-
-  <div class="section-label">📝 기본 풀이 (재귀 DFS)</div>
-  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">maxDepth</span>(<span class="nm">self</span>, root):
-        <span class="cm"># 베이스 케이스: 노드가 없으면 깊이 0</span>
-        <span class="kw">if not</span> root:
-            <span class="kw">return</span> <span class="nm">0</span>
-        <span class="cm"># 왼쪽/오른쪽 서브트리의 최대 깊이 재귀 계산</span>
-        left_depth  <span class="op">=</span> <span class="nm">self</span>.maxDepth(root.left)
-        right_depth <span class="op">=</span> <span class="nm">self</span>.maxDepth(root.right)
-        <span class="cm"># 더 깊은 쪽 + 현재 노드 1</span>
-        <span class="kw">return</span> <span class="fn">max</span>(left_depth, right_depth) <span class="op">+</span> <span class="nm">1</span></div>
-
-  <div class="section-label">⚡ 최적화 버전 (반복 BFS)</div>
-  <div class="code-block"><span class="kw">from</span> collections <span class="kw">import</span> deque
-
-<span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">maxDepth</span>(<span class="nm">self</span>, root):
-        <span class="kw">if not</span> root:
-            <span class="kw">return</span> <span class="nm">0</span>
-        queue, depth <span class="op">=</span> deque([root]), <span class="nm">0</span>
-        <span class="kw">while</span> queue:
-            <span class="cm"># 현재 레벨의 모든 노드 처리</span>
-            <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(queue)):
-                node <span class="op">=</span> queue.popleft()
-                <span class="kw">if</span> node.left:  queue.append(node.left)
-                <span class="kw">if</span> node.right: queue.append(node.right)
-            depth <span class="op">+=</span> <span class="nm">1</span>
-        <span class="kw">return</span> depth</div>
-
-  <div class="section-label">📊 복잡도 분석</div>
-  <table>
-    <tr><th>구분</th><th>복잡도</th><th>이유</th></tr>
-    <tr><td>시간 (기본)</td><td class="tc">O(n)</td><td>모든 노드를 정확히 1번 방문</td></tr>
-    <tr><td>공간 (기본)</td><td class="sc">O(h)</td><td>재귀 스택 깊이 = 트리 높이 h (최악 O(n) skewed)</td></tr>
-    <tr><td>시간 (최적)</td><td class="tc">O(n)</td><td>BFS도 n개 노드 전부 처리</td></tr>
-    <tr><td>공간 (최적)</td><td class="sc">O(w)</td><td>큐 크기 = 레벨 최대 너비 w (균형 트리 O(n/2))</td></tr>
-  </table>
-</div>
-
-<!-- ===== MEDIUM ===== -->
-<div class="card">
-  <div class="problem-header">
-    <span class="problem-title">LeetCode #102 — Binary Tree Level Order Traversal</span>
-    <span class="badge medium">Medium</span>
-    <span class="by">by LeetCode</span>
-  </div>
-  <div class="section-label">🎨 알고리즘 시각화</div>
-  <div class="ascii">      3          BFS Queue 상태 변화:
+<div class="problem">
+<div class="title">#104. Maximum Depth of Binary Tree <span class="badge easy">Easy</span></div>
+<h3>ASCII Visualization</h3>
+<div class="ascii">
+      3
      / \
-    9  20         Level 0: [3]          → [[3]]
-       / \        Level 1: [9, 20]      → [[3],[9,20]]
-      15   7      Level 2: [15, 7]      → [[3],[9,20],[15,7]]
+    9  20
+       / \
+      15   7
 
-결과: [[3], [9, 20], [15, 7]]</div>
-
-  <div class="section-label">📝 기본 풀이 (BFS)</div>
-  <div class="code-block"><span class="kw">from</span> collections <span class="kw">import</span> deque
-
-<span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">levelOrder</span>(<span class="nm">self</span>, root):
+Depth: 3
+</div>
+<h3>Basic Solution (DFS)</h3>
+<pre><code><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">maxDepth</span>(self, root):
         <span class="kw">if not</span> root:
-            <span class="kw">return</span> []
-        result, queue <span class="op">=</span> [], deque([root])
+            <span class="kw">return</span> 0
+        <span class="kw">return</span> 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))</code></pre>
+<h3>Optimized (BFS)</h3>
+<pre><code><span class="kw">from</span> collections <span class="kw">import</span> deque
+<span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">maxDepth</span>(self, root):
+        <span class="kw">if not</span> root: <span class="kw">return</span> 0
+        queue, depth = deque([root]), 0
         <span class="kw">while</span> queue:
-            level_size <span class="op">=</span> <span class="fn">len</span>(queue)
-            level <span class="op">=</span> []
-            <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(level_size):
-                node <span class="op">=</span> queue.popleft()
-                level.append(node.val)
-                <span class="kw">if</span> node.left:  queue.append(node.left)
+            depth += 1
+            <span class="kw">for</span> _ <span class="kw">in</span> range(len(queue)):
+                node = queue.popleft()
+                <span class="kw">if</span> node.left: queue.append(node.left)
                 <span class="kw">if</span> node.right: queue.append(node.right)
-            result.append(level)
-        <span class="kw">return</span> result</div>
-
-  <div class="section-label">⚡ 최적화 버전 (DFS 재귀)</div>
-  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">levelOrder</span>(<span class="nm">self</span>, root):
-        result <span class="op">=</span> []
-        <span class="kw">def</span> <span class="fn">dfs</span>(node, level):
-            <span class="kw">if not</span> node:
-                <span class="kw">return</span>
-            <span class="cm"># 현재 레벨 리스트가 없으면 새로 추가</span>
-            <span class="kw">if</span> <span class="fn">len</span>(result) <span class="op">==</span> level:
-                result.append([])
-            result[level].append(node.val)
-            <span class="fn">dfs</span>(node.left,  level <span class="op">+</span> <span class="nm">1</span>)
-            <span class="fn">dfs</span>(node.right, level <span class="op">+</span> <span class="nm">1</span>)
-        <span class="fn">dfs</span>(root, <span class="nm">0</span>)
-        <span class="kw">return</span> result</div>
-
-  <div class="section-label">📊 복잡도 분석</div>
-  <table>
-    <tr><th>구분</th><th>복잡도</th><th>이유</th></tr>
-    <tr><td>시간 (기본)</td><td class="tc">O(n)</td><td>n개 노드 각 1번 처리</td></tr>
-    <tr><td>공간 (기본)</td><td class="sc">O(w)</td><td>큐 = 최대 레벨 너비 w</td></tr>
-    <tr><td>시간 (최적)</td><td class="tc">O(n)</td><td>DFS도 n개 노드 방문</td></tr>
-    <tr><td>공간 (최적)</td><td class="sc">O(h)</td><td>재귀 스택 = 트리 높이 h</td></tr>
-  </table>
+        <span class="kw">return</span> depth</code></pre>
+<h3>Complexity Analysis</h3>
+<table>
+<tr><th>Approach</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+<tr><td>DFS (recursive)</td><td>O(N)</td><td>O(H)</td><td>Visits each node once. Stack depth = tree height H.</td></tr>
+<tr><td>BFS (iterative)</td><td>O(N)</td><td>O(W)</td><td>Each node enqueued/dequeued once. Max queue size = level width W.</td></tr>
+</table>
 </div>
 
-<!-- ===== HARD ===== -->
-<div class="card">
-  <div class="problem-header">
-    <span class="problem-title">LeetCode #124 — Binary Tree Maximum Path Sum</span>
-    <span class="badge hard">Hard</span>
-    <span class="by">by LeetCode</span>
-  </div>
-  <div class="section-label">🎨 알고리즘 시각화</div>
-  <div class="ascii">       -10              경로 후�t:
-       /  \               9         → 9
-      9   20              15→20→7   → 42  ✅ MAX
-          / \             9→-10→20  → 19
-         15   7
+<div class="problem">
+<div class="title">#236. Lowest Common Ancestor of a Binary Tree <span class="badge medium">Medium</span></div>
+<h3>ASCII Visualization</h3>
+<div class="ascii">
+       3
+     /   \
+    5     1
+   / \   / \
+  6   2 0   8
 
-gain(-10) = max(gain(9), 0) + max(gain(20), 0) + (-10)
-          = max(9,0) + max(15+20, 0) + (-10) = 9+35-10 = 34
-global_max 갱신: max(42, 34) = 42</div>
+LCA(5, 1) = 3
+</div>
+<h3>Basic Solution (DFS)</h3>
+<pre><code><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">lowestCommonAncestor</span>(self, root, p, q):
+        <span class="cm"># Base case</span>
+        <span class="kw">if not</span> root <span class="kw">or</span> root == p <span class="kw">or</span> root == q:
+            <span class="kw">return</span> root
+        left = self.lowestCommonAncestor(root.left, p, q)
+        right = self.lowestCommonAncestor(root.right, p, q)
+        <span class="kw">if</span> left <span class="kw">and</span> right:
+            <span class="kw">return</span> root
+        <span class="kw">return</span> left <span class="kw">if</span> left <span class="kw">else</span> right</code></pre>
+<h3>Optimized (Iterative parent map)</h3>
+<pre><code><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">lowestCommonAncestor</span>(self, root, p, q):
+        parent = {root: None}
+        stack = [root]
+        <span class="kw">while</span> p <span class="kw">not in</span> parent <span class="kw">or</span> q <span class="kw">not in</span> parent:
+            node = stack.pop()
+            <span class="kw">if</span> node.left:
+                parent[node.left] = node; stack.append(node.left)
+            <span class="kw">if</span> node.right:
+                parent[node.right] = node; stack.append(node.right)
+        ancestors = set()
+        <span clas="kw">while</span> p:
+            ancestors.add(p); p = parent[p]
+        <span class="kw">while</span> q <span class="kw">not in</span> ancestors:
+            q = parent[q]
+        <span class="kw">return</span> q</code></pre>
+<h3>Complexity Analysis</h3>
+<table>
+<tr><th>Approach</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+<tr><td>DFS (recursive)</td><td>O(N)</td><td>O(H)</td><td>Worst case visits all nodes; call stack = height H.</td></tr>
+<tr><td>Iterative</td><td>O(N)</td><td>O(N)</td><td>Parent dict stores up to N entries.</td></tr>
+</table>
+</div>
 
-  <div class="section-label">📝 기본 풀이 (후위 순회)</div>
-  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">maxPathSum</span>(<span class="nm">self</span>, root):
-        <span class="nm">self</span>.max_sum <span class="op">=</span> <span class="fn">float</span>(<span class="st">'-inf'</span>)
+<div class="problem">
+<div class="title">#124. Binary Tree Maximum Path Sum <span class="badge hard">Hard</span></div>
+<h3>ASCII Visualization</h3>
+<div class="ascii">
+      -10
+      /  \
+     9   20
+         / \
+        15   7
 
-        <span class="kw">def</span> <span class="fn">gain</span>(node):
-            <span class="kw">if not</span> node:
-                <span class="kw">return</span> <span class="nm">0</span>
-            <span class="cm"># 음수 기여는 0으로 처리 (해당 경로 포기)</span>
-            left_gain  <span class="op">=</span> <span class="fn">max</span>(<span class="fn">gain</span>(node.left),  <span class="nm">0</span>)
-            right_gain <span class="op">=</span> <span class="fn">max</span>(<span class="fn">gain</span>(node.right), <span class="nm">0</span>)
-            <span class="cm"># 이 노드를 꼭짓점으로 하는 경로 합</span>
-            path_sum <span class="op">=</span> node.val <span class="op">+</span> left_gain <span class="op">+</span> right_gain
-            <span class="nm">self</span>.max_sum <span class="op">=</span> <span class="fn">max</span>(<span class="nm">self</span>.max_sum, path_sum)
-            <span class="cm"># 부모로 올라갈 때는 한 방향만 선택</span>
-            <span class="kw">return</span> node.val <span class="op">+</span> <span class="fn">max</span>(left_gain, right_gain)
-
-        <span class="fn">gain</span>(root)
-        <span class="kw">return</span> <span class="nm">self</span>.max_sum</div>
-
-  <div class="section-label">⚡ 최적화 버전 (nonlocal 활용)</div>
-  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">maxPathSum</span>(<span class="nm">self</span>, root):
-        max_sum <span class="op">=</span> [<span class="fn">float</span>(<span class="st">'-inf'</span>)]   <span class="cm"># 리스트로 nonlocal 대체</span>
-
+Max Path: 15 -> 20 -> 7 = 42
+</div>
+<h3>Basic Solution (Post-order DFS)</h3>
+<pre><code><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">maxPathSum</span>(self, root):
+        self.max_sum = float('-inf')
         <span class="kw">def</span> <span class="fn">dfs</span>(node):
-            <span class="kw">if not</span> node:
-                <span class="kw">return</span> <span class="nm">0</span>
-            l <span class="op">=</span> <span class="fn">max</span>(<span class="fn">dfs</span>(node.left),  <span class="nm">0</span>)
-            r <span class="op">=</span> <span class="fn">max</span>(<span class="fn">dfs</span>(node.right), <span class="nm">0</span>)
-            max_sum[<span class="nm">0</span>] <span class="op">=</span> <span class="fn">max</span>(max_sum[<span class="nm">0</span>], node.val <span class="op">+</span> l <span class="op">+</span> r)
-            <span class="kw">return</span> node.val <span class="op">+</span> <span class="fn">max</span>(l, r)
-
-        <span class="fn">dfs</span>(root)
-        <span class="kw">return</span> max_sum[<span class="nm">0</span>]</div>
-
-  <div class="section-label">📊 복잡도 분석</div>
-  <table>
-    <tr><th>구분</th><th>복잡도</th><th>이유</th></tr>
-    <tr><td>시간 (기본)</td><td class="tc">O(n)</td><td>모든 노드를 정확히 1회 후위 순회</td></tr>
-    <tr><td>공간 (기본)</td><td class="sc">O(h)</td><td>재귀 콜스택 = 트리 높이 (skewed 시 O(n))</td></tr>
-    <tr><td>시간 (최적)</td><td class="tc">O(n)</td><td>동일 — 단일 DFS 패스</td></tr>
-    <tr><td>공간 (최적)</td><td class="sc">O(h)</td><td>클로저 배열 크기 1 + 스택 높이</td></tr>
-  </table>
+            <span class="kw">if not</span> node: <span class="kw">return</span> 0
+            <span class="cm"># Ignore negative contributions</span>
+            left_max = max(dfs(node.left), 0)
+            right_max = max(dfs(node.right), 0)
+            self.max_sum = max(self.max_sum, node.val + left_max + right_max)
+            <span class="kw">return</span> node.val + max(left_max, right_max)
+        dfs(root)
+        <span class="kw">return</span> self.max_sum</code></pre>
+<h3>Optimized (list as nonlocal)</h3>
+<pre><code><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">maxPathSum</span>(self, root):
+        res = [float('-inf')]
+        <span class="kw">def</span> <span class="fn">dfs</span>(node):
+            <span class="kw">if not</span> node: <span class="kw">return</span> 0
+            l = max(dfs(node.left), 0)
+            r = max(dfs(node.right), 0)
+            res[0] = max(res[0], node.val + l + r)
+            <span class="kw">return</span> node.val + max(l, r)
+        dfs(root)
+        <span class="kw">return</span> res[0]</code></pre>
+<h3>Complexity Analysis</h3>
+<table>
+<tr><th>Approach</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+<tr><td>DFS post-order</td><td>O(N)</td><td>O(H)</td><td>Single pass visiting all N nodes. Stack depth = height H (O(N) worst, O(logN) balanced).</td></tr>
+</table>
 </div>
 
 <footer>
-  <p>🌐 <a href="https://chloeyeo.github.io/leetcode-explanations">chloeyeo.github.io/leetcode-explanations</a></p>
-  <p style="margin-top:6px">LeetCode Daily Practice · Tree 유형 · 2026-06-13</p>
+<p>&#127760; <a href="https://chloeyeo.github.io/leetcode-explanations">GitHub Pages</a></p>
 </footer>
 </body>
 </html>

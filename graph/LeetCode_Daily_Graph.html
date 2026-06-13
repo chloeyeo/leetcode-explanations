@@ -1,35 +1,229 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LeetCode Daily | Graph | 2026-06-13</title>
+<title>LeetCode Daily | Graph — 2026-06-14</title>
 <style>
-"{margin:0;padding:0;box-sizing:border-box}
-body{background:#0d1117;color:#e6edf3;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;padding:16px;font-size:15px}
-h1{font-size:22px;font-weight:700;color:#58a6ff;text-align:center;padding:20px 0 4px}
-.subtitle{text-align:center;color:#7d8590;font-size:13px;margin-bottom:24px}
-.card{background:#161b22;border:1px solid #30363d;border-radius:12px;margin-bottom:20px;overflow:hidden}
-.card-header{padding:16px 20px 12px;border-bottom:1px solid #21262d}
-.problem-title{font-size:17px;font-weight:600;color:#e6edf3;margin-bottom:6px}
-.problem-meta{font-size:12px;color:#7d8590}
-.badge{display:inline-block;padding:2px 10px;border-radius:20px;font-size:11px;font-weight:700;margin-right:8px}
-.easy{background:#1a4731;color:#3fb950}
-.medium{background:#4d3000;color:#d29922}
-.hard{background:#4d1a1a;color:#f85149}
-.card-body{padding:16px 20px}
-.section-title{font-size:13px;font-weight:600;color:#7d8590;text-transform:uppercase;letter-spacing:.8px;margin:16px 0 8px}
-.section-title:first-child{margin-top:0}
-.ascii{background:#010409;border:1px solid #21262d;border-radius:8px;padding:14px 16px;font-family:'Courier New',monospace;font-size:12px;color:#7ee787;line-height:1.6;overflow-x:auto;white-space:pre}
-.code-block{background:#010409;border:1px solid #21262d;border-radius:8px;padding:14px 16px;font-family:'Courier New',monospace;font-size:12px;line-height:1.7;overflow-x:auto;white-space:pre}
-.kw{color:#ff7b72}.fn{color:#d2a8ff}.st{color:#a5d6ff}.cm{color:#8b949e}.n{color:#ffa657}.num{color:#79c0ff}.op{color:#ff7b72}
-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:4px}
-th{background:#21262d;color:#7d8590;padding:8px 10px;text-align:left;font-weight:600;font-size:11px;text-transform:uppercase}
-td{padding:8px 10px;border-top:1px solid #21262d;color:#e6edf3;vertical-align:top}
-td:first-child{color:#58a6ff;font-family:'Courier New',monospace;white-space:nowrap}
-td:nth-child(2){color:#f0883e;font-weight:600;white-space:nowrap}
-footer{text-align:center;padding:24px 0 8px;color:#7d8590;font-size:13px}
-footer a{color:#58a6ff;text-decoration:none}
-.divider{height:1px;background:#21262d;margin:14px 0}
+  .root {
+    --bg: #0d1117; --bg2: #161b22; --bg3: #21262d;
+    --border: #30363d; --text: #e6edf3; --muted: #8b949e;
+    --easy: #3fb950; --medium: #d29922; --hard: #f85149;
+    --accent: #58a6ff; --purple: #bc8cff;
+  }
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1117; color: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace; padding: 16px; max-width: 900px; margin: 0 auto; }
+  header { text-align: center; padding: 24px 16px 8px; border-bottom: 1px solid #30363d; margin-bottom: 24px; }
+  header h1 { font-size: 1.6rem; color: #58a6ff; margin-bottom: 6px; }
+  header .date { color: #8b949e; font-size: 0.9rem; }
+  .problem-card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 20px; margin-bottom: 28px; }
+  .problem-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+  .problem-title { font-size: 1.15rem; font-weight: 700; color: #e6edf3; }
+  .problem-title span { color: #8b949e; font-weight: 400; }
+  .badge { padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.5px; }
+  .easy { background: rgba(63,185,80,0.15); color: #3fb950; border: 1px solid #3fb950; }
+  .medium { background: rgba(210,153,34,0.15); color: #d29922; border: 1px solid #d29922; }
+  .hard { background: rgba(248,81,73,0.15); color: #f85149; border: 1px solid #f85149; }
+  .by { color: #8b949e; font-size: 0.8rem; margin-left: auto; }
+  .section-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #bc8cff; margin: 18px 0 8px; }
+  .ascii-art { background: #21262d; border: 1px solid #30363d; border-radius: 8px; padding: 14px; font-family: 'Courier New', monospace; font-size: 0.78rem; color: #79c0ff; overflow-x: auto; white-space: pre; line-height: 1.5; }
+  .code-block { background: #21262d; border: 1px solid #30363d; border-radius: 8px; padding: 14px; overflow-x: auto; margin-bottom: 10px; }
+  .code-block pre { font-family: 'Courier New', monospace; font-size: 0.82rem; line-height: 1.7; white-space: pre; }
+  .kw { color: #ff7b72; } .fn { color: #d2a8ff; } .cls { color: #ffa657; }
+  .st { color: #a5d6ff; } .cm { color: #8b949e; font-style: italic; } .num { color: #79c0ff; }
+  .bi { color: #56d364; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-top: 8px; }
+  th { background: #21262d; color: #58a6ff; padding: 8px 10px; text-align: left; border: 1px solid #30363d; }
+  td { padding: 7px 10px; border: 1px solid #30363d; vertical-align: top; color: #e6edf3; }
+  tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+  footer { text-align: center; padding: 24px 16px; border-top: 1px solid #30363d; margin-top: 32px; color: #8b949e; font-size: 0.88rem; }
+  footer a { color: #58a6ff; text-decoration: none; }
+  .tag { display: inline-block; background: rgba(88,166,255,0.1); color: #58a6ff; border: 1px solid rgba(88,166,255,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.72rem; margin-right: 4px; }
 </style>
 </head>
+<body>
+<header>
+  <h1>&#128373;&#65039; LeetCode Daily | Graph</h1>
+  <div class="date">2026-06-14 (Sunday) &middot; Easy + Medium + Hard</div>
+</header>
+
+<!-- PROBLEM 1: Easy -->
+<div class="problem-card">
+  <div class="problem-header">
+    <span class="badge easy">Easy</span>
+    <span class="problem-title">LeetCode <span>#997</span> &mdash; Find the Town Judge</span>
+    <span class="by">by LeetCode</span>
+  </div>
+  <span class="tag">Graph</span><span class="tag">In-degree</span><span class="tag">Array</span>
+
+  <div class="section-label">&#128202; Algorithm Visualization</div>
+  <div class="ascii-art">trust = [[1,3],[2,3]]    n = 3
+
+Build trust graph:
++----------------------------------+
+|  Person 1 --trust--&gt; Person 3  |
+|  Person 2 --trust--&gt; Person 3  |
++----------------------------------+
+
+in_degree (trusted by):
+[0, 0, 0, 2]   &lt;-- Person 3 trusted by 2 others
+      ^1  ^2  ^3
+
+out_degree (trusts someone):
+[0, 1, 1, 0]   &lt;-- Person 3 trusts nobody
+
+Rule: Judge = in_degree[i] == n-1 AND out_degree[i] == 0*&#10003; Person 3 is the Town Judge!</div>
+
+  <div class="section-label">&#128161; Basic Solution</div>
+  <div class="code-block"><pre><span class="kw">class</span> <span class="cls">Solution</span>:
+    <span class="kw">def</span> <span class="fn">findJudge</span>(self, n: <span class="bi">int</span>, trust: <span class="bi">list</span>) -&gt; <span class="bi">int</span>:
+        <span class="cm"># Track in-degree and out-degree</span>
+        in_deg = [<span class="num">0</span>] * (n + <span class="num">1</span>)
+        out_deg = [<span class="num">0</span>] * (n + <span class="num">1</span>)
+
+        <span class="kw">for</span> a, b <span class="kw">in</span> trust:
+            out_deg[a] += <span class="num">1</span>
+            in_deg[b] += <span class="num">1</span>
+
+        <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(<span class="num">1</span>, n + <span class="num">1</span>):
+            <span class="kw">if</span> in_deg[i] == n - <span class="num">1</span> <span class="kw">and</span> out_deg[i] == <span class="num">0</span>:
+                <span class="kw">return</span> i
+        <span class="kw">return</span> -<span class="num">1</span></pre></div>
+
+  <div class="section-label">&#9889; Optimized Solution (Single Array)</div>
+  <div class="code-block"><pre><span class="kw">class</span> <span class="cls">Solution</span>:
+    <span class="kw">def</span> <span class="fn">findJudge</span>(self, n: <span class="bi">int</span>, trust: <span class="bi">list</span>) -&gt; <span class="bi">int</span>:
+        <span class="cm"># net[i] = in_degree - out_degree; Judge has net[i] == n-1</span>
+        net = [<span class="num">0</span>] * (n + <span class="num">1</span>)
+
+        <span class="kw">for</span> a, b <span class="kw">in</span> trust:
+            net[a] -= <span class="num">1</span>
+            net[b] += <span class="num">1</span>
+
+        <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(<span class="num">1</span>, n + <span class="num">1</span>):
+            <span class="kw">if</span> net[i] == n - <span class="num">1</span>:
+                <span class="kw">return</span> i
+        <span class="kw">return</span> -<span class="num">1</span></pre></div>
+
+  <div class="section-label">&#128200; Complexity Analysis</div>
+  <table>
+    <tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>Basic</td><td>O(T+n)</td><td>O(n)</td><td>T=trust pairs traversal + n scan; two arrays of size n</td></tr>
+    <tr><td>Optimized</td><td>O(T+n)</td><td>O(n)</td><td>Same time complexity; halved space using single net array</td></tr>
+  </table>
+</div>
+
+<!-- PROBLEM 2: Medium -->
+<div class="problem-card">
+  <div class="problem-header">
+    <span class="badge medium">Medium</span>
+    <span class="problem-title">LeeCode <span>#207</span> &mdash; Course Schedule</span>
+    <span class="by">by LeetCode</span>
+  </div>
+  <span class="tag">Graph</span><span class="tag">Topological Sort</span><span class="tag">DFS</span><span class="tag">Cycle Detection</span>
+
+  <div class="section-label">&#128202; Algorithm Visualization</div>
+  <div class="ascii-art">numCourses=4, prerequisites=[[1,0],[2,0],[3,1],[3,2]]
+
+Adjacency list:
+0 --&gt; [1, 2]
+1 --&gt; [3]
+2 --&gt; [3]
+3 --&gt; []
+
+DFS states: 0=unvisited  1=visiting  2=done
+
+DFS(0): state[0]=1
+  DFS(1): state[1]=1
+    DFS(3): state[3]=1
+    state[3]=2 (done) &#10003;
+  state[1]=2 (done) &#10003;
+  DFS(2): state[2]=1
+    DFS(3): already done &#10003;
+  state[2]=2 (done) &#10003;
+state[0]=2 (done) &#10003;
+
+No cycle found --&gt; return True &#10003;
+
+Cycle Example [[1,0],[0,1]]:
+0 --&gt; 1 --&gt; 0  &lt;-- CYCLE! return False &#10007;</div>
+
+  <div class="section-label">&#128161; Basic Solution (DFS Cycle Detection)</div>
+  <div class="code-block"><pre><span class="kw">class</span> <span class="cls">Solution</span>:
+    <span class="kw">def</span> <span class="fn">canFinish</span>(self, numCourses: <span class="bi">int</span>, prerequisites: <span class="bi">list</span>) -&gt; <span class="bi">bool</span>:
+        graph = {i: [] for i in range(numCourses)}
+        <span class="kw">for</span> a, b <span class="kw">in</span> prerequisites:
+            graph[b].append(a)
+
+        state = [<span class="num">0</span>] * numCourses
+
+        <span class="kw">def</span> <span class="fn">dfs</span>(node):
+            <span class="kw">if</span> state[node] == <span class="num">1</span>: <span class="kw">return</span> <span class="bi">False</span>
+            <span class="kw">if</span> state[node] == <span class="num">2</span>: <span class="kw">return</span> <span class="bi">True</span>
+            state[node] = <span class="num">1</span>
+            <span class="kw">for</span> nei <span class="kw">in</span> graph[node]:
+                <span class="kw">if</span> <span class="kw">not</span> dfs(nei): <span class="kw">return</span> <span class="bi">False</span>
+            state[node] = <span class="num">2</span>
+            <span class="kw">return</span> <span class="bi">True</span>
+
+        <span class="kw">return</span> <span class="bi">all</span>(dfs(i) for i in range(numCourses))</pre></div>
+
+  <div class="section-label">&#9889; Optimized Solution (BFS Kahn's Algorithm)</div>
+  <div class="code-block"><pre><span class="kw">from</span> collections <span class="kw">import</span> deque
+
+<span class="kw">class</span> <span class="cls">Solution</span>:
+    <span class="kw">def</span> <span class="fn">canFinish</span>(self, numCourses: <span class="bi">int</span>, prerequisites: <span class="bi">list</span>) -&gt; <span class="bi">bool</span>:
+        graph = [[] for _ in range(numCourses)]
+        in_deg = [0] * numCourses
+
+        <span class="kw">for</span> a, b <span class="kw">in</span> prerequisites:
+            graph[b].append(a)
+            in_deg[a] += 1
+
+        queue = deque(i for i in range(numCourses) if in_deg[i] == 0)
+        count = 0
+
+        <span class="kw">while</span> queue:
+            node = queue.popleft()
+            count += 1
+            <span class="kw">for</span> nei <span class="kw">in</span> graph[node]:
+                in_deg[nei] -= 1
+                <span class="kw">if</span> in_deg[nei] == 0:
+                    queue.append(nei)
+
+        <span class="kw">return</span> count == numCourses</pre></div>
+
+  <div class="section-label">&#128200; Complexity Analysis</div>
+  <table>
+    <tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>DFS</td><td>O(V+E)</td><td>O(V+E)</td><td>V=courses, E=prerequisites; each node/edge visited once; recursion stack O(V)</td></tr>
+    <tr><td>BFS (Kahn's)</td><td>O(V+E)</td><td>O(V+E)</td><td>Same complexity; iterative avoids stack overflow; preferred for large inputs</td></tr>
+  </table>
+</div>
+
+<!-- PROBLEM 3: Hard -->
+<div class="problem-card">
+  <div class="problem-header">
+    <span class="badge hard">Hard</span>
+    <span class="problem-title">LeetCode <span>#332</span> &mdash; Reconstruct Itinerary</span>
+    <span class="by">by LeetCode</span>
+  </div>
+  <span class="tag">Graph</span><span class="tag">Eulerian Path</span><span class="tag">DFS</span><span class="tag">Hierholzer's</span>
+
+  <div class="section-label">&#128202; Algorithm Visualization</div>
+  <div class="ascii-art">tickets = [["MUC","LHR"],["JFK","MUC"],["SFO","SJC"],["LHR","SFO"]]
+
+Sorted adjacency list:
+JFK --&gt; [MUC]
+LHR --&gt; [SFO]
+MUC --&gt; [LHR]
+SFO --&gt; [SJC]
+
+Hierholzer's DFS from "JFK":
+stack: [JFK]
+  pop MUC  --&gt; stack: [JFK, MUC]
+    pop LHR --&gt; stack: [JFK, MUC, LHR]
+      pop SFO --&gt; stack: [JFK, MUC, LHR, SFO]
+        pop SJC --&gt; stack: [JFK, MUC, LHR, SFO, SJC]
+        SJC empty --&gt; result.appendleft(SJC)
+        result.appendleft(SF)

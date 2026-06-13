@@ -3,263 +3,182 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LeetCode Daily - Stack | 2026-06-11</title>
+<title>LeetCode Daily | Stack</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#0f1117;color:#e2e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:15px;line-height:1.6}
-.header{background:linear-gradient(135deg,#1e3a5f,#0f2942);padding:24px 16px;text-align:center;border-bottom:2px solid #60a5fa}
-.header h1{color:#60a5fa;font-size:22px;font-weight:700;letter-spacing:1px}
-.header .date{color:#94a3b8;font-size:13px;margin-top:6px}
-.container{max-width:800px;margin:0 auto;padding:16px}
-.problem-card{background:#1a2035;border:1px solid #2d3748;border-radius:12px;margin-bottom:24px;overflow:hidden}
-.problem-header{padding:16px;border-bottom:1px solid #2d3748;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.problem-title{font-size:17px;font-weight:700;color:#e2e8f0;flex:1}
-.badge{padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700}
-.easy{background:#064e3b;color:#34d399}
-.medium{background:#78350f;color:#fbbf24}
-.hard{background:#7f1d1d;color:#f87171}
-.section{padding:16px}
-.section-title{color:#60a5fa;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
-.ascii-box{background:#0d1b2a;border:1px solid #1e3a5f;border-radius:8px;padding:12px;font-family:'Courier New',monospace;font-size:12px;color:#7dd3fc;overflow-x:auto;white-space:pre;line-height:1.5;margin-bottom:12px}
-.code-block{background:#0d1b2a;border:1px solid #1e3a5f;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:13px;overflow-x:auto;white-space:pre;line-height:1.6;margin-bottom:12px}
-.kw{color:#c084fc}.fn{color:#60a5fa}.cm{color:#64748b}.st{color:#86efac}.nb{color:#fbbf24}.op{color:#94a3b8}
-.table-wrap{overflow-x:auto;margin-bottom:4px}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th{background:#1e3a5f;color:#93c5fd;padding:8px 10px;text-align:left;font-weight:600}
-td{padding:8px 10px;border-bottom:1px solid #2d3748;color:#cbd5e1}
-tr:last-child td{border-bottom:none}
-.divider{border:none;border-top:1px solid #2d3748;margin:0 16px}
-.footer{text-align:center;padding:24px 16px;color:#64748b;font-size:13px}
-.footer a{color:#60a5fa;text-decoration:none}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d1117;color:#c9d1d9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',monospace;padding:16px;max-width:900px;margin:0 auto}
+h1{text-align:center;font-size:1.4rem;color:#58a6ff;padding:20px 0 4px}
+.date{text-align:center;color:#8b949e;font-size:.85rem;margin-bottom:24px}
+.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:28px}
+.ph{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.pt{font-size:1.1rem;font-weight:700;color:#f0f6fc}
+.badge{padding:3px 10px;border-radius:12px;font-size:.75rem;font-weight:700}
+.easy{background:#1a4a2a;color:#3fb950}
+.medium{background:#4a3000;color:#d29922}
+.hard{background:#4a1a1a;color:#f85149}
+.by{color:#8b949e;font-size:.8rem}
+.st{color:#58a6ff;font-size:.9rem;font-weight:600;margin:16px 0 8px;border-bottom:1px solid #21262d;padding-bottom:4px}
+.aa{background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:14px;font-size:.78rem;line-height:1.6;color:#7ee787;overflow-x:auto;white-space:pre}
+.cb{background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:14px;font-size:.8rem;line-height:1.7;overflow-x:auto;white-space:pre}
+.kw{color:#ff7b72}.fn{color:#d2a8ff}.cm{color:#8b949e}.s{color:#a5d6ff}.n{color:#79c0ff}.bi{color:#ffa657}
+table{width:100%;border-collapse:collapse;margin-top:8px;font-size:.8rem}
+th{background:#21262d;color:#8b949e;padding:8px 10px;text-align:left}
+td{padding:7px 10px;border-bottom:1px solid #21262d;color:#c9d1d9;vertical-align:top}
+.footer{text-align:center;padding:24px 0 8px;color:#8b949e;font-size:.85rem}
+.footer a{color:#58a6ff;text-decoration:none}
 </style>
 </head>
 <body>
-<div class="header">
-  <h1>🧩 LeetCode Daily | Stack 유형</h1>
-  <div class="date">2026년 6월 11일 (목) &nbsp;|&nbsp; Easy · Medium · Hard</div>
-</div>
-<div class="container">
+<h1>LeetCode Daily | Stack</h1>
+<div class="date">2026-06-13</div>
 
-# EASY
-<div class="problem-card">
-  <div class="problem-header">
-    <span class="problem-title">LeetCode #20 — Valid Parentheses</span>
-    <span class="badge easy">Easy</span>
-    <span style="color:#64748b;font-size:12px">by LeetCode</span>
-  </div>
-  <div class="section">
-    <div class="section-title">🎨 알고리즘 시각화</div>
-    <div class="ascii-box">Input: s = "({[]})"
-
-  Push/Pop 진행:
-  ┌───────────────────────────────────────┐
-  │  char  │  action   │  stack (top→)     │
-  ├────────────────────────────────────────┤
-  │   (    │  push '(' │  [ ( ]            │
-  │   {    │  push '{' │  [ (, { ]         │
-  │   [    │  push '[' │  [ (, {, [ ]      │
-  │   ]    │  pop  '[' │  [ (, { ]  ✓ 매칭 │
-  │   }    │  pop  '{' │  [ ( ]     ✓ 매칭 │
-  │   )    │  pop  '(' │  [ ]       ✓ 매칭 │
-  └────────────────────────────────────────┘
-  stack 비어있음 → True ✅</div>
-
-    <div class="section-title">📝 기본 풀이 코드 (Python)</div>
-    <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">isValid</span>(self, s: <span class="nb">str</span>) -> <span class="nb">bool</span>:
-        stack = []
-        mapping = {<span class="st">')'</span>: <span class="st">'('</span>, <span class="st">'}'</span>: <span class="st">'{'</span>, <span class="st">']'</span>: <span class="st">'['</span>}
-        <span class="kw">for</span> char <span class="kw">in</span> s:
-            <span class="kw">if</span> char <span class="kw">in</span> mapping:
-                top = stack.pop() <span class="kw">if</span> stack <span class="kw">else</span> <span class="st">'#'</span>
-                <span class="kw">if</span> mapping[char] != top:
-                    <span class="kw">return</span> <span class="nb">False</span>
-            <span class="kw">else</span>:
-                stack.append(char)
-        <span class="kw">return</span> <span class="kw">not</span> stack</div>
-
-    <div class="section-title">⚡ 최적화 버전 (Python)</div>
-    <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">isValid</span>(self, s: <span class="nb">str</span>) -> <span class="nb">bool</span>:
-        <span class="cm"># 길이가 홀수면 즉시 False</span>
-        <span class="kw">if</span> <span class="nb">len</span>(s) % <span class="nb">2</span>: <span class="kw">return</span> <span class="nb">False</span>
-        stack = []
-        pairs = {<span class="st">'('</span>:<span class="st">')'</span>, <span class="st">'{'</span>:<span class="st">'}'</span>, <span class="st">'['</span>:<span class="st">']'</span>}
-        <span class="kw">for</span> c <span class="kw">in</span> s:
-            <span class="kw">if</span> c <span class="kw">in</span> pairs:
-                stack.append(pairs[c])  <span class="cm"># 기대 닫는 괄호 저장</span>
-            <span class="kw">elif</span> <span class="kw">not</span> stack <span class="kw">or</span> stack.pop() != c:
-                <span class="kw">return</span> <span class="nb">False</span>
-        <span class="kw">return</span> <span class="kw">not</span> stack</div>
-
-    <div class="section-title">📊 복잡도 분석</div>
-    <div class="table-wrap">
-    <table>
-      <tr><th>구분</th><th>복잡도</th><th>이유</th></tr>
-      <tr><td>시간 (기본)</td><td>O(n)</td><td>문자열 한 번 순회</td></tr>
-      <tr><td>공간 (기본)</td><td>O(n)</td><td>최악의 경우 stack에 n/2개 저장</td></tr>
-      <tr><td>시간 (최적)</td><td>O(n)</td><td>동일하게 한 번 순회</td></tr>
-      <tr><td>공간 (최적)</td><td>O(n)</td><td>기대값 push로 동일 공간, 비교 1회 감소</td></tr>
-    </table>
-    </div>
-  </div>
+<div class="card">
+<div class="ph"><span class="pt">Valid Parentheses (LeetCode #20)</span><span class="badge easy">Easy</span><span class="by">- by LeetCode</span></div>
+<div class="st">Algorithm Visualization</div>
+<div class="aa">Input: s = "({[]})"
+PUSH  PUSH  PUSH
+({    ({[   ({[}   match ']'+'[' pop -> ({   match '}'+'{'  -> (   match ')' -> []
+Stack (bottom->top)
+'(' push  stack:['(']
+'y' push  stack:['(','{']
+'[' push  stack:['(','{','[']
+']' match stack:['(','{']  OK
+'}' match stack:['(']      OK
+')' match stack:[]         OK  -> TRUE</div>
+<div class="st">Basic Solution (Python)</div>
+<div class="cb"><span class="kw">def</span> <span class="fn">isValid</span>(s: <span class="bi">str</span>) -&gt; <span class="bi">bool</span>:
+    stack = []
+    mapping = {<span class="s">')'</span>:<span class="s">'('</span>, <span class="s">'}'</span>:<span class="s">'{'</span>, <span class="s">']'</span>:<span class="s">'['</span>}
+    <span class="kw">for</span> char <span class="kw">in</span> s:
+        <span class="kw">if</span> char <span class="kw">in</span> mapping:
+            top = stack.pop() <span class="kw">if</span> stack <span class="kw">else</span> <span class="s">'#'</span>
+            <span class="kw">if</span> mapping[char] != top:
+                <span class="kw">return False</span>
+        <span class="kw">else</span>:
+            stack.append(char)
+    <span class="kw">return not</span> stack</div>
+<div class="st">Optimized (Python)</div>
+<div class="cb"><span class="kw">def</span> <span class="fn">isValid</span>(s: <span class="bi">str</span>) -&gt; <span class="bi">bool</span>:
+    <span class="cm"># odd length -> False immediately</span>
+    <span class="kw">if</span> <span class="bi">len</span>(s) % <span class="n">2</span>: <span class="kw">return False</span>
+    stack = []
+    close_open = {<span class="s">')'</span>:<span class="s">'('</span>, <span class="s">'}'</span>:<span class="s">'{'</span>, <span class="s">']'</span>:<span class="s">'['</span>}
+    <span class="kw">for</span> c <span class="kw">in</span> s:
+        <span class="kw">if</span> c <span class="kw">in</span> close_open:
+            <span class="kw">if not</span> stack <span class="kw">or</span> stack[-<span class="n">1</span>] != close_open[c]: <span class="kw">return False</span>
+            stack.pop()
+        <span class="kw">else</span>: stack.append(c)
+    <span class="kw">return not</span> stack</div>
+<div class="st">Complexity</div>
+<table><tr><th>Type</th><th>Basic</th><th>Optimized</th><th>Reason</th></tr>
+<tr><td>Time</td><td>O(n)</td><td>O(n)</td><td>Single pass; each push/pop O(1)</td></tr>
+<tr><td>Space</td><td>O(n)</td><td>O(n)</td><td>Worst case all chars on stack</td></tr>
+<tr><td>Gain</td><td>-</td><td>O(n)/O(n)</td><td>Odd-length early return skips half cases</td></tr></table>
 </div>
 
-<!-- MEDIUM -->
-<div class="problem-card">
-  <div class="problem-header">
-    <span class="problem-title">LeetCode #155 — Min Stack</span>
-    <span class="badge medium">Medium</span>
-    <span style="color:#64748b;font-size:12px">by LeetCode</span>
-  </div>
-  <div class="section">
-    <div class="section-title">🎨 알고리즘 시각화</div>
-    <div class="ascii-box">연산: push(-2), push(0), push(-3), getMin(), pop(), getMin()
+<div class="card">
+<div class="ph"><span class="pt">Daily Temperatures (LeetCode #739)</span><span class="badge medium">Medium</span><span class="by">- by LeetCode</span></div>
+<div class="st">Algorithm Visualization</div>
+<div class="aa">temperatures = [73,74,75,71,69,72,76,73]
+answer       = [ 1, 1, 4, 2, 1, 1, 0, 0]
 
-  main_stack:  min_stack:
-  ┌────┐       ┌────┐
-  │ -3 │  ←top │ -3 │  ← 현재 최솟값
-  │  0 │       │ -2 │
-  │ -2 │       │ -2 │
-  └────┘       └────┘
-  getMin() = -3
-
-  pop() 후:
-  ┌────┐       ┌────┐
-  │  0 │  ←top │ -2 │  ← 복원된 최솟값
-  │ -2 │       │ -2 │
-  └────┘       └────┘
-  getMin() = -2 ✅</div>
-
-    <div class="section-title">📝 기본 풀이 코드 (Python)</div>
-    <div class="code-block"><span class="kw">class</span> <span class="fn">MinStack</span>:
-    <span class="kw">def</span> <span class="fn">__init__</span>(self):
-        self.stack = []
-        self.min_stack = []
-
-    <span class="kw">def</span> <span class="fn">push</span>(self, val: <span class="nb">int</span>) -> <span class="nb">None</span>:
-        self.stack.append(val)
-        <span class="kw">if</span> <span class="kw">not</span> self.min_stack <span class="kw">or</span> val <= self.min_stack[-<span class="nb">1</span>]:
-            self.min_stack.append(val)
-
-    <span class="kw">def</span> <span class="fn">pop</span>(self) -> <span class="nb">None</span>:
-        top = self.stack.pop()
-        <span class="kw">if</span> top == self.min_stack[-<span class="nb">1</span>]:
-            self.min_stack.pop()
-
-    <span class="kw">def</span> <span class="fn">top</span>(self) -> <span class="nb">int</span>:
-        <span class="kw">return</span> self.stack[-<span class="nb">1</span>]
-
-    <span class="kw">def</span> <span class="fn">getMin</span>(self) -> <span class="nb">int</span>:
-        <span class="kw">return</span> self.min_stack[-<span class="nb">1</span>]</div>
-
-    <div class="section-title">⚡ 최적화 버전 (Python)</div>
-    <div class="code-block"><span class="kw">class</span> <span class="fn">MinStack</span>:
-    <span class="cm"># (값, 현재_최솟값) 쌍을 단일 스택에 저장</span>
-    <span class="kw">def</span> <span class="fn">__init__</span>(self):
-        self.stack = []  <span class="cm"># (val, cur_min)</span>
-
-    <span class="kw">def</span> <span class="fn">push</span>(self, val: <span class="nb">int</span>) -> <span class="nb">None</span>:
-        cur_min = <span class="nb">min</span>(val, self.stack[-<span class="nb">1</span>][<span class="nb">1</span>]) <span class="kw">if</span> self.stack <span class="kw">else</span> val
-        self.stack.append((val, cur_min))
-
-    <span class="kw">def</span> <span class="fn">pop</span>(self) -> <span class="nb">None</span>:
-        self.stack.pop()
-
-    <span class="kw">def</span> <span class="fn">top</span>(self) -> <span class="nb">int</span>:
-        <span class="kw">return</span> self.stack[-<span class="nb">1</span>][<span class="nb">0</span>]
-
-    <span class="kw">def</span> <span class="fn">getMin</span>(self) -> <span class="nb">int</span>:
-        <span class="kw">return</span> self.stack[-<span class="nb">1</span>][<span class="nb">1</span>]</div>
-
-    <div class="section-title">📊 복잡도 분석</div>
-    <div class="table-wrap">
-    <table>
-      <tr><th>구분</th><th>복잡도</th><th>이유</th></tr>
-      <tr><td>시간 (모든 연산)</td><td>O(1)</td><td>push/pop/top/getMin 모두 상수 시간</td></tr>
-      <tr><td>공간 (기본)</td><td>O(n)</td><td>보조 min_stack 추가 공간 필요</td></tr>
-      <tr><td>공간 (최적)</td><td>O(n)</td><td>튜플 쌍 저장으로 스택 1개로 통합</td></tr>
-    </table>
-    </div>
-  </div>
+Monotonic Decreasing Stack (stores indices):
+i=0 t=73 push 0          stack:[0]
+i=1 t=74 74>73 pop 0 ans[0]=1  push 1  stack:[1]
+i=2 t=75 75>74 pop 1 ans[1]=1  push 2  stack:[2]
+i=3 t=71                        push 3  stack:[2,3]
+i=4 t=69                        push 4  stack:[2,3,4]
+i=5 t=72 72>69 pop 4 ans[4]=1
+         72>71 pop 3 ans[3]=2  push 5  stack:[2,5]
+i=6 t=76 76>72 pop 5 ans[5]=1
+         76>75 pop 2 ans[2]=4  push 6  stack:[6]
+i=7 t=73                        push 7  stack:[6,7]
+Remaining -> ans stays 0</div>
+<div class="st">Basic Solution (Python)</div>
+<div class="cb"><span class="kw">def</span> <span class="fn">dailyTemperatures</span>(temperatures: <span class="bi">list</span>) -&gt; <span class="bi">list</span>:
+    n, answer = <span class="bi">len</span>(temperatures), [<span class="n">0</span>]*<span class="bi">len</span>(temperatures)
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(n):
+        <span class="kw">for</span> j <span class="kw">in</span> <span class="bi">range</span>(i+<span class="n">1</span>, n):
+            <span class="kw">if</span> temperatures[j] &gt; temperatures[i]:
+                answer[i] = j - i; <span class="kw">break</span>
+    <span class="kw">return</span> answer</div>
+<div class="st">Optimized - Monotonic Stack (Python)</div>
+<div class="cb"><span class="kw">def</span> <span class="fn">dailyTemperatures</span>(temperatures: <span class="bi">list</span>) -&gt; <span class="bi">list</span>:
+    answer = [<span class="n">0</span>] * <span class="bi">len</span>(temperatures)
+    stack = []  <span class="cm"># stores indices, monotonic decreasing</span>
+    <span class="kw">for</span> i, temp <span class="kw">in</span> <span class="bi">enumerate</span>(temperatures):
+        <span class="kw">while</span> stack <span class="kw">and</span> temperatures[stack[-<span class="n">1</span>]] &lt; temp:
+            idx = stack.pop()
+            answer[idx] = i - idx
+        stack.append(i)
+    <span class="kw">return</span> answer</div>
+<div class="st">Complexity</div>
+<table><tr><th>Type</th><th>Basic</th><th>Optimized</th><th>Reason</th></tr>
+<tr><td>Time</td><td>O(n^2)</td><td>O(n)</td><td>Each index pushed/popped at most once</td></tr>
+<tr><td>Space</td><td>O(1)</td><td>O(n)</td><td>Stack stores up to n indices</td></tr></table>
 </div>
 
-<!-- HARD -->
-<div class="problem-card">
-  <div class="problem-header">
-    <span class="problem-title">LeetCode #84 — Largest Rectangle in Histogram</span>
-    <span class="badge hard">Hard</span>
-    <span style="color:#64748b;font-size:12px">by LeetCode</span>
-  </div>
-  <div class="section">
-    <div class="section-title">🎨 알고리즘 시각화</div>
-    <div class="ascii-box">heights = [2, 1, 5, 6, 2, 3]
+<div class="card">
+<div class="ph"><span class="pt">Largest Rectangle in Histogram (LeetCode #84)</span><span class="badge hard">Hard</span><span class="by">- by LeetCode</span></div>
+<div class="st">Algorithm Visualization</div>
+<div class="aa">heights = [2,1,5,6,2,3]
+       |
+     6 |    ##
+     5 |    ####
+     4 |    ####
+     3 |    ####   ##
+     2 |##  ########
+     1 |############
+       +-----------
+        2  1  5  6  2  3
 
-  6 │    ██
-  5 │    ████
-  3 │    ████    ██
-  2 │██  ████  ████
-  1 │████████████████
-    └─────────────────
-       0  1  2  3  4  5
-
-  Monotonic Stack 진행:
-  index=2(h=5): stack=[1,2]  → 5 확장 탐색
-  index=3(h=6): stack=[1,2,3]
-  index=4(h=2): pop 6 → area=6*1=6
-                pop 5 → area=5*2=10  ← MAX
-                push 4
-  index=5(h=3): stack=[1,4,5]
-  최종 정리: area=10 ✅</div>
-
-    <div class="section-title">📝 기본 풀이 코드 (Python)</div>
-    <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">largestRectangleArea</span>(self, heights: <span class="nb">list</span>[<span class="nb">int</span>]) -> <span class="nb">int</span>:
-        stack = []  <span class="cm"># (index, height)</span>
-        max_area = <span class="nb">0</span>
-        <span class="kw">for</span> i, h <span class="kw">in</span> <span class="nb">enumerate</span>(heights):
-            start = i
-            <span class="kw">while</span> stack <span class="kw">and</span> stack[-<span class="nb">1</span>][<span class="nb">1</span>] > h:
-                idx, height = stack.pop()
-                max_area = <span class="nb">max</span>(max_area, height * (i - idx))
-                start = idx
-            stack.append((start, h))
-        <span class="kw">for</span> i, h <span class="kw">in</span> stack:
-            max_area = <span class="nb">max</span>(max_area, h * (<span class="nb">len</span>(heights) - i))
-        <span class="kw">return</span> max_area</div>
-
-    <div class="section-title">⚡ 최적화 버전 (Python)</div>
-    <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">largestRectangleArea</span>(self, heights: <span class="nb">list</span>[<span class="nb">int</span>]) -> <span class="nb">int</span>:
-        <span class="cm"># 경계값 0 추가로 나머지 처리 통합</span>
-        heights = [<span class="nb">0</span>] + heights + [<span class="nb">0</span>]
-        stack = [<span class="nb">0</span>]
-        max_area = <span class="nb">0</span>
-        <span class="kw">for</span> i <span class="kw">in</span> <span class="nb">range</span>(<span class="nb">1</span>, <span class="nb">len</span>(heights)):
-            <span class="kw">while</span> heights[i] < heights[stack[-<span class="nb">1</span>]]:
-                h = heights[stack.pop()]
-                w = i - stack[-<span class="nb">1</span>] - <span class="nb">1</span>
-                max_area = <span class="nb">max</span>(max_area, h * w)
-            stack.append(i)
-        <span class="kw">return</span> max_area</div>
-
-    <div class="section-title">📊 복잡도 분석</div>
-    <div class="table-wrap">
-    <table>
-      <tr><th>구분</th><th>복잡도</th><th>이유</th></tr>
-      <tr><td>시간 (기본)</td><td>O(n)</td><td>각 원소는 push/pop 각 1회씩만 처리</td></tr>
-      <tr><td>공간 (기본)</td><td>O(n)</td><td>monotonic stack 최대 n개 저장</td></tr>
-      <tr><td>시간 (최적)</td><td>O(n)</td><td>sentinel 0 추가로 루프 1개로 통합</td></tr>
-      <tr><td>공간 (최적)</td><td>O(n)</td><td>동일, 인덱스만 저장해 튜플 오버헤드 제거</td></tr>
-    </table>
-    </div>
-  </div>
+Monotonic Increasing Stack: (height, start_idx)
+i=0 h=2  push(2,0)  stack:[(2,0)]
+i=1 h=1  1&lt;2 pop(2,0) area=2*(1-0)=2 start=0
+         push(1,0)   stack:[(1,0)]
+i=2 h=5  push(5,2)  stack:[(1,0),(5,2)]
+i=3 h=6  push(6,3)  stack:[(1,0),(5,2),(6,3)]
+i=4 h=2  2&lt;6 pop(6,3) area=6*(4-3)=6
+         2&lt;5 pop(5,2) area=5*(4-2)=10  <- MAX!
+         push(2,2)   stack:[(1,0),(2,2)]
+i=5 h=3  push(3,5)  stack:[(1,0),(2,2),(3,5)]
+Remaining:
+  pop(3,5) area=3*(6-5)=3
+  pop(2,2) area=2*(6-2)=8
+  pop(1,0) area=1*(6-0)=6
+maxArea = 10</div>
+<div class="st">Basic Solution (Python)</div>
+<div class="cb"><span class="kw">def</span> <span class="fn">largestRectangleArea</span>(heights: <span class="bi">list</span>) -&gt; <span class="bi">int</span>:
+    max_area, n = <span class="n">0</span>, <span class="bi">len</span>(heights)
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(n):
+        min_h = heights[i]
+        <span class="kw">for</span> j <span class="kw">in</span> <span class="bi">range</span>(i, n):
+            min_h = <span class="bi">min</span>(min_h, heights[j])
+            max_area = <span class="bi">max</span>(max_area, min_h*(j-i+<span class="n">1</span>))
+    <span class="kw">return</span> max_area</div>
+<div class="st">Optimized - Monotonic Stack (Python)</div>
+<div class="cb"><span class="kw">def</span> <span class="fn">largestRectangleArea</span>(heights: <span class="bi">list</span>) -&gt; <span class="bi">int</span>:
+    max_area, stack = <span class="n">0</span>, []  <span class="cm"># (height, start)</span>
+    <span class="kw">for</span> i, h <span class="kw">in</span> <span class="bi">enumerate</span>(heights):
+        start = i
+        <span clas="kw">while</span> stack <span class="kw">and</span> stack[-<span class="n">1</span>][<span class="n">0</span>] &gt; h:
+            height, idx = stack.pop()
+            max_area = <span class="bi">max</span>(max_area, height*(i-idx))
+            start = idx
+        stack.append((h, start))
+    <span class="kw">for</span> h, idx <span class="kw">in</span> stack:
+        max_area = <span class="bi">max</span>(max_area, h*(<span class="bi">len</span>(heights)-idx))
+    <span class="kw">return</span> max_area</div>
+<div class="st">Complexity</div>
+<table><tr><th>Type</th><th>Basic</th><th>Optimized</th><th>Reason</th></tr>
+<tr><td>Time</td><td>O(n^2)</td><td>O(n)</td><td>Each bar pushed/popped exactly once</td></tr>
+<tr><td>Space</td><td>O(1)</td><td>O(n)</td><td>Stack at most n entries</td></tr>
+<tr><td>Key idea</td><td>-</td><td>start tracking</td><td>When popping, extend start leftward for correct width</td></tr></table>
 </div>
 
-</div>
 <div class="footer">
-  <p>🌐 <a href="https://chloeyeo.github.io/leetcode-explanations">https://chloeyeo.github.io/leetcode-explanations</a></p>
-  <p style="margin-top:8px;color:#475569">© 2026 LeetCode Daily Study</p>
+<p><a href="https://chloeyeo.github.io/leetcode-explanations">GitHub Pages - View All Problems</a></p>
+<p style="margin-top:8px;color:#484f58">Generated by Crew 2026-06-13</p>
 </div>
-</body>
+ </body>
 </html>

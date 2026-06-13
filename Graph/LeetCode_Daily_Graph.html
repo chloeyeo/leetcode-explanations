@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeetCode Daily | Graph</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d1117;color:#c9d1d9;font-family:'Segoe UI',system-ui,sans-serif;padding:16px;line-height:1.6}
+header{text-align:center;padding:24px 0 16px;border-bottom:1px solid #30363d;margin-bottom:24px}
+header h1{font-size:1.6rem;color:#58a6ff;font-weight:700}
+header .date{color:#8b949e;font-size:.9rem;margin-top:4px}
+.problem-card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:24px}
+.problem-title{font-size:1.1rem;font-weight:700;color:#e6edf3;margin-bottom:8px}
+.problem-title .num{color:#58a6ff}
+.badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:.75rem;font-weight:600;margin-bottom:12px}
+.easy{background:#0f4c2a;color:#3fb950}
+.medium{background:#4d2600;color:#f0883e}
+.hard{background:#4a0e0e;color:#f85149}
+.section-label{font-size:.8rem;color:#8b949e;text-transform:uppercase;letter-spacing:.08em;margin:16px 0 8px;font-weight:600}
+.ascii-box{background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:.75rem;color:#79c0ff;overflow-x:auto;white-space:pre;margin-bottom:8px}
+.code-block{background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:.78rem;overflow-x:auto;white-space:pre;margin-bottom:8px;line-height:1.7}
+.kw{color:#ff7b72}.fn{color:#d2a8ff}.cm{color:#8b949e}.st{color:#a5d6ff}.nc{color:#79c0ff}.cls{color:#ffa657}
+table{width:100%;border-collapse:collapse;font-size:.8rem;margin-top:8px}
+th{background:#21262d;color:#8b949e;padding:8px;text-align:left;font-weight:600}
+td{padding:8px;border-top:1px solid #21262d;color:#c9d1d9;vertical-align:top}
+td:first-child{color:#58a6ff;white-space:nowrap}
+footer{text-align:center;padding:20px 0 8px;border-top:1px solid #30363d;margin-top:8px}
+footer a{color:#58a6ff;text-decoration:none;font-size:.9rem}
+footer p{color:#8b949e;font-size:.8rem;margin-top:6px}
+</style>
+</head>
+<body>
+<header>
+  <h1>&#128375; Graph</h1>
+  <div class="date">LeetCode Daily &middot; 2026-06-13</div>
+</header>
+
+<div class="problem-card">
+  <div class="problem-title"><span class="num">#997</span> Find the Town Judge</div>
+  <span class="badge easy">Easy</span>
+  <div class="section-label">Algorithm Visualization</div>
+  <div class="ascii-box">Town: N=4, trust=[[1,3],[1,4],[2,3],[2,4],[4,3]]
+
+  1 --trusts--> 3   indegree[3]=3 OK
+  2 --trusts--> 3   outdegree[3]=0 OK
+  Judge = node where indegree==N-1 AND outdegree==0
+  --> Node 3 is the JUDGE</div>
+  <div class="section-label">Basic Solution</div>
+  <div class="code-block"><span class="kw">class</span> <span class="cls">Solution</span>:
+    <span class="kw">def</span> <span class="fn">findJudge</span>(<span class="kw">self</span>, n, trust):
+        given = [<span class="nc">0</span>]*(n+<span class="nc">1</span>); recd = [<span class="nc">0</span>]*(n+<span class="nc">1</span>)
+        <span class="kw">for</span> a,b <span class="kw">in</span> trust: given[a]+=<span class="nc">1</span>; recd[b]+=<span class="nc">1</span>
+        <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nc">1</span>,n+<span class="nc">1</span>):
+            <span class="kw">if</span> given[i]==<span class="nc">0</span> <span class="kw">and</span> recd[i]==n-<span class="nc">1</span>: <span class="kw">return</span> i
+        <span class="kw">return</span> -<span class="nc">1</span></div>
+  <div class="section-label">Optimized Solution</div>
+  <div class="code-block"><span class="kw">class</span> <span class="cls">Solution</span>:
+    <span class="kw">def</span> <span class="fn">findJudge</span>(<span class="kw">self</span>, n, trust):
+        score = [<span class="nc">0</span>]*(n+<span class="nc">1</span>)
+        <span class="kw">for</span> a,b <span class="kw">in</span> trust: score[a]-=<span class="nc">1</span>; score[b]+=<span class="nc">1</span>
+        <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nc">1</span>,n+<span class="nc">1</span>):
+            <span class="kw">if</span> score[i]==n-<span class="nc">1</span>: <span class="kw">return</span> i
+        <span class="kw">return</span> -<span class="nc">1</span></div>
+  <div class="section-label">Complexity Analysis</div>
+  <table>
+    <tr><th>Metric</th><th>Basic</th><th>Optimized</th><th>Reason</th></tr>
+    <tr><td>Time</td><td>O(E+N)</td><td>O(E+N)</td><td>One pass edges + one pass nodes</td></tr>
+    <tr><td>Space</td><td>O(N)</td><td>O(N)</td><td>Basic: 2 arrays; Optimized: 1 score array</td></tr>
+    <tr><td>Key</td><td colspan="2">In/Out degree</td><td>Judge: indegree=N-1, outdegree=0 &rarr; net score=N-1</td></tr>
+  </table>
+</div>
+
+<div class="problem-card">
+  <div class="problem-title"><span class="num">#207</span> Course Schedule</div>
+  <span class="badge medium">Medium</span>
+  <div class="section-label">Algorithm Visualization</div>
+  <div class="ascii-box">numCourses=4, prerequisites=[[1,0],[2,0],[3,1],[3,2]]
+
+  0 --> 1 --> 3
+  0 --> 2 --> 3
+
+Kahn's BFS: in-degree=[0,1,1,2]
+  Queue:[0] -> [1,2] -> [3] -> done
+  Processed=4==numCourses -> NO CYCLE</div>
+  <div class="section-label">Basic Solution (DFS)</div>
+  <div class="code-block"><span class="kw">class</span> <span class="cls">Solution</span>:
+    <span class="kw">def</span> <span class="fn">canFinish</span>(<span class="kw">self</span>, n, prereqs):
+        g=[[] <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(n)]
+        <span class="kw">for</span> a,b <span class="kw">in</span> prereqs: g[b].append(a)
+        st=[<span class="nc">0</span>]*n
+        <span class="kw">def</span> <span class="fn">dfs</span>(v):
+            <span class="kw">if</span> st[v]==<span class="nc">1</span>: <span class="kw">return False</span>
+            <span class="kw">if</span> st[v]==<span class="nc">2</span>: <span class="kw">return True</span>
+            st[v]=<span class="nc">1</span>
+            <span class="kw">for</span> u <span class="kw">in</span> g[v]:
+                <span class="kw">if not</span> <span class="fn">dfs</span>(u): <span class="kw">return False</span>
+            st[v]=<span class="nc">2</span>; <span class="kw">return True</span>
+        <span class="kw">return</span> <span class="fn">all</span>(<span class="fn">dfs</span>(i) <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n))</div>
+  <div class="section-label">Optimized Solution (Kahn's BFS)</div>
+  <div class="code-block"><span class="kw">from</span> collections <span class="kw">import</span> deque
+<span class="kw">class</span> <span class="cls">Solution</span>:
+    <span class="kw">def</span> <span class="fn">canFinish</span>(<span class="kw">self</span>, n, prereqs):
+        g=[[] <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(n)]; ind=[<span class="nc">0</span>]*n
+        <span class="kw">for</span> a,b <span class="kw">in</span> prereqs: g[b].append(a); ind[a]+=<span class="nc">1</span>
+        q=<span class="fn">deque</span>(i <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n) <span class="kw">if</span> ind[i]==<span class="nc">0</span>); cnt=<span class="nc">0</span>
+        <span class="kw">while</span> q:
+            v=q.popleft(); cnt+=<span class="nc">1</span>
+            <span class="kw">for</span> u <span class="kw">in</span> g[v]:
+                ind[u]-=<span class="nc">1</span>
+                <span class="kw">if</span> ind[u]==<span class="nc">0</span>: q.append(u)
+        <span class="kw">return</span> cnt==n</div>
+  <div class="section-label">Complexity Analysis</div>
+  <table>
+    <tr><th>Metric</th><th>DFS</th><th>BFS(Kahn)</th><th>Reason</th></tr>
+    <tr><td>Time</td><td>O(V+E)</td><td>O(V+E)</td><td>Visit every node and edge once</td></tr>
+    <tr><td>Space</td><td>O(V+E)</td><td>O(V+E)</td><td>DFS: call stack; BFS: queue+graph</td></tr>
+    <tr><td>Key</td><td>3-color DFS</td><td>Count nodes</td><td>No cycle &harr; topo-sort all V nodes</td></tr>
+  </table>
+</div>
+
+<div class="problem-card">
+  <div class="problem-title"><span class="num">#127</span> Word Ladder</div>
+  <span class="badge hard">Hard</span>
+  <div class="section-label">Algorithm Visualization</div>
+  <div class="ascii-box">beginWord="hit" endWord="cog"
+wordList=["hot","dot","dog","lot","log","cog"]
+
+Level 1: hit
+Level 2: hot  (i->o)
+Level 3: dot, lot
+Level 4: dog, log
+Level 5: cog  <-- FOUND! Answer=5
+
+Bi-BFS: expand smaller frontier each step
+  Forward:  hit->hot->dot/lot
+  Backward: cog->dog/log->dot/lot  (meet!)</div>
+  <div class="section-label">Basic Solution (BFS)</div>
+  <div class="code-block"><span class="kw">from</span> collections <span class="kw">import</span> deque
+<span class="kw">class</span> <span class="cls">Solution</span>:
+    <span class="kw">def</span> <span class="fn">ladderLength</span>(<span class="kw">self</span>, bw, ew, wl):
+        ws=<span class="fn">set</span>(wl)
+        <span class="kw">if</span> ew <span class="kw">not in</span> ws: <span class="kw">return</span> <span class="nc">0</span>
+        q=<span class="fn">deque</span>([(bw,<span class="nc">1</span>)]); seen={bw}
+        <span class="kw">while</span> q:
+            w,d=q.popleft()
+            <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(w)):
+                <span class="kw">for</span> c <span class="kw">in</span> <span class="st">'abcdefghijklmnopqrstuvwxyz'</span>:
+                    nw=w[:i]+c+w[i+<span class="nc">1</span>:]
+                    <span class="kw">if</span> nw==ew: <span class="kw">return</span> d+<span class="nc">1</span>
+                    <span class="kw">if</span> nw <span class="kw">in</span> ws <span class="kw">and</span> nw <span class="kw">not in</span> seen:
+                        seen.add(nw); q.append((nw,d+<span class="nc">1</span>))
+        <span class="kw">return</span> <span class="nc">0</span></div>
+  <div class="section-label">Optimized Solution (Bidirectional BFS)</div>
+  <div class="code-block"><span class="kw">class</span> <span class="cls">Solution</span>:
+    <span class="kw">def</span> <span class="fn">ladderLength</span>(<span class="kw">self</span>, bw, ew, wl):
+        ws=<span class="fn">set</span>(wl)
+        <span class="kw">if</span> ew <span class="kw">not in</span> ws: <span class="kw">return</span> <span class="nc">0</span>
+        f,b={bw},{ew}; seen={bw,ew}; d=<span class="nc">1</span>
+        <span class="kw">while</span> f:
+            <span class="kw">if</span> <span class="fn">len</span>(f)><span class="fn">len</span>(b): f,b=b,f
+            nf=<span class="fn">set</span>()
+            <span class="kw">for</span> w <span class="kw">in</span> f:
+                <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(w)):
+                    <span class="kw">for</span> c <span class="kw">in</span> <span class="st">'abcdefghijklmnopqrstuvwxyz'</span>:
+                        nw=w[:i]+c+w[i+<span class="nc">1</span>:]
+                        <span class="kw">if</span> nw <span class="kw">in</span> b: <span class="kw">return</span> d+<span class="nc">1</span>
+                        <span class="kw">if</span> nw <span class="kw">in</span> ws <span class="kw">and</span> nw <span class="kw">not in</span> seen:
+                            seen.add(nw); nf.add(nw)
+            f=nf; d+=<span class="nc">1</span>
+        <span class="kw">return</span> <span class="nc">0</span></div>
+  <div class="section-label">Complexity Analysis</div>
+  <table>
+    <tr><th>Metric</th><th>BFS</th><th>Bi-BFS</th><th>Reason</th></tr>
+    <tr><td>Time</td><td>O(M&sup2;&times;N)</td><td>O(M&sup2;&times;N/2)</td><td>M=word len, N=list size; bi-BFS halves depth</td></tr>
+    <tr><td>Space</td><td>O(M&times;N)</td><td>O(M&times;N)</td><td>Queue and visited set of transformed words</td></tr>
+    <tr><td>Key</td><td>BFS layers</td><td>Meet middle</td><td>Smaller frontier &rarr; far fewer nodes explored</td></tr>
+  </table>
+</div>
+
+<footer>
+  <a href="https://chloeyeo.github.io/leetcode-explanations">&#127760; GitHub Pages</a>
+  <p>chloeyeo/leetcode-explanations &middot; Graph</p>
+</footer>
+</body>
+</html>

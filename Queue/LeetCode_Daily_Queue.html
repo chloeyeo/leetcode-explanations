@@ -101,7 +101,7 @@ FIFO Window: [================================]
         <span class="cmt"># Use deque for O(1) append and popleft</span>
         <span class="param">self</span>.q = <span class="cls">deque</span>()
 
-    <span class="kw">def</span> <span class="func">ping</span>(<span class="param">self</span>, <span clas="param">t</span>):
+    <span class="kw">def</span> <span class="func">ping</span>(<span class="param">self</span>, <span class="param">t</span>):
         <span class="cmt"># Add current timestamp</span>
         <span class="param">self</span>.q.<span class="func">append</span>(<span class="param">t</span>)
         <span class="cmt"># Remove timestamps outside window [t-3000, t]</span>
@@ -110,24 +110,24 @@ FIFO Window: [================================]
         <span class="kw">return</span> <span class="builtin">len</span>(<span class="param">self</span>.q)</div>
 
     <div class="opt-label">&#x2728; OPTIMIZED</div>
-    <div class="code-block"><span class="cmt"># Optimized: type-annotated, one-line init</span>
-<span clas="kw">from</span> <span class="builtin">collections</span> <span class="kw">import</span> <span class="cls">deque</span>
+    <div class="code-block"><span class="cmt"># Optimized: same algorithm, type-annotated, one-line init</span>
+<span class="kw">from</span> <span class="builtin">collections</span> <span class="kw">import</span> <span class="cls">deque</span>
 
-<span clas="kw">class</span> <span class="cls">RecentCounter</span>:
+<span class="kw">class</span> <span class="cls">RecentCounter</span>:
     <span class="kw">def</span> <span class="func">__init__</span>(<span class="param">self</span>): <span class="param">self</span>.q = <span class="cls">deque</span>()
 
-    <span class="kw">def</span> <span class="func">ping</span>(<span class="param">self</span>, <span class="param">t</span>: <span clas="cls">int</span>) <span class="op">-&gt;</span> <span class="cls">int</span>:
+    <span class="kw">def</span> <span class="func">ping</span>(<span class="param">self</span>, <span class="param">t</span>: <span class="cls">int</span>) <span class="op">-&gt;</span> <span class="cls">int</span>:
         <span class="param">self</span>.q.<span class="func">append</span>(<span class="param">t</span>)
         <span class="kw">while</span> <span class="param">self</span>.q[<span class="num">0</span>] <span class="op">&lt;</span> <span class="param">t</span> <span class="op">-</span> <span class="num">3000</span>:
             <span class="param">self</span>.q.<span class="func">popleft</span>()
         <span class="kw">return</span> <span class="builtin">len</span>(<span class="param">self</span>.q)</div>
 
-    <div class="section-label">&#x1F4C3; COMPLEQITVITVALALYSIQ••dbö>
+    <div class="section-label">&#x1F4C3; COMPLEXITY ANALYSIS</div>
     <table class="complexity-table">
       <thead><tr><th>Metric</th><th>Value</th><th>Reason</th></tr></thead>
       <tbody>
         <tr><td>Time (ping)</td><td>O(1) amortized</td><td>Each timestamp appended once and popped at most once</td></tr>
-        <tr><td>Space</td><td>O(n)</td><td>deque holds at most 3001 entries</td></tr>
+        <tr><td>Space</td><td>O(n)</td><td>deque holds at most 3001 entries (window bounded by call frequency)</td></tr>
         <tr><td>Insert</td><td>O(1)</td><td>deque.append is O(1)</td></tr>
         <tr><td>Prune</td><td>O(1) amortized</td><td>deque.popleft is O(1); each element removed at most once</td></tr>
       </tbody>
@@ -170,35 +170,74 @@ Circular index = (i + 1) % k</div>
     <div class="code-block"><span class="cmt"># LeetCode #622 -- Design Circular Queue</span>
 <span class="kw">class</span> <span class="cls">MyCircularQueue</span>:
     <span class="kw">def</span> <span class="func">__init__</span>(<span class="param">self</span>, <span class="param">k</span>):
-        <span clas="cmt"># Fixed-size array as circular buffer</span>
-        <span class="param">self</span>.data = [<span class="num">0</span>] * <span class="param">k</span>
-        <span class="param">self</span>.k, <span class="param">self</span>.head = <span class="param">k</span>, 0
-        <span clas="param">self</span>.tail, <span class="param">self</span>.count = 0, 0
+        <span class="cmt"># Fixed-size array as circular buffer</span>
+        <span class="param">self</span>.data = [<span class="num">0</span>] <span class="op">*</span> <span class="param">k</span>
+        <span class="param">self</span>.k = <span class="param">k</span>
+        <span class="param">self</span>.head = <span class="num">0</span>
+        <span class="param">self</span>.tail = <span class="num">0</span>
+        <span class="param">self</span>.count = <span class="num">0</span>
 
     <span class="kw">def</span> <span class="func">enQueue</span>(<span class="param">self</span>, <span class="param">value</span>):
-        <span class="kw">if</span> <span clas="param">self</span>.count == <span class="param">self</span>.k: <span clas="kw">return</span> <span clas="builtin">False</span>
-        <span clas="param">self</span>.data[<span class="param">self</span>.tail] = <span class="param">value</span>
-        <span clas="param">self</span>.tail = (<span clas="param">self</span>.tail+1) % <span class="param">self</span>.k
-        <span clas="param">self</span>.count += 1; <span clas="kw">return</span> <span clas="builtin">True</span>
+        <span class="kw">if</span> <span class="param">self</span>.count == <span class="param">self</span>.k: <span class="kw">return</span> <span class="builtin">False</span>
+        <span class="param">self</span>.data[<span class="param">self</span>.tail] = <span class="param">value</span>
+        <span class="param">self</span>.tail = (<span class="param">self</span>.tail <span class="op">+</span> <span class="num">1</span>) <span class="op">%</span> <span class="param">self</span>.k
+        <span class="param">self</span>.count <span class="op">+=</span> <span class="num">1</span>
+        <span class="kw">return</span> <span class="builtin">True</span>
 
     <span class="kw">def</span> <span class="func">deQueue</span>(<span class="param">self</span>):
-        <span class="kw">if</span> <span clas="param">self</span>.count == 0: <span clas="kw">return</span> <span clas="builtin">False</span>
-        <span clas="param">self</span>.head = (<span clas="param">self</span>.head+1) % <span clas="param">self</span>.k
-        <span clas="param">self</span>.count -= 1; <span clas="kw">return</span> <span clas="builtin">True</span>
+        <span class="kw">if</span> <span class="param">self</span>.count == <span class="num">0</span>: <span class="kw">return</span> <span class="builtin">False</span>
+        <span class="param">self</span>.head = (<span class="param">self</span>.head <span class="op">+</span> <span class="num">1</span>) <span class="op">%</span> <span class="param">self</span>.k
+        <span class="param">self</span>.count <span class="op">-=</span> <span class="num">1</span>
+        <span class="kw">return</span> <span class="builtin">True</span>
 
-    <span clas="kw">def</span> <span clas="func">Front</span>(<span clas="param">self</span>):
-        <span clas="kw">return</span> <span clas="op">-</span>1 <span clas="kw">if</span> <span clas="param">self</span>.count==0 else <span clas="param">self</span>.data[<span clas="param">self</span>.head]
-    <span clas="kw">def</span> <span clas="func">Rear</span>(<span clas="param">self</span>):
-        <span clas="kw">return</span> <span clas="op">-</span>1 <span clas="kw">if</span> <span clas="param">self</span>.count==0 else <span clas="param">self</span>.data[(<span clas="param">self</span>.tail-1)%<span clas="param">self</span>.k]
-    <span clas="func">isEmpty</span> = lambda s: s.count == 0
-    <span clas="func">isFull</span>  = lambda s: s.count == s.k</div>
+    <span class="kw">def</span> <span class="func">Front</span>(<span class="param">self</span>):
+        <span class="kw">if</span> <span class="param">self</span>.count == <span class="num">0</span>: <span class="kw">return</span> <span class="op">-</span><span class="num">1</span>
+        <span class="kw">return</span> <span class="param">self</span>.data[<span class="param">self</span>.head]
 
-    <div clas="section-label">&#x1F4C3; COMPLERITVITVALALYSIQ••dbö>
+    <span class="kw">def</span> <span class="func">Rear</span>(<span class="param">self</span>):
+        <span class="kw">if</span> <span class="param">self</span>.count == <span class="num">0</span>: <span class="kw">return</span> <span class="op">-</span><span class="num">1</span>
+        <span class="kw">return</span> <span class="param">self</span>.data[(<span class="param">self</span>.tail <span class="op">-</span> <span class="num">1</span>) <span class="op">%</span> <span class="param">self</span>.k]
+
+    <span class="kw">def</span> <span class="func">isEmpty</span>(<span class="param">self</span>): <span class="kw">return</span> <span class="param">self</span>.count == <span class="num">0</span>
+    <span class="kw">def</span> <span class="func">isFull</span>(<span class="param">self</span>): <span class="kw">return</span> <span class="param">self</span>.count == <span class="param">self</span>.k</div>
+
+    <div class="opt-label">&#x2728; OPTIMIZED (k+1 buffer, no counter)</div>
+    <div class="code-block"><span class="cmt"># Optimized: size k+1 buffer distinguishes full vs empty without counter</span>
+<span class="kw">class</span> <span class="cls">MyCircularQueue</span>:
+    <span class="kw">def</span> <span class="func">__init__</span>(<span class="param">self</span>, <span class="param">k</span>):
+        <span class="param">self</span>.buf = [<span class="num">0</span>] <span class="op">*</span> (<span class="param">k</span> <span class="op">+</span> <span class="num">1</span>)
+        <span class="param">self</span>.cap = <span class="param">k</span> <span class="op">+</span> <span class="num">1</span>
+        <span class="param">self</span>.head = <span class="param">self</span>.tail = <span class="num">0</span>
+
+    <span class="kw">def</span> <span class="func">_size</span>(<span class="param">self</span>):
+        <span class="kw">return</span> (<span class="param">self</span>.tail <span class="op">-</span> <span class="param">self</span>.head <span class="op">+</span> <span class="param">self</span>.cap) <span class="op">%</span> <span class="param">self</span>.cap
+
+    <span class="kw">def</span> <span class="func">enQueue</span>(<span class="param">self</span>, <span class="param">v</span>):
+        <span class="kw">if</span> <span class="param">self</span>.<span class="func">_size</span>() == <span class="param">self</span>.cap <span class="op">-</span> <span class="num">1</span>: <span class="kw">return</span> <span class="builtin">False</span>
+        <span class="param">self</span>.buf[<span class="param">self</span>.tail] = <span class="param">v</span>
+        <span class="param">self</span>.tail = (<span class="param">self</span>.tail <span class="op">+</span> <span class="num">1</span>) <span class="op">%</span> <span class="param">self</span>.cap
+        <span class="kw">return</span> <span class="builtin">True</span>
+
+    <span class="kw">def</span> <span class="func">deQueue</span>(<span class="param">self</span>):
+        <span class="kw">if</span> <span class="param">self</span>.<span class="func">_size</span>() == <span class="num">0</span>: <span class="kw">return</span> <span class="builtin">False</span>
+        <span class="param">self</span>.head = (<span class="param">self</span>.head <span class="op">+</span> <span class="num">1</span>) <span class="op">%</span> <span class="param">self</span>.cap
+        <span class="kw">return</span> <span class="builtin">True</span>
+
+    <span class="kw">def</span> <span class="func">Front</span>(<span class="param">self</span>):
+        <span class="kw">return</span> <span class="op">-</span><span class="num">1</span> <span class="kw">if</span> <span class="param">self</span>.<span class="func">_size</span>() == <span class="num">0</span> <span class="kw">else</span> <span class="param">self</span>.buf[<span class="param">self</span>.head]
+
+    <span class="kw">def</span> <span class="func">Rear</span>(<span class="param">self</span>):
+        <span class="kw">return</span> <span class="op">-</span><span class="num">1</span> <span class="kw">if</span> <span class="param">self</span>.<span class="func">_size</span>() == <span class="num">0</span> <span class="kw">else</span> <span class="param">self</span>.buf[(<span class="param">self</span>.tail<span class="op">-</span><span class="num">1</span>)<span class="op">%</span><span class="param">self</span>.cap]
+
+    <span class="func">isEmpty</span> = <span class="kw">lambda</span> <span class="param">self</span>: <span class="param">self</span>.<span class="func">_size</span>() == <span class="num">0</span>
+    <span class="func">isFull</span>  = <span class="kw">lambda</span> <span class="param">self</span>: <span class="param">self</span>.<span class="func">_size</span>() == <span class="param">self</span>.cap <span class="op">-</span> <span class="num">1</span></div>
+
+    <div class="section-label">&#x1F4C3; COMPLEXITY ANALYSIS</div>
     <table class="complexity-table">
       <thead><tr><th>Metric</th><th>Value</th><th>Reason</th></tr></thead>
       <tbody>
         <tr><td>Time (all ops)</td><td>O(1)</td><td>Modular arithmetic gives constant-time indexing</td></tr>
-        <tr><td>Space</td><td>O(k)</td><td>Fixed array of size k</td></tr>
+        <tr><td>Space</td><td>O(k)</td><td>Fixed array of size k1</td></tr>
         <tr><td>enQueue</td><td>O(1)</td><td>Array write + mod advance tail</td></tr>
         <tr><td>deQueue</td><td>O(1)</td><td>Mod advance head only</td></tr>
       </tbody>
@@ -234,7 +273,7 @@ i=2: p[2]=1
      deque=[0, 2]
 
 i=3: p[3]=3
-     p[3]-p[0] = 3 &gt;= K =&gt; window [0,3], len=3 !!
+     p[3]-p[0] = 3 &gt;= K =&gt; window [0,0], len=3 !!
      pop left 0; check p[3]-p[2]=2 &lt; 3, stop
      Best so far: 3
 
@@ -244,46 +283,46 @@ Key: pop right when p[j] &lt;= p[i]  (not useful as left bound)
      pop left  when p[i] - p[deque[0]] &gt;= K  (update answer)</div>
 
     <div class="section-label">&#x1F4BB; BASIC SOLUTION</div>
-    <div class="code-block"><span clas="cmt"># LeetCode #862 -- Shortest Subarray with Sum at Least K</span>
-<span clas="kw">from</span> <span clas="builtin">collections</span> <span clas="kw">import</span> <span clas="cls">deque</span>
+    <div class="code-block"><span class="cmt"># LeetCode #862 -- Shortest Subarray with Sum at Least K</span>
+<span class="kw">from</span> <span class="builtin">collections</span> <span class="kw">import</span> <span class="cls">deque</span>
 
-<span clas="kw">def</span> <span clas="func">shortestSubarray</span>(<span clas="param">nums</span>, <span clas="param">k</span>):
-    n = len(nums)
-    prefix = [0] * (n+1)
-    for i in range(n):
-        prefix[i+1] = prefix[i] + nums[i]
-    dq = deque()
-    res = float("inf")
-    for i in range(n+1):
-        while dq and prefix[i] - prefix[dq[0]] >= k:
-            res = min(res, i - dq.popleft())
-        while dq and prefix[dq[-1]] >= prefix[i]:
-            dq.pop()
-        dq.append(i)
-    return res if res != float("inf") else -1</div>
+<span class="kw">def</span> <span class="func">shortestSubarray</span>(<span class="param">nums</span>, <span class="param">k</span>):
+    n = <span class="builtin">len</span>(<span class="param">nums</span>)
+    prefix = [<span class="num">0</span>] <span class="op">*</span> (n <span class="op">+</span> <span class="num">1</span>)
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="builtin">range</span>(n):
+        prefix[i <span class="op">+</span> <span class="num">1</span>] = prefix[i] <span class="op">+</span> <span class="param">nums</span>[i]
+    dq = <span class="cls">deque</span>()
+    res = <span class="builtin">float</span>(<span class="str">"inf"</span>)
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="builtin">range</span>(n <span class="op">+</span> <span class="num">1</span>):
+        <span class="kw">while</span> dq <span class="kw">and</span> prefix[i] <span class="op">-</span> prefix[dq[<span class="num">0</span>]] <span class="op">&gt;=</span> <span class="param">k</span>:
+            res = <span class="builtin">min</span>(res, i <span class="op">-</span> dq.<span class="func">popleft</span>())
+        <span class="kw">while</span> dq <span class="kw">and</span> prefix[dq[<span class="num">-1</span>]] <span class="op">&gt;=</span> prefix[i]:
+            dq.<span class="func">pop</span>()
+        dq.<span class="func">append</span>(i)
+    <span class="kw">return</span> res <span class="kw">if</span> res <span class="op">!=</span> <span class="builtin">float</span>(<span class="str">"inf"</span>) <span class="kw">else</span> <span class="op">-</span><span class="num">1</span></div>
 
-    <div clas="opt-label">&#x2728; OPTIMIZED (itertools.accumulate)</div>
-    <div clas="code-block"><span clas="cmt"># Optimized: itertools.accumulate for cleaner prefix sum</span>
-from itertools import accumulate
-from collections import deque
+    <div class="opt-label">&#x2728; OPTIMIZED (itertools.accumulate)</div>
+    <div class="code-block"><span class="cmt"># Optimized: inline prefix build with itertools.accumulate</span>
+<span class="kw">from</span> <span class="builtin">itertools</span> <span class="kw">import</span> <span class="func">accumulate</span>
+<span class="kw">from</span> <span class="builtin">collections</span> <span class="kw">import</span> <span class="cls">deque</span>
 
-def shortestSubarray(nums, k):
-    p = [0] + list(accumulate(nums))
-    dq = deque()
-    res = float("inf")
-    for i, pv in enumerate(p):
-        while dq and pv - p[dq[0]] >= k:
-            res = min(res, i - dq.popleft())
-        while dq and p[dq[-1]] >= pv:
-            dq.pop()
-        dq.append(i)
-    return res if res != float("inf") else -1</div>
+<span class="kw">def</span> <span class="func">shortestSubarray</span>(<span class="param">nums</span>, <span class="param">k</span>):
+    p = [<span class="num">0</span>] <span class="op">+</span> <span class="builtin">list</span>(<span class="func">accumulate</span>(<span class="param">nums</span>))
+    dq = <span class="cls">deque</span>()
+    res = <span class="builtin">float</span>(<span class="str">"inf"</span>)
+    <span class="kw">for</span> i, pv <span class="kw">in</span> <span class="builtin">enumerate</span>(p):
+        <span class="kw">while</span> dq <span class="kw">and</span> pv <span class="op">-</span> p[dq[<span class="num">0</span>]] <span class="op">&gt;=</span> <span class="param">k</span>:
+            res = <span class="builtin">min</span>(res, i <span class="op">-</span> dq.<span class="func">popleft</span>())
+        <span class="kw">while</span> dq <span class="kw">and</span> p[dq[<span class="num">-1</span>]] <span class="op">&gt;=</span> pv:
+            dq.<span class="func">pop</span>()
+        dq.<span class="func">append</span>(i)
+    <span class="kw">return</span> res <span class="kw">if</span> res <span class="op">!=</span> <span class="builtin">float</span>(<span class="str">"inf"</span>) <span class="kw">else</span> <span class="op">-</span><span class="num">1</span></div>
 
-    <div clas="section-label">&#x1F4C3; COMPLEXITY ANALYSIS</div>
-    <table clas="complexity-table">
+    <div class="section-label">&#x1F4C3; COMPLEXITY ANALYSIS</div>
+    <table class="complexity-table">
       <thead><tr><th>Metric</th><th>Value</th><th>Reason</th></tr></thead>
       <tbody>
-        <tr><td>Time</td><td>O(n)</td><td>Each index pushed and popped at most once from deque</td></tr>
+        <tr><td>Time</td><td>O(n)</td><td>Each index pushed and popped at most once from the deque</td></tr>
         <tr><td>Space</td><td>O(n)</td><td>Prefix array n+1; deque at most n elements</td></tr>
         <tr><td>Why not sliding window</td><td>N/A</td><td>Negative nums break monotonic shrink -- must use monodeque</td></tr>
         <tr><td>Naive brute force</td><td>O(n&#xB2;)</td><td>Check all subarrays -- TLE on large input</td></tr>
@@ -291,7 +330,7 @@ def shortestSubarray(nums, k):
     </table>
   </div>
 
-  <div clas="footer">
+  <div class="footer">
     <p><a href="https://chloeyeo.github.io/leetcode-explanations" target="_blank">&#x1F310;&nbsp;View all explanations on GitHub Pages</a></p>
     <p style="margin-top:8px">LeetCode Daily &middot; 2026-06-14</p>
   </div>

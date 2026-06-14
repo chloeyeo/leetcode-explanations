@@ -3,270 +3,300 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LeetCode Daily | Heap 유형 | 2026-06-12</title>
+<title>LeetCode Daily | Heap</title>
 <style>
-  :root {
-    --bg: #0d1117;
-    --surface: #161b22;
-    --surface2: #1c2128;
-    --border: #30363d;
-    --text: #e6edf3;
-    --muted: #8b949e;
-    --easy: #3fb950;
-    --medium: #d29922;
-    --hard: #f85149;
-    --accent: #58a6ff;
-    --purple: #bc8cff;
-    --orange: #ffa657;
-  }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    font-size: 15px;
-    line-height: 1.6;
-    padding: 0 0 40px 0;
-  }
-  header {
-    background: linear-gradient(135deg, #1a1f35 0%, #0d1117 100%);
-    border-bottom: 1px solid var(--border);
-    padding: 28px 20px 24px;
-    text-align: center;
-  }
-  header .tag {
-    display: inline-block;
-    background: var(--purple);
-    color: #fff;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 3px 10px;
-    border-radius: 20px;
-    margin-bottom: 10px;
-  }
-  header h1 {
-    font-size: 26px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-  }
-  header .subtitle {
-    color: var(--muted);
-    font-size: 13px;
-    margin-top: 6px;
-  }
-  .toc {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    margin: 20px 16px;
-    padding: 16px 18px;
-  }
-  .toc h2 { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
-  .toc ul { list-style: none; }
-  .toc li { padding: 4px 0; }
-  .toc a { color: var(--accent); text-decoration: none; font-size: 14px; }
-  .toc a:hover { text-decoration: underline; }
-  .badge {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 2px 8px;
-    border-radius: 12px;
-    margin-left: 8px;
-  }
-  .badge.easy { background: rgba(63,185,80,0.18); color: var(--easy); }
-  .badge.medium { background: rgba(210,153,34,0.18); color: var(--medium); }
-  .badge.hard { background: rgba(248,81,73,0.18); color: var(--hard); }
-  .problem-card {
-    margin: 20px 16px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-  }
-  .problem-header {
-    padding: 18px 20px 14px;
-    border-bottom: 1px solid var(--border);
-    background: var(--surface2);
-  }
-  .problem-header .number {
-    color: var(--muted);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    margin-bottom: 4px;
-  }
-  .problem-header h2 {
-    font-size: 18px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-  .problem-header .credit {
-    font-size: 11px;
-    color: var(--muted);
-    font-weight: 400;
-    margin-top: 4px;
-  }
-  .section {
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--border);
-  }
-  .section:last-child { border-bottom: none; }
-  .section-title {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    color: var(--muted);
-    margin-bottom: 12px;
-  }
-  pre.ascii {
-    background: #0a0e14;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 14px 16px;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 12px;
-    color: #7ee787;
-    overflow-x: auto;
-    white-space: pre;
-    line-height: 1.5;
-  }
-  .code-block {
-    background: #0a0e14;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 12px;
-  }
-  .code-label {
-    background: var(--surface2);
-    padding: 7px 14px;
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--muted);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .code-label .dot { width: 8px; height: 8px; border-radius: 50%; }
-  .code-label .dot.basic { background: var(--orange); }
-  .code-label .dot.opt { background: var(--accent); }
-  pre.code {
-    padding: 14px 16px;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 12.5px;
-    line-height: 1.7;
-    overflow-x: auto;
-    white-space: pre;
-  }
+  body { background: #0d1117; color: #e6edf3; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 15px; line-height: 1.6; padding: 0 0 40px; }
+  header { background: linear-gradient(135deg, #1a1f2e 0%, #0d1117 100%); border-bottom: 2px solid #21262d; padding: 24px 20px; text-align: center; }
+  .header-badge { display: inline-block; background: #f0883e22; border: 1px solid #f0883e66; color: #f0883e; border-radius: 20px; padding: 4px 14px; font-size: 12px; font-weight: 600; letter-spacing: 1px; margin-bottom: 10px; text-transform: uppercase; }
+  header h1 { font-size: 26px; font-weight: 700; color: #f0f6fc; }
+  header h1 span { color: #f0883e; }
+  .date-tag { margin-top: 8px; color: #8b949e; font-size: 13px; }
+  .container { max-width: 860px; margin: 0 auto; padding: 0 16px; }
+  .problem-card { background: #161b22; border: 1px solid #21262d; border-radius: 12px; margin: 24px 0; overflow: hidden; }
+  .card-header { padding: 18px 20px 14px; border-bottom: 1px solid #21262d; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .card-header h2 { font-size: 17px; font-weight: 700; color: #f0f6fc; flex: 1; min-width: 200px; }
+  .badge { border-radius: 6px; padding: 3px 10px; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; }
+  .easy { background: #1f4e1f; color: #3fb950; border: 1px solid #3fb95055; }
+  .medium { background: #4a2e00; color: #f0883e; border: 1px solid #f0883e55; }
+  .hard { background: #4a1a1a; color: #f85149; border: 1px solid #f8514955; }
+  .num-tag { background: #21262d; color: #8b949e; font-size: 12px; padding: 3px 8px; border-radius: 5px; }
+  .card-body { padding: 18px 20px; }
+  .section-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #58a6ff; margin: 18px 0 10px; display: flex; align-items: center; gap: 6px; }
+  .section-title::before { content: ""; display: inline-block; width: 3px; height: 14px; background: #58a6ff; border-radius: 2px; }
+  pre.ascii { background: #0d1117; border: 1px solid #21262d; border-radius: 8px; padding: 14px 16px; font-family: 'Courier New', monospace; font-size: 12px; color: #8b949e; overflow-x: auto; line-height: 1.5; }
+  pre.ascii .hl { color: #f0883e; font-weight: bold; }
+  pre.ascii .gr { color: #3fb950; }
+  pre.ascii .bl { color: #58a6ff; }
+  .code-block { background: #0d1117; border: 1px solid #21262d; border-radius: 8px; overflow: hidden; margin: 8px 0; }
+  .code-block-header { background: #161b22; padding: 8px 14px; font-size: 12px; color: #8b949e; display: flex; justify-content: space-between; border-bottom: 1px solid #21262d; }
+  .code-block-header .lang { color: #58a6ff; font-weight: 600; }
+  pre.code { padding: 14px 16px; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.7; overflow-x: auto; }
   .kw { color: #ff7b72; }
   .fn { color: #d2a8ff; }
-  .cl { color: #ffa657; }
+  .cn { color: #79c0ff; }
   .st { color: #a5d6ff; }
-  .cm { color: #8b949e; font-style: italic; }
-  .nm { color: #79c0ff; }
+  .cm { color: #6e7681; font-style: italic; }
+  .nm { color: #e6edf3; }
+  .nu { color: #79c0ff; }
   .op { color: #ff7b72; }
-  .num { color: #6e9fff; }
-  table.complexity {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-  }
-  table.complexity th {
-    background: var(--surface2);
-    color: var(--muted);
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    padding: 9px 12px;
-    text-align: left;
-    border-bottom: 1px solid var(--border);
-  }
-  table.complexity td {
-    padding: 9px 12px;
-    border-bottom: 1px solid var(--border);
-    vertical-align: top;
-  }
+  table.complexity { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 13px; }
+  table.complexity th { background: #21262d; color: #8b949e; font-weight: 600; padding: 8px 12px; text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  table.complexity td { padding: 8px 12px; border-bottom: 1px solid #21262d; vertical-align: top; }
   table.complexity tr:last-child td { border-bottom: none; }
-  table.complexity tr:hover td { background: rgba(88,166,255,0.05); }
-  .complexity-best { color: var(--easy); font-weight: 600; }
-  .complexity-avg { color: var(--medium); font-weight: 600; }
-  .complexity-bad { color: var(--hard); font-weight: 600; }
-  footer {
-    margin: 30px 16px 0;
-    text-align: center;
-    padding: 20px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-  }
-  footer a {
-    color: var(--accent);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 14px;
-  }
-  footer .footer-note { color: var(--muted); font-size: 12px; margin-top: 8px; }
-  .divider { height: 1px; background: var(--border); margin: 0 16px; }
+  table.complexity .tc { color: #f0883e; font-weight: 600; font-family: monospace; }
+  table.complexity .sc { color: #3fb950; font-weight: 600; font-family: monospace; }
+  footer { text-align: center; padding: 30px 20px; border-top: 1px solid #21262d; margin-top: 20px; }
+  footer a { color: #58a6ff; text-decoration: none; font-weight: 600; }
+  .footer-sub { color: #8b949e; font-size: 13px; margin-top: 6px; }
+  @media (max-width: 480px) { header h1 { font-size: 20px; } .card-header h2 { font-size: 15px; } pre.code { font-size: 11.5px; } pre.ascii { font-size: 11px; } }
 </style>
 </head>
 <body>
-
 <header>
-  <div class="tag">Heap / Priority Queue</div>
-  <h1>🗓️ LeetCode Daily</h1>
-  <div class="subtitle">2026년 6월 12일 · Easy · Medium · Hard</div>
+  <div class="header-badge">Daily Practice</div>
+  <h1>LeetCode Daily | <span>Heap</span></h1>
+  <div class="date-tag">2026-06-15 (Monday)</div>
 </header>
+<div class="container">
 
-<!-- TOC -->
-<div class="toc">
-  <h2>문제 목록</h2>
-  <ul>
-    <li><a href="#p703">🟢 #703 Kth Largest Element in a Stream <span class="badge easy">Easy</span></a></li>
-    <li><a href="#p215">🟠 #215 Kth Largest Element in an Array <span class="badge medium">Medium</span></a></li>
-    <li><a href="#p295">🔴 #295 Find Median from Data Stream <span class="badge hard">Hard</span></a></li>
-  </ul>
+<div class="problem-card">
+  <div class="card-header">
+    <span class="num-tag">#703</span>
+    <h2>Kth Largest Element in a Stream</h2>
+    <span class="badge easy">Easy</span>
+  </div>
+  <div class="card-body">
+    <div class="section-title">Algorithm Visualization</div>
+    <pre class="ascii">
+  Stream: [4, 5, 8, 2]   k = 3  =&gt; 3rd largest
+
+  Min-Heap (size &lt;= k):
+  add(4)  heap=[4]
+  add(5)  heap=[4,5]
+  add(8)  heap=[4,5,8]   (full!)
+  add(2)  2 &lt; heap[0]=4  skip
+
+  add(3): push 3 =&gt; size=4 &gt; k =&gt; pop min(3)
+          heap=[4,5,8]
+
+  heap[0] is always the k-th largest!
+
+  Min-Heap (k=3):
+       4   &lt;-- heap[0] = answer
+      / \
+     5   8
+    </pre>
+    <div class="section-title">Basic Solution</div>
+    <div class="code-block">
+      <div class="code-block-header"><span class="lang">Python</span><span>Basic</span></div>
+      <pre class="code"><span class="kw">import</span> <span class="nm">heapq</span>
+
+<span class="kw">class</span> <span class="cn">KthLargest</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="nm">self</span>, <span class="nm">k</span>, <span class="nm">nums</span>):
+        <span class="nm">self</span>.<span class="nm">k</span> <span class="op">=</span> <span class="nm">k</span>
+        <span class="nm">self</span>.<span class="nm">heap</span> <span class="op">=</span> []
+        <span class="kw">for</span> <span class="nm">n</span> <span class="kw">in</span> <span class="nm">nums</span>:
+            <span class="nm">heapq</span>.<span class="fn">heappush</span>(<span class="nm">self</span>.<span class="nm">heap</span>, <span class="nm">n</span>)
+            <span class="kw">if</span> <span class="fn">len</span>(<span class="nm">self</span>.<span class="nm">heap</span>) <span class="op">&gt;</span> <span class="nm">k</span>:
+                <span class="nm">heapq</span>.<span class="fn">heappop</span>(<span class="nm">self</span>.<span class="nm">heap</span>)
+
+    <span class="kw">def</span> <span class="fn">add</span>(<span class="nm">self</span>, <span class="nm">val</span>):
+        <span class="nm">heapq</span>.<span class="fn">heappush</span>(<span class="nm">self</span>.<span class="nm">heap</span>, <span class="nm">val</span>)
+        <span class="kw">if</span> <span class="fn">len</span>(<span class="nm">self</span>.<span class="nm">heap</span>) <span class="op">&gt;</span> <span class="nm">self</span>.<span class="nm">k</span>:
+            <span class="nm">heapq</span>.<span class="fn">heappop</span>(<span class="nm">self</span>.<span class="nm">heap</span>)
+        <span class="kw">return</span> <span class="nm">self</span>.<span class="nm">heap</span>[<span class="nu">0</span>]</pre>
+    </div>
+    <div class="section-title">Optimized Solution</div>
+    <div class="code-block">
+      <div class="code-block-header"><span class="lang">Python</span><span>Optimized</span></div>
+      <pre class="code"><span class="kw">import</span> <span class="nm">heapq</span>
+
+<span class="kw">class</span> <span class="cn">KthLargest</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="nm">self</span>, <span class="nm">k</span>, <span class="nm">nums</span>):
+        <span class="nm">self</span>.<span class="nm">k</span> <span class="op">=</span> <span class="nm">k</span>
+        <span class="nm">self</span>.<span class="nm">heap</span> <span class="op">=</span> <span class="nm">nums</span>
+        <span class="nm">heapq</span>.<span class="fn">heapify</span>(<span class="nm">self</span>.<span class="nm">heap</span>)  <span class="cm"># O(n) vs O(n log n)</span>
+        <span class="kw">while</span> <span class="fn">len</span>(<span class="nm">self</span>.<span class="nm">heap</span>) <span class="op">&gt;</span> <span class="nm">k</span>:
+            <span class="nm">heapq</span>.<span class="fn">heappop</span>(<span class="nm">self</span>.<span class="nm">heap</span>)
+
+    <span class="kw">def</span> <span class="fn">add</span>(<span class="nm">self</span>, <span class="nm">val</span>):
+        <span class="kw">if</span> <span class="fn">len</span>(<span class="nm">self</span>.<span class="nm">heap</span>) <span class="op">&lt;</span> <span class="nm">self</span>.<span class="nm">k</span>:
+            <span class="nm">heapq</span>.<span class="fn">heappush</span>(<span class="nm">self</span>.<span class="nm">heap</span>, <span class="nm">val</span>)
+        <span class="kw">elif</span> <span class="nm">val</span> <span class="op">&gt;</span> <span class="nm">self</span>.<span class="nm">heap</span>[<span class="nu">0</span>]:
+            <span class="nm">heapq</span>.<span class="fn">heapreplace</span>(<span class="nm">self</span>.<span class="nm">heap</span>, <span class="nm">val</span>)
+        <span class="kw">return</span> <span class="nm">self</span>.<span class="nm">heap</span>[<span class="nu">0</span>]</pre>
+    </div>
+    <div class="section-title">Complexity Analysis</div>
+    <table class="complexity">
+      <tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+      <tr><td>Basic __init__</td><td class="tc">O(n log k)</td><td class="sc">O(k)</td><td>Push every element + pop if over k</td></tr>
+      <tr><td>Basic add</td><td class="tc">O(log k)</td><td class="sc">O(1)</td><td>Single heappush + conditional heappop</td></tr>
+      <tr><td>Opt __init__</td><td class="tc">O(n)</td><td class="sc">O(k)</td><td>heapify is O(n); trim is O(n log k)</td></tr>
+      <tr><td>Opt add</td><td class="tc">O(log k)</td><td class="sc">O(1)</td><td>heapreplace skips push when val &lt;= min</td></tr>
+    </table>
+  </div>
 </div>
 
-<!-- ===== PROBLEM 1: Easy ===== -->
-<div class="problem-card" id="p703">
-  <div class="problem-header">
-    <div class="number">LeetCode #703 · by LeetCode</div>
-    <h2>Kth Largest Element in a Stream <span class="badge easy">Easy</span></h2>
-    <div class="credit">© LeetCode — for educational purposes</div>
+<div class="problem-card">
+  <div class="card-header">
+    <span class="num-tag">#215</span>
+    <h2>Kth Largest Element in an Array</h2>
+    <span class="badge medium">Medium</span>
   </div>
+  <div class="card-body">
+    <div class="section-title">Algorithm Visualization</div>
+    <pre class="ascii">
+  nums=[3,2,1,5,6,4]  k=2  =&gt; answer: 5
 
-  <div class="section">
-    <div class="section-title">📐 알고리즘 시각화 (Min-Heap of size k)</div>
-<pre class="ascii">
-Stream: [4, 5, 8, 2], k=3   → 3번째로 큰 값을 항상 추적
+  Min-Heap approach (keep k elements):
+  [3]=&gt;[2,3]=&gt;[1,2,3]=&gt;pop1=&gt;[2,3,5]
+  =&gt;pop2=&gt;[3,5,6]=&gt;pop3=&gt;[4,5,6]
+  heap[0] = 5
 
-Step 1: heap = [4]           add(4)
-Step 2: heap = [4,5]         add(5)
-Step 3: heap = [4,5,8]       add(8) → size==k, top=4
-Step 4: heap = [5,8]         add(2) → 2 < top(4), skip → still top=4
-         heap = [4,5,8]      ← size-k min-heap
+  QuickSelect (O(n) avg):
+  pivot=4: left=[3,2,1] right=[6,5]
+  len(right)=2 = k-1? k=2 =&gt; yes? No: store=2, k-1=1
+  recurse right=[6,5], k=1
+  pivot=5: left=[] right=[6]
+  store=1 == k-1=0? No: recurse right=[6], k=1
+  pivot=6: store=0 == k-1=0 =&gt; return 5!
+    </pre>
+    <div class="section-title">Basic Solution</div>
+    <div class="code-block">
+      <div class="code-block-header"><span class="lang">Python</span><span>Min-Heap O(n log k)</span></div>
+      <pre class="code"><span class="kw">import</span> <span class="nm">heapq</span>
 
-add(3):  3 < heap[0]=4 → skip
-add(10): 10 > heap[0]=4 → push 10, pop 4
-         heap = [5,8,10] → top = 5  ✅ kth largest = 5
+<span class="kw">class</span> <span class="cn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">findKthLargest</span>(<span class="nm">self</span>, <span class="nm">nums</span>, <span class="nm">k</span>):
+        <span class="nm">heap</span> <span class="op">=</span> []
+        <span class="kw">for</span> <span class="nm">num</span> <span class="kw">in</span> <span class="nm">nums</span>:
+            <span class="nm">heapq</span>.<span class="fn">heappush</span>(<span class="nm">heap</span>, <span class="nm">num</span>)
+            <span class="kw">if</span> <span class="fn">len</span>(<span class="nm">heap</span>) <span class="op">&gt;</span> <span class="nm">k</span>:
+                <span class="nm">heapq</span>.<span class="fn">heappop</span>(<span class="nm">heap</span>)
+        <span class="kw">return</span> <span class="nm">heap</span>[<span class="nu">0</span>]</pre>
+    </div>
+    <div class="section-title">Optimized Solution</div>
+    <div class="code-block">
+      <div class="code-block-header"><span class="lang">Python</span><span>QuickSelect O(n) avg</span></div>
+      <pre class="code"><span class="kw">import</span> <span class="nm">random</span>
 
-  Min-Heap (size k):
-  ┌───────────────┐
-  │  heap[0]=MIN  │  ← always the kth largest
-  │  heap[1]      │
-  │  heap[2]=MAX  │
-  └───────────────┘
-</pre>
+<span class="kw">class</span> <span class="cn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">findKthLargest</span>(<span class="nm">self</span>, <span class="nm">nums</span>, <span class="nm">k</span>):
+        <span class="kw">def</span> <span class="fn">qs</span>(<span class="nm">lo</span>, <span class="nm">hi</span>):
+            <span class="nm">pi</span> <span class="op">=</span> <span class="nm">random</span>.<span class="fn">randint</span>(<span class="nm">lo</span>, <span class="nm">hi</span>)
+            <span class="nm">nums</span>[<span class="nm">pi</span>], <span class="nm">nums</span>[<span class="nm">hi</span>] <span class="op">=</span> <span class="nm">nums</span>[<span class="nm">hi</span>], <span class="nm">nums</span>[<span class="nm">pi</span>]
+            <span class="nm">pv</span> <span class="op">=</span> <span class="nm">nums</span>[<span class="nm">hi</span>]
+            <span class="nm">st</span> <span class="op">=</span> <span class="nm">lo</span>
+            <span class="kw">for</span> <span class="nm">i</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">lo</span>, <span class="nm">hi</span>):
+                <span class="kw">if</span> <span class="nm">nums</span>[<span class="nm">i</span>] <span class="op">&gt;=</span> <span class="nm">pv</span>:
+                    <span class="nm">nums</span>[<span class="nm">st</span>], <span class="nm">nums</span>[<span class="nm">i</span>] <span class="op">=</span> <span class="nm">nums</span>[<span class="nm">i</span>], <span class="nm">nums</span>[<span class="nm">st</span>]
+                    <span class="nm">st</span> <span class="op">+=</span> <span class="nu">1</span>
+            <span class="nm">nums</span>[<span class="nm">st</span>], <span class="nm">nums</span>[<span class="nm">hi</span>] <span class="op">=</span> <span class="nm">nums</span>[<span class="nm">hi</span>], <span class="nm">nums</span>[<span class="nm">st</span>]
+            <span class="kw">if</span> <span class="nm">st</span> <span class="op">==</span> <span class="nm">k</span><span class="op">-</span><span class="nu">1</span>: <span class="kw">return</span> <span class="nm">nums</span>[<span class="nm">st</span>]
+            <span class="kw">elif</span> <span class="nm">st</span> <span class="op">&lt;</span> <span class="nm">k</span><span class="op">-</span><span class="nu">1</span>: <span class="kw">return</span> <span class="fn">qs</span>(<span class="nm">st</span><span class="op">+</span><span class="nu">1</span>, <span class="nm">hi</span>)
+            <span class="kw">else</span>: <span class="kw">return</span> <span class="fn">qs</span>(<span class="nm">lo</span>, <span class="nm">st</span><span class="op">-</span><span class="nu">1</span>)
+        <span class="kw">return</span> <span class="fn">qs</span>(<span class="nu">0</span>, <span class="fn">len</span>(<span class="nm">nums</span>)<span class="op">-</span><span class="nu">1</span>)</pre>
+    </div>
+    <div class="section-title">Complexity Analysis</div>
+    <table class="complexity">
+      <tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+      <tr><td>Min-Heap</td><td class="tc">O(n log k)</td><td class="sc">O(k)</td><td>Each push/pop O(log k); n elements</td></tr>
+      <tr><td>QuickSelect avg</td><td class="tc">O(n)</td><td class="sc">O(log n)</td><td>Expected 2n comparisons; stack depth</td></tr>
+      <tr><td>QuickSelect worst</td><td class="tc">O(n^2)</td><td class="sc">O(n)</td><td>Bad pivot every time; random avoids this</td></tr>
+    </table>
   </div>
 </div>
+
+<div class="problem-card">
+  <div class="card-header">
+    <span class="num-tag">#295</span>
+    <h2>Find Median from Data Stream</h2>
+    <span class="badge hard">Hard</span>
+  </div>
+  <div class="card-body">
+    <div class="section-title">Algorithm Visualization</div>
+    <pre class="ascii">
+  Two-Heap approach:
+  lo = max-heap (negated) = lower half
+  hi = min-heap            = upper half
+
+  Stream: 1, 7, 3, 5
+  After 1:  lo=[-1]      hi=[]      median=1
+  After 7:  lo=[-1]      hi=[7]     median=(1+7)/2=4.0
+  After 3:  lo=[-3,-1]   hi=[7]     median=3
+  After 5:  lo=[-3,-1]   hi=[5,7]   median=(3+5)/2=4.0
+
+  Invariant:
+  |len(lo) - len(hi)| &lt;= 1
+  lo[0](negated) &lt;= hi[0] always
+
+  Even total =&gt; avg of both tops
+  Odd  total =&gt; top of bigger heap
+    </pre>
+    <div class="section-title">Basic Solution</div>
+    <div class="code-block">
+      <div class="code-block-header"><span class="lang">Python</span><span>Two-Heap</span></div>
+      <pre class="code"><span class="kw">import</span> <span class="nm">heapq</span>
+
+<span class="kw">class</span> <span class="cn">MedianFinder</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="nm">self</span>):
+        <span class="nm">self</span>.<span class="nm">small</span> <span class="op">=</span> []  <span class="cm"># max-heap (negated)</span>
+        <span class="nm">self</span>.<span class="nm">large</span> <span class="op">=</span> []  <span class="cm"># min-heap</span>
+
+    <span class="kw">def</span> <span class="fn">addNum</span>(<span class="nm">self</span>, <span class="nm">num</span>):
+        <span class="nm">heapq</span>.<span class="fn">heappush</span>(<span class="nm">self</span>.<span class="nm">small</span>, <span class="op">-</span><span class="nm">num</span>)
+        <span class="kw">if</span> <span class="nm">self</span>.<span class="nm">large</span> <span class="kw">and</span> <span class="op">-</span><span class="nm">self</span>.<span class="nm">small</span>[<span class="nu">0</span>] <span class="op">&gt;</span> <span class="nm">self</span>.<span class="nm">large</span>[<span class="nu">0</span>]:
+            <span class="nm">heapq</span>.<span class="fn">heappush</span>(<span class="nm">self</span>.<span class="nm">large</span>, <span class="op">-</span><span class="nm">heapq</span>.<span class="fn">heappop</span>(<span class="nm">self</span>.<span class="nm">small</span>))
+        <span class="kw">if</span> <span class="fn">len</span>(<span class="nm">self</span>.<span class="nm">small</span>) <span class="op">&gt;</span> <span class="fn">len</span>(<span class="nm">self</span>.<span class="nm">large</span>) <span class="op">+</span> <span class="nu">1</span>:
+            <span class="nm">heapq</span>.<span class="fn">heappush</span>(<span class="nm">self</span>.<span class="nm">large</span>, <span class="op">-</span><span class="nm">heapq</span>.<span class="fn">heappop</span>(<span class="nm">self</span>.<span class="nm">small</span>))
+        <span class="kw">elif</span> <span class="fn">len</span>(<span class="nm">self</span>.<span class="nm">large</span>) <span class="op">&gt;</span> <span class="fn">len</span>(<span class="nm">self</span>.<span class="nm">small</span>):
+            <span class="nm">heapq</span>.<span class="fn">heappush</span>(<span class="nm">self</span>.<span class="nm">small</span>, <span class="op">-</span><span class="nm">heapq</span>.<span class="fn">heappop</span>(<span class="nm">self</span>.<span class="nm">large</span>))
+
+    <span class="kw">def</span> <span class="fn">findMedian</span>(<span class="nm">self</span>):
+        <span class="kw">if</span> <span class="fn">len</span>(<span class="nm">self</span>.<span class="nm">small</span>) <span class="op">&gt;</span> <span class="fn">len</span>(<span class="nm">self</span>.<span class="nm">large</span>):
+            <span class="kw">return</span> <span class="cn">float</span>(<span class="op">-</span><span class="nm">self</span>.<span class="nm">small</span>[<span class="nu">0</span>])
+        <span class="kw">return</span> (<span class="op">-</span><span class="nm">self</span>.<span class="nm">small</span>[<span class="nu">0</span>] <span class="op">+</span> <span class="nm">self</span>.<span class="nm">large</span>[<span class="nu">0</span>]) <span class="op">/</span> <span class="nu">2.0</span></pre>
+    </div>
+    <div class="section-title">Optimized Solution</div>
+    <div class="code-block">
+      <div class="code-block-header"><span class="lang">Python</span><span>Optimized (heappushpop)</span></div>
+      <pre class="code"><span class="kw">import</span> <span class="nm">heapq</span>
+
+<span class="kw">class</span> <span class="cn">MedianFinder</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="nm">self</span>):
+        <span class="nm">self</span>.<span class="nm">lo</span> <span class="op">=</span> []  <span class="cm"># max-heap (negated) lower half</span>
+        <span class="nm">self</span>.<span class="nm">hi</span> <span class="op">=</span> []  <span class="cm"># min-heap upper half</span>
+
+    <span class="kw">def</span> <span class="fn">addNum</span>(<span class="nm">self</span>, <span class="nm">num</span>):
+        <span class="cm"># Route through hi to maintain lo[0] &lt;= hi[0]</span>
+        <span class="nm">heapq</span>.<span class="fn">heappush</span>(<span class="nm">self</span>.<span class="nm">lo</span>, <span class="op">-</span><span class="nm">heapq</span>.<span class="fn">heappushpop</span>(<span class="nm">self</span>.<span class="nm">hi</span>, <span class="nm">num</span>))
+        <span class="kw">if</span> <span class="fn">len</span>(<span class="nm">self</span>.<span class="nm">lo</span>) <span class="op">&gt;</span> <span class="fn">len</span>(<span class="nm">self</span>.<span class="nm">hi</span>) <span class="op">+</span> <span class="nu">1</span>:
+            <span class="nm">heapq</span>.<span class="fn">heappush</span>(<span class="nm">self</span>.<span class="nm">hi</span>, <span class="op">-</span><span class="nm">heapq</span>.<span class="fn">heappop</span>(<span class="nm">self</span>.<span class="nm">lo</span>))
+
+    <span class="kw">def</span> <span class="fn">findMedian</span>(<span class="nm">self</span>):
+        <span class="kw">if</span> <span class="fn">len</span>(<span class="nm">self</span>.<span class="nm">lo</span>) <span class="op">!=</span> <span class="fn">len</span>(<span class="nm">self</span>.<span class="nm">hi</span>):
+            <span class="kw">return</span> <span class="cn">float</span>(<span class="op">-</span><span class="nm">self</span>.<span class="nm">lo</span>[<span class="nu">0</span>])
+        <span class="kw">return</span> (<span class="op">-</span><span class="nm">self</span>.<span class="nm">lo</span>[<span class="nu">0</span>] <span class="op">+</span> <span class="nm">self</span>.<span class="nm">hi</span>[<span class="nu">0</span>]) <span class="op">/</span> <span class="nu">2.0</span></pre>
+    </div>
+    <div class="section-title">Complexity Analysis</div>
+    <table class="complexity">
+      <tr><th>Method</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+      <tr><td>addNum (basic)</td><td class="tc">O(log n)</td><td class="sc">O(n)</td><td>Up to 3 heap ops each O(log n)</td></tr>
+      <tr><td>findMedian (basic)</td><td class="tc">O(1)</td><td class="sc">O(1)</td><td>Peek at heap tops only</td></tr>
+      <tr><td>addNum (opt)</td><td class="tc">O(log n)</td><td class="sc">O(n)</td><td>heappushpop is one atomic operation</td></tr>
+      <tr><td>findMedian (opt)</td><td class="tc">O(1)</td><td class="sc">O(1)</td><td>Single compare + peek</td></tr>
+    </table>
+  </div>
+</div>
+
+</div>
+
+<footer>
+  <a href="https://chloeyeo.github.io/leetcode-explanations" target="_blank">
+    chloeyeo.github.io/leetcode-explanations
+  </a>
+  <div class="footer-sub">Daily LeetCode Practice - Heap Edition - 2026-06-15</div>
+</footer>
 </body>
 </html>

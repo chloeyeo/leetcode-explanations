@@ -1,229 +1,423 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LeetCode Daily | Graph — 2026-06-14</title>
+<title>LeetCode Daily | Graph</title>
 <style>
-  .root {
-    --bg: #0d1117; --bg2: #161b22; --bg3: #21262d;
+  :root {
+    --bg: #0d1117; --bg2: #161b22; --bg3: #1c2128;
     --border: #30363d; --text: #e6edf3; --muted: #8b949e;
     --easy: #3fb950; --medium: #d29922; --hard: #f85149;
     --accent: #58a6ff; --purple: #bc8cff;
   }
- * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #0d1117; color: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace; padding: 16px; max-width: 900px; margin: 0 auto; }
-  header { text-align: center; padding: 24px 16px 8px; border-bottom: 1px solid #30363d; margin-bottom: 24px; }
-  header h1 { font-size: 1.6rem; color: #58a6ff; margin-bottom: 6px; }
-  header .date { color: #8b949e; font-size: 0.9rem; }
-  .problem-card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 20px; margin-bottom: 28px; }
-  .problem-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
-  .problem-title { font-size: 1.15rem; font-weight: 700; color: #e6edf3; }
-  .problem-title span { color: #8b949e; font-weight: 400; }
-  .badge { padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.5px; }
-  .easy { background: rgba(63,185,80,0.15); color: #3fb950; border: 1px solid #3fb950; }
-  .medium { background: rgba(210,153,34,0.15); color: #d29922; border: 1px solid #d29922; }
-  .hard { background: rgba(248,81,73,0.15); color: #f85149; border: 1px solid #f85149; }
-  .by { color: #8b949e; font-size: 0.8rem; margin-left: auto; }
-  .section-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #bc8cff; margin: 18px 0 8px; }
-  .ascii-art { background: #21262d; border: 1px solid #30363d; border-radius: 8px; padding: 14px; font-family: 'Courier New', monospace; font-size: 0.78rem; color: #79c0ff; overflow-x: auto; white-space: pre; line-height: 1.5; }
-  .code-block { background: #21262d; border: 1px solid #30363d; border-radius: 8px; padding: 14px; overflow-x: auto; margin-bottom: 10px; }
-  .code-block pre { font-family: 'Courier New', monospace; font-size: 0.82rem; line-height: 1.7; white-space: pre; }
-  .kw { color: #ff7b72; } .fn { color: #d2a8ff; } .cls { color: #ffa657; }
-  .st { color: #a5d6ff; } .cm { color: #8b949e; font-style: italic; } .num { color: #79c0ff; }
-  .bi { color: #56d364; }
-  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-top: 8px; }
-  th { background: #21262d; color: #58a6ff; padding: 8px 10px; text-align: left; border: 1px solid #30363d; }
-  td { padding: 7px 10px; border: 1px solid #30363d; vertical-align: top; color: #e6edf3; }
-  tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
-  footer { text-align: center; padding: 24px 16px; border-top: 1px solid #30363d; margin-top: 32px; color: #8b949e; font-size: 0.88rem; }
-  footer a { color: #58a6ff; text-decoration: none; }
-  .tag { display: inline-block; background: rgba(88,166,255,0.1); color: #58a6ff; border: 1px solid rgba(88,166,255,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.72rem; margin-right: 4px; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace; padding: 16px; }
+  .header { text-align: center; padding: 24px 16px; background: var(--bg2); border-radius: 12px; margin-bottom: 24px; border: 1px solid var(--border); }
+  .header h1 { font-size: 1.6rem; color: var(--accent); }
+  .header .date { color: var(--muted); margin-top: 6px; font-size: 0.9rem; }
+  .header .type-badge { display: inline-block; background: #1f6feb33; border: 1px solid var(--accent); color: var(--accent); padding: 4px 14px; border-radius: 20px; font-size: 0.85rem; margin-top: 10px; }
+  .problem-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 28px; overflow: hidden; }
+  .problem-header { padding: 16px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border); }
+  .problem-title { font-size: 1.05rem; font-weight: 600; flex: 1; }
+  .problem-title a { color: var(--text); text-decoration: none; }
+  .problem-title a:hover { color: var(--accent); }
+  .badge { padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+  .easy { background: #3fb95020; color: var(--easy); border: 1px solid var(--easy); }
+  .medium { background: #d2992220; color: var(--medium); border: 1px solid var(--medium); }
+  .hard { background: #f8514920; color: var(--hard); border: 1px solid var(--hard); }
+  .by { color: var(--muted); font-size: 0.75rem; }
+  .section { padding: 16px 20px; }
+  .section-title { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 10px; font-weight: 600; }
+  .ascii-art { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px; font-family: monospace; font-size: 0.78rem; color: #79c0ff; line-height: 1.5; overflow-x: auto; white-space: pre; }
+  .code-block { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px; font-family: 'Courier New', monospace; font-size: 0.78rem; line-height: 1.6; overflow-x: auto; white-space: pre; }
+  .kw { color: #ff7b72; } .fn { color: #d2a8ff; } .cm { color: #8b949e; font-style: italic; }
+  .st { color: #a5d6ff; } .nm { color: #79c0ff; } .op { color: #e6edf3; }
+  .bi { color: #ffa657; }
+  .complexity-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-top: 4px; }
+  .complexity-table th { background: var(--bg); color: var(--muted); text-align: left; padding: 8px 12px; border: 1px solid var(--border); }
+  .complexity-table td { padding: 8px 12px; border: 1px solid var(--border); }
+  .complexity-table tr:nth-child(odd) td { background: var(--bg3); }
+  .time-badge { color: var(--accent); font-weight: 600; }
+  .space-badge { color: var(--purple); font-weight: 600; }
+  .divider { height: 1px; background: var(--border); margin: 0 20px; }
+  .footer { text-align: center; padding: 20px; color: var(--muted); font-size: 0.85rem; }
+  .footer a { color: var(--accent); text-decoration: none; }
+  .tag { display: inline-block; background: var(--bg3); border: 1px solid var(--border); color: var(--muted); padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; margin-right: 4px; }
 </style>
 </head>
 <body>
-<header>
-  <h1>&#128373;&#65039; LeetCode Daily | Graph</h1>
-  <div class="date">2026-06-14 (Sunday) &middot; Easy + Medium + Hard</div>
-</header>
 
-<!-- PROBLEM 1: Easy -->
-<div class="problem-card">
-  <div class="problem-header">
-    <span class="badge easy">Easy</span>
-    <span class="problem-title">LeetCode <span>#997</span> &mdash; Find the Town Judge</span>
-    <span class="by">by LeetCode</span>
-  </div>
-  <span class="tag">Graph</span><span class="tag">In-degree</span><span class="tag">Array</span>
-
-  <div class="section-label">&#128202; Algorithm Visualization</div>
-  <div class="ascii-art">trust = [[1,3],[2,3]]    n = 3
-
-Build trust graph:
-+----------------------------------+
-|  Person 1 --trust--&gt; Person 3  |
-|  Person 2 --trust--&gt; Person 3  |
-+----------------------------------+
-
-in_degree (trusted by):
-[0, 0, 0, 2]   &lt;-- Person 3 trusted by 2 others
-      ^1  ^2  ^3
-
-out_degree (trusts someone):
-[0, 1, 1, 0]   &lt;-- Person 3 trusts nobody
-
-Rule: Judge = in_degree[i] == n-1 AND out_degree[i] == 0*&#10003; Person 3 is the Town Judge!</div>
-
-  <div class="section-label">&#128161; Basic Solution</div>
-  <div class="code-block"><pre><span class="kw">class</span> <span class="cls">Solution</span>:
-    <span class="kw">def</span> <span class="fn">findJudge</span>(self, n: <span class="bi">int</span>, trust: <span class="bi">list</span>) -&gt; <span class="bi">int</span>:
-        <span class="cm"># Track in-degree and out-degree</span>
-        in_deg = [<span class="num">0</span>] * (n + <span class="num">1</span>)
-        out_deg = [<span class="num">0</span>] * (n + <span class="num">1</span>)
-
-        <span class="kw">for</span> a, b <span class="kw">in</span> trust:
-            out_deg[a] += <span class="num">1</span>
-            in_deg[b] += <span class="num">1</span>
-
-        <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(<span class="num">1</span>, n + <span class="num">1</span>):
-            <span class="kw">if</span> in_deg[i] == n - <span class="num">1</span> <span class="kw">and</span> out_deg[i] == <span class="num">0</span>:
-                <span class="kw">return</span> i
-        <span class="kw">return</span> -<span class="num">1</span></pre></div>
-
-  <div class="section-label">&#9889; Optimized Solution (Single Array)</div>
-  <div class="code-block"><pre><span class="kw">class</span> <span class="cls">Solution</span>:
-    <span class="kw">def</span> <span class="fn">findJudge</span>(self, n: <span class="bi">int</span>, trust: <span class="bi">list</span>) -&gt; <span class="bi">int</span>:
-        <span class="cm"># net[i] = in_degree - out_degree; Judge has net[i] == n-1</span>
-        net = [<span class="num">0</span>] * (n + <span class="num">1</span>)
-
-        <span class="kw">for</span> a, b <span class="kw">in</span> trust:
-            net[a] -= <span class="num">1</span>
-            net[b] += <span class="num">1</span>
-
-        <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(<span class="num">1</span>, n + <span class="num">1</span>):
-            <span class="kw">if</span> net[i] == n - <span class="num">1</span>:
-                <span class="kw">return</span> i
-        <span class="kw">return</span> -<span class="num">1</span></pre></div>
-
-  <div class="section-label">&#128200; Complexity Analysis</div>
-  <table>
-    <tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
-    <tr><td>Basic</td><td>O(T+n)</td><td>O(n)</td><td>T=trust pairs traversal + n scan; two arrays of size n</td></tr>
-    <tr><td>Optimized</td><td>O(T+n)</td><td>O(n)</td><td>Same time complexity; halved space using single net array</td></tr>
-  </table>
+<div class="header">
+  <h1>🧩 LeetCode Daily</h1>
+  <div class="date">2026-06-14 (Sunday)</div>
+  <div class="type-badge">Graph</div>
 </div>
 
-<!-- PROBLEM 2: Medium -->
+<!-- ===== EASY: #200 Number of Islands ===== -->
 <div class="problem-card">
   <div class="problem-header">
-    <span class="badge medium">Medium</span>
-    <span class="problem-title">LeeCode <span>#207</span> &mdash; Course Schedule</span>
+    <div class="problem-title">
+      <a href="https://leetcode.com/problems/number-of-islands/" target="_blank">LeetCode #200 — Number of Islands</a>
+    </div>
+    <span class="badge easy">Easy</span>
     <span class="by">by LeetCode</span>
   </div>
-  <span class="tag">Graph</span><span class="tag">Topological Sort</span><span class="tag">DFS</span><span class="tag">Cycle Detection</span>
 
-  <div class="section-label">&#128202; Algorithm Visualization</div>
-  <div class="ascii-art">numCourses=4, prerequisites=[[1,0],[2,0],[3,1],[3,2]]
+  <div class="section">
+    <div class="section-title">📐 Algorithm Visualization</div>
+    <div class="ascii-art">Grid BFS/DFS — Flood Fill
 
-Adjacency list:
-0 --&gt; [1, 2]
-1 --&gt; [3]
-2 --&gt; [3]
-3 --&gt; []
+  Grid:  1 1 0 0 0        Step 1: Find '1' at (0,0) → DFS flood fill
+         1 1 0 0 0        Step 2: Mark visited cells as '0'
+         0 0 1 0 0        Step 3: Count = 1
+         0 0 0 1 1        Step 4: Find next '1' at (2,2) → Count = 2
+                          Step 5: Find next '1' at (3,3) → Count = 3
 
-DFS states: 0=unvisited  1=visiting  2=done
+  DFS from (r,c):
+    (r,c)='1' ──► mark '0' ──► recurse 4 neighbors
+         ↙   ↘
+     (r-1,c) (r+1,c)
+     (r,c-1) (r,c+1)
 
-DFS(0): state[0]=1
-  DFS(1): state[1]=1
-    DFS(3): state[3]=1
-    state[3]=2 (done) &#10003;
-  state[1]=2 (done) &#10003;
-  DFS(2): state[2]=1
-    DFS(3): already done &#10003;
-  state[2]=2 (done) &#10003;
-state[0]=2 (done) &#10003;
+  Result: 3 islands</div>
+  </div>
 
-No cycle found --&gt; return True &#10003;
+  <div class="divider"></div>
+  <div class="section">
+    <div class="section-title">💻 Basic Solution (DFS)</div>
+    <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">numIslands</span>(<span class="st">self</span>, grid: <span class="bi">list</span>[<span class="bi">list</span>[<span class="st">str</span>]]) -> <span class="bi">int</span>:
+        <span class="kw">if</span> <span class="kw">not</span> grid:
+            <span class="kw">return</span> <span class="nm">0</span>
 
-Cycle Example [[1,0],[0,1]]:
-0 --&gt; 1 --&gt; 0  &lt;-- CYCLE! return False &#10007;</div>
+        rows, cols = <span class="bi">len</span>(grid), <span class="bi">len</span>(grid[<span class="nm">0</span>])
+        count = <span class="nm">0</span>
 
-  <div class="section-label">&#128161; Basic Solution (DFS Cycle Detection)</div>
-  <div class="code-block"><pre><span class="kw">class</span> <span class="cls">Solution</span>:
-    <span class="kw">def</span> <span class="fn">canFinish</span>(self, numCourses: <span class="bi">int</span>, prerequisites: <span class="bi">list</span>) -&gt; <span class="bi">bool</span>:
-        graph = {i: [] for i in range(numCourses)}
-        <span class="kw">for</span> a, b <span class="kw">in</span> prerequisites:
-            graph[b].append(a)
+        <span class="kw">def</span> <span class="fn">dfs</span>(r, c):
+            <span class="cm"># Base case: out of bounds or water/visited</span>
+            <span class="kw">if</span> r < <span class="nm">0</span> <span class="kw">or</span> r >= rows <span class="kw">or</span> c < <span class="nm">0</span> <span class="kw">or</span> c >= cols:
+                <span class="kw">return</span>
+            <span class="kw">if</span> grid[r][c] != <span class="st">'1'</span>:
+                <span class="kw">return</span>
+            <span class="cm"># Mark as visited by sinking the island</span>
+            grid[r][c] = <span class="st">'0'</span>
+            <span class="cm"># Explore all 4 directions</span>
+            dfs(r + <span class="nm">1</span>, c)
+            dfs(r - <span class="nm">1</span>, c)
+            dfs(r, c + <span class="nm">1</span>)
+            dfs(r, c - <span class="nm">1</span>)
 
-        state = [<span class="num">0</span>] * numCourses
+        <span class="kw">for</span> r <span class="kw">in</span> <span class="bi">range</span>(rows):
+            <span class="kw">for</span> c <span class="kw">in</span> <span class="bi">range</span>(cols):
+                <span class="kw">if</span> grid[r][c] == <span class="st">'1'</span>:
+                    <span class="cm"># Found new island, flood fill it</span>
+                    dfs(r, c)
+                    count += <span class="nm">1</span>
 
-        <span class="kw">def</span> <span class="fn">dfs</span>(node):
-            <span class="kw">if</span> state[node] == <span class="num">1</span>: <span class="kw">return</span> <span class="bi">False</span>
-            <span class="kw">if</span> state[node] == <span class="num">2</span>: <span class="kw">return</span> <span class="bi">True</span>
-            state[node] = <span class="num">1</span>
-            <span class="kw">for</span> nei <span class="kw">in</span> graph[node]:
-                <span class="kw">if</span> <span class="kw">not</span> dfs(nei): <span class="kw">return</span> <span class="bi">False</span>
-            state[node] = <span class="num">2</span>
-            <span class="kw">return</span> <span class="bi">True</span>
+        <span class="kw">return</span> count</div>
+  </div>
 
-        <span class="kw">return</span> <span class="bi">all</span>(dfs(i) for i in range(numCourses))</pre></div>
+  <div class="divider"></div>
+  <div class="section">
+    <div class="section-title">⚡ Optimized Solution (BFS Iterative)</div>
+    <div class="code-block"><span class="kw">from</span> collections <span class="kw">import</span> deque
 
-  <div class="section-label">&#9889; Optimized Solution (BFS Kahn's Algorithm)</div>
-  <div class="code-block"><pre><span class="kw">from</span> collections <span class="kw">import</span> deque
+<span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">numIslands</span>(<span class="st">self</span>, grid: <span class="bi">list</span>[<span class="bi">list</span>[<span class="st">str</span>]]) -> <span class="bi">int</span>:
+        <span class="kw">if</span> <span class="kw">not</span> grid:
+            <span class="kw">return</span> <span class="nm">0</span>
 
-<span class="kw">class</span> <span class="cls">Solution</span>:
-    <span class="kw">def</span> <span class="fn">canFinish</span>(self, numCourses: <span class="bi">int</span>, prerequisites: <span class="bi">list</span>) -&gt; <span class="bi">bool</span>:
-        graph = [[] for _ in range(numCourses)]
-        in_deg = [0] * numCourses
+        rows, cols = <span class="bi">len</span>(grid), <span class="bi">len</span>(grid[<span class="nm">0</span>])
+        count = <span class="nm">0</span>
 
-        <span class="kw">for</span> a, b <span class="kw">in</span> prerequisites:
-            graph[b].append(a)
-            in_deg[a] += 1
+        <span class="kw">for</span> r <span class="kw">in</span> <span class="bi">range</span>(rows):
+            <span class="kw">for</span> c <span class="kw">in</span> <span class="bi">range</span>(cols):
+                <span class="kw">if</span> grid[r][c] == <span class="st">'1'</span>:
+                    count += <span class="nm">1</span>
+                    grid[r][c] = <span class="st">'0'</span>  <span class="cm"># Mark visited immediately</span>
+                    queue = deque([(r, c)])
 
-        queue = deque(i for i in range(numCourses) if in_deg[i] == 0)
-        count = 0
+                    <span class="kw">while</span> queue:
+                        row, col = queue.popleft()
+                        <span class="kw">for</span> dr, dc <span class="kw">in</span> [(<span class="nm">1</span>,<span class="nm">0</span>), (-<span class="nm">1</span>,<span class="nm">0</span>), (<span class="nm">0</span>,<span class="nm">1</span>), (<span class="nm">0</span>,-<span class="nm">1</span>)]:
+                            nr, nc = row + dr, col + dc
+                            <span class="kw">if</span> (<span class="nm">0</span> <= nr < rows <span class="kw">and</span>
+                                <span class="nm">0</span> <= nc < cols <span class="kw">and</span>
+                                grid[nr][nc] == <span class="st">'1'</span>):
+                                grid[nr][nc] = <span class="st">'0'</span>
+                                queue.append((nr, nc))
+
+        <span class="kw">return</span> count</div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section">
+    <div class="section-title">📊 Complexity Analysis</div>
+    <table class="complexity-table">
+      <tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+      <tr><td>Basic DFS</td><td class="time-badge">O(M×N)</td><td class="space-badge">O(M×N)</td><td>Visit each cell once; recursion stack up to M×N deep</td></tr>
+      <tr><td>Optimized BFS</td><td class="time-badge">O(M×N)</td><td class="space-badge">O(min(M,N))</td><td>Same time; BFS queue holds at most min(M,N) cells (diagonal wavefront)</td></tr>
+      <tr><td>outer loop</td><td class="time-badge">O(M×N)</td><td class="space-badge">—</td><td>Iterates all cells; already-visited cells skip instantly (O(1))</td></tr>
+      <tr><td>BFS inner</td><td class="time-badge">O(k)</td><td class="space-badge">O(k)</td><td>k = island size; each neighbor enqueued at most once</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ===== MEDIUM: #207 Course Schedule ===== -->
+<div class="problem-card">
+  <div class="problem-header">
+    <div class="problem-title">
+      <a href="https://leetcode.com/problems/course-schedule/" target="_blank">LeetCode #207 — Course Schedule</a>
+    </div>
+    <span class="badge medium">Medium</span>
+    <span class="by">by LeetCode</span>
+  </div>
+
+  <div class="section">
+    <div class="section-title">📐 Algorithm Visualization</div>
+    <div class="ascii-art">Cycle Detection in Directed Graph (DFS with 3-color marking)
+
+  numCourses=4, prerequisites=[[1,0],[2,0],[3,1],[3,2]]
+
+  Graph:  0 ──► 1 ──► 3
+          │           ▲
+          └──► 2 ──────┘
+
+  3-Color DFS States:
+    WHITE (0) = unvisited
+    GRAY  (1) = in current DFS path   ← cycle if we revisit!
+    BLACK (2) = fully processed (safe)
+
+  DFS(0): 0ₒGRAY → DFS(1)→GRAY → DFS(3)→GRAY → done→BLACK
+                                         ↑ DFS(2)→GRAY→3 already BLACK ✓
+
+  No cycle found → return True ✓</div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section">
+    <div class="section-title">💻 Basic Solution (DFS Cycle Detection)</div>
+    <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">canFinish</span>(<span class="st">self</span>, numCourses: <span class="bi">int</span>,
+                  prerequisites: <span class="bi">list</span>[<span class="bi">list</span>[<span class="bi">int</span>]]) -> <span class="bi">bool</span>:
+        <span class="cm"># Build adjacency list</span>
+        graph = [[] <span class="kw">for</span> _ <span class="kw">in</span> <span class="bi">range</span>(numCourses)]
+        <span class="kw">for</span> course, prereq <span class="kw">in</span> prerequisites:
+            graph[prereq].append(course)
+
+        <span class="cm"># 0=unvisited, 1=visiting(gray), 2=visited(black)</span>
+        state = [<span class="nm">0</span>] * numCourses
+
+        <span class="kw">def</span> <span class="fn">has_cycle</span>(node):
+            <span class="kw">if</span> state[node] == <span class="nm">1</span>:  <span class="cm"># Back edge → cycle!</span>
+                <span class="kw">return</span> <span class="kw">True</span>
+            <span class="kw">if</span> state[node] == <span class="nm">2</span>:  <span class="cm"># Already fully explored</span>
+                <span class="kw">return</span> <span class="kw">False</span>
+
+            state[node] = <span class="nm">1</span>  <span class="cm"># Mark as being visited</span>
+            <span class="kw">for</span> neighbor <span class="kw">in</span> graph[node]:
+                <span class="kw">if</span> has_cycle(neighbor):
+                    <span class="kw">return</span> <span class="kw">True</span>
+            state[node] = <span class="nm">2</span>  <span class="cm"># Mark as fully processed</span>
+            <span class="kw">return</span> <span class="kw">False</span>
+
+        <span class="cm"># Check all nodes (graph may be disconnected)</span>
+        <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(numCourses):
+            <span class="kw">if</span> has_cycle(i):
+                <span class="kw">return</span> <span class="kw">False</span>
+
+        <span class="kw">return</span> <span class="kw">True</span></div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section">
+    <div class="section-title">⚡ Optimized Solution (Kahn's Algorithm / Topological Sort BFS)</div>
+    <div class="code-block"><span class="kw">from</span> collections <span class="kw">import</span> deque
+
+<span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">canFinish</span>(<span class="st">self</span>, numCourses: <span class="bi">int</span>,
+                  prerequisites: <span class="bi">list</span>[<span class="bi">list</span>[<span class="bi">int</span>]]) -> <span class="bi">bool</span>:
+        graph = [[] <span class="kw">for</span> _ <span class="kw">in</span> <span class="bi">range</span>(numCourses)]
+        indegree = [<span class="nm">0</span>] * numCourses
+
+        <span class="kw">for</span> course, prereq <span class="kw">in</span> prerequisites:
+            graph[prereq].append(course)
+            indegree[course] += <span class="nm">1</span>
+
+        <span class="cm"># Start with all courses that have no prerequisites</span>
+        queue = deque(i <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(numCourses) <span class="kw">if</span> indegree[i] == <span class="nm">0</span>)
+        completed = <span class="nm">0</span>
 
         <span class="kw">while</span> queue:
-            node = queue.popleft()
-            count += 1
-            <span class="kw">for</span> nei <span class="kw">in</span> graph[node]:
-                in_deg[nei] -= 1
-                <span class="kw">if</span> in_deg[nei] == 0:
-                    queue.append(nei)
+            course = queue.popleft()
+            completed += <span class="nm">1</span>
+            <span class="kw">for</span> next_course <span class="kw">in</span> graph[course]:
+                indegree[next_course] -= <span class="nm">1</span>
+                <span class="kw">if</span> indegree[next_course] == <span class="nm">0</span>:
+                    queue.append(next_course)
 
-        <span class="kw">return</span> count == numCourses</pre></div>
+        <span class="cm"># If we completed all courses, no cycle exists</span>
+        <span clas="kw">return</span> completed == numCourses</div>
+  </div>
 
-  <div class="section-label">&#128200; Complexity Analysis</div>
-  <table>
-    <tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
-    <tr><td>DFS</td><td>O(V+E)</td><td>O(V+E)</td><td>V=courses, E=prerequisites; each node/edge visited once; recursion stack O(V)</td></tr>
-    <tr><td>BFS (Kahn's)</td><td>O(V+E)</td><td>O(V+E)</td><td>Same complexity; iterative avoids stack overflow; preferred for large inputs</td></tr>
-  </table>
+  <div class="divider"></div>
+  <div class="section">
+    <div class="section-title">📊 Complexity Analysis</div>
+    <table class="complexity-table">
+      <tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+      <tr><td>DFS 3-color</td><td class="time-badge">O(V+E)</td><td class="space-badge">O(V+E)</td><td>Visit each vertex/edge once; recursion stack O(V)</td></tr>
+      <tr><td>Kahn's BFS</td><td class="time-badge">O(V+E)</td><td class="space-badge">O(V+E)</td><td>Build graph O(E), process each node/edge once O(V+E)</td></tr>
+      <tr><td>indegree update</td><td class="time-badge">O(E)</td><td class="space-badge">O(V)</td><td>Each edge decrements indegree exactly once</td></tr>
+      <tr><td>queue ops</td><td class="time-badge">O(V)</td><td class="space-badge">O(V)</td><td>Each vertex enqueued/dequeued at most once</td></tr>
+    </table>
+  </div>
 </div>
 
-<!-- PROBLEM 3: Hard -->
+<!-- ===== HARD: #127 Word Ladder ===== -->
 <div class="problem-card">
   <div class="problem-header">
+    <div class="problem-title">
+      <a href="https://leetcode.com/problems/word-ladder/" target="_blank">LeetCode #127 — Word Ladder</a>
+    </div>
     <span class="badge hard">Hard</span>
-    <span class="problem-title">LeetCode <span>#332</span> &mdash; Reconstruct Itinerary</span>
     <span class="by">by LeetCode</span>
   </div>
-  <span class="tag">Graph</span><span class="tag">Eulerian Path</span><span class="tag">DFS</span><span class="tag">Hierholzer's</span>
 
-  <div class="section-label">&#128202; Algorithm Visualization</div>
-  <div class="ascii-art">tickets = [["MUC","LHR"],["JFK","MUC"],["SFO","SJC"],["LHR","SFO"]]
+  <div class="section">
+    <div class="section-title">📐 Algorithm Visualization</div>
+    <div class="ascii-art">Bidirectional BFS — Shortest Path in Word Graph
 
-Sorted adjacency list:
-JFK --&gt; [MUC]
-LHR --&gt; [SFO]
-MUC --&gt; [LHR]
-SFO --&gt; [SJC]
+  beginWord="hit", endWord="cog"
+  wordList=["hot","dot","dog","lot","log","cog"]
 
-Hierholzer's DFS from "JFK":
-stack: [JFK]
-  pop MUC  --&gt; stack: [JFK, MUC]
-    pop LHR --&gt; stack: [JFK, MUC, LHR]
-      pop SFO --&gt; stack: [JFK, MUC, LHR, SFO]
-        pop SJC --&gt; stack: [JFK, MUC, LHR, SFO, SJC]
-        SJC empty --&gt; result.appendleft(SJC)
-        result.appendleft(SF)
+  Each edge = 1 letter change:
+  hit ──► hot ──► dot ──► dog ──► cog   (length=5)
+                  └──► lot ──► log ──► cog
+
+  Bidirectional BFS meets in the middle:
+    Forward  (from "hit"):  {hit} → {hot} → {dot,lot}
+    Backward (from "cog"):  {cog} → {dog,log} → {dot,lot} ← MEET!
+
+  Pattern trick: "hot" → "h*t", "*ot", "ho*"
+  Build pattern dict: {"*ot": ["hot","dot","lot"], ...}
+
+  Answer: 5</div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section">
+    <div class="section-title">💻 Basic Solution (BFS)</div>
+    <div class="code-block"><span class="kw">from</span> collections <span class="kw">import</span> deque, defaultdict
+
+<span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">ladderLength</span>(<span class="st">self</span>, beginWord: <span class="st">str</span>,
+                     endWord: <span class="st">str</span>,
+                     wordList: <span class="bi">list</span>[<span class="st">str</span>]) -> <span class="bi">int</span>:
+        word_set = <span class="bi">set</span>(wordList)
+        <span class="kw">if</span> endWord <span class="kw">not in</span> word_set:
+            <span class="kw">return</span> <span class="nm">0</span>
+
+        <span class="cm"># Preprocess: build pattern → words map</span>
+        pattern_map = defaultdict(<span class="bi">list</span>)
+        <span class="kw">for</span> word <span class="kw">in</span> wordList:
+            <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(<span class="bi">len</span>(word)):
+                pattern = word[:i] + <span class="st">'*'</span> + word[i+<span class="nm">1</span>:]
+                pattern_map[pattern].append(word)
+
+        queue = deque([(beginWord, <span class="nm">1</span>)])
+        visited = {beginWord}
+
+        <span class="kw">while</span> queue:
+            word, length = queue.popleft()
+
+            <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(<span class="bi">len</span>(word)):
+                pattern = word[:i] + <span class="st">'*'</span> + word[i+<span class="nm">1</span>:]
+                <span class="kw">for</span> neighbor <span class="kw">in</span> pattern_map[pattern]:
+                    <span class="kw">if</span> neighbor == endWord:
+                        <span class="kw">return</span> length + <span class="nm">1</span>
+                    <span class="kw">if</span> neighbor <span class="kw">not in</span> visited:
+                        visited.add(neighbor)
+                        queue.append((neighbor, length + <span class="nm">1</span>))
+
+        <span class="kw">return</span> <span class="nm">0</span></div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section">
+    <div class="section-title">⚡ Optimized Solution (Bidirectional BFS)</div>
+    <div class="code-block"><span class="kw">from</span> collections <span class="kw">import</span> defaultdict
+
+<span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">ladderLength</span>(<span class="st">self</span>, beginWord: <span class="st">str</span>,
+                     endWord: <span class="st">str</span>,
+                     wordList: <span class="bi">list</span>[<span class="st">str</span>]) -> <span class="bi">int</span>:
+        word_set = <span class="bi">set</span>(wordList)
+        <span class="kw">if</span> endWord <span class="kw">not in</span> word_set:
+            <span class="kw">return</span> <span class="nm">0</span>
+
+        pattern_map = defaultdict(<span class="bi">list</span>)
+        <span class="kw">for</span> word <span class="kw">in</span> wordList:
+            <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(<span class="bi">len</span>(word)):
+                pattern_map[word[:i] + <span class="st">'*'</span> + word[i+<span class="nm">1</span>:]].append(word)
+
+        <span class="cm"># Two frontiers expanding toward each other</span>
+        front = {beginWord: <span class="nm">1</span>}
+        back  = {endWord: <span class="nm">1</span>}
+        visited_f = {beginWord}
+        visited_b = {endWord}
+
+        <span class="kw">def</span> <span class="fn">expand</span>(current, other, visited_cur, visited_oth):
+            next_level = {}
+            <span class="kw">for</span> word <span class="kw">in</span> current:
+                steps = current[word]
+                <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(<span class="bi">len</span>(word)):
+                    pattern = word[:i] + <span class="st">'*'</span> + word[i+<span class="nm">1</span>:]
+                    <span class="kw">for</span> neighbor <span class="kw">in</span> pattern_map[pattern]:
+                        <span class="kw">if</span> neighbor <span class="kw">in</span> other:
+                            <span class="kw">return</span> steps + other[neighbor]
+                        <span class="kw">if</span> neighbor <span class="kw">not in</span> visited_cur:
+                            visited_cur.add(neighbor)
+                            next_level[neighbor] = steps + <span class="nm">1</span>
+            <span class="kw">return</span> next_level
+
+        <span class="kw">while</span> front <span class="kw">and</span> back:
+            <span class="cm"># Always expand the smaller frontier</span>
+            <span class="kw">if</span> <span class="bi">len</span>(front) <= <span class="bi">len</span>(back):
+                result = expand(front, back, visited_f, visited_b)
+            <span class="kw">else</span>:
+                result = expand(back, front, visited_b, visited_f)
+
+            <span class="kw">if</span> <span class="bi">isinstance</span>(result, <span class="bi">int</span>):
+                <span class="kw">return</span> result
+            <span class="kw">if</span> <span class="bi">len</span>(front) <= <span class="bi">len</span>(back):
+                front = result
+            <span class="kw">else</span>:
+                back = result
+
+        <span class="kw">return</span> <span class="nm">0</span></div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section">
+    <div class="section-title">📊 Complexity Analysis</div>
+    <table class="complexity-table">
+      <tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+      <tr><td>Basic BFS</td><td class="time-badge">O(M²×N)</td><td class="space-badge">O(M²×N)</td><td>M=word length, N=wordList size; M patterns per word, each pattern has ≄N words</span></td></tr>
+      <tr><td>Bidirectional BFS</td><td class="time-badge">O(M²×N)</td><td class="space-badge">O(M²×N)</td><td>Same asymptotic but explores ~√(search space) in practice (meets in middle)</td></tr>
+      <tr><td>pattern_map build</td><td class="time-badge">O(M×N)</td><td class="space-badge">O(M×N)</td><td>N words × M patterns each = M×N entries</td></tr>
+      <tr><td>BFS per level</td><td class="time-badge">O(M×branching)</td><td class="space-badge">O(level width)</td><td>Bidirectional halves the depth → exponential speedup in dense graphs</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="footer">
+  <p>📚 LeetCode Daily — Graph Pattern</p>
+  <p style="margin-top:8px">
+    <a href="https://chloeyeo.github.io/leetcode-explanations" target="_blank">
+      🌐 https://chloeyeo.github.io/leetcode-explanations</a>
+  </p>
+</div>
+
+</body>
+</html>

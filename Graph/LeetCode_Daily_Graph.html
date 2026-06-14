@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeetCode Daily - Graph</title>
+    <style>
+        body { background-color: #121212; color: #e0e0e0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; padding: 20px; line-height: 1.6; }
+        h1 { color: #ffffff; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        h2 { color: #bb86fc; margin-top: 30px; }
+        .date { color: #888; font-size: 0.9em; margin-bottom: 20px; display: block; }
+        .badge { display: inline-block; padding: 3px 8px; border-radius: 12px; font-size: 0.8em; font-weight: bold; margin-left: 10px; color: #000; }
+        .easy { background-color: #4caf50; }
+        .medium { background-color: #ff9800; }
+        .hard { background-color: #f44336; }
+        pre { background-color: #1e1e1e; padding: 15px; border-radius: 8px; overflow-x: auto; color: #d4d4d4; font-family: "Courier New", Courier, monospace; }
+        .keyword { color: #569cd6; font-weight: bold; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; font-style: italic; }
+        .function { color: #dcdcaa; }
+        .ascii-art { font-family: monospace; background-color: #1a1a1a; padding: 10px; border-radius: 5px; color: #4fc1ff; white-space: pre; font-size: 0.9em; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #444; padding: 10px; text-align: left; }
+        th { background-color: #2c2c2c; color: #fff; }
+        footer { margin-top: 50px; text-align: center; border-top: 1px solid #333; padding-top: 20px; color: #888; }
+        a { color: #bb86fc; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>🧩 LeetCode Daily: Graph</h1>
+    <span class="date">2026-06-14</span>
+
+    <h2>#997 Find the Town Judge - by LeetCode <span class="badge easy">Easy</span></h2>
+    <div class="ascii-art">
+      1 ---> 2
+      |      ^
+      v      |
+      3 -----+
+    (2 is the judge: in-degree = N-1, out-degree = 0)
+    </div>
+    <h3>Basic Solution</h3>
+    <pre><code><span class="keyword">def</span> <span class="function">findJudge</span>(N, trust):
+    <span class="keyword">if</span> N == <span class="string">1</span>: <span class="keyword">return</span> <span class="string">1</span>
+    in_degree = {}
+    out_degree = {}
+    <span class="keyword">for</span> a, b <span class="keyword">in</span> trust:
+        out_degree[a] = out_degree.get(a, <span class="string">0</span>) + <span class="string">1</span>
+        in_degree[b] = in_degree.get(b, <span class="string">0</span>) + <span class="string">1</span>
+    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="string">1</span>, N + <span class="string">1</span>):
+        <span class="keyword">if</span> in_degree.get(i, <span class="string">0</span>) == N - <span class="string">1</span> <span class="keyword">and</span> out_degree.get(i, <span class="string">0</span>) == <span class="string">0</span>:
+            <span class="keyword">return</span> i
+    <span class="keyword">return</span> -<span class="string">1</span></code></pre>
+    <h3>Optimized Solution</h3>
+    <pre><code><span class="keyword">def</span> <span class="function">findJudge</span>(N, trust):
+    <span class="comment"># Use a single array for net trust</span>
+    count = [<span class="string">0</span>] * (N + <span class="string">1</span>)
+    <span class="keyword">for</span> a, b <span class="keyword">in</span> trust:
+        count[a] -= <span class="string">1</span>
+        count[b] += <span class="string">1</span>
+    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="string">1</span>, N + <span class="string">1</span>):
+        <span class="keyword">if</span> count[i] == N - <span class="string">1</span>:
+            <span class="keyword">return</span> i
+    <span class="keyword">return</span> -<span class="string">1</span></code></pre>
+    <table>
+        <tr><th>Complexity</th><th>Value</th><th>Reasoning</th></tr>
+        <tr><td>Time</td><td>O(V + E)</td><td>We iterate through the trust array of size E, then the people array of size V.</td></tr>
+        <tr><td>Space</td><td>O(V)</td><td>We allocate a count array of size V+1 to track trust scores.</td></tr>
+    </table>
+
+    <h2>#200 Number of Islands - by LeetCode <span class="badge medium">Medium</span></h2>
+    <div class="ascii-art">
+      1 1 0 0 0    --> Island 1
+      1 1 0 0 0
+      0 0 1 0 0    --> Island 2
+      0 0 0 1 1    --> Island 3
+    </div>
+    <h3>Basic Solution</h3>
+    <pre><code><span class="keyword">def</span> <span class="function">numIslands</span>(grid):
+    <span class="keyword">if</span> <span class="keyword">not</span> grid: <span class="keyword">return</span> <span class="string">0</span>
+    count = <span class="string">0</span>
+    visited = <span class="function">set</span>()
+    <span class="keyword">def</span> <span class="function">dfs</span>(r, c):
+        <span class="keyword">if</span> r &lt; <span class="string">0</span> <span class="keyword">or</span> c &lt; <span class="string">0</span> <span class="keyword">or</span> r &gt;= <span class="function">len</span>(grid) <span class="keyword">or</span> c &gt;= <span class="function">len</span>(grid[<span class="string">0</span>]) <span class="keyword">or</span> grid[r][c] == <span class="string">'0'</span> <span class="keyword">or</span> (r, c) <span class="keyword">in</span> visited:
+            <span class="keyword">return</span>
+        visited.add((r, c))
+        dfs(r+<span class="string">1</span>, c); dfs(r-<span class="string">1</span>, c); dfs(r, c+<span class="string">1</span>); dfs(r, c-<span class="string">1</span>)
+    <span class="keyword">for</span> r <span class="keyword">in</span> <span class="function">range</span>(<span class="function">len</span>(grid)):
+        <span class="keyword">for</span> c <span class="keyword">in</span> <span class="function">range</span>(<span class="function">len</span>(grid[<span class="string">0</span>])):
+            <span class="keyword">if</span> grid[r][c] == <span class="string">'1'</span> <span class="keyword">and</span> (r, c) <span class="keyword">not</span> <span class="keyword">in</span> visited:
+                count += <span class="string">1</span>; dfs(r, c)
+    <span class="keyword">return</span> count</code></pre>
+    <h3>Optimized Solution</h3>
+    <pre><code><span class="keyword">def</span> <span class="function">numIslands</span>(grid):
+    <span class="keyword">if</span> <span class="keyword">not</span> grid: <span class="keyword">return</span> <span class="string">0</span>
+    count = <span class="string">0</span>
+    <span class="keyword">def</span> <span class="function">dfs</span>(r, c):
+        <span class="keyword">if</span> r &lt; <span class="string">0</span> <span class="keyword">or</span> c &lt; <span class="string">0</span> <span class="keyword">or</span> r &gt;= <span class="function">len</span>(grid) <span class="keyword">or</span> c &gt;= <span class="function">len</span>(grid[<span class="string">0</span>]) <span class="keyword">or</span> grid[r][c] == <span class="string">'0'</span>:
+            <span class="keyword">return</span>
+        grid[r][c] = <span class="string">'0'</span>  <span class="comment"># mark as visited in-place</span>
+        dfs(r+<span class="string">1</span>, c); dfs(r-<span class="string">1</span>, c); dfs(r, c+<span class="string">1</span>); dfs(r, c-<span class="string">1</span>)
+    <span class="keyword">for</span> r <span class="keyword">in</span> <span class="function">range</span>(<span class="function">len</span>(grid)):
+        <span class="keyword">for</span> c <span class="keyword">in</span> <span class="function">range</span>(<span class="function">len</span>(grid[<span class="string">0</span>])):
+            <span class="keyword">if</span> grid[r][c] == <span class="string">'1'</span>:
+                count += <span class="string">1</span>; dfs(r, c)
+    <span class="keyword">return</span> count</code></pre>
+    <table>
+        <tr><th>Complexity</th><th>Value</th><th>Reasoning</th></tr>
+        <tr><td>Time</td><td>O(M * N)</td><td>Every cell is visited exactly once via DFS. Each cell triggers DFS exactly once.</td></tr>
+        <tr><td>Space</td><td>O(M * N)</td><td>In the worst case (all land), the call stack goes M*N deep. Modifying grid saves O(M*N) external set memory.</td></tr>
+    </table>
+
+    <h2>#329 Longest Increasing Path in a Matrix - by LeetCode <span class="badge hard">Hard</span></h2>
+    <div class="ascii-art">
+      9  9  4
+      ^     |
+      |     v
+      6  6  8
+      ^     |
+      |     v
+      2--1  1
+    Path: 1 -> 2 -> 6 -> 9
+    </div>
+    <h3>Basic Solution (DFS, no memo)</h3>
+    <pre><code><span class="keyword">def</span> <span class="function">longestIncreasingPath</span>(matrix):
+    <span class="keyword">if</span> <span class="keyword">not</span> matrix: <span class="keyword">return</span> <span class="string">0</span>
+    R, C = <span class="function">len</span>(matrix), <span class="function">len</span>(matrix[<span class="string">0</span>])
+    <span class="keyword">def</span> <span class="function">dfs</span>(r, c):
+        res = <span class="string">1</span>
+        <span class="keyword">for</span> dr, dc <span class="keyword">in</span> [(<span class="string">1</span>,<span class="string">0</span>),(-<span class="string">1</span>,<span class="string">0</span>),(<span class="string">0</span>,<span class="string">1</span>),(<span class="string">0</span>,-<span class="string">1</span>)]:
+            nr, nc = r+dr, c+dc
+            <span class="keyword">if</span> <span class="string">0</span>&lt;=nr&lt;R <span class="keyword">and</span> <span class="string">0</span>&lt;=nc&lt;C <span class="keyword">and</span> matrix[nr][nc]&gt;matrix[r][c]:
+                res = <span class="function">max</span>(res, <span class="string">1</span>+dfs(nr,nc))
+        <span class="keyword">return</span> res
+    <span class="keyword">return</span> <span class="function">max</span>(dfs(r,c) <span class="keyword">for</span> r <span class="keyword">in</span> <span class="function">range</span>(R) <span class="keyword">for</span> c <span class="keyword">in</span> <span class="function">range</span>(C))</code></pre>
+    <h3>Optimized Solution (DFS + Memoization)</h3>
+    <pre><code><span class="keyword">def</span> <span class="function">longestIncreasingPath</span>(matrix):
+    <span class="keyword">if</span> <span class="keyword">not</span> matrix: <span class="keyword">return</span> <span class="string">0</span>
+    R, C = <span class="function">len</span>(matrix), <span class="function">len</span>(matrix[<span class="string">0</span>])
+    memo = {}
+    <span class="keyword">def</span> <span class="function">dfs</span>(r, c):
+        <span class="keyword">if</span> (r,c) <span class="keyword">in</span> memo: <span class="keyword">return</span> memo[(r,c)]
+        res = <span class="string">1</span>
+        <span class="keyword">for</span> dr, dc <span class="keyword">in</span> [(<span class="string">1</span>,<span class="string">0</span>),(-<span class="string">1</span>,<span class="string">0</span>),(<span class="string">0</span>,<span class="string">1</span>),(<span class="string">0</span>,-<span class="string">1</span>)]:
+            nr, nc = r+dr, c+dc
+            <span class="keyword">if</span> <span class="string">0</span>&lt;=nr&lt;R <span class="keyword">and</span> <span class="string">0</span>&lt;=nc&lt;C <span class="keyword">and</span> matrix[nr][nc]&gt;matrix[r][c]:
+                res = <span class="function">max</span>(res, <span class="string">1</span>+dfs(nr,nc))
+        memo[(r,c)] = res
+        <span class="keyword">return</span> res
+    <span class="keyword">return</span> <span class="function">max</span>(dfs(r,c) <span class="keyword">for</span> r <span class="keyword">in</span> <span class="function">range</span>(R) <span class="keyword">for</span> c <span class="keyword">in</span> <span class="function">range</span>(C))</code></pre>
+    <table>
+        <tr><th>Complexity</th><th>Value</th><th>Reasoning</th></tr>
+        <tr><td>Time</td><td>O(M * N)</td><td>With memoization each cell is computed exactly once; its edges are O(1).</td></tr>
+        <tr><td>Space</td><td>O(M * N)</td><td>Recursion stack + memo hash map both take up to O(M*N).</td></tr>
+    </table>
+
+    <footer>
+        <p>Created by Crew for Chloe Yeo</p>
+        <a href="https://chloeyeo.github.io/leetcode-explanations">🌐 View on GitHub Pages</a>
+    </footer>
+</body>
+</html>

@@ -3,199 +3,272 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LeetCode Daily | Intervals</title>
+<title>LeetCode Daily | Intervals 유형 | 2026-06-14</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { background:#0d1117; color:#e6edf3; font-family:'Courier New',monospace; padding:16px; }
-.header { text-align:center; padding:20px 0 10px; }
-.header h1 { font-size:1.5rem; color:#58a6ff; letter-spacing:2px; }
-.header .date { color:#8b949e; font-size:0.85rem; margin-top:4px; }
-.badge { display:inline-block; padding:2px 10px; border-radius:12px; font-size:0.75rem; font-weight:bold; margin:8px 0; }
-.easy { background:#1a4a2e; color:#3fb950; border:1px solid #3fb950; }
-.medium { background:#4a2e0a; color:#f0883e; border:1px solid #f0883e; }
-.hard { background:#4a0a0a; color:#f85149; border:1px solid #f85149; }
-.card { background:#161b22; border:1px solid #30363d; border-radius:12px; margin:16px 0; padding:16px; }
-.card h2 { font-size:1rem; color:#e6edf3; margin-bottom:4px; }
-.card .byline { color:#8b949e; font-size:0.75rem; margin-bottom:10px; }
-.section-title { color:#58a6ff; font-size:0.8rem; font-weight:bold; margin:14px 0 6px; text-transform:uppercase; letter-spacing:1px; }
-.ascii { background:#010409; border:1px solid #21262d; border-radius:8px; padding:12px; font-size:0.7rem; color:#39d353; line-height:1.4; overflow-x:auto; white-space:pre; }
-.code-block { background:#010409; border:1px solid #21262d; border-radius:8px; padding:12px; font-size:0.72rem; line-height:1.6; overflow-x:auto; white-space:pre; }
-.kw { color:#ff7b72; } .fn { color:#d2a8ff; } .cm { color:#8b949e; }
-.st { color:#a5d6ff; } .num { color:#79c0ff; } .op { color:#e6edf3; }
-.bi { color:#ffa657; }
-table { width:100%; border-collapse:collapse; font-size:0.75rem; margin-top:6px; }
-th { background:#21262d; color:#8b949e; padding:6px 8px; text-align:left; }
-td { border-top:1px solid #21262d; padding:6px 8px; color:#e6edf3; }
-td:first-child { color:#58a6ff; font-weight:bold; }
-.footer { text-align:center; padding:20px 0; color:#8b949e; font-size:0.8rem; }
-.footer a { color:#58a6ff; text-decoration:none; }
-hr { border:none; border-top:1px solid #21262d; margin:20px 0; }
+  :root {
+    --bg: #0d1117; --surface: #161b22; --surface2: #1c2128;
+    --border: #30363d; --text: #e6edf3; --muted: #8b949e;
+    --easy: #3fb950; --medium: #d29922; --hard: #f85149;
+    --accent: #58a6ff; --orange: #ffa657; --green: #7ee787;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; font-size: 15px; line-height: 1.6; padding: 0 0 40px 0; }
+  header { background: linear-gradient(135deg, #1a2035 0%, #0d1117 100%); border-bottom: 1px solid var(--border); padding: 28px 20px 24px; text-align: center; }
+  header .tag { display: inline-block; background: var(--accent); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; margin-bottom: 10px; }
+  header h1 { font-size: 26px; font-weight: 800; }
+  header .subtitle { color: var(--muted); font-size: 13px; margin-top: 6px; }
+  .toc { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; margin: 20px 16px; padding: 16px 18px; }
+  .toc h2 { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+  .toc ul { list-style: none; }
+  .toc li { padding: 4px 0; }
+  .toc a { color: var(--accent); text-decoration: none; font-size: 14px; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 12px; margin-left: 8px; }
+  .badge.easy { background: rgba(63,185,80,0.18); color: var(--easy); }
+  .badge.medium { background: rgba(210,153,34,0.18); color: var(--medium); }
+  .badge.hard { background: rgba(248,81,73,0.18); color: var(--hard); }
+  .problem-card { margin: 20px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .problem-header { padding: 18px 20px 14px; border-bottom: 1px solid var(--border); background: var(--surface2); }
+  .problem-header .number { color: var(--muted); font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+  .problem-header h2 { font-size: 18px; font-weight: 700; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+  .problem-header .credit { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .section { padding: 16px 20px; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+  .section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted); margin-bottom: 12px; }
+  pre.ascii { background: #0a0e14; border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; font-family: 'Courier New', monospace; font-size: 12px; color: var(--green); overflow-x: auto; white-space: pre; line-height: 1.5; }
+  .code-block { background: #0a0e14; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 12px; }
+  .code-label { background: var(--surface2); padding: 7px 14px; font-size: 11px; font-weight: 600; color: var(--muted); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+  .code-label .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .code-label .dot.basic { background: var(--orange); }
+  .code-label .dot.opt { background: var(--accent); }
+  pre.code { padding: 14px 16px; font-family: 'Courier New', monospace; font-size: 12.5px; line-height: 1.7; overflow-x: auto; white-space: pre; }
+  .kw { color: #ff7b72; } .fn { color: #d2a8ff; } .cl { color: #ffa657; }
+  .cm { color: #8b949e; font-style: italic; } .nm { color: #79c0ff; } .num { color: #6e9fff; }
+  table.complexity { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.complexity th { background: var(--surface2); color: var(--muted); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+  table.complexity td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  table.complexity tr:last-child td { border-bottom: none; }
+  .cb { color: var(--easy); font-weight: 600; } .ca { color: var(--medium); font-weight: 600; } .cw { color: var(--hard); font-weight: 600; }
+  footer { margin: 30px 16px 0; text-align: center; padding: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
+  footer a { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 14px; }
+  footer .footer-note { color: var(--muted); font-size: 12px; margin-top: 8px; }
 </style>
 </head>
 <body>
-<div class="header">
-  <h1>INTERVALS</h1>
-  <div class="date">LeetCode Daily | 2026-06-13</div>
+
+<header>
+  <div class="tag">Intervals</div>
+  <h1>📅 LeetCode Daily</h1>
+  <div class="subtitle">2026년 6월 14일 · Easy · Medium · Hard</div>
+</header>
+
+<div class="toc">
+  <h2>문제 목록</h2>
+  <ul>
+    <li><a href="#p252">🟢 #252 Meeting Rooms <span class="badge easy">Easy</span></a></li>
+    <li><a href="#p56">🟠 #56 Merge Intervals <span class="badge medium">Medium</span></a></li>
+    <li><a href="#p57">🔴 #57 Insert Interval <span class="badge hard">Hard</span></a></li>
+  </ul>
 </div>
 
-<div class="card">
-  <div class="badge easy">Easy</div>
-  <h2>#252 Meeting Rooms</h2>
-  <div class="byline">by LeetCode</div>
-  <div class="section-title">Algorithm Visualization</div>
-  <div class="ascii">Input: intervals = [[0,30],[5,10],[15,20]]
+<!-- PROBLEM 1: Easy #252 -->
+<div class="problem-card" id="p252">
+  <div class="problem-header">
+    <div class="number">LeetCode #252 · by LeetCode</div>
+    <h2>Meeting Rooms <span class="badge easy">Easy</span></h2>
+    <div class="credit">© LeetCode — for educational purposes</div>
+  </div>
+  <div class="section">
+    <div class="section-title">📐 알고리즘 시각화</div>
+<pre class="ascii">
+intervals = [[0,30],[5,10],[15,20]]
+
 Sort by start: [0,30] [5,10] [15,20]
-[0,30]  ============================
-[5,10]       =====
-[15,20]            =====
-[0,30] vs [5,10]: 5 &lt; 30 =&gt; OVERLAP!
-Answer: False
+Check: [0,30] vs [5,10] → 5 < 30 ❌ OVERLAP → return False
 
-Input: intervals = [[7,10],[2,4]]
-After sort: [[2,4],[7,10]]
-[2,4]  ====
-[7,10]       ====
-4 &lt;= 7 =&gt; No overlap =&gt; True</div>
-  <div class="section-title">Basic Solution</div>
-  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">canAttendMeetings</span>(<span class="bi">self</span>, intervals):
-        intervals.<span class="fn">sort</span>(<span class="bi">key</span>=<span class="kw">lambda</span> x: x[<span class="num">0</span>])
-        <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(<span class="num">1</span>, <span class="bi">len</span>(intervals)):
-            <span class="cm"># overlap if current start &lt; previous end</span>
-            <span class="kw">if</span> intervals[i][<span class="num">0</span>] &lt; intervals[i<span class="op">-</span><span class="num">1</span>][<span class="num">1</span>]:
-                <span class="kw">return</span> <span class="bi">False</span>
-        <span class="kw">return</span> <span class="bi">True</span></div>
-  <div class="section-title">Optimized Solution</div>
-  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">canAttendMeetings</span>(<span class="bi">self</span>, intervals):
-        intervals.<span class="fn">sort</span>()
-        <span class="kw">return</span> <span class="bi">all</span>(
-            intervals[i][<span class="num">0</span>] >= intervals[i<span class="op">-</span><span class="num">1</span>][<span class="num">1</span>]
-            <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(<span class="num">1</span>, <span class="bi">len</span>(intervals))
-        )</div>
-  <div class="section-title">Complexity Analysis</div>
-  <table>
-    <tr><th>구분</th><th>복잡도</th><th>이유</th></tr>
-    <tr><td>Time</td><td>O(n log n)</td><td>정렬이 병목</td></tr>
-    <tr><td>Space</td><td>O(1)</td><td>in-place 정렬, 추가 공간 없음</td></tr>
-  </table>
-</div>
-
-<hr>
-
-<div class="card">
-  <div class="badge medium">Medium</div>
-  <h2>#56 Merge Intervals</h2>
-  <div class="byline">by LeetCode</div>
-  <div class="section-title">Algorithm Visualization</div>
-  <div class="ascii">Input: [[1,3],[2,6],[8,10],[15,18]]
-Sort: [[1,3],[2,6],[8,10],[15,18]]
-
-Step 1: merged=[[1,3]]
-Step 2: 2&lt;=3 =&gt; merge =&gt; [[1,6]]
-Step 3: 8&gt;6  =&gt; new   =&gt; [[1,6],[8,10]]
-Step 4: 15&gt;10=&gt; new   =&gt; [[1,6],[8,10],[15,18]]
+No overlap: [[7,10],[2,4]] → sort → [[2,4],[7,10]]
+  [2,4] vs [7,10] → 7 >= 4 ✅ → return True
 
 Timeline:
- [1,3]  ===
- [2,6]    ===== (overlaps =&gt; merge)
- [8,10]         ===
- [15,18]              ====
-Output: [[1,6],[8,10],[15,18]]</div>
-  <div class="section-title">Basic Solution</div>
-  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">merge</span>(<span class="bi">self</span>, intervals):
-        intervals.<span class="fn">sort</span>(<span class="bi">key</span>=<span class="kw">lambda</span> x: x[<span class="num">0</span>])
-        merged = []
-        <span class="kw">for</span> interval <span class="kw">in</span> intervals:
-            <span class="kw">if</span> <span class="kw">not</span> merged <span class="kw">or</span> merged[<span class="op">-</span><span class="num">1</span>][<span class="num">1</span>] &lt; interval[<span class="num">0</span>]:
-                merged.<span class="fn">append</span>(interval)
-            <span class="kw">else</span>:
-                merged[<span class="op">-</span><span class="num">1</span>][<span class="num">1</span>] = <span class="bi">max</span>(merged[<span class="op">-</span><span class="num">1</span>][<span class="num">1</span>], interval[<span class="num">1</span>])
-        <span class="kw">return</span> merged</div>
-  <div class="section-title">Optimized Solution</div>
-  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">merge</span>(<span class="bi">self</span>, intervals):
-        intervals.<span class="fn">sort</span>()
+  0────────────────────30
+       5────10
+              15────20
+  ↑ overlapping!
+</pre>
+  </div>
+  <div class="section">
+    <div class="section-title">💡 기본 풀이 코드</div>
+    <div class="code-block">
+      <div class="code-label"><span class="dot basic"></span> Basic — Sort + Linear Scan</div>
+      <pre class="code"><span class="kw">class</span> <span class="cl">Solution</span>:
+    <span class="kw">def</span> <span class="fn">canAttendMeetings</span>(self, intervals):
+        intervals.sort(key=<span class="kw">lambda</span> x: x[<span class="num">0</span>])
+        <span class="kw">for</span> i <span class="kw">in</span> range(<span class="num">1</span>, len(intervals)):
+            <span class="kw">if</span> intervals[i][<span class="num">0</span>] < intervals[i-<span class="num">1</span>][<span class="num">1</span>]:
+                <span class="kw">return</span> <span class="nm">False</span>
+        <span class="kw">return</span> <span class="nm">True</span></pre>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">⚡ 최적화 풀이</div>
+    <div class="code-block">
+      <div class="code-label"><span class="dot opt"></span> Optimized — Early Exit with any()</div>
+      <pre class="code"><span class="kw">class</span> <span class="cl">Solution</span>:
+    <span class="kw">def</span> <span class="fn">canAttendMeetings</span>(self, intervals):
+        intervals.sort()
+        <span class="kw">return not</span> any(intervals[i][<span class="num">0</span>] < intervals[i-<span class="num">1</span>][<span class="num">1</span>]
+                       <span class="kw">for</span> i <span class="kw">in</span> range(<span class="num">1</span>, len(intervals)))</pre>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">📊 복잡도 분석</div>
+    <table class="complexity">
+      <tr><th>풀이</th><th>시간</th><th>공간</th><th>이유</th></tr>
+      <tr><td>기본</td><td class="ca">O(n log n)</td><td class="cb">O(1)</td><td>정렬 지배, 비교 O(n)</td></tr>
+      <tr><td>최적화</td><td class="ca">O(n log n)</td><td class="cb">O(1)</td><td>any() 조기 종료</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- PROBLEM 2: Medium #56 -->
+<div class="problem-card" id="p56">
+  <div class="problem-header">
+    <div class="number">LeetCode #56 · by LeetCode</div>
+    <h2>Merge Intervals <span class="badge medium">Medium</span></h2>
+    <div class="credit">© LeetCode — for educational purposes</div>
+  </div>
+  <div class="section">
+    <div class="section-title">📐 알고리즘 시각화</div>
+<pre class="ascii">
+Input: [[1,3],[2,6],[8,10],[15,18]]
+After sort: [[1,3],[2,6],[8,10],[15,18]]
+merged = [[1,3]]
+
+curr=[2,6]: 2<=3 → merge → [1,max(3,6)]=[1,6]
+curr=[8,10]: 8>6 → append [8,10]
+curr=[15,18]: 15>10 → append [15,18]
+
+Result: [[1,6],[8,10],[15,18]] ✅
+
+  1──────6   8────10   15────18
+  (merged)   (kept)    (kept)
+</pre>
+  </div>
+  <div class="section">
+    <div class="section-title">💡 기본 풀이 코드</div>
+    <div class="code-block">
+      <div class="code-label"><span class="dot basic"></span> Basic — Sort + Merge</div>
+      <pre class="code"><span class="kw">class</span> <span class="cl">Solution</span>:
+    <span class="kw">def</span> <span class="fn">merge</span>(self, intervals):
+        intervals.sort(key=<span class="kw">lambda</span> x: x[<span class="num">0</span>])
         merged = [intervals[<span class="num">0</span>]]
         <span class="kw">for</span> start, end <span class="kw">in</span> intervals[<span class="num">1</span>:]:
-            <span class="kw">if</span> start &lt;= merged[<span class="op">-</span><span class="num">1</span>][<span class="num">1</span>]:
-                merged[<span class="op">-</span><span class="num">1</span>][<span class="num">1</span>] = <span class="bi">max</span>(merged[<span class="op">-</span><span class="num">1</span>][<span class="num">1</span>], end)
+            <span class="kw">if</span> start <= merged[-<span class="num">1</span>][<span class="num">1</span>]:
+                merged[-<span class="num">1</span>][<span class="num">1</span>] = max(merged[-<span class="num">1</span>][<span class="num">1</span>], end)
             <span class="kw">else</span>:
-                merged.<span class="fn">append</span>([start, end])
-        <span class="kw">return</span> merged</div>
-  <div class="section-title">Complexity Analysis</div>
-  <table>
-    <tr><th>구분</th><th>복잡도</th><th>이유</th></tr>
-    <tr><td>Time</td><td>O(n log n)</td><td>정렬이 병목, 순회는 O(n)</td></tr>
-    <tr><td>Space</td><td>O(n)</td><td>merged 결과 배열 저장</td></tr>
-  </table>
+                merged.append([start, end])
+        <span class="kw">return</span> merged</pre>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">⚡ 최적화 풀이</div>
+    <div class="code-block">
+      <div class="code-label"><span class="dot opt"></span> Optimized — In-place tracking</div>
+      <pre class="code"><span class="kw">class</span> <span class="cl">Solution</span>:
+    <span class="kw">def</span> <span class="fn">merge</span>(self, intervals):
+        intervals.sort()
+        res = []
+        cs, ce = intervals[<span class="num">0</span>]
+        <span class="kw">for</span> s, e <span class="kw">in</span> intervals[<span class="num">1</span>:]:
+            <span class="kw">if</span> s <= ce: ce = max(ce, e)
+            <span class="kw">else</span>: res.append([cs, ce]); cs, ce = s, e
+        res.append([cs, ce])
+        <span class="kw">return</span> res</pre>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">📊 복잡도 분석</div>
+    <table class="complexity">
+      <tr><th>풀이</th><th>시간</th><th>공간</th><th>이유</th></tr>
+      <tr><td>기본</td><td class="ca">O(n log n)</td><td class="ca">O(n)</td><td>정렬 후 단일 패스, 결과 배열</td></tr>
+      <tr><td>최적화</td><td class="ca">O(n log n)</td><td class="cb">O(1)*</td><td>상수 공간 추적 (출력 제외)</td></tr>
+    </table>
+  </div>
 </div>
 
-<hr>
+<!-- PROBLEM 3: Hard #57 -->
+<div class="problem-card" id="p57">
+  <div class="problem-header">
+    <div class="number">LeetCode #57 · by LeetCode</div>
+    <h2>Insert Interval <span class="badge hard">Hard</span></h2>
+    <div class="credit">© LeetCode — for educational purposes</div>
+  </div>
+  <div class="section">
+    <div class="section-title">📐 알고리즘 시각화</div>
+<pre class="ascii">
+intervals=[[1,3],[6,9]], newInterval=[2,5]
 
-<div class="card">
-  <div class="badge hard">Hard</div>
-  <h2>#57 Insert Interval</h2>
-  <div class="byline">by LeetCode</div>
-  <div class="section-title">Algorithm Visualization</div>
-  <div class="ascii">intervals=[[1,2],[3,5],[6,7],[8,10],[12,16]]
-newInterval=[4,8]
+Phase 1: end < newStart → [1,3]: 3<2? No → skip
+Phase 2: overlaps w/new:
+  [1,3]: 1<=5 and 2<=3 → YES → merged=[min(1,2),max(3,5)]=[1,5]
+  [6,9]: 6<=5? NO → stop
+Phase 3: append [6,9]
 
-Phase 1 - Add before (end &lt; 4):
-  [1,2] end 2&lt;4  =&gt; add  result=[[1,2]]
-  [3,5] end 5&gt;=4 =&gt; stop
+Result: [[1,5],[6,9]] ✅
 
-Phase 2 - Merge overlapping (start &lt;= 8):
-  [3,5]  3&lt;=8  =&gt; new=[3,8]
-  [6,7]  6&lt;=8  =&gt; new=[3,8]
-  [8,10] 8&lt;=8  =&gt; new=[3,10]
-  [12,16] 12&gt;8 =&gt; stop  =&gt; add [3,10]
-
-Phase 3 - Add remaining:
-  [12,16] =&gt; add
-
-Output: [[1,2],[3,10],[12,16]]</div>
-  <div class="section-title">Basic Solution</div>
-  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">insert</span>(<span class="bi">self</span>, intervals, newInterval):
-        result = []
-        i, n = <span class="num">0</span>, <span class="bi">len</span>(intervals)
-        <span class="cm"># Phase 1: add all before newInterval</span>
-        <span class="kw">while</span> i &lt; n <span class="kw">and</span> intervals[i][<span class="num">1</span>] &lt; newInterval[<span class="num">0</span>]:
-            result.<span class="fn">append</span>(intervals[i]); i <span class="op">+=</span> <span class="num">1</span>
-        <span class="cm"># Phase 2: merge overlapping</span>
-        <span class="kw">while</span> i &lt; n <span class="kw">and</span> intervals[i][<span class="num">0</span>] &lt;= newInterval[<span class="num">1</span>]:
-            newInterval[<span class="num">0</span>] = <span class="bi">min</span>(newInterval[<span class="num">0</span>], intervals[i][<span class="num">0</span>])
-            newInterval[<span class="num">1</span>] = <span class="bi">max</span>(newInterval[<span class="num">1</span>], intervals[i][<span class="num">1</span>])
-            i <span class="op">+=</span> <span class="num">1</span>
-        result.<span class="fn">append</span>(newInterval)
-        <span class="cm"># Phase 3: add remaining</span>
-        <span clas="kw">while</span> i &lt; n:
-            result.<span class="fn">append</span>(intervals[i]); i <span class="op">+=</span> <span class="num">1</span>
-        <span class="kw">return</span> result</div>
-  <div class="section-title">Optimized Solution</div>
-  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">insert</span>(<span class="bi">self</span>, intervals, newInterval):
-        s, e = newInterval
-        left    = [iv <span class="kw">for</span> iv <span class="kw">in</span> intervals <span class="kw">if</span> iv[<span class="num">1</span>] &lt; s]
-        right   = [iv <span class="kw">for</span> iv <span class="kw">in</span> intervals <span class="kw">if</span> iv[<span class="num">0</span>] &gt; e]
-        overlap = [iv <span class="kw">for</span> iv <span class="kw">in</span> intervals
-                   <span class="kw">if</span> iv[<span class="num">0</span>] &lt;= e <span class="kw">and</span> iv[<span class="num">1</span>] &gt;= s]
-        <span class="kw">if</span> overlap:
-            s = <span class="bi">min</span>(s, overlap[<span class="num">0</span>][<span class="num">0</span>])
-            e = <span class="bi">max</span>(e, overlap[<span class="op">-</span><span class="num">1</span>][<span class="num">1</span>])
-        <span class="kw">return</span> left + [[s, e]] + right</div>
-  <div class="section-title">Complexity Analysis</div>
-  <table>
-    <tr><th>구분</th><th>Basic</th><th>Optimized</th><th>이유</th></tr>
-    <tr><td>Time</td><td>O(n)</td><td>O(n)</td><td>한 번의 순회, 정렬불필요</td></tr>
-    <tr><td>Space</td><td>O(n)</td><td>O(n)</td><td>결과 배열 저장</td></tr>
-  </table>
+Before:  1───3     6────9
+New:       2─────5
+After:  1──────5   6────9
+</pre>
+  </div>
+  <div class="section">
+    <div class="section-title">💡 기본 풀이 코드</div>
+    <div class="code-block">
+      <div class="code-label"><span class="dot basic"></span> Basic — 3-Phase Linear Scan</div>
+      <pre class="code"><span class="kw">class</span> <span class="cl">Solution</span>:
+    <span class="kw">def</span> <span class="fn">insert</span>(self, intervals, newInterval):
+        res = []; i = <span class="num">0</span>; n = len(intervals)
+        <span class="kw">while</span> i < n <span class="kw">and</span> intervals[i][<span class="num">1</span>] < newInterval[<span class="num">0</span>]:
+            res.append(intervals[i]); i += <span class="num">1</span>
+        <span class="kw">while</span> i < n <span class="kw">and</span> intervals[i][<span class="num">0</span>] <= newInterval[<span class="num">1</span>]:
+            newInterval[<span class="num">0</span>] = min(newInterval[<span class="num">0</span>], intervals[i][<span class="num">0</span>])
+            newInterval[<span class="num">1</span>] = max(newInterval[<span class="num">1</span>], intervals[i][<span class="num">1</span>])
+            i += <span class="num">1</span>
+        res.append(newInterval)
+        <span class="kw">return</span> res + intervals[i:]</pre>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">⚡ 최적화 풀이</div>
+    <div class="code-block">
+      <div class="code-label"><span class="dot opt"></span> Optimized — Binary Search</div>
+      <pre class="code"><span class="kw">import</span> bisect
+<span class="kw">class</span> <span class="cl">Solution</span>:
+    <span class="kw">def</span> <span class="fn">insert</span>(self, intervals, newInterval):
+        starts = [iv[<span class="num">0</span>] <span class="kw">for</span> iv <span class="kw">in</span> intervals]
+        ends   = [iv[<span class="num">1</span>] <span class="kw">for</span> iv <span class="kw">in</span> intervals]
+        lo = bisect.bisect_left(ends, newInterval[<span class="num">0</span>])
+        hi = bisect.bisect_right(starts, newInterval[<span class="num">1</span>])
+        ms = min(newInterval[<span class="num">0</span>], intervals[lo][<span class="num">0</span>]) <span class="kw">if</span> lo < hi <span class="kw">else</span> newInterval[<span class="num">0</span>]
+        me = max(newInterval[<span class="num">1</span>], intervals[hi-<span class="num">1</span>][<span class="num">1</span>]) <span class="kw">if</span> lo < hi <span class="kw">else</span> newInterval[<span class="num">1</span>]
+        <span class="kw">return</span> intervals[:lo] + [[ms, me]] + intervals[hi:]</pre>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">📊 복잡도 분석</div>
+    <table class="complexity">
+      <tr><th>풀이</th><th>시간</th><th>공간</th><th>이유</th></tr>
+      <tr><td>기본 (3-phase)</td><td class="ca">O(n)</td><td class="ca">O(n)</td><td>단일 패스, 결과 배열</td></tr>
+      <tr><td>최적화 (이진탐색)</td><td class="cb">O(log n)</td><td class="ca">O(n)</td><td>이진탐색, 슬라이싱 O(n)</td></tr>
+    </table>
+  </div>
 </div>
-<div class="footer">
-  <p><a href="https://chloeyeo.github.io/leetcode-explanations">chloeyeo.github.io/leetcode-explanations</a></p>
-  <p style="margin-top:6px;font-size:0.7rem;">Generated by Crew AI | 2026-06-13</p>
-</div>
+
+<footer>
+  <a href="https://chloeyeo.github.io/leetcode-explanations">
+    🌐 GitHub Pages — LeetCode Explanations
+  </a>
+  <div class="footer-note">© 2026 Chloe Yeo · Educational use only</div>
+</footer>
+
 </body>
 </html>

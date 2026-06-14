@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeetCode Daily | Graph | 2026-06-14</title>
+<style>
+  :root {
+    --bg: #0d1117; --bg2: #161b22; --bg3: #21262d;
+    --fg: #e6edf3; --muted: #8b949e; --border: #30363d;
+    --green: #3fb950; --orange: #d29922; --red: #f85149;
+    --blue: #58a6ff; --yellow: #e3b341;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--fg); font-family: 'Segoe UI', system-ui, sans-serif; padding: 16px; font-size: 15px; line-height: 1.6; }
+  header { text-align: center; padding: 24px 0 16px; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
+  header h1 { font-size: 1.5rem; color: var(--blue); margin-bottom: 6px; }
+  header .date { color: var(--muted); font-size: 0.875rem; }
+  .problem { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 28px; overflow: hidden; }
+  .problem-header { padding: 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .problem-header h2 { font-size: 1rem; flex: 1; }
+  .badge { padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
+  .easy { background: #1a4731; color: var(--green); }
+  .medium { background: #3d2b00; color: var(--orange); }
+  .hard { background: #3d0c0c; color: var(--red); }
+  .credit { font-size: 0.7rem; color: var(--muted); width: 100%; }
+  .section { padding: 14px 16px; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+  .section-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 10px; }
+  pre.ascii { background: var(--bg3); border-radius: 8px; padding: 12px; overflow-x: auto; font-family: monospace; font-size: 0.78rem; color: var(--yellow); line-height: 1.4; white-space: pre; }
+  pre.code { background: var(--bg3); border-radius: 8px; padding: 14px; overflow-x: auto; font-family: monospace; font-size: 0.82rem; line-height: 1.6; white-space: pre; }
+  .kw { color: #ff7b72; } .fn { color: #d2a8ff; } .cm { color: #8b949e; font-style: italic; }
+  .st { color: #a5d6ff; } .nm { color: #79c0ff; } .op { color: #ff7b72; }
+  table.complexity { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-top: 6px; }
+  table.complexity th { background: var(--bg3); color: var(--muted); padding: 7px 10px; text-align: left; border: 1px solid var(--border); }
+  table.complexity td { padding: 7px 10px; border: 1px solid var(--border); vertical-align: top; }
+  table.complexity tr:nth-child(even) td { background: #0d1117; }
+  footer { text-align: center; padding: 20px 0; color: var(--muted); font-size: 0.82rem; }
+  footer a { color: var(--blue); text-decoration: none; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🕸️ Graph</h1>
+  <div class="date">LeetCode Daily | 2026-06-14 (Sun)</div>
+</header>
+
+<div class="problem">
+  <div class="problem-header">
+    <span class="badge easy">Easy</span>
+    <h2>LeetCode #997 — Find the Town Judge</h2>
+    <span class="credit">by LeetCode</span>
+  </div>
+  <div class="section">
+    <div class="section-title">Algorithm Visualization</div>
+<pre class="ascii">
+  N=3, trust=[[1,3],[2,3]]
+
+  Person:   1 -----> 3
+            2 -----> 3 (trusted by all)
+            3 (trusts nobody)
+
+  score[i] = in_degree - out_degree
+  score[3] = 2 - 0 = 2 = N-1  =>  Judge = 3
+</pre>
+  </div>
+  <div class="section">
+    <div class="section-title">Basic Solution</div>
+<pre class="code"><span class="kw">def</span> <span class="fn">findJudge</span>(n, trust):
+    in_deg = [<span class="nm">0</span>] * (n + <span class="nm">1</span>)
+    out_deg = [<span class="nm">0</span>] * (n + <span class="nm">1</span>)
+    <span class="kw">for</span> a, b <span class="kw">in</span> trust:
+        out_deg[a] += <span class="nm">1</span>
+        in_deg[b] += <span class="nm">1</span>
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">1</span>, n + <span class="nm">1</span>):
+        <span class="kw">if</span> in_deg[i] == n - <span class="nm">1</span> <span class="kw">and</span> out_deg[i] == <span class="nm">0</span>:
+            <span class="kw">return</span> i
+    <span class="kw">return</span> -<span class="nm">1</span></pre>
+  </div>
+  <div class="section">
+    <div class="section-title">Optimized Solution (Single Array)</div>
+<pre class="code"><span class="kw">def</span> <span class="fn">findJudge</span>(n, trust):
+    score = [<span class="nm">0</span>] * (n + <span class="nm">1</span>)
+    <span class="kw">for</span> a, b <span class="kw">in</span> trust:
+        score[a] -= <span class="nm">1</span>
+        score[b] += <span class="nm">1</span>
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">1</span>, n + <span class="nm">1</span>):
+        <span class="kw">if</span> score[i] == n - <span class="nm">1</span>:
+            <span class="kw">return</span> i
+    <span class="kw">return</span> -<span class="nm">1</span></pre>
+  </div>
+  <div class="section">
+    <div class="section-title">Complexity Analysis</div>
+    <table class="complexity">
+      <tr><th>Metric</th><th>Basic</th><th>Optimized</th><th>Reason</th></tr>
+      <tr><td>Time</td><td>O(T+N)</td><td>O(T+N)</td><td>One pass trust list + one pass N people</td></tr>
+      <tr><td>Space</td><td>O(N)</td><td>O(N)</td><td>Optimized uses 1 array vs 2 — 2x better constant</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="problem">
+  <div class="problem-header">
+    <span class="badge medium">Medium</span>
+    <h2>LeetCode #200 — Number of Islands</h2>
+    <span class="credit">by LeetCode</span>
+  </div>
+  <div class="section">
+    <div class="section-title">Algorithm Visualization</div>
+<pre class="ascii">
+  1 1 0 0 0
+  1 1 0 0 0   BFS from each '1':
+  0 0 1 0 0   Island #1: top-left cluster (4 cells)
+  0 0 0 1 1   Island #2: (2,2) isolated
+              Island #3: (3,3)+(3,4) connected
+  Total = 3 islands
+</pre>
+  </div>
+  <div class="section">
+    <div class="section-title">Basic Solution (DFS)</div>
+<pre class="code"><span class="kw">def</span> <span class="fn">numIslands</span>(grid):
+    <span class="kw">if</span> <span class="kw">not</span> grid: <span class="kw">return</span> <span class="nm">0</span>
+    rows, cols = <span class="fn">len</span>(grid), <span class="fn">len</span>(grid[<span class="nm">0</span>])
+    count = <span class="nm">0</span>
+
+    <span class="kw">def</span> <span class="fn">dfs</span>(r, c):
+        <span class="kw">if</span> r < <span class="nm">0</span> <span class="kw">or</span> r >= rows <span class="kw">or</span> c < <span class="nm">0</span> <span class="kw">or</span> c >= cols <span class="kw">or</span> grid[r][c] != <span class="st">'1'</span>:
+            <span class="kw">return</span>
+        grid[r][c] = <span class="st">'0'</span>
+        <span class="fn">dfs</span>(r+<span class="nm">1</span>,c); <span class="fn">dfs</span>(r-<span class="nm">1</span>,c); <span class="fn">dfs</span>(r,c+<span class="nm">1</span>); <span class="fn">dfs</span>(r,c-<span class="nm">1</span>)
+
+    <span class="kw">for</span> r <span class="kw">in</span> <span class="fn">range</span>(rows):
+        <span class="kw">for</span> c <span class="kw">in</span> <span class="fn">range</span>(cols):
+            <span class="kw">if</span> grid[r][c] == <span class="st">'1'</span>:
+                <span class="fn">dfs</span>(r, c); count += <span class="nm">1</span>
+    <span class="kw">return</span> count</pre>
+  </div>
+  <div class="section">
+    <div class="section-title">Optimized Solution (BFS — avoids recursion limit)</div>
+<pre class="code"><span class="kw">from</span> collections <span class="kw">import</span> deque
+
+<span class="kw">def</span> <span class="fn">numIslands</span>(grid):
+    <span class="kw">if</span> <span class="kw">not</span> grid: <span class="kw">return</span> <span class="nm">0</span>
+    rows, cols = <span class="fn">len</span>(grid), <span class="fn">len</span>(grid[<span class="nm">0</span>])
+    count = <span class="nm">0</span>
+    <span class="kw">for</span> r <span class="kw">in</span> <span class="fn">range</span>(rows):
+        <span class="kw">for</span> c <span class="kw">in</span> <span class="fn">range</span>(cols):
+            <span class="kw">if</span> grid[r][c] == <span class="st">'1'</span>:
+                count += <span class="nm">1</span>
+                q = <span class="fn">deque</span>([(r,c)])
+                grid[r][c] = <span class="st">'0'</span>
+                <span class="kw">while</span> q:
+                    row, col = q.<span class="fn">popleft</span>()
+                    <span class="kw">for</span> dr,dc <span class="kw">in</span> [(-<span class="nm">1</span>,<span class="nm">0</span>),(<span class="nm">1</span>,<span class="nm">0</span>),(<span class="nm">0</span>,-<span class="nm">1</span>),(<span class="nm">0</span>,<span class="nm">1</span>)]:
+                        nr,nc = row+dr, col+dc
+                        <span class="kw">if</span> <span class="nm">0</span> <= nr < rows <span class="kw">and</span> <span class="nm">0</span> <= nc < cols <span class="kw">and</span> grid[nr][nc] == <span class="st">'1'</span>:
+                            grid[nr][nc] = <span class="st">'0'</span>
+                            q.<span class="fn">append</span>((nr,nc))
+    <span class="kw">return</span> count</pre>
+  </div>
+  <div class="section">
+    <div class="section-title">Complexity Analysis</div>
+    <table class="complexity">
+      <tr><th>Metric</th><th>DFS</th><th>BFS</th><th>Reason</th></tr>
+      <tr><td>Time</td><td>O(M*N)</td><td>O(M*N)</td><td>Every cell visited once</td></tr>
+      <tr><td>Space</td><td>O(M*N) call stack</td><td>O(min(M,N)) queue</td><td>BFS queue holds at most one diagonal</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="problem">
+  <div class="problem-header">
+    <span class="badge hard">Hard</span>
+    <h2>LeetCode #787 — Cheapest Flights Within K Stops</h2>
+    <span class="credit">by LeetCode</span>
+  </div>
+  <div class="section">
+    <div class="section-title">Algorithm Visualization</div>
+<pre class="ascii">
+  src=0, dst=3, K=1
+
+  0 -100-> 1 -600-> 3
+  0 -500-> 2 -200-> 3
+
+  Bellman-Ford (K+1 relaxations):
+  Round 1: dist[1]=100, dist[2]=500
+  Round 2: dist[3]=min(inf, 100+600)=700
+           dist[2]=min(500, 100+100)=200
+  Best path 0->1->3 = 700 (1 stop, valid)
+</pre>
+  </div>
+  <div class="section">
+    <div class="section-title">Basic Solution (Bellman-Ford)</div>
+<pre class="code"><span class="kw">def</span> <span class="fn">findCheapestPrice</span>(n, flights, src, dst, k):
+    INF = <span class="fn">float</span>(<span class="st">'inf'</span>)
+    dist = [INF] * n
+    dist[src] = <span class="nm">0</span>
+    <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(k + <span class="nm">1</span>):
+        tmp = dist[:]
+        <span class="kw">for</span> u, v, w <span class="kw">in</span> flights:
+            <span class="kw">if</span> dist[u] != INF <span class="kw">and</span> dist[u] + w < tmp[v]:
+                tmp[v] = dist[u] + w
+        dist = tmp
+    <span class="kw">return</span> -<span class="nm">1</span> <span class="kw">if</span> dist[dst] == INF <span class="kw">else</span> dist[dst]</pre>
+  </div>
+  <div class="section">
+    <div class="section-title">Optimized Solution (Dijkstra + stop tracking)</div>
+<pre class="code"><span class="kw">import</span> heapq
+
+<span class="kw">def</span> <span class="fn">findCheapestPrice</span>(n, flights, src, dst, k):
+    graph = {}
+    <span class="kw">for</span> u, v, w <span class="kw">in</span> flights:
+        graph.<span class="fn">setdefault</span>(u, []).<span class="fn">append</span>((v, w))
+    heap = [(<span class="nm">0</span>, src, <span class="nm">0</span>)]   <span class="cm"># (cost, node, stops)</span>
+    visited = {}
+    <span class="kw">while</span> heap:
+        cost, u, stops = <span class="fn">heapq.heappop</span>(heap)
+        <span class="kw">if</span> u == dst: <span class="kw">return</span> cost
+        <span class="kw">if</span> stops > k: <span class="kw">continue</span>
+        <span class="kw">if</span> u <span class="kw">in</span> visited <span class="kw">and</span> visited[u] <= stops: <span class="kw">continue</span>
+        visited[u] = stops
+        <span class="kw">for</span> v, w <span class="kw">in</span> graph.<span class="fn">get</span>(u, []):
+            <span class="fn">heapq.heappush</span>(heap, (cost + w, v, stops + <span class="nm">1</span>))
+    <span class="kw">return</span> -<span class="nm">1</span></pre>
+  </div>
+  <div class="section">
+    <div class="section-title">Complexity Analysis</div>
+    <table class="complexity">
+      <tr><th>Metric</th><th>Bellman-Ford</th><th>Dijkstra</th><th>Reason</th></tr>
+      <tr><td>Time</td><td>O(K*E)</td><td>O(E log E)</td><td>K+1 passes over E edges vs heap operations</td></tr>
+      <tr><td>Space</td><td>O(N)</td><td>O(N+E)</td><td>Dijkstra stores adjacency list + heap</td></tr>
+    </table>
+  </div>
+</div>
+
+<footer>
+  <p>🌐 <a href="https://chloeyeo.github.io/leetcode-explanations">https://chloeyeo.github.io/leetcode-explanations</a></p>
+  <p style="margin-top:8px;font-size:0.75rem;">Generated by Crew AI | 2026-06-14</p>
+</footer>
+</body>
+</html>

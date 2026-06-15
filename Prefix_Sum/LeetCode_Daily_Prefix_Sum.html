@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeetCode Daily | Prefix Sum</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0d1117;color:#e6edf3;font-family:'Segoe UI',system-ui,sans-serif;font-size:15px;line-height:1.6;padding:16px}
+  header{text-align:center;padding:24px 16px 20px;border-bottom:1px solid #21262d;margin-bottom:24px}
+  header h1{font-size:1.5rem;color:#58a6ff;font-weight:700;letter-spacing:-0.5px}
+  header .date{color:#8b949e;font-size:0.85rem;margin-top:6px}
+  .problem{background:#161b22;border:1px solid #21262d;border-radius:12px;padding:20px;margin-bottom:24px}
+  .problem-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+  .problem-title{font-size:1.05rem;font-weight:700;color:#e6edf3;flex:1}
+  .badge{padding:3px 10px;border-radius:20px;font-size:0.75rem;font-weight:700;white-space:nowrap}
+  .easy{background:#0d4a1f;color:#3fb950}
+  .medium{background:#4a2f00;color:#d29922}
+  .hard{background:#4a0d0d;color:#f85149}
+  .by{color:#8b949e;font-size:0.78rem;width:100%}
+  h3{font-size:0.85rem;color:#58a6ff;text-transform:uppercase;letter-spacing:1px;margin:18px 0 8px;border-bottom:1px solid #21262d;padding-bottom:6px}
+  pre{background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:14px;overflow-x:auto;font-size:0.8rem;line-height:1.7;font-family:'Fira Code',Consolas,monospace}
+  .ascii{background:#0a1628;border:1px solid #1f3a5f;border-radius:8px;padding:14px;font-family:Consolas,monospace;font-size:0.78rem;color:#79c0ff;overflow-x:auto;white-space:pre;line-height:1.5}
+  table{width:100%;border-collapse:collapse;font-size:0.8rem;margin-top:6px}
+  th{background:#21262d;color:#8b949e;text-align:left;padding:8px 10px;font-weight:600}
+  td{padding:8px 10px;border-bottom:1px solid #21262d;vertical-align:top}
+  td:first-child{font-family:Consolas,monospace;color:#79c0ff;white-space:nowrap}
+  td:nth-child(2){color:#3fb950;white-space:nowrap}
+  td:last-child{color:#8b949e}
+  tr:hover td{background:#161b22}
+  .kw{color:#ff7b72}
+  .fn{color:#d2a8ff}
+  .st{color:#a5d6ff}
+  .cm{color:#8b949e;font-style:italic}
+  .nm{color:#79c0ff}
+  .op{color:#ff7b72}
+  .nb{color:#ffa657}
+  footer{text-align:center;padding:24px 0 16px;border-top:1px solid #21262d;margin-top:8px}
+  footer a{color:#58a6ff;text-decoration:none;font-size:0.9rem}
+  footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🧩 Prefix Sum</h1>
+  <div class="date">2026년 6월 15일 (월) · LeetCode Daily</div>
+</header>
+
+<div class="problem">
+  <div class="problem-header">
+    <span class="problem-title">LeetCode #303 — Range Sum Query - Immutable</span>
+    <span class="badge easy">Easy</span>
+    <span class="by">by LeetCode</span>
+  </div>
+
+  <h3>📊 Algorithm Visualization</h3>
+  <div class="ascii">
+nums = [-2, 0, 3, -5, 2, -1]
+
+Build prefix sum array:
+index:   0   1   2   3   4   5
+nums:  [-2,  0,  3, -5,  2, -1]
+prefix:[  0, -2, -2,  1, -4, -2, -3]
+
+prefix[0] = 0 (sentinel)
+prefix[i] = prefix[i-1] + nums[i-1]
+
+Query: sumRange(0, 2) = prefix[3] - prefix[0] = 1 - 0 = 1
+Query: sumRange(2, 5) = prefix[6] - prefix[2] = -3 - (-2) = -1
+Query: sumRange(0, 5) = prefix[6] - prefix[0] = -3 - 0 = -3
+
+Time O(1) per query after O(n) build!
+  </div>
+
+  <h3>🐍 Basic Solution</h3>
+  <pre><span class="kw">class</span> <span class="fn">NumArray</span>:
+
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="nb">self</span>, nums):
+        <span class="nb">self</span>.prefix = [<span class="nm">0</span>] * (<span class="nb">len</span>(nums) + <span class="nm">1</span>)
+        <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nb">len</span>(nums)):
+            <span class="nb">self</span>.prefix[i + <span class="nm">1</span>] = <span class="nb">self</span>.prefix[i] + nums[i]
+
+    <span class="kw">def</span> <span class="fn">sumRange</span>(<span class="nb">self</span>, left, right):
+        <span class="kw">return</span> <span class="nb">self</span>.prefix[right + <span class="nm">1</span>] - <span class="nb">self</span>.prefix[left]</pre>
+
+  <h3>⚡ Optimized Solution</h3>
+  <pre><span class="kw">import</span> itertools
+
+<span class="kw">class</span> <span class="fn">NumArray</span>:
+
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="nb">self</span>, nums):
+        <span class="nb">self</span>.prefix = [*itertools.accumulate(nums, initial=<span class="nm">0</span>)]
+
+    <span class="kw">def</span> <span class="fn">sumRange</span>(<span class="nb">self</span>, left, right):
+        <span class="kw">return</span> <span class="nb">self</span>.prefix[right + <span class="nm">1</span>] - <span class="nb">self</span>.prefix[left]</pre>
+
+  <h3>📈 Complexity Analysis</h3>
+  <table>
+    <tr><th>Operation</th><th>Complexity</th><th>Reason</th></tr>
+    <tr><td>__init__ Time</td><td>O(n)</td><td>단일 순회로 prefix 배열 구축</td></tr>
+    <tr><td>sumRange Time</td><td>O(1)</td><td>두 인덱스 조회 및 빼기만 수행</td></tr>
+    <tr><td>Space</td><td>O(n)</td><td>prefix 배열 저장 (크기 n+1)</td></tr>
+  </table>
+</div>
+
+<div class="problem">
+  <div class="problem-header">
+    <span class="problem-title">LeetCode #560 — Subarray Sum Equals K</span>
+    <span class="badge medium">Medium</span>
+    <span class="by">by LeetCode</span>
+  </div>
+
+  <h3>📊 Algorithm Visualization</h3>
+  <div class="ascii">
+nums = [1, 1, 1],  k = 2
+
+Track running prefix sum + hashmap of seen sums:
+
+Step 0: prefix=0   map={0:1}          count=0
+Step 1: prefix=1   map={0:1,1:1}      need=1-2=-1 not in map, count=0
+Step 2: prefix=2   map={0:1,1:1,2:1}  need=2-2=0  map[0]=1,  count=1
+Step 3: prefix=3   need=3-2=1  map[1]=1, count=2
+
+Answer: 2
+
+Key insight: subarray(i,j) sum = prefix[j] - prefix[i-1]
+If prefix[j] - k exists in map, found a valid subarray!
+  </div>
+
+  <h3>🐍 Basic Solution</h3>
+  <pre><span class="kw">def</span> <span class="fn">subarraySum</span>(nums, k):
+    count = <span class="nm">0</span>
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nb">len</span>(nums)):
+        total = <span class="nm">0</span>
+        <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(i, <span class="nb">len</span>(nums)):
+            total += nums[j]
+            <span class="kw">if</span> total == k:
+                count += <span class="nm">1</span>
+    <span class="kw">return</span> count</pre>
+
+  <h3>⚡ Optimized Solution</h3>
+  <pre><span class="kw">from</span> collections <span class="kw">import</span> defaultdict
+
+<span class="kw">def</span> <span class="fn">subarraySum</span>(nums, k):
+    count = <span class="nm">0</span>
+    prefix = <span class="nm">0</span>
+    seen = defaultdict(<span class="nb">int</span>)
+    seen[<span class="nm">0</span>] = <span class="nm">1</span>
+
+    <span class="kw">for</span> num <span class="kw">in</span> nums:
+        prefix += num
+        count += seen[prefix - k]
+        seen[prefix] += <span class="nm">1</span>
+
+    <span class="kw">return</span> count</pre>
+
+  <h3>📈 Complexity Analysis</h3>
+  <table>
+    <tr><th>Approach</th><th>Time</th><th>Space</th></tr>
+    <tr><td>Brute Force</td><td>O(n^2)</td><td>O(1)</td></tr>
+    <tr><td>Optimized (HashMap)</td><td>O(n)</td><td>O(n)</td></tr>
+  </table>
+</div>
+
+<div class="problem">
+  <div class="problem-header">
+    <span class="problem-title">LeetCode #862 — Shortest Subarray with Sum at Least K</span>
+    <span class="badge hard">Hard</span>
+    <span class="by">by LeetCode</span>
+  </div>
+
+  <h3>📊 Algorithm Visualization</h3>
+  <div class="ascii">
+nums = [2, -1, 2],  k = 3
+
+prefix = [0, 2, 1, 3]   (negative numbers allowed!)
+
+Monotonic deque approach:
+- Deque stores indices of prefix sums in increasing order
+- For each j, pop left while prefix[j]-prefix[deque[0]] >= k
+
+j=0: prefix=0  deque=[0]
+j=1: prefix=2  deque=[0,1]   prefix[1]-prefix[0]=2 &lt; 3
+j=2: prefix=1  1&lt;2, pop 1    deque=[0,2]
+j=3: prefix=3
+  prefix[3]-prefix[0]=3&gt;=3, ans=min(inf,3-0)=3, pop 0
+  deque=[2]
+
+Answer: 3
+
+Why deque? Negative numbers break sliding window!
+Deque maintains monotone prefix for O(n) solution.
+  </div>
+
+  <h3>🐍 Basic Solution</h3>
+  <pre><span class="kw">def</span> <span class="fn">shortestSubarray</span>(nums, k):
+    n = <span class="nb">len</span>(nums)
+    prefix = [<span class="nm">0</span>] * (n + <span class="nm">1</span>)
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n):
+        prefix[i + <span class="nm">1</span>] = prefix[i] + nums[i]
+
+    ans = <span class="nb">float</span>(<span class="st">'inf'</span>)
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n + <span class="nm">1</span>):
+        <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(i + <span class="nm">1</span>, n + <span class="nm">1</span>):
+            <span class="kw">if</span> prefix[j] - prefix[i] >= k:
+                ans = <span class="nb">min</span>(ans, j - i)
+    <span class="kw">return</span> ans <span class="kw">if</span> ans != <span class="nb">float</span>(<span class="st">'inf'</span>) <span class="kw">else</span> -<span class="nm">1</span></pre>
+
+  <h3>⚡ Optimized Solution</h3>
+  <pre><span class="kw">from</span> collections <span class="kw">import</span> deque
+
+<span class="kw">def</span> <span class="fn">shortestSubarray</span>(nums, k):
+    n = <span class="nb">len</span>(nums)
+    prefix = [<span class="nm">0</span>] * (n + <span class="nm">1</span>)
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n):
+        prefix[i + <span class="nm">1</span>] = prefix[i] + nums[i]
+
+    ans = <span class="nb">float</span>(<span class="st">'inf'</span>)
+    dq = deque()
+
+    <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(n + <span class="nm">1</span>):
+        <span class="kw">while</span> dq <span class="kw">and</span> prefix[j] - prefix[dq[<span class="nm">0</span>]] >= k:
+            ans = <span class="nb">min</span>(ans, j - dq.popleft())
+        <span class="kw">while</span> dq <span class="kw">and</span> prefix[j] <= prefix[dq[-<span class="nm">1</span>]]:
+            dq.pop()
+        dq.append(j)
+
+    <span class="kw">return</span> ans <span class="kw">if</span> ans != <span class="nb">float</span>(<span class="st">'inf'</span>) <span class="kw">else</span> -<span class="nm">1</span></pre>
+
+  <h3>📈 Complexity Analysis</h3>
+  <table>
+    <tr><th>Operation</th><th>Complexity</th><th>Reason</th></tr>
+    <tr><td>Brute Time</td><td>O(n^2)</td><td>모든 (i,j) 쌍 탐색</td></tr>
+    <tr><td>Optimized Time</td><td>O(n)</td><td>각 인덱스는 deque에 최대 1번 삽입/제거</td></tr>
+    <tr><td>Space</td><td>O(n)</td><td>prefix 배열 + deque</td></tr>
+  </table>
+</div>
+
+<footer>
+  <a href="https://chloeyeo.github.io/leetcode-explanations" target="_blank">
+    🌐 GitHub Pages: chloeyeo.github.io/leetcode-explanations
+  </a>
+</footer>
+
+</body>
+</html>

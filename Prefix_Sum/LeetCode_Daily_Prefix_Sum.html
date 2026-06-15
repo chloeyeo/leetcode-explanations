@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeetCode Daily | Prefix Sum | 2026-06-16</title>
+<style>
+  :root {
+    --bg: #0d1117; --bg2: #161b22; --bg3: #21262d;
+    --border: #30363d; --text: #e6edf3; --muted: #8b949e;
+    --easy: #3fb950; --med: #d29922; --hard: #f85149;
+    --accent: #58a6ff; --purple: #bc8cff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding: 16px; max-width: 800px; margin: 0 auto; }
+  .header { text-align: center; padding: 24px 16px; background: linear-gradient(135deg, #0d1117 0%, #161b22 100%); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 20px; }
+  .header h1 { font-size: 1.6rem; color: var(--accent); margin-bottom: 8px; }
+  .header .date { color: var(--muted); font-size: 0.9rem; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.5px; }
+  .easy { background: rgba(63,185,80,0.15); color: var(--easy); border: 1px solid rgba(63,185,80,0.4); }
+  .medium { background: rgba(210,153,34,0.15); color: var(--med); border: 1px solid rgba(210,153,34,0.4); }
+  .hard { background: rgba(248,81,73,0.15); color: var(--hard); border: 1px solid rgba(248,81,73,0.4); }
+  .problem { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 24px; overflow: hidden; }
+  .problem-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .problem-header h2 { font-size: 1.05rem; color: var(--text); flex: 1; min-width: 200px; }
+  .problem-header .credit { color: var(--muted); font-size: 0.78rem; }
+  .section { padding: 16px 20px; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+  .section-title { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--purple); margin-bottom: 12px; font-weight: 700; }
+  pre.ascii { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 14px; font-size: 0.72rem; line-height: 1.5; overflow-x: auto; color: var(--accent); white-space: pre; }
+  .code-block { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 14px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.78rem; line-height: 1.6; overflow-x: auto; margin-top: 8px; }
+  .kw { color: #ff7b72; } .fn { color: #d2a8ff; } .cm { color: #8b949e; font-style: italic; }
+  .st { color: #a5d6ff; } .nm { color: #79c0ff; } .op { color: #e6edf3; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-top: 8px; }
+  th { background: var(--bg3); color: var(--purple); padding: 8px 12px; text-align: left; border: 1px solid var(--border); font-weight: 600; }
+  td { padding: 8px 12px; border: 1px solid var(--border); color: var(--muted); }
+  td:first-child { color: var(--text); font-weight: 500; }
+  .footer { text-align: center; padding: 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.85rem; margin-top: 8px; }
+  .footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🧩 Prefix Sum</h1>
+  <div class="date">LeetCode Daily &nbsp;|&nbsp; 2026-06-16</div>
+</div>
+
+<!-- ======================== EASY ======================== -->
+<div class="problem">
+  <div class="problem-header">
+    <h2>LeetCode #303 — Range Sum Query - Immutable</h2>
+    <span class="badge easy">Easy</span>
+    <span class="credit">by LeetCode</span>
+  </div>
+  <div class="section">
+    <div class="section-title">Algorithm Visualization</div>
+<pre class="ascii">
+nums = [-2, 0, 3, -5, 2, -1]
+         0   1  2   3  4   5
+
+Build prefix array:
+prefix[0] = 0
+prefix[1] = -2
+prefix[2] = -2
+prefix[3] =  1
+prefix[4] = -4
+prefix[5] = -2
+prefix[6] = -3
+
+Query sumRange(0, 2):
+  prefix[3] - prefix[0] = 1 - 0 = 1  ✓
+
+Query sumRange(2, 5):
+  prefix[6] - prefix[2] = -3 - (-2) = -1  ✓
+
+  [prefix] = [0, -2, -2, 1, -4, -2, -3]
+              ^___________________^
+              prefix[i+1] - prefix[l]
+</pre>
+  </div>
+  <div class="section">
+    <div class="section-title">Basic Solution</div>
+    <div class="code-block"><span class="kw">class</span> <span class="fn">NumArray</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="nm">self</span>, <span class="nm">nums</span>: <span class="fn">list</span>[<span class="fn">int</span>]) -&gt; <span class="kw">None</span>:
+        <span class="cm"># Store original array for recomputing any range</span>
+        <span class="nm">self</span>.<span class="nm">nums</span> = <span class="nm">nums</span>
+
+    <span class="kw">def</span> <span class="fn">sumRange</span>(<span class="nm">self</span>, <span class="nm">left</span>: <span class="fn">int</span>, <span class="nm">right</span>: <span class="fn">int</span>) -&gt; <span class="fn">int</span>:
+        <span class="cm"># Sum elements from left to right inclusive — O(n) per query</span>
+        <span class="kw">return</span> <span class="fn">sum</span>(<span class="nm">self</span>.<span class="nm">nums</span>[<span class="nm">left</span>:<span class="nm">right</span> + <span class="op">1</span>])</div>
+  </div>
+  <div class="section">
+    <div class="section-title">Optimized Solution (Prefix Sum)</div>
+    <div class="code-block"><span class="kw">class</span> <span class="fn">NumArray</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="nm">self</span>, <span class="nm">nums</span>: <span class="fn">list</span>[<span class="fn">int</span>]) -&gt; <span class="kw">None</span>:
+        <span class="cm"># Build prefix sum with leading 0 for clean range queries</span>
+        <span class="nm">self</span>.<span class="nm">prefix</span> = [<span class="op">0</span>] * (<span class="fn">len</span>(<span class="nm">nums</span>) + <span class="op">1</span>)
+        <span class="kw">for</span> <span class="nm">i</span>, <span class="nm">v</span> <span class="kw">in</span> <span class="fn">enumerate</span>(<span class="nm">nums</span>):
+            <span class="nm">self</span>.<span class="nm">prefix</span>[<span class="nm">i</span> + <span class="op">1</span>] = <span class="nm">self</span>.<span class="nm">prefix</span>[<span class="nm">i</span>] + <span class="nm">v</span>
+
+    <span class="kw">def</span> <span class="fn">sumRange</span>(<span class="nm">self</span>, <span class="nm">left</span>: <span class="fn">int</span>, <span class="nm">right</span>: <span class="fn">int</span>) -&gt; <span class="fn">int</span>:
+        <span class="cm"># O(1) per query: prefix[right+1] - prefix[left]</span>
+        <span class="kw">return</span> <span class="nm">self</span>.<span class="nm">prefix</span>[<span class="nm">right</span> + <span class="op">1</span>] - <span class="nm">self</span>.<span class="nm">prefix</span>[<span class="nm">left</span>]</div>
+  </div>
+  <div class="section">
+    <div class="section-title">Complexity Analysis</div>
+    <table>
+      <tr><th>Operation</th><th>Basic</th><th>Optimized</th><th>Reason</th></tr>
+      <tr><td>Init Time</td><td>O(1)</td><td>O(n)</td><td>Build prefix array of n+1 elements</td></tr>
+      <tr><td>Query Time</td><td>O(n)</td><td>O(1)</td><td>Single subtraction vs iterating range</td></tr>
+      <tr><td>Space</td><td>O(n)</td><td>O(n)</td><td>Store original / prefix array</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ======================== MEDIUM ======================== -->
+<div class="problem">
+  <div class="problem-header">
+    <h2>LeetCode #560 — Subarray Sum Equals K</h2>
+    <span class="badge medium">Medium</span>
+    <span class="credit">by LeetCode</span>
+  </div>
+  <div class="section">
+    <div class="section-title">Algorithm Visualization</div>
+<pre class="ascii">
+nums = [1, 1, 1],  k = 2
+
+Running prefix sum with HashMap:
+                       prefixSum  HashMap {sum: count}
+Start:                     0      {0: 1}
+i=0  val=1  pSum=1         1      {0:1, 1:1}  pSum-k=1-2=-1 not in map
+i=1  val=1  pSum=2         2      {0:1,1:1,2:1} pSum-k=2-2=0 → count+=1
+i=2  val=1  pSum=3         3      {0:1,1:1,2:1,3:1} pSum-k=3-2=1 → count+=1
+
+Subarrays with sum=2:
+  [1,1] at index [0,1]  ✓
+  [1,1] at index [1,2]  ✓
+Result = 2
+</pre>
+  </div>
+  <div class="section">
+    <div class="section-title">Basic Solution</div>
+    <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">subarraySum</span>(<span class="nm">self</span>, <span class="nm">nums</span>: <span class="fn">list</span>[<span class="fn">int</span>], <span class="nm">k</span>: <span class="fn">int</span>) -&gt; <span class="fn">int</span>:
+        <span class="nm">count</span> = <span class="op">0</span>
+        <span class="kw">for</span> <span class="nm">i</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(<span class="nm">nums</span>)):
+            <span class="nm">curr_sum</span> = <span class="op">0</span>
+            <span class="kw">for</span> <span class="nm">j</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">i</span>, <span class="fn">len</span>(<span class="nm">nums</span>)):
+                <span class="cm"># Accumulate sum for subarray [i..j]</span>
+                <span class="nm">curr_sum</span> += <span class="nm">nums</span>[<span class="nm">j</span>]
+                <span class="kw">if</span> <span class="nm">curr_sum</span> == <span class="nm">k</span>:
+                    <span class="nm">count</span> += <span class="op">1</span>
+        <span class="kw">return</span> <span class="nm">count</span></div>
+  </div>
+  <div class="section">
+    <div class="section-title">Optimized Solution (Prefix Sum + HashMap)</div>
+    <div class="code-block"><span class="kw">from</span> collections <span class="kw">import</span> defaultdict
+
+<span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">subarraySum</span>(<span class="nm">self</span>, <span class="nm">nums</span>: <span class="fn">list</span>[<span class="fn">int</span>], <span class="nm">k</span>: <span class="fn">int</span>) -&gt; <span class="fn">int</span>:
+        <span class="cm"># Map: prefix_sum -> how many times seen so far</span>
+        <span class="nm">prefix_count</span> = <span class="fn">defaultdict</span>(<span class="fn">int</span>)
+        <span class="nm">prefix_count</span>[<span class="op">0</span>] = <span class="op">1</span>          <span class="cm"># Empty subarray base case</span>
+        <span class="nm">curr_sum</span> = <span class="op">0</span>
+        <span class="nm">count</span> = <span class="op">0</span>
+        <span class="kw">for</span> <span class="nm">num</span> <span class="kw">in</span> <span class="nm">nums</span>:
+            <span class="nm">curr_sum</span> += <span class="nm">num</span>
+            <span class="cm"># If (curr_sum - k) exists, those subarrays sum to k</span>
+            <span class="nm">count</span> += <span class="nm">prefix_count</span>[<span class="nm">curr_sum</span> - <span class="nm">k</span>]
+            <span class="nm">prefix_count</span>[<span class="nm">curr_sum</span>] += <span class="op">1</span>
+        <span class="kw">return</span> <span class="nm">count</span></div>
+  </div>
+  <div class="section">
+    <div class="section-title">Complexity Analysis</div>
+    <table>
+      <tr><th>Operation</th><th>Basic</th><th>Optimized</th><th>Reason</th></tr>
+      <tr><td>Time</td><td>O(n²)</td><td>O(n)</td><td>Double loop vs single pass with HashMap</td></tr>
+      <tr><td>Space</td><td>O(1)</td><td>O(n)</td><td>HashMap stores up to n distinct prefix sums</td></tr>
+      <tr><td>Lookup</td><td>—</td><td>O(1) avg</td><td>Hash table amortized constant lookup</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ======================== HARD ======================== -->
+<div class="problem">
+  <div class="problem-header">
+    <h2>LeetCode #42 — Trapping Rain Water</h2>
+    <span class="badge hard">Hard</span>
+    <span class="credit">by LeetCode</span>
+  </div>
+  <div class="section">
+    <div class="section-title">Algorithm Visualization</div>
+<pre class="ascii">
+height = [0,1,0,2,1,0,1,3,2,1,2,1]
+index  =  0 1 2 3 4 5 6 7 8 9 ...
+
+Prefix max (left):
+  lmax = [0,1,1,2,2,2,2,3,3,3,3,3]
+
+Suffix max (right):
+  rmax = [3,3,3,3,3,3,3,3,2,2,2,1]
+
+Water at each index:
+  water[i] = max(0, min(lmax[i], rmax[i]) - height[i])
+
+  i=2: min(1,3)-0 = 1  ┐
+  i=4: min(2,3)-1 = 1  │  Water
+  i=5: min(2,3)-0 = 2  │  cells
+  i=6: min(2,3)-1 = 1  ┘
+
+Total = 1+1+2+1+1+1 = 6 units  ✓
+</pre>
+  </div>
+  <div class="section">
+    <div class="section-title">Basic Solution</div>
+    <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">trap</span>(<span class="nm">self</span>, <span class="nm">height</span>: <span class="fn">list</span>[<span class="fn">int</span>]) -&gt; <span class="fn">int</span>:
+        <span class="nm">n</span> = <span class="fn">len</span>(<span class="nm">height</span>)
+        <span class="nm">total</span> = <span class="op">0</span>
+        <span class="kw">for</span> <span class="nm">i</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">n</span>):
+            <span class="cm"># For each position, scan left and right to find max heights</span>
+            <span class="nm">left_max</span> = <span class="fn">max</span>(<span class="nm">height</span>[:<span class="nm">i</span> + <span class="op">1</span>])
+            <span class="nm">right_max</span> = <span class="fn">max</span>(<span class="nm">height</span>[<span class="nm">i</span>:])
+            <span class="nm">total</span> += <span class="fn">min</span>(<span class="nm">left_max</span>, <span class="nm">right_max</span>) - <span class="nm">height</span>[<span class="nm">i</span>]
+        <span class="kw">return</span> <span class="nm">total</span></div>
+  </div>
+  <div class="section">
+    <div class="section-title">Optimized Solution (Prefix/Suffix Max Arrays)</div>
+    <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">trap</span>(<span class="nm">self</span>, <span class="nm">height</span>: <span class="fn">list</span>[<span class="fn">int</span>]) -&gt; <span class="fn">int</span>:
+        <span class="nm">n</span> = <span class="fn">len</span>(<span class="nm">height</span>)
+        <span class="kw">if</span> <span class="nm">n</span> == <span class="op">0</span>:
+            <span class="kw">return</span> <span class="op">0</span>
+        <span class="cm"># Precompute max height from left up to each index</span>
+        <span class="nm">lmax</span> = [<span class="op">0</span>] * <span class="nm">n</span>
+        <span class="nm">lmax</span>[<span class="op">0</span>] = <span class="nm">height</span>[<span class="op">0</span>]
+        <span class="kw">for</span> <span class="nm">i</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="op">1</span>, <span class="nm">n</span>):
+            <span class="nm">lmax</span>[<span class="nm">i</span>] = <span class="fn">max</span>(<span class="nm">lmax</span>[<span class="nm">i</span> - <span class="op">1</span>], <span class="nm">height</span>[<span class="nm">i</span>])
+        <span class="cm"># Precompute max height from right down to each index</span>
+        <span class="nm">rmax</span> = [<span class="op">0</span>] * <span class="nm">n</span>
+        <span class="nm">rmax</span>[<span class="nm">n</span> - <span class="op">1</span>] = <span class="nm">height</span>[<span class="nm">n</span> - <span class="op">1</span>]
+        <span class="kw">for</span> <span class="nm">i</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">n</span> - <span class="op">2</span>, -<span class="op">1</span>, -<span class="op">1</span>):
+            <span class="nm">rmax</span>[<span class="nm">i</span>] = <span class="fn">max</span>(<span class="nm">rmax</span>[<span class="nm">i</span> + <span class="op">1</span>], <span class="nm">height</span>[<span class="nm">i</span>])
+        <span class="cm"># Water at i = min(lmax, rmax) - height[i]</span>
+        <span class="kw">return</span> <span class="fn">sum</span>(<span class="fn">min</span>(<span class="nm">lmax</span>[<span class="nm">i</span>], <span class="nm">rmax</span>[<span class="nm">i</span>]) - <span class="nm">height</span>[<span class="nm">i</span>] <span class="kw">for</span> <span class="nm">i</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">n</span>))</div>
+  </div>
+  <div class="section">
+    <div class="section-title">Complexity Analysis</div>
+    <table>
+      <tr><th>Operation</th><th>Basic</th><th>Optimized</th><th>Reason</th></tr>
+      <tr><td>Time</td><td>O(n²)</td><td>O(n)</td><td>3 linear passes (lmax, rmax, water) vs nested scan</td></tr>
+      <tr><td>Space</td><td>O(1)</td><td>O(n)</td><td>Two prefix/suffix arrays of size n</td></tr>
+      <tr><td>Note</td><td>—</td><td>Two-pointer O(1) space also possible</td><td>Further optimization with left/right pointers</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="footer">
+  <p>🌐 <a href="https://chloeyeo.github.io/leetcode-explanations" target="_blank">https://chloeyeo.github.io/leetcode-explanations</a></p>
+  <p style="margin-top:8px; font-size:0.8rem;">Generated by Crew AI &bull; 2026-06-16</p>
+</div>
+</body>
+</html>

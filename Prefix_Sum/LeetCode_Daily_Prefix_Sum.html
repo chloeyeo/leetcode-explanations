@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeetCode Daily | Prefix Sum</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d1117;color:#e6edf3;font-family:'Segoe UI',system-ui,sans-serif;font-size:15px;line-height:1.6;padding:16px}
+header{text-align:center;padding:24px 16px 16px;border-bottom:1px solid #30363d;margin-bottom:24px}
+header h1{font-size:1.6rem;color:#58a6ff;margin-bottom:6px}
+header .date{color:#8b949e;font-size:.85rem}
+.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:24px}
+.card-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.card-title{font-size:1.05rem;font-weight:700;color:#e6edf3}
+.badge{font-size:.72rem;font-weight:700;padding:3px 9px;border-radius:20px}
+.easy{background:#1a4731;color:#3fb950}
+.medium{background:#4d3213;color:#f0883e}
+.hard{background:#4d1319;color:#f85149}
+.by{color:#8b949e;font-size:.8rem}
+.ascii-box{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:14px;margin:12px 0;font-family:'Courier New',monospace;font-size:.78rem;color:#79c0ff;overflow-x:auto;white-space:pre;line-height:1.45}
+h3{color:#8b949e;font-size:.8rem;text-transform:uppercase;letter-spacing:.5px;margin:14px 0 6px}
+.code-block{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:.8rem;overflow-x:auto;white-space:pre;line-height:1.6}
+.kw{color:#ff7b72}.fn{color:#d2a8ff}.cm{color:#8b949e}.nb{color:#79c0ff}.nm{color:#f0883e}
+table{width:100%;border-collapse:collapse;font-size:.82rem;margin-top:8px}
+th{background:#21262d;color:#8b949e;padding:8px 10px;text-align:left;border:1px solid #30363d}
+td{padding:7px 10px;border:1px solid #30363d;color:#e6edf3;vertical-align:top}
+tr:nth-child(even) td{background:#161b22}
+footer{text-align:center;padding:24px 0 8px;color:#8b949e;font-size:.82rem;border-top:1px solid #30363d;margin-top:8px}
+footer a{color:#58a6ff;text-decoration:none}
+hr.divider{border:none;border-top:1px solid #30363d;margin:18px 0}
+</style>
+</head>
+<body>
+<header>
+<h1>🧩 Prefix Sum</h1>
+<div class="date">LeetCode Daily &nbsp;|&nbsp; 2026-06-15</div>
+</header>
+
+<div class="card">
+<div class="card-header">
+<span class="card-title">LeetCode #303 &nbsp;Range Sum Query - Immutable</span>
+<span class="badge easy">Easy</span>
+<span class="by">— by LeetCode</span>
+</div>
+<h3>Algorithm Visualization</h3>
+<div class="ascii-box">nums  = [-2, 0, 3, -5, 2, -1]
+index =   0  1  2   3  4   5
+
+Build prefix array:
+  pre[0] = 0
+  pre[1] = -2
+  pre[2] = -2+0 = -2
+  pre[3] = -2+3 =  1
+  pre[4] =  1-5 = -4
+  pre[5] = -4+2 = -2
+  pre[6] = -2-1 = -3
+
+sumRange(0,2) = pre[3]-pre[0] = 1-0   =  1  OK
+sumRange(2,5) = pre[6]-pre[2] = -3-(-2)= -3  OK</div>
+<h3>Basic Solution</h3>
+<div class="code-block"><span class="kw">class</span> <span class="fn">NumArray</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="nb">self</span>, nums):
+        <span class="nb">self</span>.nums = nums          <span class="cm"># O(1) init</span>
+    <span class="kw">def</span> <span class="fn">sumRange</span>(<span class="nb">self</span>, left, right):
+        <span class="kw">return</span> <span class="fn">sum</span>(<span class="nb">self</span>.nums[left:right+<span class="nm">1</span>])  <span class="cm"># O(n) query</span></div>
+<h3>Optimized Solution</h3>
+<div class="code-block"><span class="kw">class</span> <span class="fn">NumArray</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="nb">self</span>, nums):
+        <span class="nb">self</span>.pre = [<span class="nm">0</span>] * (<span class="fn">len</span>(nums)+<span class="nm">1</span>)
+        <span class="kw">for</span> i,v <span class="kw">in</span> <span class="fn">enumerate</span>(nums):
+            <span class="nb">self</span>.pre[i+<span class="nm">1</span>] = <span class="nb">self</span>.pre[i]+v  <span class="cm"># build once O(n)</span>
+    <span class="kw">def</span> <span class="fn">sumRange</span>(<span class="nb">self</span>, left, right):
+        <span class="kw">return</span> <span class="nb">self</span>.pre[right+<span class="nm">1</span>]-<span class="nb">self</span>.pre[left]  <span class="cm"># O(1)</span></div>
+<h3>Complexity Analysis</h3>
+<table>
+<tr><th>Operation</th><th>Basic</th><th>Optimized</th><th>Reason</th></tr>
+<tr><td>Init Time</td><td>O(1)</td><td>O(n)</td><td>Build prefix array once</td></tr>
+<tr><td>Query Time</td><td>O(n)</td><td>O(1)</td><td>Prefix subtraction</td></tr>
+<tr><td>Space</td><td>O(n)</td><td>O(n)</td><td>Store n values</td></tr>
+</table>
+</div>
+
+<hr class="divider">
+
+<div class="card">
+<div class="card-header">
+<span class="card-title">LeetCode #560 &nbsp;Subarray Sum Equals K</span>
+<span class="badge medium">Medium</span>
+<span class="by">— by LeetCode</span>
+</div>
+<h3>Algorithm Visualization</h3>
+<div class="ascii-box">nums=[1,1,1], k=2
+init:  {0:1}
+idx=0 pre=1  {0:1,1:1}     found(1-2=-1)? No
+idx=1 pre=2  {0:1,1:2,2:1} found(2-2=0)?  Yes  count=1
+idx=2 pre=3  {0:1,1:2,2:1,3:1} found(3-2=1)? Yes count=3
+Answer: 3</div>
+<h3>Basic Solution</h3>
+<div class="code-block"><span class="kw">def</span> <span class="fn">subarraySum</span>(nums, k):
+    count = <span class="nm">0</span>
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(nums)):
+        total = <span class="nm">0</span>
+        <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(i, <span class="fn">len</span>(nums)):
+            total += nums[j]
+            <span class="kw">if</span> total == k: count += <span class="nm">1</span>
+    <span class="kw">return</span> count  <span class="cm"># O(n^2)</span></div>
+<h3>Optimized Solution</h3>
+<div class="code-block"><span class="kw">from</span> collections <span class="kw">import</span> defaultdict
+<span class="kw">def</span> <span class="fn">subarraySum</span>(nums, k):
+    pc = <span class="fn">defaultdict</span>(<span class="nb">int</span>); pc[<span class="nm">0</span>] = <span class="nm">1</span>
+    pre = count = <span class="nm">0</span>
+    <span class="kw">for</span> num <span class="kw">in</span> nums:
+        pre += num
+        count += pc[pre - k]  <span class="cm"># subarrays ending here</span>
+        pc[pre] += <span class="nm">1</span>
+    <span class="kw">return</span> count  <span class="cm"># O(n)</span></div>
+<h3>Complexity Analysis</h3>
+<table>
+<tr><th>Operation</th><th>Basic</th><th>Optimized</th><th>Reason</th></tr>
+<tr><td>Time</td><td>O(n&sup2;)</td><td>O(n)</td><td>Hash map O(1) lookup per element</td></tr>
+<tr><td>Space</td><td>O(1)</td><td>O(n)</td><td>Hash map stores prefix sums</td></tr>
+<tr><td>Key insight</td><td colspan="3">prefix[j]-prefix[i]=k means subarray i+1..j sums to k</td></tr>
+</table>
+</div>
+
+<hr class="divider">
+
+<div class="card">
+<div class="card-header">
+<span class="card-title">LeetCode #329 &nbsp;Longest Increasing Path in a Matrix</span>
+<span class="badge hard">Hard</span>
+<span class="by">— by LeetCode</span>
+</div>
+<h3>Algorithm Visualization</h3>
+<div class="ascii-box">matrix=[[9,9,4],[6,6,8],[2,1,1]]
+DFS+Memoization from each cell:
+  (2,1)=1->(2,0)=2->(1,0)=6->(0,0)=9  len=4
+  memo[r][c] = longest increasing path from (r,c)
+memo table: [1,1,1] / [4,1,1] / [3,2,1]
+Best = 4</div>
+<h3>Basic Solution</h3>
+<div class="code-block"><span class="kw">def</span> <span class="fn">longestIncreasingPath</span>(matrix):
+    <span class="kw">if not</span> matrix: <span class="kw">return</span> <span class="nm">0</span>
+    R,C = <span class="fn">len</span>(matrix),<span class="fn">len</span>(matrix[<span class="nm">0</span>])
+    dirs = [(<span class="nm">0</span>,<span class="nm">1</span>),(<span class="nm">0</span>,<span class="nm">-1</span>),(<span class="nm">1</span>,<span class="nm">0</span>),(<span class="nm">-1</span>,<span class="nm">0</span>)]
+    <span class="kw">def</span> <span class="fn">dfs</span>(r,c):
+        best = <span class="nm">1</span>
+        <span class="kw">for</span> dr,dc <span class="kw">in</span> dirs:
+            nr,nc = r+dr,c+dc
+            <span class="kw">if</span> <span class="nm">0</span>&lt;=nr&lt;R <span class="kw">and</span> <span class="nm">0</span>&lt;=nc&lt;C <span class="kw">and</span> matrix[nr][nc]&gt;matrix[r][c]:
+                best = <span class="fn">max</span>(best,<span class="nm">1</span>+<span class="fn">dfs</span>(nr,nc))
+        <span class="kw">return</span> best
+    <span class="kw">return</span> <span class="fn">max</span>(<span class="fn">dfs</span>(r,c) <span class="kw">for</span> r <span class="kw">in</span> <span class="fn">range</span>(R) <span class="kw">for</span> c <span class="kw">in</span> <span class="fn">range</span>(C))</div>
+<h3>Optimized Solution</h3>
+<div class="code-block"><span class="kw">from</span> functools <span class="kw">import</span> lru_cache
+<span class="kw">def</span> <span class="fn">longestIncreasingPath</span>(matrix):
+    <span class="kw">if not</span> matrix: <span class="kw">return</span> <span class="nm">0</span>
+    R,C = <span class="fn">len</span>(matrix),<span class="fn">len</span>(matrix[<span class="nm">0</span>])
+    dirs = [(<span class="nm">0</span>,<span class="nm">1</span>),(<span class="nm">0</span>,<span class="nm">-1</span>),(<span class="nm">1</span>,<span class="nm">0</span>),(<span class="nm">-1</span>,<span class="nm">0</span>)]
+    <span class="nb">@lru_cache</span>(maxsize=<span class="kw">None</span>)
+    <span class="kw">def</span> <span class="fn">dfs</span>(r,c):
+        best = <span class="nm">1</span>
+        <span class="kw">for</span> dr,dc <span class="kw">in</span> dirs:
+            nr,nc = r+dr,c+dc
+            <span class="kw">if</span> <span class="nm">0</span>&lt;=nr&lt;R <span class="kw">and</span> <span class="nm">0</span>&lt;=nc&lt;C <span class="kw">and</span> matrix[nr][nc]&gt;matrix[r][c]:
+                best = <span class="fn">max</span>(best,<span class="nm">1</span>+<span class="fn">dfs</span>(nr,nc))  <span class="cm"># cached</span>
+        <span class="kw">return</span> best
+    <span class="kw">return</span> <span class="fn">max</span>(<span class="fn">dfs</span>(r,c) <span class="kw">for</span> r <span class="kw">in</span> <span class="fn">range</span>(R) <span class="kw">for</span> c <span class="kw">in</span> <span class="fn">range</span>(C))</div>
+<h3>Complexity Analysis</h3>
+<table>
+<tr><th>Operation</th><th>Basic</th><th>Optimized</th><th>Reason</th></tr>
+<tr><td>Time</td><td>O(2^(R*C))</td><td>O(R*C)</td><td>Each cell computed once with lru_cache</td></tr>
+<tr><td>Space</td><td>O(R*C)</td><td>O(R*C)</td><td>Call stack + memo table</td></tr>
+<tr><td>Key insight</td><td colspan="3">Strictly increasing = DAG, no cycles, safe to memoize</td></tr>
+</table>
+</div>
+
+<footer>
+<p>🌐 <a href="https://chloeyeo.github.io/leetcode-explanations">chloeyeo.github.io/leetcode-explanations</a></p>
+<p style="margin-top:6px;color:#484f58">Generated by Crew AI &nbsp;|&nbsp; 2026-06-15</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeetCode Daily | Monotonic Stack | 2026-06-15</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0d1117; color: #c9d1d9; font-family: 'Segoe UI', system-ui, sans-serif; padding: 16px; }
+.header { text-align: center; padding: 24px 16px; background: linear-gradient(135deg, #161b22, #1f2937); border-radius: 12px; margin-bottom: 24px; border: 1px solid #30363d; }
+.header h1 { font-size: 1.6rem; color: #58a6ff; margin-bottom: 8px; }
+.header .date { color: #8b949e; font-size: 0.9rem; }
+.type-badge { display: inline-block; background: #1f6feb; color: #fff; padding: 4px 14px; border-radius: 20px; font-size: 0.85rem; margin-top: 8px; }
+.problem-card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; margin-bottom: 28px; overflow: hidden; }
+.problem-header { padding: 16px 20px; border-bottom: 1px solid #30363d; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.problem-title { font-size: 1.1rem; font-weight: 700; color: #e6edf3; }
+.badge { padding: 3px 10px; border-radius: 12px; font-size: 0.78rem; font-weight: 600; }
+.easy { background: #1a4731; color: #3fb950; }
+.medium { background: #4a2c00; color: #d29922; }
+.hard { background: #4a1919; color: #f85149; }
+.section { padding: 16px 20px; border-bottom: 1px solid #21262d; }
+.section-title { font-size: 0.85rem; font-weight: 700; color: #8b949e; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
+.ascii-art { background: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 14px; font-family: 'Courier New', monospace; font-size: 0.75rem; line-height: 1.5; color: #7ee787; overflow-x: auto; white-space: pre; }
+.code-block { background: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 14px; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 1.6; overflow-x: auto; white-space: pre; }
+.kw { color: #ff7b72; }
+.fn { color: #d2a8ff; }
+.cm { color: #8b949e; font-style: italic; }
+.num { color: #79c0ff; }
+.var { color: #ffa657; }
+.complexity-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.complexity-table th { background: #21262d; color: #8b949e; padding: 8px 12px; text-align: left; font-weight: 600; }
+.complexity-table td { padding: 8px 12px; border-top: 1px solid #21262d; color: #c9d1d9; vertical-align: top; }
+.tag-o { color: #3fb950; font-weight: 700; font-family: monospace; }
+.footer { text-align: center; padding: 20px; color: #8b949e; font-size: 0.85rem; }
+.footer a { color: #58a6ff; text-decoration: none; }
+.code-label { display: inline-block; background: #21262d; color: #8b949e; font-size: 0.75rem; padding: 2px 8px; border-radius: 4px 4px 0 0; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>&#129425; LeetCode Daily</h1>
+  <div class="type-badge">Monotonic Stack</div>
+  <div class="date">2026&#45380; 6&#50900; 15&#51068; (&#50900;)</div>
+</div>
+
+<!-- Easy -->
+<div class="problem-card">
+  <div class="problem-header">
+    <span class="problem-title">#496 Next Greater Element I</span>
+    <span class="badge easy">Easy</span>
+    <span style="color:#8b949e;font-size:0.8rem;">by LeetCode</span>
+  </div>
+  <div class="section">
+    <div class="section-title">Algorithm Visualization (ASCII Art)</div>
+    <div class="ascii-art">nums1=[4,1,2], nums2=[1,3,4,2]
+
+Stack traversal (monotonic decreasing):
++------------------------------------------+
+| i=0 val=1  stack=[]   push 1             |
+|            stack: [1]                     |
+| i=1 val=3  3>1 pop 1  next_greater[1]=3  |
+|            stack: [3]                     |
+| i=2 val=4  4>3 pop 3  next_greater[3]=4  |
+|            stack: [4]                     |
+| i=3 val=2  2<4 push   stack: [4,2]       |
+| remaining [4,2] -> next_greater = -1     |
++------------------------------------------+
+map: {1:3, 3:4, 4:-1, 2:-1}
+nums1 result: [4, 3, -1]  ✓</div>
+  </div>
+  <div class="section">
+    <div class="section-title">&#128161; Brute Force</div>
+    <div class="code-label">Python</div>
+    <div class="code-block"><span class="kw">from</span> <span class="var">typing</span> <span class="kw">import</span> <span class="var">List</span>
+
+<span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">nextGreaterElement</span>(<span class="var">self</span>, <span class="var">nums1</span>: <span class="var">List</span>[<span class="var">int</span>], <span class="var">nums2</span>: <span class="var">List</span>[<span class="var">int</span>]) -&gt; <span class="var">List</span>[<span class="var">int</span>]:
+        <span class="var">result</span> = []
+        <span class="kw">for</span> <span class="var">num</span> <span class="kw">in</span> <span class="var">nums1</span>:
+            <span class="var">found</span>, <span class="var">idx</span> = <span class="kw">False</span>, <span class="var">nums2</span>.<span class="fn">index</span>(<span class="var">num</span>)
+            <span class="kw">for</span> <span class="var">j</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="var">idx</span>+<span class="num">1</span>, <span class="fn">len</span>(<span class="var">nums2</span>)):
+                <span class="kw">if</span> <span class="var">nums2</span>[<span class="var">j</span>] &gt; <span class="var">num</span>:
+                    <span class="var">result</span>.<span class="fn">append</span>(<span class="var">nums2</span>[<span class="var">j</span>]); <span class="var">found</span>=<span class="kw">True</span>; <span class="kw">break</span>
+            <span class="kw">if not</span> <span class="var">found</span>: <span class="var">result</span>.<span class="fn">append</span>(-<span class="num">1</span>)
+        <span class="kw">return</span> <span class="var">result</span></div>
+  </div>
+  <div class="section">
+    <div class="section-title">&#9889; Optimized (Monotonic Stack)</div>
+    <div class="code-label">Python</div>
+    <div class="code-block"><span class="kw">from</span> <span class="var">typing</span> <span class="kw">import</span> <span class="var">List</span>
+
+<span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">nextGreaterElement</span>(<span class="var">self</span>, <span class="var">nums1</span>: <span class="var">List</span>[<span class="var">int</span>], <span class="var">nums2</span>: <span class="var">List</span>[<span class="var">int</span>]) -&gt; <span class="var">List</span>[<span class="var">int</span>]:
+        <span class="var">ng</span>, <span class="var">stk</span> = {}, []
+        <span class="kw">for</span> <span class="var">n</span> <span class="kw">in</span> <span class="var">nums2</span>:
+            <span class="kw">while</span> <span class="var">stk</span> <span class="kw">and</span> <span class="var">stk</span>[-<span class="num">1</span>] &lt; <span class="var">n</span>: <span class="var">ng</span>[<span class="var">stk</span>.<span class="fn">pop</span>()] = <span class="var">n</span>
+            <span class="var">stk</span>.<span class="fn">append</span>(<span class="var">n</span>)
+        <span class="kw">return</span> [<span class="var">ng</span>.<span class="fn">get</span>(<span class="var">n</span>, -<span class="num">1</span>) <span class="kw">for</span> <span class="var">n</span> <span class="kw">in</span> <span class="var">nums1</span>]</div>
+  </div>
+  <div class="section">
+    <div class="section-title">&#128202; Complexity</div>
+    <table class="complexity-table">
+      <tr><th>Type</th><th>Complexity</th><th>Reason</th></tr>
+      <tr><td>Brute Time</td><td><span class="tag-o">O(m*n)</span></td><td>Linear scan in nums2 for each nums1 element</td></tr>
+      <tr><td>Optimal Time</td><td><span class="tag-o">O(m+n)</span></td><td>One pass nums2 O(n) + nums1 lookup O(m)</td></tr>
+      <tr><td>Brute Space</td><td><span class="tag-o">O(1)</span></td><td>No extra space besides result</td></tr>
+      <tr><td>Optimal Space</td><td><span class="tag-o">O(n)</span></td><td>HashMap + stack hold up to nelements</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- Medium -->
+<div class="problem-card">
+  <div class="problem-header">
+    <span class="problem-title">#739 Daily Temperatures</span>
+    <span class="badge medium">Medium</span>
+    <span style="color:#8b949e;font-size:0.8rem;">by LeetCode</span>
+  </div>
+  <div class="section">
+    <div class="section-title">Algorithm Visualization (ASCII Art)</div>
+    <div class="ascii-art">temperatures = [73,74,75,71,69,72,76,73]
+
+Index:   0   1   2   3   4   5   6   7
+Temp:   73  74  75  71  69  72  76  73
+Result: [1,  1,  4,  2,  1,  1,  0,  0]
+
+Stack stores indices (monotonic decreasing by temp):
++--------------------------------------------+
+| i=0 T=m73  push 0         stack:[0]         |
+| i=1 T=74  74>73 pop0 ans[0]=1  stack:[1]   |
+| i=2 T=75  75>74 pop1 ans[1]=1  stack:[2]   |
+| i=3 T=71  71<75 push      stack:[2,3]      |
+| i=4 T=69  69<71 push      stack:[2,3,4]    |
+| i=5 T=72  72>69 pop4 ans[4]=1              |
+|           72>71 pop3 ans[3]=2  stack:[2,5] |
+| i=6 T=76  76>72 pop5 ans[5]=1              |
+|           76>75 pop2 ans[2]=4  stack:[6]   |
+| i=7 T=73  73<76 push      stack:[6,7]      |
+| remaining [6,7] -> ans = 0 (default)       |
++--------------------------------------------+</div>
+  </div>
+  <div class="section">
+    <div class="section-title">&#128161; Brute Force O(n^2)</div>
+    <div class="code-label">Python</div>
+    <div class="code-block"><span class="kw">from</span> <span class="var">typing</span> <span class="kw">import</span> <span class="var">List</span>
+
+<span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">dailyTemperatures</span>(<span class="var">self</span>, <span class="var">temperatures</span>: <span class="var">List</span>[<span class="var">int</span>]) -&gt; <span class="var">List</span>[<span class="var">int</span>]:
+        <span class="var">n</span> = <span class="fn">len</span>(<span class="var">temperatures</span>)
+        <span class="var">res</span> = [<span class="num">0</span>] * <span class="var">n</span>
+        <span class="kw">for</span> <span class="var">i</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="var">n</span>):
+            <span class="kw">for</span> <span class="var">j</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="var">i</span>+<span class="num">1</span>, <span class="var">n</span>):
+                <span class="kw">if</span> <span class="var">temperatures</span>[<span class="var">j</span>] &gt; <span class="var">temperatures</span>[<span class="var">i</span>]:
+                    <span class="var">res</span>[<span class="var">i</span>] = <span class="var">j</span> - <span class="var">i</span>; <span class="kw">break</span>
+        <span class="kw">return</span> <span class="var">res</span></div>
+  </div>
+  <div class="section">
+    <div class="section-title">&#9889; Optimized (Monotonic Stack) O(n)</div>
+    <div class="code-label">Python</div>
+    <div class="code-block"><span class="kw">from</span> <span class="var">typing</span> <span class="kw">import</span> <span class="var">List</span>
+
+<span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">dailyTemperatures</span>(<span class="var">self</span>, <span class="var">temperatures</span>: <span class="var">List</span>[<span class="var">int</span>]) -&gt; <span class="var">List</span>[<span class="var">int</span>]:
+        <span class="var">res</span>, <span class="var">stk</span> = [<span class="num">0</span>]*<span class="fn">len</span>(<span class="var">temperatures</span>), []
+        <span class="kw">for</span> <span class="var">i</span>, <span class="var">t</span> <span class="kw">in</span> <span class="fn">enumerate</span>(<span class="var">temperatures</span>):
+            <span class="kw">while</span> <span class="var">stk</span> <span class="kw">and</span> <span class="var">temperatures</span>[<span class="var">stk</span>[-<span class="num">1</span>]] &lt; <span class="var">t</span>:
+                <span class="var">p</span> = <span class="var">stk</span>.<span class="fn">pop</span>(); <span class="var">res</span>[<span class="var">p</span>] = <span class="var">i</span> - <span class="var">p</span>
+            <span class="var">stk</span>.<span class="fn">append</span>(<span class="var">i</span>)
+        <span class="kw">return</span> <span class="var">res</span></div>
+  </div>
+  <div class="section">
+    <div class="section-title">&#128202; Complexity</div>
+    <table class="complexity-table">
+      <tr><th>Type</th><th>Complexity</th><th>Reason</th></tr>
+      <tr><td>Brute Time</td><td><span class="tag-o">O(n^2)</span></td><td>Nested loop over each element</td></tr>
+      <tr><td>Optimal Time</td><td><span class="tag-o">O(n)</span></td><td>Each index pushed/popped exactly once</td></tr>
+      <tr><td>Brute Space</td><td><span class="tag-o">O(1)</span></td><td>No extra space beyond result array</td></tr>
+      <tr><td>Optimal Space</td><td><span class="tag-o">O(n)</span></td><td>Stack holds up to n indices</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- Hard -->
+<div class="problem-card">
+  <div class="problem-header">
+    <span class="problem-title">#84 Largest Rectangle in Histogram</span>
+    <span class="badge hard">Hard</span>
+    <span style="color:#8b949e;font-size:0.8rem;">by LeetCode</span>
+  </div>
+  <div class="section">
+    <div class="section-title">Algorithm Visualization (ASCII Art)</div>
+    <div class="ascii-art">heights = [2, 1, 5, 6, 2, 3]
+
+     6 |         ##
+     5 |       ####
+     4 |       ####
+     3 |       ####      ##
+     2 |  ## ########   ####
+     1 |  ################
+         0  1  2  3  4  5
+
+Max rectangle = 10 (index 2-3, height 5*2)
+
+Stack process (monotonic increasing):
++--------------------------------------------+
+| i=0 h=2  stack:[(0,2)]                     |
+| i=1 h=1  1<2 pop(0,2) area=2*1=2 start=0  |
+|          stack:[(0,1)]                      |
+| i=2 h=5  stack:[(0,1),(2,5)]               |
+| i=3 h=6  stack:[(0,1),(2,5),(3,6)]         |
+| i=4 h=2  2<6 pop(3,6) area=6*1=6          |
+|          2<5 pop(2,5) area=5*2=10 MAX!     |
+|          stack:[(0,1),(2,2)]               |
+| i=5 h=3  stack:[(0,1),(2,2),(5,3)]         |
+| flush remaining: 3*1=3, 2*4=8, 1*6=6      |
++--------------------------------------------+
+Max area = 10</div>
+  </div>
+  <div class="section">
+    <div class="section-title">&#128161; Divide and Conquer</div>
+    <div class="code-label">Python</div>
+    <div class="code-block"><span class="kw">from</span> <span class="var">typing</span> <span class="kw">import</span> <span class="var">List</span>
+
+<span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">largestRectangleArea</span>(<span class="var">self</span>, <span class="var">heights</span>: <span class="var">List</span>[<span class="var">int</span>]) -&gt; <span class="var">int</span>:
+        <span class="kw">def</span> <span class="fn">helper</span>(<span class="var">l</span>, <span class="var">r</span>):
+            <span class="kw">if</span> <span class="var">l</span> &gt; <span class="var">r</span>: <span class="kw">return</span> <span class="num">0</span>
+            <span class="var">m</span> = <span class="fn">min</span>(<span class="fn">range</span>(<span class="var">l</span>, <span class="var">r</span>+<span class="num">1</span>), key=<span class="kw">lambda</span> <span class="var">i</span>: <span class="var">heights</span>[<span class="var">i</span>])
+            <span class="kw">return</span> <span class="fn">max</span>(<span class="var">heights</span>[<span class="var">m</span>]*(<span class="var">r</span>-<span class="var">l</span>+<span class="num">1</span>), <span class="fn">helper</span>(<span class="var">l</span>, <span class="var">m</span>-<span class="num">1</span>), <span class="fn">helper</span>(<span class="var">m</span>+<span class="num">1</span>, <span class="var">r</span>))
+        <span class="kw">return</span> <span class="fn">helper</span>(<span class="num">0</span>, <span class="fn">len</span>(<span class="var">heights</span>)-<span class="num">1</span>)</div>
+  </div>
+  <div class="section">
+    <div class="section-title">&#9889; Optimized (Monotonic Stack) O(n)</div>
+    <div class="code-label">Python</div>
+    <div class="code-block"><span class="kw">from</span> <span class="var">typing</span> <span class="kw">import</span> <span class="var">List</span>
+
+<span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">largestRectangleArea</span>(<span class="var">self</span>, <span class="var">heights</span>: <span class="var">List</span>[<span class="var">int</span>]) -&gt; <span class="var">int</span>:
+        <span class="var">mx</span>, <span class="var">stk</span> = <span class="num">0</span>, []
+        <span class="kw">for</span> <span class="var">i</span>, <span class="var">h</span> <span class="kw">in</span> <span class="fn">enumerate</span>(<span class="var">heights</span>):
+            <span class="var">s</span> = <span class="var">i</span>
+            <span class="kw">while</span> <span class="var">stk</span> <span class="kw">and</span> <span class="var">stk</span>[-<span class="num">1</span>][<span class="num">1</span>] &gt; <span class="var">h</span>:
+                <span class="var">idx</span>, <span class="var">ht</span> = <span class="var">stk</span>.<span class="fn">pop</span>()
+                <span class="var">mx</span> = <span class="fn">max</span>(<span class="var">mx</span>, <span class="var">ht</span>*(<span class="var">i</span>-<span class="var">idx</span>)); <span class="var">s</span> = <span class="var">idx</span>
+            <span class="var">stk</span>.<span class="fn">append</span>((<span class="var">s</span>, <span class="var">h</span>))
+        <span class="kw">for</span> <span class="var">idx</span>, <span class="var">ht</span> <span class="kw">in</span> <span class="var">stk</span>:
+            <span class="var">mx</span> = <span class="fn">max</span>(<span class="var">mx</span>, <span class="var">ht</span>*(<span class="fn">len</span>(<span class="var">heights</span>)-<span class="var">idx</span>))
+        <span class="kw">return</span> <span class="var">mx</span></div>
+  </div>
+  <div class="section">
+    <div class="section-title">&#128202; Complexity</div>
+    <table class="complexity-table">
+      <tr><th>Type</th><th>Complexity</th><th>Reason</th></tr>
+      <tr><td>D&amp;C Time</td><td><span class="tag-o">O(n log n)</span></td><td>T(n)=2T(n/2)+O(n); worst O(n^2) for sorted input</td></tr>
+      <tr><td>Optimal Time</td><td><span class="tag-o">O(n)</span></td><td>Each bar pushed/popped exactly once</td></tr>
+      <tr><td>D&amp;C Space</td><td><span class="tag-o">O(n)</span></td><td>Recursion stack depth up to n</td></tr>
+      <tr><td>Optimal Space</td><td><span class="tag-o">O(n)</span></td><td>Stack holds at most n entries</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="footer">
+  <p>&#127760; More problems: <a href="https://chloeyeo.github.io/leetcode-explanations">https://chloeyeo.github.io/leetcode-explanations</a></p>
+  <p style="margin-top:8px;color:#484f58;">LeetCode Daily | Monotonic Stack | 2026-06-15</p>
+</div>
+</body>
+</html>

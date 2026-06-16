@@ -3,227 +3,248 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LeetCode Daily | Sorting</title>
+<title>LeetCode Daily | Sorting | 2026-06-16</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #0d1117; color: #e6edf3; font-family: 'Segoe UI', system-ui, sans-serif; padding: 16px; line-height: 1.6; }
-  .header { text-align: center; padding: 24px 16px; background: linear-gradient(135deg, #1a1f2e, #0d1117); border: 1px solid #30363d; border-radius: 12px; margin-bottom: 24px; }
-  .header h1 { font-size: 1.6rem; color: #58a6ff; margin-bottom: 8px; }
-  .header .date { color: #8b949e; font-size: 0.9rem; }
-  .header .subtitle { color: #c9d1d9; font-size: 1rem; margin-top: 8px; }
-  .problem-card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 20px; margin-bottom: 24px; }
-  .problem-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
-  .problem-title { font-size: 1.1rem; font-weight: 700; color: #e6edf3; flex: 1; }
-  .problem-title a { color: #58a6ff; text-decoration: none; }
-  .problem-title a:hover { text-decoration: underline; }
-  .badge { padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; white-space: nowrap; }
-  .easy { background: #1a3a2a; color: #3fb950; border: 1px solid #3fb950; }
-  .medium { background: #3a2a0a; color: #d29922; border: 1px solid #d29922; }
-  .hard { background: #3a0f0f; color: #f85149; border: 1px solid #f85149; }
-  .by { color: #8b949e; font-size: 0.8rem; margin-top: 4px; }
-  .section-title { color: #58a6ff; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin: 16px 0 8px; display: flex; align-items: center; gap: 6px; }
-  .section-title::before { content: ""; display: inline-block; width: 3px; height: 14px; background: #58a6ff; border-radius: 2px; }
-  .ascii-art { background: #0d1117; border: 1px solid #21262d; border-radius: 8px; padding: 14px; font-family: 'Courier New', monospace; font-size: 0.7rem; color: #8b949e; overflow-x: auto; white-space: pre; line-height: 1.4; }
-  .ascii-art .highlight { color: #58a6ff; }
-  .ascii-art .arrow { color: #3fb950; }
-  .code-block { background: #0d1117; border: 1px solid #21262d; border-radius: 8px; padding: 14px; font-family: 'Courier New', monospace; font-size: 0.78rem; overflow-x: auto; white-space: pre; line-height: 1.7; }
-  .kw { color: #ff7b72; }
-  .fn { color: #d2a8ff; }
-  .cl { color: #ffa657; }
-  .st { color: #a5d6ff; }
-  .cm { color: #6e7681; font-style: italic; }
-  .nm { color: #79c0ff; }
-  .op { color: #e6edf3; }
-  .complexity-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-top: 8px; }
-  .complexity-table th { background: #1a1f2e; color: #58a6ff; padding: 8px 12px; text-align: left; border: 1px solid #30363d; }
-  .complexity-table td { padding: 7px 12px; border: 1px solid #21262d; color: #c9d1d9; }
-  .complexity-table tr:nth-child(even) td { background: #161b22; }
-  .complexity-table tr:nth-child(odd) td { background: #0d1117; }
-  .divider { border: none; border-top: 1px solid #21262d; margin: 16px 0; }
-  .opt-badge { background: #1a2a3a; color: #58a6ff; border: 1px solid #58a6ff; padding: 2px 8px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; }
-  .footer { text-align: center; padding: 20px; color: #8b949e; font-size: 0.85rem; border-top: 1px solid #21262d; margin-top: 8px; }
-  .footer a { color: #58a6ff; text-decoration: none; }
-  .tag { display: inline-block; background: #1a2a3a; color: #79c0ff; border: 1px solid #21262d; padding: 2px 8px; border-radius: 12px; font-size: 0.72rem; margin: 2px; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d1117;color:#e6edf3;font-family:'Courier New',monospace;padding:16px;max-width:800px;margin:0 auto}
+h1{color:#58a6ff;font-size:1.4rem;margin-bottom:4px}
+.date{color:#8b949e;font-size:.85rem;margin-bottom:24px}
+.problem{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px;margin-bottom:24px}
+.problem-title{color:#e6edf3;font-size:1.05rem;font-weight:bold;margin-bottom:8px}
+.by{color:#8b949e;font-size:.8rem;margin-bottom:10px}
+.badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:.8rem;font-weight:bold;margin-bottom:12px}
+.easy{background:#1a3a1a;color:#3fb950}
+.medium{background:#3a2500;color:#d29922}
+.hard{background:#3a0a0a;color:#f85149}
+.section-title{color:#58a6ff;font-size:.85rem;font-weight:bold;margin:14px 0 6px;text-transform:uppercase;letter-spacing:.05em}
+pre{background:#0d1117;border:1px solid #21262d;border-radius:6px;padding:12px;overflow-x:auto;font-size:.78rem;line-height:1.6;margin-bottom:8px}
+.ascii{color:#39d353;font-size:.7rem;line-height:1.4}
+.kw{color:#ff7b72}.fn{color:#d2a8ff}.st{color:#79c0ff}.cm{color:#8b949e}.nm{color:#79c0ff}.op{color:#ff7b72}
+table{width:100%;border-collapse:collapse;font-size:.78rem;margin-bottom:8px}
+th{background:#21262d;color:#8b949e;padding:6px 10px;text-align:left;border:1px solid #30363d}
+td{padding:6px 10px;border:1px solid #21262d;color:#e6edf3;vertical-align:top}
+td:first-child{color:#58a6ff;white-space:nowrap;width:120px}
+.footer{text-align:center;margin-top:32px;padding:16px;border-top:1px solid #21262d;color:#8b949e;font-size:.8rem}
+.footer a{color:#58a6ff;text-decoration:none}
 </style>
 </head>
 <body>
+<h1>&#x1F4CA; Sorting &#xC720;&#xD615;</h1>
+<div class="date">2026-06-16 (&#xD654;&#xC694;&#xC77C;) &middot; LeetCode Daily</div>
 
-<div class="header">
-  <h1>🧩 LeetCode Daily</h1>
-  <div class="subtitle">Sorting 유형</div>
-  <div class="date">2026년 6월 15일 (월)</div>
+<div class="problem">
+<div class="problem-title">LeetCode #88 &mdash; Merge Sorted Array</div>
+<div class="by">by LeetCode</div>
+<span class="badge easy">Easy</span>
+<div class="section-title">Algorithm Visualization</div>
+<pre class="ascii">
+nums1=[1,2,3,0,0,0] m=3  nums2=[2,5,6] n=3
+
+  Three-pointer merge from END:
+  p1=2(val=3)  p2=2(val=6)  p=5
+
+  6 > 3  => place 6  at p=5  => [1,2,3,0,0,6]
+  5 > 3  => place 5  at p=4  => [1,2,3,0,5,6]
+  3 > 2  => place 3  at p=3  => [1,2,3,3,5,6] p1=-1
+  place 2 at p=2             => [1,2,2,3,5,6]
+  Result: [1,2,2,3,5,6]
+</pre>
+<div class="section-title">Basic Solution (Python)</div>
+<pre>
+from typing import List
+
+class Solution:
+    def merge(self, nums1: List[int], m: int,
+              nums2: List[int], n: int) -> None:
+        # Fill then sort - simple but O((m+n)log(m+n))
+        for i in range(n):
+            nums1[m + i] = nums2[i]
+        nums1.sort()
+</pre>
+<div class="section-title">Optimized Solution (Python)</div>
+<pre>
+from typing import List
+
+class Solution:
+    def merge(self, nums1: List[int], m: int,
+              nums2: List[int], n: int) -> None:
+        # Three-pointer from end - O(m+n) time, O(1) space
+        p1, p2, p = m - 1, n - 1, m + n - 1
+        while p1 >= 0 and p2 >= 0:
+            if nums1[p1] > nums2[p2]:
+                nums1[p] = nums1[p1]; p1 -= 1
+            else:
+                nums1[p] = nums2[p2]; p2 -= 1
+            p -= 1
+        while p2 >= 0:
+            nums1[p] = nums2[p2]; p2 -= 1; p -= 1
+</pre>
+<div class="section-title">Complexity Analysis</div>
+<table>
+<tr><th>Metric</th><th>Complexity</th><th>Reason</th></tr>
+<tr><td>Time (basic)</td><td>O((m+n)log(m+n))</td><td>Python Timsort on merged array</td></tr>
+<tr><td>Time (optimal)</td><td>O(m+n)</td><td>Each element visited exactly once</td></tr>
+<tr><td>Space (basic)</td><td>O(1)</td><td>in-place sort, no extra array</td></tr>
+<tr><td>Space (optimal)</td><td>O(1)</td><td>Only 3 pointer variables</td></tr>
+</table>
 </div>
 
-<!-- ====== PROBLEM 1: Easy ====== -->
-<div class="problem-card">
-  <div class="problem-header">
-    <div style="flex:1">
-      <div class="problem-title">
-        <a href="https://leetcode.com/problems/meeting-rooms/" target="_blank">
-          LeetCode #252 — Meeting Rooms
-        </a>
-      </div>
-      <div class="by">by LeetCode</div>
-      <div style="margin-top:6px">
-        <span class="tag">Sorting</span>
-        <span class="tag">Array</span>
-        <span class="tag">Greedy</span>
-      </div>
-    </div>
-    <span class="badge easy">Easy</span>
-  </div>
+<div class="problem">
+<div class="problem-title">LeetCode #912 &mdash; Sort an Array</div>
+<div class="by">by LeetCode</div>
+<span class="badge medium">Medium</span>
+<div class="section-title">Algorithm Visualization</div>
+<pre class="ascii">
+Merge Sort: [5, 2, 3, 1]
 
-  <div class="section-title">🎨 알고리즘 시각화</div>
-  <div class="ascii-art">
-<span class="highlight">MEETING ROOMS — Can a person attend all meetings?</span>
+        [5, 2, 3, 1]
+        /              [5, 2]         [3, 1]
+   /    \         /     [5]   [2]     [3]   [1]
+    \  /          \  /
+   [2,5]         [1,3]
+         \      /
+        [1,2,3,5]
+</pre>
+<div class="section-title">Basic Solution (Python)</div>
+<pre>
+from typing import List
 
-intervals = [[0,30],[5,10],[15,20]]
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        if len(nums) <= 1:
+            return nums
+        mid = len(nums) // 2
+        left  = self.sortArray(nums[:mid])
+        right = self.sortArray(nums[mid:])
+        return self._merge(left, right)
 
-Step 1: Sort by start time
-  <span class="arrow">→ [[0,30],[5,10],[15,20]]</span>   (already — let's sort)
-  <span class="arrow">→ [[0,30],[5,10],[15,20]] sorted → [[0,30],[5,10],[15,20]]</span>
+    def _merge(self, l, r):
+        res, i, j = [], 0, 0
+        while i < len(l) and j < len(r):
+            if l[i] <= r[j]:
+                res.append(l[i]); i += 1
+            else:
+                res.append(r[j]); j += 1
+        return res + l[i:] + r[j:]
+</pre>
+<div class="section-title">Optimized Solution (Python)</div>
+<pre>
+from typing import List
+import random
 
-Step 2: Check overlaps
-  [0,30] vs [5,10]  → 5 &lt; 30  ❌ OVERLAP!
-  <span class="arrow">→ Return False (cannot attend all)</span>
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        # Randomized QuickSort - avoids O(n^2) worst case
+        def quicksort(lo: int, hi: int) -> None:
+            if lo >= hi:
+                return
+            pivot_idx = random.randint(lo, hi)
+            nums[pivot_idx], nums[hi] = nums[hi], nums[pivot_idx]
+            pivot, store = nums[hi], lo
+            for k in range(lo, hi):
+                if nums[k] <= pivot:
+                    nums[store], nums[k] = nums[k], nums[store]
+                    store += 1
+            nums[store], nums[hi] = nums[hi], nums[store]
+            quicksort(lo, store - 1)
+            quicksort(store + 1, hi)
 
-Another example: [[7,10],[2,4]]
-  <span class="arrow">→ sort → [[2,4],[7,10]]</span>
-  [2,4] vs [7,10] → 7 >= 4  ✅ No overlap
-  <span class="arrow">→ Return True</span>
-
-Timeline:
-  Case 1: 0---[=========30]
-                 5--[10]        ← OVERLAP
-  Case 2:  2-[4]  7--[10]      ← OK
-  </div>
-
-  <div class="section-title">💡 기본 풀이</div>
-  <div class="code-block"><span class="kw">from</span> <span class="nm">typing</span> <span class="kw">import</span> <span class="cl">List</span>
-
-<span class="kw">class</span> <span class="cl">Solution</span>:
-    <span class="kw">def</span> <span class="fn">canAttendMeetings</span>(<span class="nm">self</span>, intervals: <span class="cl">List</span>[<span class="cl">List</span>[<span class="nm">int</span>]]) -> <span class="nm">bool</span>:
-        <span class="cm"># 시작 시간 기준으로 정렬</span>
-        intervals.<span class="fn">sort</span>(key=<span class="kw">lambda</span> x: x[<span class="nm">0</span>])
-        
-        <span class="cm"># 인접한 구간끼리 겹치는지 확인</span>
-        <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">1</span>, <span class="fn">len</span>(intervals)):
-            <span class="cm"># 이전 구간의 종료 시간 > 현재 구간 시작 시간 → 겹침</span>
-            <span class="kw">if</span> intervals[i - <span class="nm">1</span>][<span class="nm">1</span>] > intervals[i][<span class="nm">0</span>]:
-                <span class="kw">return</span> <span class="nm">False</span>
-        
-        <span class="kw">return</span> <span class="nm">True</span>
-  </div>
-
-  <hr class="divider">
-  <div class="section-title">⚡ 최적화된 버전 <span class="opt-badge">Optimized</span></div>
-  <div class="code-block"><span class="kw">from</span> <span class="nm">typing</span> <span class="kw">import</span> <span class="cl">List</span>
-
-<span class="kw">class</span> <span class="cl">Solution</span>:
-    <span class="kw">def</span> <span class="fn">canAttendMeetings</span>(<span class="nm">self</span>, intervals: <span class="cl">List</span>[<span class="cl">List</span>[<span class="nm">int</span>]]) -> <span class="nm">bool</span>:
-        <span class="cm"># 빈 리스트는 항상 True</span>
-        <span class="kw">if</span> <span class="kw">not</span> intervals:
-            <span class="kw">return</span> <span class="nm">True</span>
-        
-        <span class="cm"># 종료 시간 기준 정렬 (종료가 같으면 시작 기준)</span>
-        intervals.<span class="fn">sort</span>(key=<span class="kw">lambda</span> x: (x[<span class="nm">1</span>], x[<span class="nm">0</span>]))
-        
-        <span class="cm"># 모든 인접 쌍에 대해 겹침 검사 (any로 단락 평가)</span>
-        <span class="kw">return</span> <span class="kw">not</span> <span class="fn">any</span>(
-            intervals[i][<span class="nm">0</span>] &lt; intervals[i - <span class="nm">1</span>][<span class="nm">1</span>]
-            <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">1</span>, <span class="fn">len</span>(intervals))
-        )
-  </div>
-
-  <div class="section-title">📊 복잡도 분석</div>
-  <table class="complexity-table">
-    <tr><th>버전</th><th>시간복잡도</th><th>공간복잡도</th><th>이유</th></tr>
-    <tr><td>기본</td><td>O(n log n)</td><td>O(1)</td><td>정렬 O(n log n), 순회 O(n) → 정렬이 지배. in-place sort</td></tr>
-    <tr><td>최적화</td><td>O(n log n)</td><td>O(1)</td><td>동일. any()로 early exit 가능 — 평균적으로 더 빠름</td></tr>
-    <tr><td>정렬 단계</td><td>O(n log n)</td><td>O(log n)</td><td>Python Timsort는 O(log n) 스택 공간 사용</td></tr>
-    <tr><td>비교 단계</td><td>O(n)</td><td>O(1)</td><td>한 번의 선형 순회로 모든 쌍 비교 완료</td></tr>
-  </table>
+        quicksort(0, len(nums) - 1)
+        return nums
+</pre>
+<div class="section-title">Complexity Analysis</div>
+<table>
+<tr><th>Metric</th><th>Complexity</th><th>Reason</th></tr>
+<tr><td>Time (basic)</td><td>O(n log n)</td><td>Merge Sort: log n levels x O(n) merge</td></tr>
+<tr><td>Time (optimal)</td><td>O(n log n) avg</td><td>Random pivot avoids sorted-input O(n^2)</td></tr>
+<tr><td>Space (basic)</td><td>O(n)</td><td>Recursion stack + temp arrays</td></tr>
+<tr><td>Space (optimal)</td><td>O(log n)</td><td>In-place partition, only stack space</td></tr>
+</table>
 </div>
 
-<!-- ====== PROBLEM 2: Medium ====== -->
-<div class="problem-card">
-  <div class="problem-header">
-    <div style="flex:1">
-      <div class="problem-title">
-        <a href="https://leetcode.com/problems/sort-an-array/" target="_blank">
-          LeetCode #912 — Sort an Array
-        </a>
-      </div>
-      <div class="by">by LeetCode</div>
-      <div style="margin-top:6px">
-        <span class="tag">Sorting</span>
-        <span class="tag">Divide and Conquer</span>
-        <span class="tag">Heap</span>
-      </div>
-    </div>
-    <span class="badge medium">Medium</span>
-  </div>
+<div class="problem">
+<div class="problem-title">LeetCode #315 &mdash; Count of Smaller Numbers After Self</div>
+<div class="by">by LeetCode</div>
+<span class="badge hard">Hard</span>
+<div class="section-title">Algorithm Visualization</div>
+<pre class="ascii">
+nums = [5, 2, 6, 1]   indices = [0,1,2,3]
 
-  <div class="section-title">🎨 알고리즘 시각화</div>
-  <div class="ascii-art">
-<span class="highlight">MERGE SORT — Divide, Sort, Merge</span>
+Merge Sort on indices, counting cross-inversions:
 
-nums = [5, 2, 3, 1]
+  Merge [0,1] (vals 5,2) + [2,3] (vals 6,1):
+    Compare val[0]=5 vs val[2]=6:
+      5 <= 6 => place idx 1 (val=2) first
+      ...
+    When left element is placed, j elements from
+    right side already merged => those j values are
+    smaller and appear after current left element.
+    count[left_idx] += j
 
-Divide Phase:
-  <span class="arrow">[5,2,3,1]</span>
-     /            <span class="arrow">[5,2]</span>        <span class="arrow">[3,1]</span>
-  /    \       /    \   <span class="arrow">[5]</span>  <span class="arrow">[2]</span>   <span class="arrow">[3]</span>  <span class="arrow">[e]</span>
+  Final: counts = [2, 1, 1, 0]
+  Meaning: 5 has 2 smaller (2,1), 2 has 1 (1), etc.
+</pre>
+<div class="section-title">Basic Solution (Python)</div>
+<pre>
+from typing import List
 
-Merge Phase:
-<span class="arrow">[5]+[2]→[2,5]</span>   <span class="arrow">[e]+[1]→[1,3]</span>
-     <span class="arrow">[[2,5]+[1,3]→[1,2,3,5]</span>
+class Solution:
+    def countSmaller(self, nums: List[int]) -> List[int]:
+        # Brute force O(n^2)
+        n = len(nums)
+        counts = [0] * n
+        for i in range(n):
+            for j in range(i + 1, n):
+                if nums[j] < nums[i]:
+                    counts[i] += 1
+        return counts
+</pre>
+<div class="section-title">Optimized Solution (Python)</div>
+<pre>
+from typing import List
 
-Each merge step:
-  [2,5] + [1,3]:
-  i=0 j=0: 2 vs 1 → take 1  → [1]
-  i=0 j=1: 2 vs 3 → take 2  → [1,2]
-  i=1 j=1: 5 vs 3 → take 3  → [1,2,3]
-  remaining: [5]             → [1,2,3,5] ✅
-  </div>
+class Solution:
+    def countSmaller(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        counts = [0] * n
+        indices = list(range(n))
 
-  <div class="section-title">💡 기본 풀이 (Merge Sort)</div>
-  <div class="code-block"><span class="kw">from</span> <span class="nm">typing</span> <span class="kw">import</span> <span class="cl">List</span>
+        def merge_sort(idxs: List[int]) -> List[int]:
+            if len(idxs) <= 1:
+                return idxs
+            mid = len(idxs) // 2
+            left  = merge_sort(idxs[:mid])
+            right = merge_sort(idxs[mid:])
+            merged, i, j = [], 0, 0
+            while i < len(left) and j < len(right):
+                if nums[left[i]] <= nums[right[j]]:
+                    # j right elements already placed => smaller
+                    counts[left[i]] += j
+                    merged.append(left[i]); i += 1
+                else:
+                    merged.append(right[j]); j += 1
+            while i < len(left):
+                counts[left[i]] += j
+                merged.append(left[i]); i += 1
+            merged.extend(right[j:])
+            return merged
 
-<span class="kw">class</span> <span class="cl">Solution</span>:
-    <span class="kw">def</span> <span class="fn">sortArray</span>(<span class="nm">self</span>, nums: <span class="cl">List</span>[<span class="nm">int</span>]) -> <span class="cl">List</span>[<span class="nm">int</span>]:
-        <span class="kw">if</span> <span class="fn">len</span>(nums) &lt;= <span class="nm">1</span>:
-            <span class="kw">return</span> nums
-        
-        mid = <span class="fn">len</span>(nums) // <span class="nm">2</span>
-        left = <span class="nm">self</span>.<span class="fn">sortArray</span>(nums[:mid])
-        right = <span class="nm">self</span>.<span class="fn">sortArray</span>(nums[mid:])
-        
-        <span class="kw">return</span> <span class="nm">self</span>.<span class="fn">merge</span>(left, right)
-    
-    <span class="kw">def</span> <span class="fn">merge</span>(<span class="nm">self</span>, left: <span class="cl">List</span>[<span class="nm">int</span>], right: <span class="cl">List</span>[<span class="nm">int</span>]) -> <span class="cl">List</span>[<span class="nm">int</span>]:
-        result = []
-        i = j = <span class="nm">0</span>
-        <span class="cm"># 두배 ��씻 볐합</span>
-        <span class="kw">while</span> i &lt; <span class="fn">len</span>(left) <span class="kw">and</span> j &lt; <span class="fn">len</span>(right):
-            <span class="kw">if</span> left[i] &lt;= right[j]:
-                result.<span class="fn">append</span>(left[i])
-                i += <span class="nm">1</span>
-            <span class="kw">else</span>:
-                result.<span class="fn">append</span>(right[j])
-                j += <span class="nm">1</span>
-        <span class="cm"># 남은 . 접소 추가</span>
-        result.<span class="fn">extend</span>(left[i:])
-        result.<span class="fn">extend</span>(right[j:])
-        <span class="kw">return</span> result
-  </div>
+        merge_sort(indices)
+        return counts
+</pre>
+<div class="section-title">Complexity Analysis</div>
+<table>
+<tr><th>Metric</th><th>Complexity</th><th>Reason</th></tr>
+<tr><td>Time (basic)</td><td>O(n^2)</td><td>Double loop: n elements x n comparisons</td></tr>
+<tr><td>Time (optimal)</td><td>O(n log n)</td><td>Merge Sort: log n depth x O(n) per level</td></tr>
+<tr><td>Space (basic)</td><td>O(n)</td><td>Only counts array needed</td></tr>
+<tr><td>Space (optimal)</td><td>O(n)</td><td>O(log n) stack + O(n) indices array</td></tr>
+</table>
+</div>
 
-  <hr class="divider">
-  <div class="section-title">⚩ 최적화된 버전 (Heap Sort) <span class="opt-badge">Optimized</span></div>
-  <div class="code-block"><span class="kw">from</span> <span class="nm">typing</span> <span class="kw">import</span> <span class="cl">List</span>
-<span class="kw">import</span> <span class="nm">heapq</span>
-
-<span class="kw">class</span> <span class="cl">Solution</span>:
-    <span class="kw">def</span> <span class="fn">sortArray</span>(<span class="nm">self</span>, nums: <span class="cl">List</span>[<span class="nm">int</span>]) -> <span class="cl">List</span>[<span class="nm">int</span>]:
-        <span class="cm"># heapify ‒ O(n), heappop × n → O(n log n), in-place 효율적</span>
-        heapq.<span class="fn">heapify</span>(nums)              <span class="cm"># min-heap 구성
+<div class="footer">
+<p><a href="https://chloeyeo.github.io/leetcode-explanations" target="_blank">https://chloeyeo.github.io/leetcode-explanations</a></p>
+<p style="margin-top:8px;font-size:.75rem">LeetCode Daily Practice &middot; Sorting &middot; 2026-06-16</p>
+</div>
+</body>
+</html>

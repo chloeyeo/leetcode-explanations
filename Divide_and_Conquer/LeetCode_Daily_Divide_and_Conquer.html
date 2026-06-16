@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeetCode Daily | Divide and Conquer</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d1117;color:#e6edf3;font-family:'Courier New',monospace;padding:16px;max-width:800px;margin:0 auto}
+.header{text-align:center;padding:24px 16px;background:linear-gradient(135deg,#1a1f2e,#0d1117);border:1px solid #30363d;border-radius:12px;margin-bottom:24px}
+.header h1{font-size:1.5rem;color:#58a6ff;margin-bottom:8px}
+.header .date{color:#8b949e;font-size:0.85rem}
+.problem-card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:24px}
+.problem-title{font-size:1.1rem;font-weight:bold;color:#e6edf3;margin-bottom:8px}
+.problem-meta{font-size:0.75rem;color:#8b949e;margin-bottom:12px}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:0.75rem;font-weight:bold;margin-right:8px}
+.easy{background:#1a3a2a;color:#3fb950;border:1px solid #3fb950}
+.medium{background:#3a2a1a;color:#d29922;border:1px solid #d29922}
+.hard{background:#3a1a1a;color:#f85149;border:1px solid #f85149}
+.section-label{color:#58a6ff;font-size:0.8rem;font-weight:bold;text-transform:uppercase;letter-spacing:1px;margin:16px 0 8px}
+.ascii-art{background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:12px;font-size:0.7rem;color:#3fb950;overflow-x:auto;margin-bottom:16px;line-height:1.4}
+.code-block{background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:14px;font-size:0.75rem;overflow-x:auto;margin-bottom:16px;line-height:1.6}
+.kw{color:#ff7b72}
+.fn{color:#d2a8ff}
+.str{color:#a5d6ff}
+.cm{color:#8b949e;font-style:italic}
+.num{color:#79c0ff}
+.complexity-table{width:100%;border-collapse:collapse;margin-bottom:16px;font-size:0.78rem}
+.complexity-table th{background:#1f2937;color:#58a6ff;padding:8px 10px;text-align:left;border:1px solid #30363d}
+.complexity-table td{padding:8px 10px;border:1px solid #30363d;vertical-align:top}
+.complexity-table tr:nth-child(even) td{background:#161b22}
+.complexity-table tr:nth-child(odd) td{background:#0d1117}
+.divider{border:none;border-top:1px solid #21262d;margin:24px 0}
+footer{text-align:center;padding:20px;color:#8b949e;font-size:0.8rem;border-top:1px solid #21262d;margin-top:24px}
+footer a{color:#58a6ff;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>&#9876;&#65039; Divide and Conquer</h1>
+  <div class="date">LeetCode Daily &mdash; 2026-06-16</div>
+</div>
+
+<div class="problem-card">
+  <div class="badge easy">Easy</div>
+  <div class="problem-title">#169 Majority Element &mdash; by LeetCode</div>
+  <div class="problem-meta">Divide and Conquer &middot; Boyer-Moore Voting</div>
+  <div class="section-label">Algorithm Visualization</div>
+  <div class="ascii-art">
+Divide and Conquer: Majority Element
+Input: [3,2,3,1,2,3,3]
+
+DIVIDE:
+[3,2,3,1,2,3,3]
+    /          [3,2,3]     [1,2,3,3]
+  /   \       /    [3] [2,3]  [1,2]  [3,3]
+
+CONQUER (return majority of each half):
+[2] vs [3] -> 3 wins
+[1] vs [2] -> tie, pick left=1 (irrelevant)
+[3] vs [3] -> 3
+[3,2,3]: count(3)=2 > count(2)=1 -> 3
+[1,2,3,3]: count(3)=2 > count(1)=1 -> 3
+[3] vs [3] -> 3
+Final result: 3 (appears > n/2 times)
+  </div>
+  <div class="section-label">Basic Solution</div>
+  <div class="code-block"><span class="kw">def</span> <span class="fn">majorityElement</span>(self, nums):
+    <span class="cm"># D&C: recursively find majority in each half</span>
+    <span class="kw">def</span> <span class="fn">majority</span>(lo, hi):
+        <span class="kw">if</span> lo == hi:
+            <span class="kw">return</span> nums[lo]
+        mid = (lo + hi) // <span class="num">2</span>
+        left  = <span class="fn">majority</span>(lo, mid)
+        right = <span class="fn">majority</span>(mid + <span class="num">1</span>, hi)
+        <span class="kw">if</span> left == right:
+            <span class="kw">return</span> left
+        lc = <span class="fn">sum</span>(<span class="num">1</span> <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(lo, hi+<span class="num">1</span>) <span class="kw">if</span> nums[i]==left)
+        rc = <span class="fn">sum</span>(<span class="num">1</span> <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(lo, hi+<span class="num">1</span>) <span class="kw">if</span> nums[i]==right)
+        <span class="kw">return</span> left <span class="kw">if</span> lc &gt; rc <span class="kw">else</span> right
+    <span class="kw">return</span> <span class="fn">majority</span>(<span class="num">0</span>, <span class="fn">len</span>(nums)-<span class="num">1</span>)</div>
+  <div class="section-label">Optimized Solution (Boyer-Moore)</div>
+  <div class="code-block"><span class="kw">def</span> <span class="fn">majorityElement</span>(self, nums):
+    <span class="cm"># Boyer-Moore Voting: O(n) time, O(1) space</span>
+    candidate, count = <span class="kw">None</span>, <span class="num">0</span>
+    <span class="kw">for</span> num <span class="kw">in</span> nums:
+        <span class="kw">if</span> count == <span class="num">0</span>:
+            candidate = num
+        count += <span class="num">1</span> <span class="kw">if</span> num == candidate <span class="kw">else</span> -<span class="num">1</span>
+    <span class="kw">return</span> candidate</div>
+  <div class="section-label">Complexity Analysis</div>
+  <table class="complexity-table">
+    <tr><th>Solution</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>D&amp;C</td><td>O(n log n)</td><td>O(log n)</td><td>Count step O(n) per level, log n levels</td></tr>
+    <tr><td>Boyer-Moore</td><td>O(n)</td><td>O(1)</td><td>Single pass, constant extra variables</td></tr>
+  </table>
+</div>
+<hr class="divider">
+
+<div class="problem-card">
+  <div class="badge medium">Medium</div>
+  <div class="problem-title">#148 Sort List &mdash; by LeetCode</div>
+  <div class="problem-meta">Divide and Conquer &middot; Merge Sort on Linked List</div>
+  <div class="section-label">Algorithm Visualization</div>
+  <div class="ascii-art">
+Merge Sort on Linked List
+Input: 4 -> 2 -> 1 -> 3
+
+Find mid via slow/fast pointers:
+  slow=4, fast=4
+  slow=2, fast=1  (fast.next.next=None)
+  Split at slow: [4->2] | [1->3]
+
+Recurse:
+  [4->2] -> [4] | [2] -> merge -> [2->4]
+  [1->3] -> [1] | [3] -> merge -> [1->3]
+
+Merge [2->4] and [1->3]:
+  1 &lt; 2 -> take 1
+  2 &lt; 3 -> take 2
+  3 &lt; 4 -> take 3
+  4     -> take 4
+Result: 1 -> 2 -> 3 -> 4
+  </div>
+  <div class="section-label">Basic Solution (Top-Down)</div>
+  <div class="code-block"><span class="kw">def</span> <span class="fn">sortList</span>(self, head):
+    <span class="kw">if not</span> head <span class="kw">or not</span> head.next:
+        <span class="kw">return</span> head
+    slow, fast = head, head.next
+    <span class="kw">while</span> fast <span class="kw">and</span> fast.next:
+        slow = slow.next
+        fast = fast.next.next
+    mid = slow.next
+    slow.next = <span class="kw">None</span>
+    left  = self.<span class="fn">sortList</span>(head)
+    right = self.<span class="fn">sortList</span>(mid)
+    <span class="kw">return</span> self.<span class="fn">_merge</span>(left, right)
+
+<span class="kw">def</span> <span class="fn">_merge</span>(self, l1, l2):
+    dummy = cur = ListNode(<span class="num">0</span>)
+    <span class="kw">while</span> l1 <span class="kw">and</span> l2:
+        <span class="kw">if</span> l1.val &lt;= l2.val:
+            cur.next, l1 = l1, l1.next
+        <span class="kw">else</span>:
+            cur.next, l2 = l2, l2.next
+        cur = cur.next
+    cur.next = l1 <span class="kw">or</span> l2
+    <span class="kw">return</span> dummy.next</div>
+  <div class="section-label">Optimized Solution (Bottom-Up, O(1) space)</div>
+  <div class="code-block"><span class="kw">def</span> <span class="fn">sortList</span>(self, head):
+    <span class="cm"># Count length</span>
+    n, node = <span class="num">0</span>, head
+    <span class="kw">while</span> node: n += <span class="num">1</span>; node = node.next
+    dummy = ListNode(<span class="num">0</span>); dummy.next = head
+    size = <span class="num">1</span>
+    <span class="kw">while</span> size &lt; n:
+        cur, tail = dummy.next, dummy
+        <span class="kw">while</span> cur:
+            left = cur
+            right = self.<span class="fn">_split</span>(left, size)
+            cur   = self.<span class="fn">_split</span>(right, size)
+            merged, tail = self.<span class="fn">_merge2</span>(left, right)
+        size &lt;&lt;= <span class="num">1</span>
+    <span class="kw">return</span> dummy.next
+
+<span class="kw">def</span> <span class="fn">_split</span>(self, node, n):
+    <span class="kw">for</span> _ <span class="kw">in</span> <span clals="fn">range</span>(n-<span class="num">1</span>):
+        <span class="kw">if</span> node: node = node.next
+    rest = node.next <span class="kw">if</span> node <span class="kw">else None</span>
+    <span class="kw">if</span> node: node.next = <span class="kw">None</span>
+    <span class="kw">return</span> rest</div>
+  <div class="section-label">Complexity Analysis</div>
+  <table class="complexity-table">
+    <tr><th>Solution</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>Top-Down</td><td>O(n log n)</td><td>O(log n)</td><td>Recursion stack depth = log n</td></tr>
+    <tr><td>Bottom-Up</td><td>O(n log n)</td><td>O(1)</td><td>Iterative; size doubles each pass, no stack</td></tr>
+  </table>
+</div>
+<hr class="divider">
+
+<div class="problem-card">
+  <div class="badge hard">Hard</div>
+  <div class="problem-title">#23 Merge K Sorted Lists &mdash; by LeetCode</div>
+  <div class="problem-meta">Divide and Conquer &middot; Priority Queue (Min-Heap)</div>
+  <div class="section-label">Algorithm Visualization</div>
+  <div class="ascii-art">
+Divide and Conquer: Merge K Lists
+Lists: [1->4->5], [1->3->4], [2->6]
+
+D&C Merge Tree:
+      lists[0..2]
+       /          lists[0..1]  lists[2]
+       |           |
+  merge(L0,L1)  [2->6]
+  = 1->1->3->4->4->5
+
+Final merge:
+  1->1->3->4->4->5  vs  2->6
+  1,1,2,2,3,4,4,5,6
+  -> 1->1->2->3->4->4->5->6
+
+Min-Heap approach:
+  Heap: [(1,0,n), (1,1,n), (2,2,n)]
+  Pop (1,0) -> push (4,0)
+  Pop (1,1) -> push (3,1)
+  Pop (2,2) -> push (6,2)
+  ... until heap empty
+  </div>
+  <div class="section-label">Basic Solution (D&amp;C)</div>
+  <div class="code-block"><span class="kw">def</span> <span class="fn">mergeKLists</span>(self, lists):
+    <span class="kw">if not</span> lists: <span class="kw">return None</span>
+    <span class="kw">if</span> <span class="fn">len</span>(lists) == <span class="num">1</span>: <span class="kw">return</span> lists[<span class="num">0</span>]
+    mid = <span class="fn">len</span>(lists) // <span class="num">2</span>
+    left  = self.<span class="fn">mergeKLists</span>(lists[:mid])
+    right = self.<span class="fn">mergeKLists</span>(lists[mid:])
+    <span class="kw">return</span> self.<span class="fn">_merge</span>(left, right)
+
+<span class="kw">def</span> <span class="fn">_merge</span>(self, l1, l2):
+    dummy = cur = ListNode(<span class="num">0</span>)
+    <span class="kw">while</span> l1 <span class="kw">and</span> l2:
+        <span class="kw">if</span> l1.val &lt;= l2.val:
+            cur.next = l1; l1 = l1.next
+        <span class="kw">else</span>:
+            cur.next = l2; l2 = l2.next
+        cur = cur.next
+    cur.next = l1 <span class="kw">or</span> l2
+    <span class="kw">return</span> dummy.next</div>
+  <div class="section-label">Optimized Solution (Min-Heap)</div>
+  <div class="code-block"><span class="kw">import</span> heapq
+
+<span class="kw">def</span> <span class="fn">mergeKLists</span>(self, lists):
+    <span class="cm"># O(n log k) time, O(k) heap space</span>
+    heap = []
+    <span class="kw">for</span> i, node <span class="kw">in</span> <span class="fn">enumerate</span>(lists):
+        <span class="kw">if</span> node:
+            heapq.<span class="fn">heappush</span>(heap, (node.val, i, node))
+    dummy = cur = ListNode(<span class="num">0</span>)
+    <span class="kw">while</span> heap:
+        val, i, node = heapq.<span class="fn">heappop</span>(heap)
+        cur.next = node; cur = cur.next
+        <span class="kw">if</span> node.next:
+            heapq.<span class="fn">heappush</span>(heap, (node.next.val, i, node.next))
+    <span class="kw">return</span> dummy.next</div>
+  <div class="section-label">Complexity Analysis</div>
+  <table class="complexity-table">
+    <tr><th>Solution</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>D&amp;C</td><td>O(n log k)</td><td>O(log k)</td><td>log k merge levels; each processes all n nodes</td></tr>
+    <tr><td>Min-Heap</td><td>O(n log k)</td><td>O(k)</td><td>Heap size=k; n pushes each cost O(log k)</td></tr>
+  </table>
+</div>
+
+<footer>
+  <p>LeetCode Daily Practice</p>
+  <p style="margin-top:8px"><a href="https://chloeyeo.github.io/leetcode-explanations">GitHub Pages: chloeyeo.github.io/leetcode-explanations</a></p>
+</footer>
+</body>
+</html>

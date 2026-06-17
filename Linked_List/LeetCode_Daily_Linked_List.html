@@ -1,297 +1,241 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LeetCode Daily | Linked List — 2026-06-12</title>
+<title>LeetCode Daily | Linked List | 2026-06-17</title>
 <style>
-  :root {
-    --bg: #0d1117;
-    --surface: #161b22;
-    --border: #30363d;
-    --text: #e6edf3;
-    --muted: #8b949e;
-    --easy: #3fb950;
-    --medium: #d29922;
-    --hard: #f85149;
-    --accent: #58a6ff;
-    --code-bg: #1a2233;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 15px; line-height: 1.6; padding: 16px; }
-  header { text-align: center; padding: 24px 0 20px; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
-  header h1 { font-size: 22px; color: var(--accent); letter-spacing: 0.5px; }
-  header .date { color: var(--muted); font-size: 13px; margin-top: 6px; }
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 24px; }
-  .problem-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
-  .problem-title { font-size: 17px; font-weight: 700; color: var(--text); }
-  .badge { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.5px; }
-  .easy { background: rgba(63,185,80,0.15); color: var(--easy); border: 1px solid rgba(63,185,80,0.4); }
-  .medium { background: rgba(210,153,34,0.15); color: var(--medium); border: 1px solid rgba(210,153,34,0.4); }
-  .hard { background: rgba(248,81,73,0.15); color: var(--hard); border: 1px solid rgba(248,81,73,0.4); }
-  .by { color: var(--muted); font-size: 12px; margin-left: auto; }
-  .section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin: 16px 0 8px; }
-  pre.ascii { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px; font-family: 'Courier New', monospace; font-size: 12px; color: #a8d8a8; overflow-x: auto; line-height: 1.5; }
-  pre.code { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px; font-family: 'Courier New', monospace; font-size: 12.5px; overflow-x: auto; line-height: 1.7; }
-  .kw { color: #ff7b72; }
-  .fn { color: #d2a8ff; }
-  .cm { color: #6a737d; }
-  .st { color: #a5d6ff; }
-  .nm { color: #79c0ff; }
-  .op { color: #ff9e64; }
-  table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 13px; }
-  th { background: #1f2937; color: var(--accent); padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
-  td { padding: 8px 10px; border-top: 1px solid var(--border); color: var(--text); vertical-align: top; }
-  tr:hover td { background: rgba(88,166,255,0.05); }
-  .divider { height: 1px; background: var(--border); margin: 18px 0; }
-  footer { text-align: center; padding: 24px 0 8px; color: var(--muted); font-size: 13px; }
-  footer a { color: var(--accent); text-decoration: none; }
-  footer a:hover { text-decoration: underline; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d1117;color:#e6edf3;font-family:'Courier New',monospace;padding:16px;font-size:14px}
+h1{color:#58a6ff;font-size:1.4em;text-align:center;margin-bottom:4px}
+.date{color:#8b949e;text-align:center;margin-bottom:20px;font-size:.85em}
+.card{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:16px;margin-bottom:24px}
+.problem-title{color:#f0f6fc;font-size:1.05em;font-weight:bold;margin-bottom:8px}
+.badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:.78em;font-weight:bold;margin-bottom:12px}
+.easy{background:#196c2e;color:#3fb950}
+.medium{background:#7d4e00;color:#d29922}
+.hard{background:#6e1818;color:#f85149}
+.section-title{color:#79c0ff;font-size:.9em;font-weight:bold;margin:14px 0 6px}
+.ascii{background:#0d1117;border:1px solid #30363d;border-radius:6px;padding:10px;font-size:.75em;color:#7ee787;overflow-x:auto;white-space:pre;line-height:1.5}
+.code-block{background:#0d1117;border:1px solid #30363d;border-radius:6px;padding:12px;font-size:.78em;overflow-x:auto;white-space:pre;line-height:1.7}
+.kw{color:#ff7b72}.fn{color:#d2a8ff}.cm{color:#8b949e}.st{color:#a5d6ff}.num{color:#79c0ff}.cls{color:#ffa657}
+table{width:100%;border-collapse:collapse;margin-top:6px;font-size:.78em}
+th{background:#21262d;color:#79c0ff;padding:7px 10px;text-align:left;border:1px solid #30363d}
+td{padding:7px 10px;border:1px solid #30363d;color:#e6edf3;vertical-align:top}
+tr:nth-child(even) td{background:#161b22}
+footer{text-align:center;margin-top:28px;padding-top:14px;border-top:1px solid #30363d;color:#8b949e;font-size:.8em}
+footer a{color:#58a6ff;text-decoration:none}
 </style>
 </head>
 <body>
 
-<header>
-  <h1>🔗 LeetCode Daily &mdash; Linked List</h1>
-  <div class="date">2026-06-12 &nbsp;|&nbsp; Easy · Medium · Hard</div>
-</header>
+<h1>🔗 Linked List</h1>
+<div class="date">📅 2026-06-17 | LeetCode Daily</div>
 
 <!-- ===== EASY ===== -->
 <div class="card">
-  <div class="problem-header">
-    <span class="problem-title">#206 Reverse Linked List</span>
-    <span class="badge easy">Easy</span>
-    <span class="by">by LeetCode</span>
-  </div>
+  <div class="problem-title">LeetCode #206 — Reverse Linked List</div>
+  <span class="badge easy">Easy</span>
+  <div class="section-title">🎨 Algorithm Visualization</div>
+  <div class="ascii">Input:  1 → 2 → 3 → 4 → 5 → None
 
-  <div class="section-label">Algorithm Visualization</div>
-  <pre class="ascii">
-Input:  1 -> 2 -> 3 -> 4 -> 5 -> None
+Step 1: prev=None  cur=1
+        None ← 1   2 → 3 → 4 → 5
 
-Step 1: None <- 1    2 -> 3 -> 4 -> 5
-         prev  curr  next
+Step 2: prev=1     cur=2
+        None ← 1 ← 2   3 → 4 → 5
 
-Step 2: None <- 1 <- 2    3 -> 4 -> 5
-                prev curr next
+Step 3: prev=2     cur=3
+        None ← 1 ← 2 ← 3   4 → 5
 
-Step 3: None <- 1 <- 2 <- 3    4 -> 5
+Step 4: prev=3     cur=4
+        None ← 1 ← 2 ← 3 ← 4   5
 
-Step 4: None <- 1 <- 2 <- 3 <- 4    5
+Step 5: prev=4     cur=5
+        None ← 1 ← 2 ← 3 ← 4 ← 5
 
-Step 5: None <- 1 <- 2 <- 3 <- 4 <- 5
-                                     ^ new head
+Output: 5 → 4 → 3 → 2 → 1 → None</div>
 
-Output: 5 -> 4 -> 3 -> 2 -> 1 -> None
-  </pre>
+  <div class="section-title">🐍 Basic Solution</div>
+  <div class="code-block"><span class="cm"># Definition for singly-linked list.</span>
+<span class="kw">class</span> <span class="cls">ListNode</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="st">self</span>, val=<span class="num">0</span>, next=<span class="kw">None</span>):
+        <span class="st">self</span>.val = val
+        <span class="st">self</span>.next = next
 
-  <div class="section-label">Basic Solution (Iterative)</div>
-  <pre class="code"><span class="kw">def</span> <span class="fn">reverseList</span>(self, head: <span class="nm">Optional</span>[<span class="nm">ListNode</span>]) <span class="op">-></span> <span class="nm">Optional</span>[<span class="nm">ListNode</span>]:
-    <span class="nm">prev</span> <span class="op">=</span> <span class="kw">None</span>
-    <span class="nm">curr</span> <span class="op">=</span> head
+<span class="kw">class</span> <span class="cls">Solution</span>:
+    <span class="kw">def</span> <span class="fn">reverseList</span>(<span class="st">self</span>, head: ListNode) -> ListNode:
+        prev = <span class="kw">None</span>
+        cur = head
+        <span class="kw">while</span> cur:
+            next_node = cur.next    <span class="cm"># save next</span>
+            cur.next = prev         <span class="cm"># reverse pointer</span>
+            prev = cur              <span class="cm"># move prev forward</span>
+            cur = next_node         <span class="cm"># move cur forward</span>
+        <span class="kw">return</span> prev</div>
 
-    <span class="kw">while</span> curr:
-        <span class="nm">nxt</span>       <span class="op">=</span> curr.next   <span class="cm"># save next</span>
-        curr.next <span class="op">=</span> prev       <span class="cm"># reverse pointer</span>
-        <span class="nm">prev</span>      <span class="op">=</span> curr       <span class="cm"># advance prev</span>
-        <span class="nm">curr</span>      <span class="op">=</span> nxt        <span class="cm"># advance curr</span>
+  <div class="section-title">⚡ Optimized Solution (Recursive)</div>
+  <div class="code-block"><span class="kw">class</span> <span class="cls">Solution</span>:
+    <span class="kw">def</span> <span class="fn">reverseList</span>(<span class="st">self</span>, head: ListNode) -> ListNode:
+        <span class="kw">if not</span> head <span class="kw">or not</span> head.next:
+            <span class="kw">return</span> head
+        new_head = <span class="st">self</span>.<span class="fn">reverseList</span>(head.next)
+        head.next.next = head   <span class="cm"># reverse the link</span>
+        head.next = <span class="kw">None</span>        <span class="cm"># cut old forward link</span>
+        <span class="kw">return</span> new_head</div>
 
-    <span class="kw">return</span> prev               <span class="cm"># prev is new head</span></pre>
-
-  <div class="section-label">Optimized Solution (Recursive)</div>
-  <pre class="code"><span class="kw">def</span> <span class="fn">reverseList</span>(self, head: <span class="nm">Optional</span>[<span class="nm">ListNode</span>]) <span class="op">-></span> <span class="nm">Optional</span>[<span class="nm">ListNode</span>]:
-    <span class="kw">if not</span> head <span class="kw">or not</span> head.next:
-        <span class="kw">return</span> head            <span class="cm"># base case: 0 or 1 node</span>
-
-    <span class="nm">new_head</span> <span class="op">=</span> self.<span class="fn">reverseList</span>(head.next)
-    head.next.next <span class="op">=</span> head     <span class="cm"># reverse pointer at tail end</span>
-    head.next      <span class="op">=</span> <span class="kw">None</span>    <span class="cm"># break original link</span>
-    <span class="kw">return</span> new_head</pre>
-
-  <div class="section-label">Complexity Analysis</div>
+  <div class="section-title">📊 Complexity Analysis</div>
   <table>
     <tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
-    <tr><td>Iterative</td><td>O(n)</td><td>O(1)</td><td>Single pass; only 3 pointers kept</td></tr>
-    <tr><td>Recursive</td><td>O(n)</td><td>O(n)</td><td>Call stack depth = list length</td></tr>
+    <tr><td>Iterative</td><td>O(n)</td><td>O(1)</td><td>Single pass; only 3 pointers used</td></tr>
+    <tr><td>Recursive</td><td>O(n)</td><td>O(n)</td><td>n recursive calls on the call stack</td></tr>
   </table>
 </div>
 
 <!-- ===== MEDIUM ===== -->
 <div class="card">
-  <div class="problem-header">
-    <span class="problem-title">#19 Remove Nth Node From End of List</span>
-    <span class="badge medium">Medium</span>
-    <span class="by">by LeetCode</span>
-  </div>
+  <div class="problem-title">LeetCode #142 — Linked List Cycle II</div>
+  <span class="badge medium">Medium</span>
+  <div class="section-title">🎨 Algorithm Visualization (Floyd's Tortoise & Hare)</div>
+  <div class="ascii">List: 3 → 1 → 2 → 4
+                  ↑_____|
+          (cycle starts at node 2)
 
-  <div class="section-label">Algorithm Visualization</div>
-  <pre class="ascii">
-Remove 2nd node from end of: 1 -> 2 -> 3 -> 4 -> 5
+Phase 1 — Detect cycle:
+  slow: 3→1→2→4→2  (moves +1 each step)
+  fast: 3→2→2→4→2  (moves +2 each step)
+  MEET at node 2 (or 4)
 
-Use two pointers gap = n+1 = 3:
+Phase 2 — Find entry:
+  ptr1 = head (3)
+  ptr2 = meeting point
+  Move both +1 until they meet:
+  ptr1: 3→1→2   ptr2: meet→4→2
+  ENTRY = node 2 ✓</div>
 
-dummy -> 1 -> 2 -> 3 -> 4 -> 5
-  ^fast (advance n+1 steps first)
-  ^slow
+  <div class="section-title">🐍 Basic Solution (Hash Set)</div>
+  <div class="code-block"><span class="kw">class</span> <span class="cls">Solution</span>:
+    <span class="kw">def</span> <span class="fn">detectCycle</span>(<span class="st">self</span>, head: ListNode) -> ListNode:
+        visited = <span class="fn">set</span>()
+        cur = head
+        <span class="kw">while</span> cur:
+            <span class="kw">if</span> cur <span class="kw">in</span> visited:
+                <span class="kw">return</span> cur          <span class="cm"># cycle entry found</span>
+            visited.<span class="fn">add</span>(cur)
+            cur = cur.next
+        <span class="kw">return</span> <span class="kw">None</span>               <span class="cm"># no cycle</span></div>
 
-After advancing fast n+1=3 steps:
-dummy -> 1 -> 2 -> 3 -> 4 -> 5
-               ^slow       ^fast (at None?)
+  <div class="section-title">⚡ Optimized Solution (Floyd's Algorithm)</div>
+  <div class="code-block"><span class="kw">class</span> <span class="cls">Solution</span>:
+    <span class="kw">def</span> <span class="fn">detectCycle</span>(<span class="st">self</span>, head: ListNode) -> ListNode:
+        slow = fast = head
+        <span class="cm"># Phase 1: detect meeting point</span>
+        <span class="kw">while</span> fast <span class="kw">and</span> fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            <span class="kw">if</span> slow == fast:
+                <span class="cm"># Phase 2: find cycle entry</span>
+                ptr = head
+                <span class="kw">while</span> ptr != slow:
+                    ptr = ptr.next
+                    slow = slow.next
+                <span class="kw">return</span> ptr
+        <span class="kw">return</span> <span class="kw">None</span></div>
 
-Actually: fast points to node at index 3 (1-based)
-Move both until fast == None:
-
-dummy -> 1 -> 2 -> 3 -> 4 -> 5
-               ^slow            ^fast=None
-
-slow.next = slow.next.next  =>  skip node 4
-
-Result: 1 -> 2 -> 3 -> 5
-  </pre>
-
-  <div class="section-label">Basic Solution (Two-Pass)</div>
-  <pre class="code"><span class="kw">def</span> <span class="fn">removeNthFromEnd</span>(self, head, n):
-    <span class="cm"># Pass 1: count length</span>
-    length <span class="op">=</span> <span class="nm">0</span>
-    node <span class="op">=</span> head
-    <span class="kw">while</span> node:
-        length <span class="op">+=</span> <span class="nm">1</span>
-        node <span class="op">=</span> node.next
-
-    <span class="cm"># Pass 2: reach (length - n - 1)-th node</span>
-    dummy <span class="op">=</span> <span class="nm">ListNode</span>(<span class="nm">0</span>, head)
-    node <span class="op">=</span> dummy
-    <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(length <span class="op">-</span> n):
-        node <span class="op">=</span> node.next
-    node.next <span class="op">=</span> node.next.next
-    <span class="kw">return</span> dummy.next</pre>
-
-  <div class="section-label">Optimized Solution (One-Pass, Two Pointers)</div>
-  <pre class="code"><span class="kw">def</span> <span class="fn">removeNthFromEnd</span>(self, head, n):
-    dummy <span class="op">=</span> <span class="nm">ListNode</span>(<span class="nm">0</span>, head)
-    fast <span class="op">=</span> slow <span class="op">=</span> dummy
-
-    <span class="cm"># advance fast by n+1 steps to maintain gap</span>
-    <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(n <span class="op">+</span> <span class="nm">1</span>):
-        fast <span class="op">=</span> fast.next
-
-    <span class="cm"># move both until fast reaches end</span>
-    <span class="kw">while</span> fast:
-        fast <span class="op">=</span> fast.next
-        slow <span class="op">=</span> slow.next
-
-    <span class="cm"># slow is just before the target node</span>
-    slow.next <span class="op">=</span> slow.next.next
-    <span class="kw">return</span> dummy.next</pre>
-
-  <div class="section-label">Complexity Analysis</div>
+  <div class="section-title">📊 Complexity Analysis</div>
   <table>
     <tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
-    <tr><td>Two-Pass</td><td>O(n)</td><td>O(1)</td><td>Two full traversals of the list</td></tr>
-    <tr><td>One-Pass</td><td>O(n)</td><td>O(1)</td><td>Single traversal; constant extra space</td></tr>
+    <tr><td>Hash Set</td><td>O(n)</td><td>O(n)</td><td>Stores every visited node in a set</td></tr>
+    <tr><td>Floyd's</td><td>O(n)</td><td>O(1)</td><td>Two-pointer math; no extra storage needed</td></tr>
   </table>
 </div>
 
 <!-- ===== HARD ===== -->
 <div class="card">
-  <div class="problem-header">
-    <span class="problem-title">#25 Reverse Nodes in k-Group</span>
-    <span class="badge hard">Hard</span>
-    <span class="by">by LeetCode</span>
-  </div>
+  <div class="problem-title">LeetCode #25 — Reverse Nodes in k-Group</div>
+  <span class="badge hard">Hard</span>
+  <div class="section-title">🎨 Algorithm Visualization (k=2)</div>
+  <div class="ascii">Input:  1 → 2 → 3 → 4 → 5,  k=2
 
-  <div class="section-label">Algorithm Visualization</div>
-  <pre class="ascii">
-Input: 1 -> 2 -> 3 -> 4 -> 5,  k = 2
+Group 1: [1,2] → reverse → 2→1
+Group 2: [3,4] → reverse → 4→3
+Group 3: [5]   → k nodes? NO → keep as-is
 
-Group 1: [1, 2]  =>  reverse  =>  2 -> 1
-Group 2: [3, 4]  =>  reverse  =>  4 -> 3
-Group 3: [5]     =>  less than k, keep as-is  =>  5
+Result: 2 → 1 → 4 → 3 → 5
 
-Result: 2 -> 1 -> 4 -> 3 -> 5
-
-Step-by-step for Group 1:
-  dummy -> 1 -> 2 -> 3 -> ...
+Pointer trace:
+  dummy → 1 → 2 → 3 → 4 → 5
   groupPrev = dummy
+  Step A: count k nodes ahead → tail=2
+  Step B: save next group start = 3
+  Step C: reverse [1→2] to [2→1]
+  Step D: connect: dummy→2→1→3...
+  Step E: groupPrev moves to node 1
+  Repeat for next group...</div>
 
-  Check k nodes exist: 1,2 ✓
-  kth node = 2, groupNext = 3
+  <div class="section-title">🐍 Basic Solution (Extra Array)</div>
+  <div class="code-block"><span class="kw">class</span> <span class="cls">Solution</span>:
+    <span class="kw">def</span> <span class="fn">reverseKGroup</span>(<span class="st">self</span>, head: ListNode, k: <span class="fn">int</span>) -> ListNode:
+        nodes = []
+        cur = head
+        <span class="kw">while</span> cur:
+            nodes.<span class="fn">append</span>(cur)
+            cur = cur.next
+        <span class="cm"># Reverse every k-chunk in place</span>
+        <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">0</span>, <span class="fn">len</span>(nodes) - k + <span class="num">1</span>, k):
+            nodes[i:i+k] = nodes[i:i+k][::-<span class="num">1</span>]
+        <span class="cm"># Reconnect nodes</span>
+        <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(nodes) - <span class="num">1</span>):
+            nodes[i].next = nodes[i+<span class="num">1</span>]
+        nodes[-<span class="num">1</span>].next = <span class="kw">None</span>
+        <span class="kw">return</span> nodes[<span class="num">0</span>]</div>
 
-  Reverse 1..2 in-place:
-    None <- 1 <- 2   (3 disconnected temporarily)
-  
-  Connect: dummy -> 2 -> 1 -> 3 -> ...
-           groupPrev = node 1  (tail of reversed group)
-  
-  Repeat for next group starting at 3...
-  </pre>
+  <div class="section-title">⚡ Optimized Solution (In-place Pointer Reversal)</div>
+  <div class="code-block"><span class="kw">class</span> <span class="cls">Solution</span>:
+    <span class="kw">def</span> <span class="fn">reverseKGroup</span>(<span class="st">self</span>, head: ListNode, k: <span class="fn">int</span>) -> ListNode:
+        dummy = ListNode(<span class="num">0</span>)
+        dummy.next = head
+        group_prev = dummy
 
-  <div class="section-label">Basic Solution</div>
-  <pre class="code"><span class="kw">def</span> <span class="fn">reverseKGroup</span>(self, head, k):
-    <span class="kw">def</span> <span class="fn">getKth</span>(node, k):
-        <span class="kw">while</span> node <span class="kw">and</span> k <span class="op">></span> <span class="nm">0</span>:
-            node <span class="op">=</span> node.next
-            k <span class="op">-=</span> <span class="nm">1</span>
-        <span class="kw">return</span> node
+        <span class="kw">while True</span>:
+            <span class="cm"># Check if k nodes remain</span>
+            kth = <span class="st">self</span>.<span class="fn">get_kth</span>(group_prev, k)
+            <span class="kw">if not</span> kth:
+                <span class="kw">break</span>
+            group_next = kth.next
 
-    dummy <span class="op">=</span> <span class="nm">ListNode</span>(<span class="nm">0</span>)
-    dummy.next <span class="op">=</span> head
-    group_prev <span class="op">=</span> dummy
+            <span class="cm"># Reverse k nodes</span>
+            prev, cur = kth.next, group_prev.next
+            <span class="kw">while</span> cur != group_next:
+                nxt = cur.next
+                cur.next = prev
+                prev = cur
+                cur = nxt
 
-    <span class="kw">while</span> <span class="kw">True</span>:
-        kth <span class="op">=</span> <span class="fn">getKth</span>(group_prev, k)
-        <span class="kw">if not</span> kth:              <span class="cm"># fewer than k nodes left</span>
-            <span class="kw">break</span>
+            <span class="cm"># Reconnect group</span>
+            tmp = group_prev.next
+            group_prev.next = kth
+            group_prev = tmp
 
-        group_next <span class="op">=</span> kth.next
-        <span class="cm"># reverse nodes from group_prev.next to kth</span>
-        prev, curr <span class="op">=</span> group_next, group_prev.next
-        <span class="kw">while</span> curr <span class="op">!=</span> group_next:
-            tmp        <span class="op">=</span> curr.next
-            curr.next  <span class="op">=</span> prev
-            prev       <span class="op">=</span> curr
-            curr       <span class="op">=</span> tmp
+        <span class="kw">return</span> dummy.next
 
-        <span class="cm"># reconnect</span>
-        tmp              <span class="op">=</span> group_prev.next  <span class="cm"># old head = new tail</span>
-        group_prev.next  <span class="op">=</span> kth             <span class="cm"># connect to new head</span>
-        group_prev       <span clas="op">=</span> tmp             <span class="cm"># advance group_prev</span>
+    <span class="kw">def</span> <span class="fn">get_kth</span>(<span class="st">self</span>, curr: ListNode, k: <span class="fn">int</span>) -> ListNode:
+        <span class="kw">while</span> curr <span class="kw">and</span> k > <span class="num">0</span>:
+            curr = curr.next
+            k -= <span class="num">1</span>
+        <span class="kw">return</span> curr</div>
 
-    <span class="kw">return</span> dummy.next</pre>
-
-  <div class="section-label">Optimized Solution (Recursive)</div>
-  <pre class="code"><span class="kw">def</span> <span class="fn">reverseKGroup</span>(self, head, k):
-    <span class="cm"># check if k nodes remain</span>
-    node, count <span class="op">=</span> head, <span class="nm">0</span>
-    <span class="kw">while</span> node <span class="kw">and</span> count <span class="op"><</span> k:
-        node <span class="op">=</span> node.next
-        count <span class="op">+=</span> <span class="nm">1</span>
-    <span class="kw">if</span> count <span class="op"><</span> k:
-        <span class="kw">return</span> head          <span class="cm"># base case: remaining < k</span>
-
-    <span class="cm"># reverse current k-group</span>
-    prev, curr <span class="op">=</span> <span class="kw">None</span>, head
-    <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(k):
-        nxt        <span class="op">=</span> curr.next
-        curr.next  <span class="op">=</span> prev
-        prev       <span class="op">=</span> curr
-        curr       <span class="op">=</span> nxt
-
-    <span class="cm"># head is now tail; attach result of rest</span>
-    head.next <span class="op">=</span> self.<span class="fn">reverseKGroup</span>(curr, k)
-    <span class="kw">return</span> prev           <span class="cm"># prev is new head</span></pre>
-
-  <div class="section-label">Complexity Analysis</div>
+  <div class="section-title">📊 Complexity Analysis</div>
   <table>
     <tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
-    <tr><td>Iterative</td><td>O(n)</td><td>O(1)</td><td>Each node visited at most twice; O(1) pointers</td></tr>
-    <tr><td>Recursive</td><td>O(n)</td><td>O(n/k)</td><td>Recursion depth = number of groups = n/k</td></tr>
+    <tr><td>Array-based</td><td>O(n)</td><td>O(n)</td><td>Stores all nodes in list; O(n) slice ops</td></tr>
+    <tr><td>In-place</td><td>O(n)</td><td>O(1)</td><td>Each node visited once; only pointer vars used</td></tr>
   </table>
 </div>
 
 <footer>
-  <p>🌐 <a href="https://chloeyeo.github.io/leetcode-explanations">https://chloeyeo.github.io/leetcode-explanations</a></p>
-  <p style="margin-top:8px; color: #555;">Generated by Crew AI &mdash; 2026-06-12</p>
+  <p>🌐 <a href="https://chloeyeo.github.io/leetcode-explanations" target="_blank">https://chloeyeo.github.io/leetcode-explanations</a></p>
+  <p style="margin-top:6px">by LeetCode · Daily Practice · 2026-06-17</p>
 </footer>
-
 </body>
 </html>

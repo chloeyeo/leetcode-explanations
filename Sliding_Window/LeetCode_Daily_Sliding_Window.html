@@ -3,250 +3,274 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LeetCode Daily | Sliding Window</title>
+<title>LeetCode Daily | Sliding Window | 2026-06-18</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#0d1117;color:#e6edf3;font-family:'Segoe UI',system-ui,sans-serif;font-size:15px;line-height:1.6;padding:16px}
-h1{font-size:1.5rem;color:#58a6ff;margin-bottom:4px}
-.date{color:#8b949e;font-size:0.85rem;margin-bottom:24px}
-.problem-card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:24px}
-.problem-title{font-size:1.1rem;font-weight:700;color:#e6edf3;margin-bottom:6px}
-.by{color:#8b949e;font-size:0.8rem;margin-bottom:10px}
-.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:0.75rem;font-weight:700;margin-bottom:14px}
-.easy{background:#1a4731;color:#3fb950}
-.medium{background:#4a2d00;color:#d29922}
-.hard{background:#4a1515;color:#f85149}
-.section-title{color:#58a6ff;font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin:16px 0 8px}
-pre.ascii{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:14px;overflow-x:auto;font-size:0.78rem;color:#7ee787;font-family:'Courier New',monospace;line-height:1.5}
-pre.code{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:14px;overflow-x:auto;font-size:0.8rem;font-family:'Courier New',monospace;line-height:1.6}
-.kw{color:#ff7b72}.fn{color:#d2a8ff}.st{color:#a5d6ff}.cm{color:#8b949e}.num{color:#79c0ff}.bi{color:#ffa657}
-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:0.8rem}
-th{background:#21262d;color:#58a6ff;padding:8px 10px;text-align:left;border:1px solid #30363d}
-td{padding:7px 10px;border:1px solid #30363d;vertical-align:top}
-tr:nth-child(even) td{background:#161b22}
-.complexity-label{color:#ffa657;font-weight:700}
-footer{text-align:center;margin-top:32px;padding-top:16px;border-top:1px solid #30363d;color:#8b949e;font-size:0.82rem}
-footer a{color:#58a6ff;text-decoration:none}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1117; color: #c9d1d9; font-family: 'Segoe UI', system-ui, sans-serif; padding: 16px; line-height: 1.6; }
+  .header { text-align: center; padding: 24px 16px; background: linear-gradient(135deg, #1a1f2e, #1e2a45); border-radius: 12px; margin-bottom: 20px; border: 1px solid #30363d; }
+  .header h1 { font-size: 1.4rem; color: #58a6ff; margin-bottom: 6px; }
+  .header p { color: #8b949e; font-size: 0.9rem; }
+  .problem-card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 20px; margin-bottom: 24px; }
+  .problem-title { font-size: 1.1rem; font-weight: bold; color: #e6edf3; margin-bottom: 8px; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; margin-bottom: 12px; }
+  .easy { background: #1a4731; color: #3fb950; border: 1px solid #3fb950; }
+  .medium { background: #4a2e00; color: #d29922; border: 1px solid #d29922; }
+  .hard { background: #4a1515; color: #f85149; border: 1px solid #f85149; }
+  .section-label { font-size: 0.8rem; color: #58a6ff; text-transform: uppercase; letter-spacing: 1px; margin: 16px 0 8px; font-weight: bold; }
+  .ascii-box { background: #0d1117; border: 1px solid #21262d; border-radius: 8px; padding: 14px; font-family: monospace; font-size: 0.78rem; color: #7ee787; overflow-x: auto; white-space: pre; margin-bottom: 12px; }
+  .code-block { background: #0d1117; border: 1px solid #21262d; border-radius: 8px; padding: 14px; font-family: 'Courier New', monospace; font-size: 0.8rem; overflow-x: auto; white-space: pre; margin-bottom: 12px; }
+  .kw { color: #ff7b72; }
+  .fn { color: #d2a8ff; }
+  .cm { color: #8b949e; font-style: italic; }
+  .st { color: #a5d6ff; }
+  .nm { color: #79c0ff; }
+  .op { color: #ffa657; }
+  .complexity-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-top: 8px; }
+  .complexity-table th { background: #21262d; color: #58a6ff; padding: 8px 10px; text-align: left; border: 1px solid #30363d; }
+  .complexity-table td { padding: 7px 10px; border: 1px solid #21262d; color: #c9d1d9; vertical-align: top; }
+  .complexity-table tr:nth-child(even) td { background: #161b22; }
+  .divider { height: 1px; background: #21262d; margin: 16px 0; }
+  .footer { text-align: center; padding: 20px; color: #8b949e; font-size: 0.85rem; }
+  .footer a { color: #58a6ff; text-decoration: none; }
+  .tag { display: inline-block; background: #1c2128; border: 1px solid #30363d; color: #8b949e; padding: 2px 8px; border-radius: 10px; font-size: 0.73rem; margin: 2px; }
 </style>
 </head>
 <body>
-<h1>🪟 Sliding Window</h1>
-<div class="date">2026년 6월 13일 (토) · LeetCode Daily</div>
 
-<!-- EASY -->
+<div class="header">
+  <h1>🪟 Sliding Window</h1>
+  <p>LeetCode Daily &nbsp;|&nbsp; 2026-06-18 (Thu)</p>
+  <p style="margin-top:8px; font-size:0.82rem; color:#58a6ff;">Easy · Medium · Hard — 3 problems</p>
+</div>
+
+<!-- ========== EASY ========== -->
 <div class="problem-card">
-  <div class="problem-title">LeetCode #643 — Maximum Average Subarray I</div>
-  <div class="by">by LeetCode</div>
+  <div class="problem-title">Maximum Average Subarray I &nbsp; (LeetCode #643)</div>
   <span class="badge easy">Easy</span>
+  <span class="tag">Sliding Window</span>
+  <span class="tag">Array</span>
 
-  <div class="section-title">🔭 Algorithm Visualization</div>
-<pre class="ascii">
-nums = [1, 12, -5, -6, 50, 3],  k = 4
+  <div class="section-label">📊 Algorithm Visualization</div>
+  <div class="ascii-box">nums = [1, 12, -5, -6, 50, 3],  k = 4
 
-Window slides one step at a time:
-[1, 12, -5, -6] 50   3   → sum=2,  avg=0.5
- 1 [12, -5, -6, 50]  3   → sum=51, avg=12.75  ← MAX
- 1  12 [-5, -6, 50,  3]  → sum=42, avg=10.5
+Window slides step by step:
+Step 1: [1, 12, -5, -6] | sum=2  | avg= 0.500
+         ^-----------^
+Step 2: [12, -5, -6, 50] | sum=51 | avg=12.750  ← max!
+              ^----------^
+Step 3: [-5, -6, 50,  3] | sum=42 | avg=10.500
+                   ^-----^
 
-Window: add right, remove left
- ┌─────────────────────┐
- │  [l ←───── r]       │
- │   remove  add new   │
- └─────────────────────┘
-</pre>
+Answer: 12.75000</div>
 
-  <div class="section-title">💻 기본 풀이 (Python)</div>
-<pre class="code"><span class="kw">def</span> <span class="fn">findMaxAverage</span>(nums, k):
-    <span class="cm"># 첫 윈도우 합 계산</span>
-    window_sum = <span class="bi">sum</span>(nums[:<span class="num">k</span>])
-    max_sum = window_sum
+  <div class="section-label">🐍 Basic Solution</div>
+  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">findMaxAverage</span>(<span class="nm">self</span>, nums: list[<span class="nm">int</span>], k: <span class="nm">int</span>) -> <span class="nm">float</span>:
+        <span class="cm"># Calculate sum of first window</span>
+        window_sum = <span class="fn">sum</span>(nums[:<span class="nm">k</span>])
+        max_sum = window_sum
 
-    <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(<span class="num">k</span>, <span class="bi">len</span>(nums)):
-        <span class="cm"># 오른쪽 추가, 왼쪽 제거</span>
-        window_sum += nums[i] - nums[i - k]
-        max_sum = <span class="bi">max</span>(max_sum, window_sum)
+        <span class="cm"># Slide the window: add next, remove first</span>
+        <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(k, <span class="fn">len</span>(nums)):
+            window_sum <span class="op">+=</span> nums[i] <span class="op">-</span> nums[i <span class="op">-</span> k]
+            max_sum = <span class="fn">max</span>(max_sum, window_sum)
 
-    <span class="kw">return</span> max_sum / k</pre>
+        <span class="kw">return</span> max_sum <span class="op">/</span> k</div>
 
-  <div class="section-title">⚡ 최적화 버전 (Python)</div>
-<pre class="code"><span class="kw">def</span> <span class="fn">findMaxAverage</span>(nums, k):
-    <span class="cm"># 나눗셈 없이 정수 비교로 최적화</span>
-    s = <span class="bi">sum</span>(nums[:<span class="num">k</span>])
-    best = s
-    <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(k, <span class="bi">len</span>(nums)):
-        s += nums[i] - nums[i-k]
-        <span class="kw">if</span> s &gt; best:
-            best = s
-    <span class="kw">return</span> best / k</pre>
+  <div class="section-label">⚡ Optimized Solution</div>
+  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">findMaxAverage</span>(<span class="nm">self</span>, nums: list[<span class="nm">int</span>], k: <span class="nm">int</span>) -> <span class="nm">float</span>:
+        <span class="cm"># One-pass with running window, avoid repeated sum()</span>
+        cur = max_s = <span class="fn">sum</span>(nums[:<span class="nm">k</span>])
+        <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(k, <span class="fn">len</span>(nums)):
+            cur <span class="op">+=</span> nums[i] <span class="op">-</span> nums[i<span class="op">-</span>k]
+            <span class="kw">if</span> cur <span class="op">></span> max_s:
+                max_s = cur
+        <span class="kw">return</span> max_s <span class="op">/</span> k</div>
 
-  <div class="section-title">📊 복잡도 분석</div>
-  <table>
-    <tr><th>구분</th><th>복잡도</th><th>이유</th></tr>
-    <tr><td class="complexity-label">Time</td><td>O(n)</td><td>배열을 한 번 순회. 초기 합 O(k) + 슬라이딩 O(n-k) = O(n)</td></tr>
-    <tr><td class="complexity-label">Space</td><td>O(1)</td><td>추가 자료구조 없이 변수 2개(s, best)만 사용</td></tr>
+  <div class="section-label">📈 Complexity Analysis</div>
+  <table class="complexity-table">
+    <tr><th>Metric</th><th>Value</th><th>Reason</th></tr>
+    <tr><td>Time (Basic)</td><td>O(n)</td><td>Single pass after initial sum</td></tr>
+    <tr><td>Time (Optimized)</td><td>O(n)</td><td>Same, but avoids sum() overhead on first call conceptually cleaner</td></tr>
+    <tr><td>Space</td><td>O(1)</td><td>Only 2 variables maintained</td></tr>
+    <tr><td>Sliding trick</td><td>+new -old</td><td>Add element entering window, subtract element leaving</td></tr>
   </table>
 </div>
 
-<!-- MEDIUM -->
+<!-- ========== MEDIUM ========== -->
 <div class="problem-card">
-  <div class="problem-title">LeetCode #3 — Longest Substring Without Repeating Characters</div>
-  <div class="by">by LeetCode</div>
+  <div class="problem-title">Longest Substring Without Repeating Characters &nbsp; (LeetCode #3)</div>
   <span class="badge medium">Medium</span>
+  <span class="tag">Sliding Window</span>
+  <span class="tag">Hash Map</span>
+  <span class="tag">String</span>
 
-  <div class="section-title">🔭 Algorithm Visualization</div>
-<pre class="ascii">
-s = "abcabcbb"
+  <div class="section-label">📊 Algorithm Visualization</div>
+  <div class="ascii-box">s = "a b c a b c b b"
+     0 1 2 3 4 5 6 7
 
-Variable-size sliding window:
- a b c a b c b b
- ↑               l=0
- ↑   ↑           "abc" len=3  ← MAX
-     ↑   ↑       "cab" len=3
-         ↑ ↑     "cb"  len=2 (dup 'b')
+l=0: {a:0}         r=0  len=1
+l=0: {a:0,b:1}     r=1  len=2
+l=0: {a:0,b:1,c:2} r=2  len=3 ← running max
+l=1: 'a' repeats → move l to last_a+1=1
+     {a:3,b:1,c:2} r=3  len=3
+l=2: 'b' repeats → move l to last_b+1=2
+     {a:3,b:4,c:2} r=4  len=3
+l=3: 'c' repeats → l to last_c+1=3
+     {a:3,b:5,c:5} r=5  len=3
+l=5: 'b' repeats → l=6
+     {a:3,b:6,c:5} r=6  len=1
+     len=1         r=7  len=1
 
-Char Set:  {a,b,c}
-When dup found: shrink from left until removed
- ┌──────────────────────────────────┐
- │  l ──────────────────► r          │
- │  shrink ←          expand →      │
-└──────────────────────────────────┘
-</pre>
+Answer: 3  ("abc")</div>
 
-  <div class="section-title">💻 기본 풀이 (Python)</div>
-<pre class="code"><span class="kw">def</span> <span class="fn">lengthOfLongestSubstring</span>(s):
-    char_set = <span class="bi">set</span>()
-    left = <span class="num">0</span>
-    max_len = <span class="num">0</span>
+  <div class="section-label">🐍 Basic Solution</div>
+  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">lengthOfLongestSubstring</span>(<span class="nm">self</span>, s: <span class="nm">str</span>) -> <span class="nm">int</span>:
+        seen = <span class="fn">set</span>()
+        left = max_len = <span class="nm">0</span>
 
-    <span class="kw">for</span> right <span class="kw">in</span> <span class="bi">range</span>(<span class="bi">len</span>(s)):
-        <span class="cm"># 중복 문자가 있으면 왼쪽 포인터 이동</span>
-        <span class="kw">while</span> s[right] <span class="kw">in</span> char_set:
-            char_set.remove(s[left])
-            left += <span class="num">1</span>
-        char_set.add(s[right])
-        max_len = <span class="bi">max</span>(max_len, right - left + <span class="num">1</span>)
+        <span class="kw">for</span> right <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(s)):
+            <span class="cm"># Shrink window until no duplicate</span>
+            <span class="kw">while</span> s[right] <span class="kw">in</span> seen:
+                seen.<span class="fn">remove</span>(s[left])
+                left <span class="op">+=</span> <span class="nm">1</span>
+            seen.<span class="fn">add</span>(s[right])
+            max_len = <span class="fn">max</span>(max_len, right <span class="op">-</span> left <span class="op">+</span> <span class="nm">1</span>)
 
-    <span class="kw">return</span> max_len</pre>
+        <span class="kw">return</span> max_len</div>
 
-  <div class="section-title">⚡ 최적화 버전 (Python)</div>
-<pre class="code"><span class="kw">def</span> <span class="fn">lengthOfLongestSubstring</span>(s):
-    <span class="cm"># 딕셔너리로 인덱스 저장 → O(1)로 left 점프</span>
-    char_idx = {}
-    left = <span class="num">0</span>
-    best = <span class="num">0</span>
+  <div class="section-label">⚡ Optimized Solution</div>
+  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">lengthOfLongestSubstring</span>(<span class="nm">self</span>, s: <span class="nm">str</span>) -> <span class="nm">int</span>:
+        <span class="cm"># Store last seen index → jump left pointer directly (O(1) per step)</span>
+        last_seen = {}
+        left = max_len = <span class="nm">0</span>
 
-    <span class="kw">for</span> right, ch <span class="kw">in</span> <span class="bi">enumerate</span>(s):
-        <span class="kw">if</span> ch <span class="kw">in</span> char_idx <span class="kw">and</span> char_idx[ch] &gt;= left:
-            <span class="cm"># 중복 위치 바로 다음으로 점프</span>
-            left = char_idx[ch] + <span class="num">1</span>
-        char_idx[ch] = right
-        best = <span class="bi">max</span>(best, right - left + <span class="num">1</span>)
+        <span class="kw">for</span> right, ch <span class="kw">in</span> <span class="fn">enumerate</span>(s):
+            <span class="kw">if</span> ch <span class="kw">in</span> last_seen <span class="kw">and</span> last_seen[ch] <span class="op">>=</span> left:
+                left = last_seen[ch] <span class="op">+</span> <span class="nm">1</span>
+            last_seen[ch] = right
+            max_len = <span class="fn">max</span>(max_len, right <span class="op">-</span> left <span class="op">+</span> <span class="nm">1</span>)
 
-    <span class="kw">return</span> best</pre>
+        <span class="kw">return</span> max_len</div>
 
-  <div class="section-title">📊 복잡도 분석</div>
-  <table>
-    <tr><th>구분</th><th>기본</th><th>최적화</th><th>이유</th></tr>
-    <tr><td class="complexity-label">Time</td><td>O(n)</td><td>O(n)</td><td>최적화: while 루프 제거, dict로 O(1) 점프</td></tr>
-    <tr><td class="complexity-label">Space</td><td>O(min(n,m))</td><td>O(min(n,m))</td><td>set/dict 크기 = 고유 문자 수 m (ASCII 128)</td></tr>
+  <div class="section-label">📈 Complexity Analysis</div>
+  <table class="complexity-table">
+    <tr><th>Metric</th><th>Value</th><th>Reason</th></tr>
+    <tr><td>Time (Basic)</td><td>O(2n) = O(n)</td><td>Each char can be added/removed from set at most once</td></tr>
+    <tr><td>Time (Optimized)</td><td>O(n)</td><td>One pass; left jumps directly via index map</td></tr>
+    <tr><td>Space (Basic)</td><td>O(min(n,σ))</td><td>σ = charset size (26/128/...)</td></tr>
+    <tr><td>Space (Optimized)</td><td>O(min(n,σ))</td><td>HashMap stores at most σ entries</td></tr>
+    <tr><td>Key insight</td><td>left jump</td><td>last_seen[ch]+1 skips redundant shrinks</td></tr>
   </table>
 </div>
 
-<!-- HARD -->
+<!-- ========== HARD ========== -->
 <div class="problem-card">
-  <div class="problem-title">LeetCode #76 — Minimum Window Substring</div>
-  <div class="by">by LeetCode</div>
+  <div class="problem-title">Minimum Window Substring &nbsp; (LeetCode #76)</div>
   <span class="badge hard">Hard</span>
+  <span class="tag">Sliding Window</span>
+  <span class="tag">Hash Map</span>
+  <span class="tag">Two Pointers</span>
 
-  <div class="section-title">🔭 Algorithm Visualization</div>
-<pre class="ascii">
-s = "ADOBECODEBANC",  t = "ABC"
+  <div class="section-label">📊 Algorithm Visualization</div>
+  <div class="ascii-box">s="ADOBECODEBANC"  t="ABC"
+need={A:1, B:1, C:1}  formed=0  required=3
 
-need = {A:1, B:1, C:1},  have = {}
+→ Expand right until all chars covered:
+  r:A formed=1 | r:D | r:O | r:B formed=2
+  r:E | r:C formed=3 ✓  window="ADOBEC" len=6
 
-Expand right until valid, then shrink left:
+← Shrink left while still valid:
+  l:A  need[A]↑→formed=2  break  window="DOBECODEBA"
+  ... expand right again:
 
- A D O B E C O D E B A  N  C
- ↑                         → expand
- A D O B E C               formed! {A,B,C} ✓
-   ↑                       → shrink (remove A)
-   D O B E C               missing A ✗
-   D O B E C O D E B  A    → expand
-                     ↑     shrink
-               B  A  N  C  → "BANC" len=4 ← MIN
-</pre>
+Best window tracking:
+  "ADOBEC"  len=6
+  "BANC"    len=4  ← MINIMUM ✓
 
-  <div class="section-title">💻 기본 풀이 (Python)</div>
-<pre class="code"><span class="kw">from</span> collections <span class="kw">import</span> Counter
+Answer: "BANC"</div>
 
-<span class="kw">def</span> <span class="fn">minWindow</span>(s, t):
-    <span class="kw">if</span> <span class="kw">not</span> t <span class="kw">or</span> <span class="kw">not</span> s:
-        <span class="kw">return</span> <span class="st">""</span>
+  <div class="section-label">🐍 Basic Solution</div>
+  <div class="code-block"><span class="kw">from</span> collections <span class="kw">import</span> Counter
 
-    need = Counter(t)
-    have, required = {}, <span class="bi">len</span>(need)
-    formed = <span class="num">0</span>
-    left = <span class="num">0</span>
-    best = <span class="bi">float</span>(<span class="st">"inf"</span>), <span class="num">0</span>, <span class="num">0</span>
+<span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">minWindow</span>(<span class="nm">self</span>, s: <span class="nm">str</span>, t: <span class="nm">str</span>) -> <span class="nm">str</span>:
+        <span class="kw">if</span> <span class="kw">not</span> t <span class="kw">or</span> <span class="kw">not</span> s:
+            <span class="kw">return</span> <span class="st">""</span>
 
-    <span class="kw">for</span> right, ch <span class="kw">in</span> <span class="bi">enumerate</span>(s):
-        have[ch] = have.get(ch, <span class="num">0</span>) + <span class="num">1</span>
-        <span class="kw">if</span> ch <span class="kw">in</span> need <span class="kw">and</span> have[ch] == need[ch]:
-            formed += <span class="num">1</span>
+        need = Counter(t)
+        window = {}
+        formed = required = <span class="fn">len</span>(need)
+        left = <span class="nm">0</span>
+        best = <span class="nm">float</span>(<span class="st">'inf'</span>), <span class="nm">0</span>, <span class="nm">0</span>
 
-        <span class="cm"># 유효 윈도우이면 최소화 시도</span>
-        <span class="kw">while</span> formed == required:
-            <span class="kw">if</span> (right - left + <span class="num">1</span>) &lt; best[<span class="num">0</span>]:
-                best = (right - left + <span class="num">1</span>, left, right)
-            lc = s[left]
-            have[lc] -= <span class="num">1</span>
-            <span class="kw">if</span> lc <span class="kw">in</span> need <span class="kw">and</span> have[lc] &lt; need[lc]:
-                formed -= <span class="num">1</span>
-            left += <span class="num">1</span>
+        <span class="kw">for</span> right, ch <span class="kw">in</span> <span class="fn">enumerate</span>(s):
+            window[ch] = window.<span class="fn">get</span>(ch, <span class="nm">0</span>) <span class="op">+</span> <span class="nm">1</span>
+            <span class="kw">if</span> ch <span class="kw">in</span> need <span class="kw">and</span> window[ch] <span class="op">==</span> need[ch]:
+                formed <span class="op">+=</span> <span class="nm">1</span>
 
-    <span class="kw">return</span> <span class="st">""</span> <span class="kw">if</span> best[<span class="num">0</span>] == <span class="bi">float</span>(<span class="st">"inf"</span>) <span class="kw">else</span> s[best[<span class="num">1</span>]:best[<span class="num">2</span>]+<span class="num">1</span>]</pre>
+            <span class="kw">while</span> formed <span class="op">==</span> required:
+                <span class="cm"># Update best window</span>
+                <span class="kw">if</span> right <span class="op">-</span> left <span class="op">+</span> <span class="nm">1</span> <span class="op"><</span> best[<span class="nm">0</span>]:
+                    best = (right <span class="op">-</span> left <span class="op">+</span> <span class="nm">1</span>, left, right)
+                <span class="cm"># Shrink from left</span>
+                lc = s[left]
+                window[lc] <span class="op">-=</span> <span class="nm">1</span>
+                <span class="kw">if</span> lc <span class="kw">in</span> need <span class="kw">and</span> window[lc] <span class="op"><</span> need[lc]:
+                    formed <span class="op">-=</span> <span class="nm">1</span>
+                left <span class="op">+=</span> <span class="nm">1</span>
 
-  <div class="section-title">⚡ 최적화 버전 (Python)</div>
-<pre class="code"><span class="kw">from</span> collections <span class="kw">import</span> Counter
+        <span class="kw">return</span> <span class="st">""</span> <span class="kw">if</span> best[<span class="nm">0</span>] <span class="op">==</span> <span class="nm">float</span>(<span class="st">'inf'</span>) <span class="kw">else</span> s[best[<span class="nm">1</span>]:best[<span class="nm">2</span>]<span class="op">+</span><span class="nm">1</span>]</div>
 
-<span class="kw">def</span> <span class="fn">minWindow</span>(s, t):
-    <span class="cm"># 필터링: t에 있는 문자만 처리 (s가 길 때 효과적)</span>
-    filtered = [(i, c) <span class="kw">for</span> i, c <span class="kw">in</span> <span class="bi">enumerate</span>(s) <span class="kw">if</span> c <span class="kw">in</span> Counter(t)]
-    need = Counter(t)
-    have = {}
-    formed = <span class="num">0</span>
-    required = <span class="bi">len</span>(need)
-    l = <span class="num">0</span>
-    best = <span class="bi">float</span>(<span class="st">"inf"</span>), <span class="num">0</span>, <span class="num">0</span>
+  <div class="section-label">⚡ Optimized Solution (Filtered String)</div>
+  <div class="code-block"><span class="kw">from</span> collections <span class="kw">import</span> Counter
 
-    <span class="kw">for</span> r <span class="kw">in</span> <span class="bi">range</span>(<span class="bi">len</span>(filtered)):
-        ch = filtered[r][<span class="num">1</span>]
-        have[ch] = have.get(ch, <span class="num">0</span>) + <span class="num">1</span>
-        <span class="kw">if</span> have[ch] == need[ch]:
-            formed += <span class="num">1</span>
-        <span class="kw">while</span> formed == required:
-            lo, hi = filtered[l][<span class="num">0</span>], filtered[r][<span class="num">0</span>]
-            <span class="kw">if</span> hi - lo + <span class="num">1</span> &lt; best[<span class="num">0</span>]:
-                best = hi - lo + <span class="num">1</span>, lo, hi
-            lc = filtered[l][<span class="num">1</span>]
-            have[lc] -= <span class="num">1</span>
-            <span class="kw">if</span> have[lc] &lt; need[lc]:
-                formed -= <span class="num">1</span>
-            l += <span class="num">1</span>
+<span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">minWindow</span>(<span class="nm">self</span>, s: <span class="nm">str</span>, t: <span class="nm">str</span>) -> <span class="nm">str</span>:
+        <span class="cm"># Filter s to only chars in t → fewer iterations for large s</span>
+        need = Counter(t)
+        filtered = [(i, ch) <span class="kw">for</span> i, ch <span class="kw">in</span> <span class="fn">enumerate</span>(s) <span class="kw">if</span> ch <span class="kw">in</span> need]
 
-    <span class="kw">return</span> <span class="st">""</span> <span class="kw">if</span> best[<span class="num">0</span>] == <span class="bi">float</span>(<span class="st">"inf"</span>) <span class="kw">else</span> s[best[<span class="num">1</span>]:best[<span class="num">2</span>]+<span class="num">1</span>]</pre>
+        window = {}
+        formed = required = <span class="fn">len</span>(need)
+        left = <span class="nm">0</span>
+        best = <span class="nm">float</span>(<span class="st">'inf'</span>), <span class="nm">0</span>, <span class="nm">0</span>
 
-  <div class="section-title">📊 복잡도 분석</div>
-  <table>
-    <tr><th>구분</th><th>기본</th><th>최적홐</th><th>이유</th></tr>
-    <tr><td class="complexity-label">Time</td><td>O(|s|+|t|)</td><td>O(|s|+|t|)</td><td>최적홐: s가 길고 t 문자 읬박할 때 filtered로 이터레이션 수 감셬</td></tr>
-    <tr><td class="complexity-label">Space</td><td>O(|t|)</td><td>O(|s|+|t|)</td><td>최적홐: filtered 배열 추가 O(|s|), 실제 긴 문자열엔 시간 이득</td></tr>
+        <span class="kw">for</span> right <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(filtered)):
+            i, ch = filtered[right]
+            window[ch] = window.<span class="fn">get</span>(ch, <span class="nm">0</span>) <span class="op">+</span> <span class="nm">1</span>
+            <span class="kw">if</span> window[ch] <span class="op">==</span> need[ch]:
+                formed <span class="op">+=</span> <span class="nm">1</span>
+
+            <span class="kw">while</span> formed <span class="op">==</span> required:
+                li, lc = filtered[left]
+                <span class="kw">if</span> i <span class="op">-</span> li <span class="op">+</span> <span class="nm">1</span> <span class="op"><</span> best[<span class="nm">0</span>]:
+                    best = (i <span class="op">-</span> li <span class="op">+</span> <span class="nm">1</span>, li, i)
+                window[lc] <span class="op">-=</span> <span class="nm">1</span>
+                <span class="kw">if</span> window[lc] <span class="op"><</span> need[lc]:
+                    formed <span class="op">-=</span> <span class="nm">1</span>
+                left <span class="op">+=</span> <span class="nm">1</span>
+
+        <span class="kw">return</span> <span class="st">""</span> <span class="kw">if</span> best[<span class="nm">0</span>] <span class="op">==</span> <span class="nm">float</span>(<span class="st">'inf'</span>) <span class="kw">else</span> s[best[<span class="nm">1</span>]:best[<span class="nm">2</span>]<span class="op">+</span><span class="nm">1</span>]</div>
+
+  <div class="section-label">📈 Complexity Analysis</div>
+  <table class="complexity-table">
+    <tr><th>Metric</th><th>Value</th><th>Reason</th></tr>
+    <tr><td>Time (Basic)</td><td>O(|s| + |t|)</td><td>Each char in s visited at most twice (right+left pointers)</td></tr>
+    <tr><td>Time (Optimized)</td><td>O(|s| + |t|)</td><td>Filtered list reduces iterations when s >> t</td></tr>
+    <tr><td>Space</td><td>O(|s| + |t|)</td><td>Filtered list O(|s|), window/need maps O(|t|)</td></tr>
+    <tr><td>formed check</td><td>O(1)</td><td>Counter equality per unique char only</td></tr>
+    <tr><td>Key insight</td><td>two-phase</td><td>Expand until valid, shrink until invalid, repeat</td></tr>
   </table>
 </div>
 
-<footer>
-  <p>🌐 <a href="https://chloeyeo.github.io/leetcode-explanations" target="_blank">https://chloeyeo.github.io/leetcode-explanations</a></p>
-  <p style="margin-top:6px">LeetCode Daily Study · chloeyeo</p>
-</footer>
+<div class="footer">
+  <p>🌀 <a href="https://chloeyeo.github.io/leetcode-explanations">chloeyeo.github.io/leetcode-explanations</a></p>
+  <p style="margin-top:6px; font-size:0.78rem;">Sliding Window &nbsp;·&nbsp; 2026-06-18</p>
+</div>
+
 </body>
 </html>

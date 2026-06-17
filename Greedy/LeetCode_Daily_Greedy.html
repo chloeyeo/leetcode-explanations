@@ -5,176 +5,176 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LeetCode Daily | Greedy</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #0d1117; color: #e6edf3; font-family: 'Segoe UI', system-ui, sans-serif; padding: 16px; line-height: 1.6; }
-  header { text-align: center; padding: 24px 16px 20px; border-bottom: 1px solid #30363d; margin-bottom: 20px; }
-  header h1 { font-size: 1.8rem; color: #f0883e; margin-bottom: 6px; }
-  .date { font-size: 0.85rem; color: #8b949e; margin-bottom: 8px; }
-  .type-badge { display: inline-block; background: #f0883e22; color: #f0883e; border: 1px solid #f0883e55; padding: 4px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; }
-  .problem-card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 20px; margin-bottom: 24px; }
-  .problem-header { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 16px; }
-  .problem-title { font-size: 1rem; font-weight: 700; color: #58a6ff; flex: 1 1 100%; }
-  .badge { padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; }
-  .easy { background: #23863633; color: #3fb950; border: 1px solid #3fb95055; }
-  .medium { background: #e3b34133; color: #e3b341; border: 1px solid #e3b34155; }
-  .hard { background: #f8514933; color: #f85149; border: 1px solid #f8514955; }
-  .by { font-size: 0.75rem; color: #8b949e; }
-  .section-label { font-size: 0.8rem; font-weight: 700; color: #8b949e; text-transform: uppercase; letter-spacing: 0.5px; margin: 14px 0 8px; }
-  .ascii-art { background: #0d1117; border: 1px solid #21262d; border-radius: 8px; padding: 14px; font-family: 'Courier New', monospace; font-size: 0.75rem; color: #7ee787; white-space: pre; overflow-x: auto; line-height: 1.5; }
-  .code-block { background: #0d1117; border: 1px solid #21262d; border-radius: 8px; padding: 14px; font-family: 'Courier New', monospace; font-size: 0.78rem; white-space: pre; overflow-x: auto; line-height: 1.7; }
-  .kw { color: #ff7b72; }
-  .fn { color: #d2a8ff; }
-  .cn { color: #79c0ff; }
-  .st { color: #a5d6ff; }
-  .cm { color: #8b949e; }
-  .nm { color: #79c0ff; }
-  .op { color: #ff7b72; }
-  .complexity-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-top: 4px; }
-  .complexity-table th { background: #21262d; color: #8b949e; padding: 8px 10px; text-align: left; border: 1px solid #30363d; }
-  .complexity-table td { padding: 7px 10px; border: 1px solid #30363d; color: #e6edf3; }
-  .complexity-table tr:nth-child(even) td { background: #0d1117; }
-  footer { text-align: center; padding: 20px; border-top: 1px solid #30363d; margin-top: 8px; }
-  footer a { color: #58a6ff; text-decoration: none; font-size: 0.9rem; }
-  footer a:hover { text-decoration: underline; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d1117;color:#e6edf3;font-family:'Segoe UI',system-ui,sans-serif;padding:16px;max-width:800px;margin:0 auto}
+h1{font-size:1.4rem;color:#58a6ff;margin-bottom:4px}
+.date{color:#8b949e;font-size:.85rem;margin-bottom:20px}
+.problem{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:16px;margin-bottom:20px}
+.prob-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.prob-title{font-size:1.1rem;font-weight:700;color:#e6edf3}
+.badge{padding:3px 10px;border-radius:12px;font-size:.75rem;font-weight:700}
+.easy{background:#1a4731;color:#3fb950}
+.medium{background:#4d3110;color:#d29922}
+.hard{background:#4d1010;color:#f85149}
+.by{color:#8b949e;font-size:.8rem}
+h3{color:#79c0ff;font-size:.95rem;margin:14px 0 6px}
+.ascii{background:#010409;border:1px solid #21262d;border-radius:6px;padding:12px;font-family:monospace;font-size:.78rem;color:#7ee787;overflow-x:auto;white-space:pre;line-height:1.5;margin-bottom:10px}
+.code-block{background:#010409;border:1px solid #21262d;border-radius:6px;padding:12px;font-family:'Courier New',monospace;font-size:.78rem;overflow-x:auto;line-height:1.6;margin-bottom:10px}
+.kw{color:#ff7b72}
+.fn{color:#d2a8ff}
+.cm{color:#8b949e}
+.st{color:#a5d6ff}
+.nm{color:#79c0ff}
+.dec{color:#ffa657}
+table{width:100%;border-collapse:collapse;font-size:.82rem;margin-top:6px}
+th{background:#21262d;color:#8b949e;padding:8px;text-align:left;font-weight:600}
+td{padding:7px 8px;border-bottom:1px solid #21262d;vertical-align:top}
+tr:last-child td{border-bottom:none}
+.t{color:#7ee787}
+footer{text-align:center;margin-top:24px;padding-top:16px;border-top:1px solid #21262d;color:#8b949e;font-size:.83rem}
+footer a{color:#58a6ff;text-decoration:none}
 </style>
 </head>
 <body>
+<h1>&#127919; Greedy</h1>
+<div class="date">&#128197; 2026-06-17 | LeetCode Daily Study</div>
 
-<header>
-  <h1>💡 Greedy</h1>
-  <div class="date">2026-06-14 (Sunday)</div>
-  <div class="type-badge">GREEDY</div>
-</header>
-
-<!-- EASY -->
-<div class="problem-card">
-  <div class="problem-header">
-    <span class="problem-title">LeetCode #455 - Assign Cookies</span>
+<div class="problem">
+  <div class="prob-header">
+    <span class="prob-title">Assign Cookies (LeetCode #455)</span>
     <span class="badge easy">Easy</span>
-    <span class="by">by LeetCode</span>
+    <span class="by">&#8212; by LeetCode</span>
   </div>
-  <div class="section-label">ASCII Algorithm Visualization</div>
-  <div class="ascii-art">g = [1,2,3] (greed, sorted)  s = [1,1,2] (cookies, sorted)
+  <h3>&#128202; Algorithm Visualization</h3>
+  <div class="ascii">Greed Factor:  g = [1, 2, 3]   (sort ascending)
+Cookie Size:   s = [1, 1]       (sort ascending)
 
-i=0  j=0: s[0]=1 >= g[0]=1  PASS  child=1, j=1
-i=1  j=1: s[1]=1  < g[1]=2  SKIP, j=2
-i=1  j=2: s[2]=2 >= g[1]=2  PASS  child=2, j=3
+Assign greedily -- smallest cookie that satisfies child:
 
-Result: 2</div>
-  <div class="section-label">Basic Solution (Python)</div>
-  <div class="code-block"><span class="kw">class</span> <span class="cn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">findContentChildren</span>(self, g, s):
-        g.sort(); s.sort()
-        child = cookie = 0
-        <span class="kw">while</span> child < len(g) <span class="kw">and</span> cookie < len(s):
-            <span class="kw">if</span> s[cookie] >= g[child]: child += 1
-            cookie += 1
-        <span class="kw">return</span> child</div>
-  <div class="section-label">Optimized (bisect)</div>
-  <div class="code-block"><span class="kw">import</span> bisect
-<span class="kw">class</span> <span class="cn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">findContentChildren</span>(self, g, s):
-        g.sort(); s.sort()
-        count = used = 0
-        <span class="kw">for</span> greed <span class="kw">in</span> g:
-            idx = bisect.bisect_left(s, greed, used)
-            <span class="kw">if</span> idx < len(s): count += 1; used = idx+1
-            <span class="kw">else</span>: <span class="kw">break</span>
-        <span class="kw">return</span> count</div>
-  <div class="section-label">Complexity Analysis</div>
-  <table class="complexity-table">
-    <tr><th>Case</th><th>Time</th><th>Space</th><th>Reason</th></tr>
-    <tr><td>Basic</td><td>O(n log n)</td><td>O(1)</td><td>Sort + linear scan</span></td></tr>
-    <tr><td>Optimized</td><td>O(n log n)</td><td>O(1)</td><td>bi</td></tr>
+g[0]=1  s[0]=1  1 >= 1 OK child satisfied! content=1
+g[1]=2  s[1]=1  1 &lt;  2  SKIP cookie too small
+g[2]=3  (no more cookies)
+
+Result: 1 child satisfied</div>
+  <h3>&#128161; Basic Solution (Python)</h3>
+  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">findContentChildren</span>(<span class="nm">self</span>, <span class="nm">g</span>, <span class="nm">s</span>):
+        <span class="nm">g</span>.<span class="fn">sort</span>()
+        <span class="nm">s</span>.<span class="fn">sort</span>()
+        <span class="nm">child</span> = <span class="nm">cookie</span> = <span class="dec">0</span>
+        <span class="kw">while</span> <span class="nm">child</span> &lt; <span class="fn">len</span>(<span class="nm">g</span>) <span class="kw">and</span> <span class="nm">cookie</span> &lt; <span class="fn">len</span>(<span class="nm">s</span>):
+            <span class="kw">if</span> <span class="nm">s</span>[<span class="nm">cookie</span>] &gt;= <span class="nm">g</span>[<span class="nm">child</span>]:
+                <span class="nm">child</span> += <span class="dec">1</span>  <span class="cm"># child satisfied</span>
+            <span class="nm">cookie</span> += <span class="dec">1</span>
+        <span class="kw">return</span> <span class="nm">child</span></div>
+  <h3>&#9889; Optimized (Python)</h3>
+  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">findContentChildren</span>(<span class="nm">self</span>, <span class="nm">g</span>, <span class="nm">s</span>):
+        <span class="nm">g</span>.<span class="fn">sort</span>(); <span class="nm">s</span>.<span class="fn">sort</span>()
+        <span class="nm">i</span> = <span class="nm">j</span> = <span class="dec">0</span>
+        <span class="kw">while</span> <span class="nm">i</span> &lt; <span class="fn">len</span>(<span class="nm">g</span>) <span class="kw">and</span> <span class="nm">j</span> &lt; <span class="fn">len</span>(<span class="nm">s</span>):
+            <span class="kw">if</span> <span class="nm">s</span>[<span class="nm">j</span>] &gt;= <span class="nm">g</span>[<span class="nm">i</span>]: <span class="nm">i</span> += <span class="dec">1</span>
+            <span class="nm">j</span> += <span class="dec">1</span>
+        <span class="kw">return</span> <span class="nm">i</span></div>
+  <h3>&#128200; Complexity</h3>
+  <table>
+    <tr><th>Type</th><th>Value</th><th>Reason</th></tr>
+    <tr><td>Time</td><td class="t">O(n log n)</td><td>Sorting both arrays dominates</td></tr>
+    <tr><td>Space</td><td class="t">O(1)</td><td>Two pointers only, in-place sort</td></tr>
   </table>
 </div>
 
-<!-- MEDIUM -->
-<div class="problem-card">
-  <div class="problem-header">
-    <span class="problem-title">LeetCode #435 - Non-overlapping Intervals</span>
+<div class="problem">
+  <div class="prob-header">
+    <span class="prob-title">Non-overlapping Intervals (LeetCode #435)</span>
     <span class="badge medium">Medium</span>
-    <span class="by">by LeetCode</span>
+    <span class="by">&#8212; by LeetCode</span>
   </div>
-  <div class="section-label">ASCII Algorithm Visualization</div>
-  <div class="ascii-art">intervals = [[1,2],[2,3],[3,4],[1,3]]
-sort by end: [[1,2],[2,3],[1,3],[3,4]]
+  <h3>&#128202; Algorithm Visualization</h3>
+  <div class="ascii">intervals = [[1,2],[2,3],[3,4],[1,3]]
+Sort by END time: [[1,2],[2,3],[1,3],[3,4]]
 
-[1,2] keep  end=2
-[2,3] keep  end=3
-[1,3] OVERLAP  (start=1 < end=3)  remove! count=1
-[[3,4] keep  end=4
+end=2:  [1,2]  keep  -&gt; end=2
+end=3:  [2,3]  2 &gt;= 2 keep  -&gt; end=3
+end=3:  [1,3]  1 &lt;  3 OVERLAP remove count=1
+end=4:  [3,4]  3 &gt;= 3 keep  -&gt; end=4
 
-Removals: 1</div>
-  <div class="section-label">Basic Solution</div>
-  <div class="code-block"><span class="kw">class</span> <span class="cn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">eraseOverlapIntervals</span>(self, intervals):
-        <span class="kw">if</span> <span class="kw">not</span> intervals: <span class="kw">return</span> 0
-        intervals.sort(key=lambda x: x[1])
-        end, remove = intervals[0][1], 0
-        <span class="kw">for</span> s, e <span class="kw">in</span> intervals[1:]:
-            <span class="kw">if</span> s < end: remove += 1
-            <span class="kw">else</span>: end = e
-        <span class="kw">return</span> remove</div>
-  <div class="section-label">Optimized</div>
-  <div class="code-block"><span class="kw">class</span> <span class="cn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">eraseOverlapIntervals</span>(self, intervals):
-        intervals.sort(key=lambda x: x[1])
-        kept, end = 1, intervals[0][1]
-        <span class="kw">for</span> i <span class="kw">in</span> range(1, len(intervals)):
-            <span class="kw">if</span> intervals[i][0] >= end: kept += 1; end = intervals[i][1]
-        <span class="kw">return</span> len(intervals) - kept</div>
-  <div class="section-label">Complexity Analysis</div>
-  <table class="complexity-table">
-    <tr><th>Case</th><th>Time</th><th>Space</th><th>Reason</th></tr>
-    <tr><td>Both</td><td>O(n log n)</td><td>O(1)</td><td>Sort dominates, O(n) scan</span></td></tr>
+Removed: 1</div>
+  <h3>&#128161; Basic Solution (Python)</h3>
+  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">eraseOverlapIntervals</span>(<span class="nm">self</span>, <span class="nm">intervals</span>):
+        <span clas="kw">if</span> <span class="kw">not</span> <span class="nm">intervals</span>: <span class="kw">return</span> <span class="dec">0</span>
+        <span class="nm">intervals</span>.<span class="fn">sort</span>(<span class="nm">key</span>=<span class="kw">lambda</span> <span class="nm">x</span>: <span class="nm">x</span>[<span class="dec">1</span>])
+        <span class="nm">removed</span> = <span class="dec">0</span>
+        <span class="nm">prev_end</span> = <span class="nm">intervals</span>[<span class="dec">0</span>][<span class="dec">1</span>]
+        <span class="kw">for</span> <span class="nm">s</span>, <span class="nm">e</span> <span class="kw">in</span> <span class="nm">intervals</span>[<span class="dec">1</span>:]:
+            <span class="kw">if</span> <span class="nm">s</span> &lt; <span class="nm">prev_end</span>:
+                <span class="nm">removed</span> += <span class="dec">1</span>  <span class="cm"># overlap, remove</span>
+            <span class="kw">else</span>:
+                <span class="nm">prev_end</span> = <span class="nm">e</span>
+        <span class="kw">return</span> <span class="nm">removed</span></div>
+  <h3>&#9889; Optimized (Python)</h3>
+  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">eraseOverlapIntervals</span>(<span class="nm">self</span>, <span class="nm">intervals</span>):
+        <span class="nm">intervals</span>.<span class="fn">sort</span>(<span class="nm">key</span>=<span class="kw">lambda</span> <span class="nm">x</span>: <span class="nm">x</span>[<span class="dec">1</span>])
+        <span class="nm">k</span>, <span class="nm">prev</span> = <span class="dec">0</span>, <span class="fn">float</span>(<span class="st">'-inf'</span>)
+        <span class="kw">for</span> <span class="nm">s</span>, <span class="nm">e</span> <span class="kw">in</span> <span class="nm">intervals</span>:
+            <span class="kw">if</span> <span class="nm">s</span> &gt;= <span class="nm">prev</span>: <span class="nm">prev</span> = <span class="nm">e</span>; <span class="nm">k</span> += <span class="dec">1</span>
+        <span class="kw">return</span> <span class="fn">len</span>(<span class="nm">intervals</span>) - <span class="nm">k</span></div>
+  <h3>&#128200; Complexity</h3>
+  <table>
+    <tr><th>Type</th><th>Value</th><th>Reason</th></tr>
+    <tr><td>Time</td><td class="t">O(n log n)</td><td>Sort + single linear scan</td></tr>
+    <tr><td>Space</td><td class="t">O(1)</td><td>Only 2 tracking variables needed</td></tr>
   </table>
 </div>
 
-<!-- HARD -->
-<div class="problem-card">
-  <div class="problem-header">
-    <span class="problem-title">LeetCode #45 - Jump Game II</span>
+<div class="problem">
+  <div class="prob-header">
+    <span class="prob-title">Jump Game II (LeetCode #45)</span>
     <span class="badge hard">Hard</span>
-    <span class="by">by LeetCode</span>
+    <span class="by">&#8212; by LeetCode</span>
   </div>
-  <div class="section-label">ASCII Algorithm Visualization</div>
-  <div class="ascii-art">nums = [2,3,1,1,4]
+  <h3>&#128202; Algorithm Visualization</h3>
+  <div class="ascii">nums = [2, 3, 1, 1, 4]
+idx:    0  1  2  3  4
 
-Jump 0: reach = 0+2 = 2  currEnd=0 --> jump+1, currEnd=2
-Jump 1: max(reach, 0+2, 1+3, 2+1) = 4  currEnd=2 --> jump+1, currEnd=4
+i=0 far=max(0, 0+2)=2  i==cur(0) jump=1 cur=2
+i=1 far=max(2, 1+3)=4
+i =2 far=max(4, 2+1)=4  i==cur(2) jump=2 cur=4
+cur(4) &gt;= n-1(4) DONE
 
-currEnd=4 >= len-1, done!  jumps=2</div>
-  <div class="section-label">Basic Solution</div>
-  <div class="code-block"><span class="kw">class</span> <span class="cn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">jump</span>(self, nums):
-        jumps = curr_end = reach = 0
-        <span class="kw">for</span> i <span class="kw">in</span> range(len(nums) - 1):
-            reach = max(reach, i + nums[i])
-            <span class="kw">if</span> i == curr_end:
-                jumps += 1; curr_end = reach
-                <span class="kw">if</span> curr_end >= len(nums) - 1: <span class="kw">break</span>
-        <span class="kw">return</span> jumps</div>
-  <div class="section-label">Optimized (1-liner)</div>
-  <div class="code-block"><span class="kw">class</span> <span class="cn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">jump</span>(self, nums):
-        jumps = curr_end = reach = 0
-        <span class="kw">for</span> i, v <span class="kw">in</span> enumerate(nums[:-1]):
-            reach = max(reach, i + v)
-            <span class="kw">if</span> i == curr_end:  jumps += 1; curr_end = reach
-        <span class="kw">return</span> jumps</div>
-  <div class="section-label">Complexity Analysis</div>
-  <table class="complexity-table">
-    <tr><th>Case</th><th>Time</th><th>Space</th><th>Reason</th></tr>
-    <tr><td>Both</td><td>O(n)</td><td>O(1)</td><td>Single pass, 3 variables only</td></tr>
+Answer: 2 jumps</div>
+  <h3>&#128161; Basic Solution (Python)</h3>
+  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">jump</span>(<span class="nm">self</span>, <span class="nm">nums</span>):
+        <span class="nm">jumps</span> = <span class="nm">current_end</span> = <span class="nm">farthest</span> = <span class="dec">0</span>
+        <span class="kw">for</span> <span class="nm">i</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(<span class="nm">nums</span>) - <span class="dec">1</span>):
+            <span class="nm">farthest</span> = <span class="fn">max</span>(<span class="nm">farthest</span>, <span class="nm">i</span> + <span class="nm">nums</span>[<span class="nm">i</span>])
+            <span class="kw">if</span> <span class="nm">i</span> == <span class="nm">current_end</span>:
+                <span class="nm">jumps</span> += <span class="dec">1</span>
+                <span class="nm">current_end</span> = <span class="nm">farthest</span>
+                <span class="kw">if</span> <span class="nm">current_end</span> &gt;= <span class="fn">len</span>(<span class="nm">nums</span>) - <span clas="dec">1</span>: <span class="kw">break</span>
+        <span class="kw">return</span> <span class="nm">jumps</span></div>
+  <h3>&#9889; Optimized (Python)</h3>
+  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">jump</span>(<span class="nm">self</span>, <span class="nm">nums</span>):
+        <span class="nm">jumps</span> = <span class="nm">cur</span> = <span class="nm">far</span> = <span class="dec">0</span>
+        <span class="kw">for</span> <span class="nm">i</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(<span class="nm">nums</span>) - <span class="dec">1</span>):
+            <span class="nm">far</span> = <span class="fn">max</span>(<span class="nm">far</span>, <span class="nm">i</span> + <span class="nm">nums</span>[<span class="nm">i</span>])
+            <span class="kw">if</span> <span class="nm">i</span> == <span class="nm">cur</span>: <span class="nm">jumps</span> += <span class="dec">1</span>; <span class="nm">cur</span> = <span class="nm">far</span>
+        <span class="kw">return</span> <span class="nm">jumps</span></div>
+  <h3>&#128200; Complexity</h3>
+  <table>
+    <tr><th>Type</th><th>Value</th><th>Reason</th></tr>
+    <tr><td>Time</td><td class="t">O(n)</td><td>Single pass through array (BFS-level greedy)</td></tr>
+    <tr><td>Space</td><td class="t">O(1)</td><td>Three integer variables: imps, cur_end, farthest</td></tr>
   </table>
 </div>
 
 <footer>
-  <a href="https://chloeyeo.github.io/leetcode-explanations" target="_blank">
-    GitHub Pages: chloeyeo.github.io/leetcode-explanations
-  </a>
+  <p>&#127760; <a href="https://chloeyeo.github.io/leetcode-explanations">chloeyeo.github.io/leetcode-explanations</a></p>
+  <p style="margin-top:6px;font-size:.75rem">LeetCode Daily Study &#183; of2026-06-17</p>
 </footer>
-
 </body>
 </html>

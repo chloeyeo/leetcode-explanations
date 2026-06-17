@@ -5,268 +5,205 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LeetCode Daily | Bit Manipulation</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #0d1117; color: #c9d1d9; font-family: 'Segoe UI', system-ui, sans-serif; padding: 16px; max-width: 900px; margin: 0 auto; }
-  .header { text-align: center; padding: 24px 0 16px; border-bottom: 1px solid #30363d; margin-bottom: 24px; }
-  .header h1 { font-size: 1.8rem; color: #58a6ff; margin-bottom: 6px; }
-  .header .date { color: #8b949e; font-size: 0.9rem; }
-  .problem-card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; margin-bottom: 28px; overflow: hidden; }
-  .problem-header { padding: 16px 20px; border-bottom: 1px solid #30363d; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-  .problem-title { font-size: 1.15rem; font-weight: 700; color: #e6edf3; flex: 1; }
-  .problem-author { font-size: 0.78rem; color: #8b949e; }
-  .badge { padding: 3px 10px; border-radius: 20px; font-size: 0.78rem; font-weight: 600; }
-  .easy { background: #1a4a1a; color: #3fb950; border: 1px solid #3fb950; }
-  .medium { background: #4a3200; color: #d29922; border: 1px solid #d29922; }
-  .hard { background: #4a1a1a; color: #f85149; border: 1px solid #f85149; }
-  .problem-body { padding: 20px; }
-  .section-label { font-size: 0.8rem; font-weight: 700; color: #8b949e; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; margin-top: 20px; }
-  .section-label:first-child { margin-top: 0; }
-  .ascii-art { background: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 14px 16px; font-family: monospace; font-size: 0.78rem; line-height: 1.6; color: #58a6ff; overflow-x: auto; white-space: pre; }
-  .code-block { background: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 16px; font-family: 'Courier New', monospace; font-size: 0.82rem; line-height: 1.7; overflow-x: auto; white-space: pre; }
-  .kw { color: #ff7b72; }
-  .fn { color: #d2a8ff; }
-  .cm { color: #8b949e; font-style: italic; }
-  .st { color: #a5d6ff; }
-  .nm { color: #79c0ff; }
-  .op { color: #ff7b72; }
-  .bi { color: #ffa657; }
-  table { width: 100%; border-collapse: collapse; font-size: 0.83rem; margin-top: 8px; }
-  th { background: #21262d; color: #8b949e; padding: 8px 12px; text-align: left; font-weight: 600; border: 1px solid #30363d; }
-  td { padding: 8px 12px; border: 1px solid #30363d; vertical-align: top; }
-  td:first-child { color: #d2a8ff; font-weight: 600; white-space: nowrap; }
-  td:nth-child(2) { color: #79c0ff; white-space: nowrap; }
-  td:last-child { color: #8b949e; }
-  footer { text-align: center; padding: 24px 0 8px; border-top: 1px solid #30363d; margin-top: 8px; }
-  footer a { color: #58a6ff; text-decoration: none; font-size: 0.9rem; }
-  footer a:hover { text-decoration: underline; }
-  .divider { height: 1px; background: #21262d; margin: 18px 0; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d1117;color:#e6edf3;font-family:'Segoe UI',system-ui,sans-serif;font-size:15px;line-height:1.6;padding:16px}
+header{text-align:center;padding:24px 16px 16px;border-bottom:1px solid #21262d;margin-bottom:24px}
+header h1{font-size:22px;font-weight:700;color:#58a6ff;margin-bottom:6px}
+header .date{color:#8b949e;font-size:13px}
+.problem{background:#161b22;border:1px solid #30363d;border-radius:12px;margin-bottom:28px;overflow:hidden}
+.problem-header{padding:18px 20px;border-bottom:1px solid #21262d;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.problem-num{color:#8b949e;font-size:13px;font-weight:600}
+.problem-title{font-size:17px;font-weight:700;color:#e6edf3;flex:1}
+.badge{padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700}
+.easy{background:#0d1f14;color:#3fb950;border:1px solid #3fb950}
+.medium{background:#1f160d;color:#d29922;border:1px solid #d29922}
+.hard{background:#1f0d0d;color:#f85149;border:1px solid #f85149}
+.by{color:#8b949e;font-size:12px;width:100%}
+.section{padding:16px 20px;border-bottom:1px solid #21262d}
+.section:last-child{border-bottom:none}
+.section-title{font-size:12px;font-weight:700;text-transform:uppercase;color:#8b949e;margin-bottom:12px;letter-spacing:.8px}
+pre.ascii{background:#010409;border:1px solid #21262d;border-radius:8px;padding:14px;overflow-x:auto;font-size:12px;line-height:1.5;color:#79c0ff;font-family:'Courier New',monospace}
+pre.code{background:#010409;border:1px solid #21262d;border-radius:8px;padding:14px;overflow-x:auto;font-size:13px;line-height:1.7;font-family:'Courier New',monospace}
+.kw{color:#ff7b72}.fn{color:#d2a8ff}.cm{color:#8b949e}.st{color:#a5d6ff}.nb{color:#ffa657}.num{color:#79c0ff}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#21262d;color:#8b949e;padding:8px 12px;text-align:left;font-weight:600}
+td{padding:8px 12px;border-bottom:1px solid #21262d;color:#e6edf3;vertical-align:top}
+tr:last-child td{border-bottom:none}
+td:first-child{color:#58a6ff;font-family:monospace;white-space:nowrap;font-size:12px}
+footer{text-align:center;padding:24px 16px 8px;border-top:1px solid #21262d;margin-top:8px}
+footer a{color:#58a6ff;text-decoration:none;font-size:14px}
 </style>
 </head>
 <body>
+<header>
+<h1>Bit Manipulation</h1>
+<div class="date">LeetCode Daily | 2026-06-17</div>
+</header>
 
-<div class="header">
-  <h1>🔢 Bit Manipulation</h1>
-  <div class="date">LeetCode Daily — June 13, 2026</div>
+<div class="problem">
+<div class="problem-header">
+<span class="problem-num">#268</span>
+<span class="problem-title">Missing Number</span>
+<span class="badge easy">Easy</span>
+<span class="by">by LeetCode</span>
+</div>
+<div class="section">
+<div class="section-title">Algorithm Visualization</div>
+<pre class="ascii">XOR Property: a ^ a = 0,  a ^ 0 = a
+
+nums  = [3, 0, 1]   (n=3, missing=2)
+index:   0  1  2
+
+XOR all indices 0..n: 0^1^2^3 = 0
+XOR all values:       3^0^1   = 2
+
+Step-by-step:
+  result = 0
+  i=0: result ^= 0 ^= 3  -> 3
+  i=1: result ^= 1 ^= 0  -> 2
+  i=2: result ^= 2 ^= 1  -> 1
+  i=3: result ^= 3       -> 2  (answer)</pre>
+</div>
+<div class="section">
+<div class="section-title">Basic Solution</div>
+<pre class="code"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">missingNumber</span>(<span class="nb">self</span>, nums):
+        n = <span class="nb">len</span>(nums)
+        expected = n * (n + <span class="num">1</span>) // <span class="num">2</span>
+        <span class="kw">return</span> expected - <span class="nb">sum</span>(nums)</pre>
+</div>
+<div class="section">
+<div class="section-title">Optimized Solution (XOR)</div>
+<pre class="code"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">missingNumber</span>(<span class="nb">self</span>, nums):
+        result = <span class="nb">len</span>(nums)
+        <span class="kw">for</span> i, val <span class="kw">in</span> <span class="nb">enumerate</span>(nums):
+            result ^= i ^ val
+        <span class="kw">return</span> result</pre>
+</div>
+<div class="section">
+<div class="section-title">Complexity Analysis</div>
+<table>
+<tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+<tr><td>Basic (Sum)</td><td>O(n)</td><td>O(1)</td><td>Single pass sum; arithmetic in O(1) space</td></tr>
+<tr><td>Optimized (XOR)</td><td>O(n)</td><td>O(1)</td><td>Single loop XOR; avoids potential overflow on large n</td></tr>
+</table>
+</div>
 </div>
 
-<!-- EASY -->
-<div class="problem-card">
-  <div class="problem-header">
-    <div class="problem-title">#191 Number of 1 Bits</div>
-    <span class="badge easy">Easy</span>
-    <span class="problem-author">by LeetCode</span>
-  </div>
-  <div class="problem-body">
+<div class="problem">
+<div class="problem-header">
+<span class="problem-num">#201</span>
+<span class="problem-title">Bitwise AND of Numbers Range</span>
+<span class="badge medium">Medium</span>
+<span class="by">by LeetCode</span>
+</div>
+<div class="section">
+<div class="section-title">Algorithm Visualization</div>
+<pre class="ascii">Goal: AND of all numbers in [left, right]
 
-    <div class="section-label">⚙️ Algorithm Visualization</div>
-    <div class="ascii-art">Input:  n = 0b00000000000000000000000000001011
-                                              ↓
-  Step 1: n & (n-1)  →  eliminate rightmost set bit
-  n    = ...0 0 1 0 1 1   count = 0
-         ───────────────
-  n-1  = ...0 0 1 0 1 0
-  n&(n-1)= ..0 0 1 0 1 0   count = 1
+Key: only the common prefix bits survive AND.
+Any differing bit is zeroed by consecutive numbers.
 
-  n    = ...0 0 1 0 1 0
-  n-1  = ...0 0 1 0 0 1
-  n&(n-1)= ..0 0 1 0 0 0   count = 2
+Example: left=5, right=7
+  5 = 101
+  6 = 110
+  7 = 111
+AND = 100  (only common prefix survives)
 
-  n    = ...0 0 1 0 0 0
-  n-1  = ...0 0 0 1 1 1
-  n&(n-1)= ..0 0 0 0 0 0   count = 3  → n==0, stop
-
-Output: 3</div>
-
-    <div class="section-label">🐍 Basic Solution</div>
-    <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">hammingWeight</span>(<span class="bi">self</span>, n: <span class="bi">int</span>) -> <span class="bi">int</span>:
-        count = <span class="nm">0</span>
-        <span class="kw">while</span> n:
-            count += n & <span class="nm">1</span>   <span class="cm"># check LSB</span>
-            n >>= <span class="nm">1</span>          <span class="cm"># right shift</span>
-        <span class="kw">return</span> count</div>
-
-    <div class="section-label">⚡ Optimized Solution (Brian Kernighan)</div>
-    <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">hammingWeight</span>(<span class="bi">self</span>, n: <span class="bi">int</span>) -> <span class="bi">int</span>:
-        count = <span class="nm">0</span>
-        <span class="kw">while</span> n:
-            n &= n - <span class="nm">1</span>   <span class="cm"># unset rightmost set bit</span>
-            count += <span class="nm">1</span>
-        <span class="kw">return</span> count</div>
-
-    <div class="section-label">📊 Complexity Analysis</div>
-    <table>
-      <tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
-      <tr><td>Basic</td><td>O(32)</td><td>O(1)</td><td>Iterates all 32 bits via shift; constant bits in int</td></tr>
-      <tr><td>Optimized</td><td>O(k)</td><td>O(1)</td><td>k = number of set bits; each iteration removes one; faster when sparse</td></tr>
-    </table>
-  </div>
+Shift approach:
+  5(101), 7(111) -> shift -> 2(10),3(11) -> shift -> 1,1 done
+  shift count = 2
+  result = 1 << 2 = 4</pre>
+</div>
+<div class="section">
+<div class="section-title">Basic Solution</div>
+<pre class="code"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">rangeBitwiseAnd</span>(<span class="nb">self</span>, left, right):
+        mask = ~<span class="num">0</span>
+        <span class="kw">while</span> (left &amp; mask) != (right &amp; mask):
+            mask &lt;&lt;= <span class="num">1</span>
+        <span class="kw">return</span> right &amp; mask</pre>
+</div>
+<div class="section">
+<div class="section-title">Optimized Solution (Right Shift)</div>
+<pre class="code"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">rangeBitwiseAnd</span>(<span class="nb">self</span>, left, right):
+        shift = <span class="num">0</span>
+        <span class="kw">while</span> left != right:
+            left &gt;&gt;= <span class="num">1</span>
+            right &gt;&gt;= <span class="num">1</span>
+            shift += <span class="num">1</span>
+        <span class="kw">return</span> left &lt;&lt; shift</pre>
+</div>
+<div class="section">
+<div class="section-title">Complexity Analysis</div>
+<table>
+<tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+<tr><td>Basic (Mask)</td><td>O(log n)</td><td>O(1)</td><td>At most 32 iterations (integer bit width)</td></tr>
+<tr><td>Optimized (Shift)</td><td>O(log n)</td><td>O(1)</td><td>Shifts until common prefix found; cleaner logic</td></tr>
+</table>
+</div>
 </div>
 
-<!-- MEDIUM -->
-<div class="problem-card">
-  <div class="problem-header">
-    <div class="problem-title">#260 Single Number III</div>
-    <span class="badge medium">Medium</span>
-    <span class="problem-author">by LeetCode</span>
-  </div>
-  <div class="problem-body">
+<div class="problem">
+<div class="problem-header">
+<span class="problem-num">#260</span>
+<span class="problem-title">Single Number III</span>
+<span class="badge hard">Hard</span>
+<span class="by">by LeetCode</span>
+</div>
+<div class="section">
+<div class="section-title">Algorithm Visualization</div>
+<pre class="ascii">Two numbers appear once; rest twice. Find both.
 
-    <div class="section-label">⚙️ Algorithm Visualization</div>
-    <div class="ascii-art">nums = [1, 2, 1, 3, 2, 5]   → find two unique numbers: 3, 5
+nums = [1, 2, 1, 3, 2, 5]  ->  answer: [3, 5]
 
-Step 1: XOR all → xor = 3 ^ 5 = 110 ^ 101 = 011 = 6
-        (all duplicates cancel out)
+Step 1: XOR all -> result is a XOR b
+  1^2^1^3^2^5 = 3^5 = 6  (binary: 110)
 
-Step 2: find any set bit in xor (rightmost)
-        diff = xor & (-xor) = 011 & 101 = 001  (bit 0)
+Step 2: Find lowest set bit (differs between 3 and 5)
+  diff = 6 & (-6) = 010
 
-Step 3: partition into two groups by diff bit:
-  Group A (bit0=1): 1,3,5   → XOR → 3^5^1^1 = ... wait
-  Actually: nums with diff bit SET:   1,3,5 → 1^1^3^5 = 3^5... 
-  
-  Group A (bit0=1): 1, 1, 3, 5  →  1^1^3^5 = 0^3^5... hmm
-  Correct grouping:
-  bit0=1: 1,3,5,1   XOR → 1^1^3^5 = 3^5 → No
-  
-  nums:  1  2  1  3  2  5
-  bit0:  1  0  1  1  0  1
-  A(=1): 1, 1, 3, 5  → XOR = 0^3^5? = 1^1=0, 0^3=3, 3^5=6? 
-  Correct: 1^1=0, 0^3=3, 3^5=6... 
-  
-  Simpler: diff=001, group by nums[i] & diff:
-  A = {1,1,3,5} → 1^1^3^5 = 6? No...
-  
-  A XOR: 1 ^ 1 ^ 3 ^ 5 = 0 ^ 3 ^ 5 = 6  ← wrong
-  B = {2,2}  → 0
-  
-  Wait — diff=6&(-6): xor=1^2^1^3^2^5=3^5=6, diff=6&(-6)=6&...=2
-  diff = 6 & (-6) = 0110 & 1010 = 0010 = 2  ← bit1
-
-  A (bit1=1): 2, 3, 2  → 2^3^2 = 3  ✓
-  B (bit1=0): 1, 1, 5  → 1^1^5 = 5  ✓
-
-Output: [3, 5]</div>
-
-    <div class="section-label">🐍 Basic Solution</div>
-    <div class="code-block"><span class="kw">from</span> collections <span class="kw">import</span> Counter
+Step 3: Split by diff bit, XOR each group
+  group A (bit clear): 1,1,2,2,5 -> XOR = 5
+  group B (bit set):   3         -> XOR = 3</pre>
+</div>
+<div class="section">
+<div class="section-title">Basic Solution</div>
+<pre class="code"><span class="kw">from</span> collections <span class="kw">import</span> Counter
 <span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">singleNumber</span>(<span class="bi">self</span>, nums: list[<span class="bi">int</span>]) -> list[<span class="bi">int</span>]:
-        count = Counter(nums)
-        <span class="kw">return</span> [k <span class="kw">for</span> k, v <span class="kw">in</span> count.items() <span class="kw">if</span> v == <span class="nm">1</span>]</div>
-
-    <div class="section-label">⚡ Optimized Solution (XOR Bit Partition)</div>
-    <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">singleNumber</span>(<span class="bi">self</span>, nums: list[<span class="bi">int</span>]) -> list[<span class="bi">int</span>]:
-        xor = <span class="nm">0</span>
-        <span class="kw">for</span> n <span class="kw">in</span> nums:
-            xor ^= n              <span class="cm"># xor of two unique nums</span>
-        diff = xor & (-xor)       <span class="cm"># isolate rightmost set bit</span>
-        a = <span class="nm">0</span>
-        <span class="kw">for</span> n <span class="kw">in</span> nums:
-            <span class="kw">if</span> n & diff:          <span class="cm"># partition by that bit</span>
-                a ^= n
-        <span class="kw">return</span> [a, xor ^ a]</div>
-
-    <div class="section-label">📊 Complexity Analysis</div>
-    <table>
-      <tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
-      <tr><td>Basic</td><td>O(n)</td><td>O(n)</td><td>Counter stores frequency of all n elements</td></tr>
-      <tr><td>Optimized</td><td>O(n)</td><td>O(1)</td><td>Two linear passes; bit partition uses no extra storage</td></tr>
-    </table>
-  </div>
+    <span class="kw">def</span> <span class="fn">singleNumber</span>(<span class="nb">self</span>, nums):
+        count = <span class="fn">Counter</span>(nums)
+        <span class="kw">return</span> [k <span class="kw">for</span> k, v <span class="kw">in</span> count.items() <span class="kw">if</span> v == <span class="num">1</span>]</pre>
 </div>
-
-<!-- HARD -->
-<div class="problem-card">
-  <div class="problem-header">
-    <div class="problem-title">#188 Best Time to Buy and Sell Stock IV</div>
-    <span class="badge hard">Hard</span>
-    <span class="problem-author">by LeetCode</span>
-  </div>
-  <div class="problem-body">
-
-    <div class="section-label">⚙️ Algorithm Visualization</div>
-    <div class="ascii-art">prices = [3,2,6,5,0,3],  k = 2
-
-DP table: dp[t][d] = max profit using t transactions up to day d
-
-t=1: find best single transaction
-  d: 0   1   2   3   4   5
-     3   2   6   5   0   3
-  dp[1]: 0   0   4   4   4   4   (buy at 2, sell at 6)
-
-t=2: 
-  For each day d, try: dp[2][d] = max(dp[2][d-1],
-                                      prices[d] - prices[j] + dp[1][j-1])
-                                  for all j < d
-
-  Optimized: track maxSoFar = max(dp[1][j-1] - prices[j])
-  d=0: 0
-  d=1: 0   maxSoFar = max(-inf, dp[1][-1]-prices[1]) = 0-2 = -2
-  d=2: max(0, 6 + (-2)) = 4   maxSoFar = max(-2, 0-2) = -2
-  d=3: max(4, 5 + (-2)) = 4   maxSoFar = max(-2, 4-5) = -1  wait dp[1][2]=4
-       maxSoFar after d=2: max(-2, dp[1][1]-prices[2]) = max(-2, 0-6) = -2
-       After d=3: max(-2, dp[1][2]-prices[3]) = max(-2, 4-5) = -1
-  d=4: max(4, 0+(-1))=4   after: max(-1, 4-0)=4
-  d=5: max(4, 3+4)=7 ✓
-
-Output: 7  (buy@2 sell@6, buy@0 sell@3)</div>
-
-    <div class="section-label">🐍 Basic Solution (Full DP)</div>
-    <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">maxProfit</span>(<span class="bi">self</span>, k: <span class="bi">int</span>, prices: list[<span class="bi">int</span>]) -> <span class="bi">int</span>:
-        n = <span class="bi">len</span>(prices)
-        <span class="kw">if</span> <span class="kw">not</span> prices <span class="kw">or</span> k == <span class="nm">0</span>: <span class="kw">return</span> <span class="nm">0</span>
-        <span class="kw">if</span> k >= n // <span class="nm">2</span>:           <span class="cm"># unlimited transactions</span>
-            <span class="kw">return</span> <span class="bi">sum</span>(
-                <span class="bi">max</span>(prices[i] - prices[i-<span class="nm">1</span>], <span class="nm">0</span>)
-                <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(<span class="nm">1</span>, n)
-            )
-        dp = [[<span class="nm">0</span>] * n <span class="kw">for</span> _ <span class="kw">in</span> <span class="bi">range</span>(k + <span class="nm">1</span>)]
-        <span class="kw">for</span> t <span class="kw">in</span> <span class="bi">range</span>(<span class="nm">1</span>, k + <span class="nm">1</span>):
-            max_so_far = float(<span class="st">'-inf'</span>)
-            <span class="kw">for</span> d <span class="kw">in</span> <span class="bi">range</span>(<span class="nm">1</span>, n):
-                max_so_far = <span class="bi">max</span>(max_so_far, dp[t-<span class="nm">1</span>][d-<span class="nm">1</span>] - prices[d-<span class="nm">1</span>])
-                dp[t][d] = <span class="bi">max</span>(dp[t][d-<span class="nm">1</span>], prices[d] + max_so_far)
-        <span class="kw">return</span> dp[k][n-<span class="nm">1</span>]</div>
-
-    <div class="section-label">⚡ Optimized Solution (Space-Optimized DP)</div>
-    <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">maxProfit</span>(<span class="bi">self</span>, k: <span class="bi">int</span>, prices: list[<span class="bi">int</span>]) -> <span class="bi">int</span>:
-        n = <span class="bi">len</span>(prices)
-        <span class="kw">if</span> <span class="kw">not</span> prices <span class="kw">or</span> k == <span class="nm">0</span>: <span class="kw">return</span> <span class="nm">0</span>
-        <span class="kw">if</span> k >= n // <span class="nm">2</span>:
-            <span class="kw">return</span> <span class="bi">sum</span>(
-                <span class="bi">max</span>(prices[i]-prices[i-<span class="nm">1</span>], <span class="nm">0</span>) <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(<span class="nm">1</span>,n)
-            )
-        <span class="cm"># buy[i] = max profit after i-th buy (negated cost)</span>
-        <span class="cm"># sell[i] = max profit after i-th sell</span>
-        buy  = [float(<span class="st">'-inf'</span>)] * (k + <span class="nm">1</span>)
-        sell = [<span class="nm">0</span>] * (k + <span class="nm">1</span>)
-        <span class="kw">for</span> price <span class="kw">in</span> prices:
-            <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(<span class="nm">1</span>, k + <span class="nm">1</span>):
-                buy[i]  = <span class="bi">max</span>(buy[i],  sell[i-<span class="nm">1</span>] - price)
-                sell[i] = <span class="bi">max</span>(sell[i], buy[i]  + price)
-        <span class="kw">return</span> sell[k]</div>
-
-    <div class="section-label">📊 Complexity Analysis</div>
-    <table>
-      <tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
-      <tr><td>Basic</td><td>O(k·n)</td><td>O(k·n)</td><td>Full 2D DP table of size (k+1)×n stored</td></tr>
-      <tr><td>Optimized</td><td>O(k·n)</td><td>O(k)</td><td>Only two 1D arrays of size k+1; no 2D table needed</td></tr>
-    </table>
-  </div>
+<div class="section">
+<div class="section-title">Optimized Solution (XOR + Bit Grouping)</div>
+<pre class="code"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">singleNumber</span>(<span class="nb">self</span>, nums):
+        xor = <span class="num">0</span>
+        <span class="kw">for</span> n <span class="kw">in</span> nums:
+            xor ^= n
+        diff = xor &amp; (-xor)
+        a = <span class="num">0</span>
+        <span class="kw">for</span> n <span class="kw">in</span> nums:
+            <span class="kw">if</span> n &amp; diff:
+                a ^= n
+        <span class="kw">return</span> [a, xor ^ a]</pre>
+</div>
+<div class="section">
+<div class="section-title">Complexity Analysis</div>
+<table>
+<tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+<tr><td>Basic (Counter)</td><td>O(n)</td><td>O(n)</td><td>Hash map stores all element counts</td></tr>
+<tr><td>Optimized (XOR)</td><td>O(n)</td><td>O(1)</td><td>Two linear passes; only 3 integer variables used</td></tr>
+</table>
+</div>
 </div>
 
 <footer>
-  <a href="https://chloeyeo.github.io/leetcode-explanations" target="_blank">
-    🌐 View all problems on GitHub Pages
-  </a>
-  <br><br>
-  <span style="color:#8b949e;font-size:0.8rem;">Generated by Crew AI • LeetCode Daily Practice</span>
+<a href="https://chloeyeo.github.io/leetcode-explanations">GitHub Pages: chloeyeo.github.io/leetcode-explanations</a>
+<p style="color:#8b949e;font-size:12px;margin-top:8px">Updated 2026-06-17</p>
 </footer>
-
 </body>
 </html>

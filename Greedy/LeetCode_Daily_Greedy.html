@@ -6,160 +6,202 @@
 <title>LeetCode Daily | Greedy</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0d1117;color:#c9d1d9;font-family:'Segoe UI',system-ui,sans-serif;padding:16px;max-width:800px;margin:0 auto}
-h1{color:#58a6ff;font-size:1.5rem;text-align:center;padding:20px 0 4px}
-.date{text-align:center;color:#8b949e;font-size:.85rem;margin-bottom:24px}
-.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:24px}
-.card-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
-.ptitle{color:#e6edf3;font-size:1.1rem;font-weight:700}
-.badge{padding:3px 10px;border-radius:12px;font-size:.75rem;font-weight:700}
+body{background:#0d1117;color:#e6edf3;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',monospace;padding:16px;font-size:14px}
+.header{text-align:center;padding:20px 0 24px;border-bottom:1px solid #21262d;margin-bottom:20px}
+.header h1{font-size:22px;color:#58a6ff;font-weight:700;margin-bottom:6px}
+.header .date{color:#8b949e;font-size:13px}
+.card{background:#161b22;border:1px solid #21262d;border-radius:10px;padding:18px;margin-bottom:20px}
+.card-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.problem-title{font-size:16px;font-weight:700;color:#e6edf3}
+.badge{padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;text-transform:uppercase}
 .easy{background:#1a4731;color:#3fb950}
-.medium{background:#4a2f00;color:#d29922}
-.hard{background:#4a1010;color:#f85149}
-.sl{color:#8b949e;font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;margin:16px 0 8px}
-.ascii{background:#010409;border:1px solid #21262d;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:.72rem;color:#8b949e;overflow-x:auto;white-space:pre;margin-bottom:4px}
-.cb{background:#010409;border:1px solid #21262d;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:.78rem;overflow-x:auto;white-space:pre;line-height:1.6}
-.kw{color:#ff7b72}.fn{color:#d2a8ff}.cm{color:#8b949e}.nm{color:#79c0ff}.op{color:#ff7b72}
-table{width:100%;border-collapse:collapse;font-size:.8rem;margin-top:8px}
-th{background:#21262d;color:#8b949e;padding:8px 10px;text-align:left}
-td{padding:8px 10px;border-bottom:1px solid #21262d;vertical-align:top}
-td:first-child{color:#79c0ff;font-family:monospace;white-space:nowrap}
-td:nth-child(2){color:#d29922;font-weight:600;white-space:nowrap}
+.medium{background:#4a2d00;color:#d29922}
+.hard{background:#4a0f0f;color:#f85149}
+.by{color:#8b949e;font-size:12px;margin-left:auto}
+.section-label{color:#8b949e;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;margin:14px 0 6px}
+.ascii-box{background:#010409;border:1px solid #21262d;border-radius:6px;padding:12px;font-size:11px;line-height:1.7;color:#7ee787;overflow-x:auto;white-space:pre}
+.code-block{background:#010409;border:1px solid #21262d;border-radius:6px;padding:12px;font-size:12px;line-height:1.6;overflow-x:auto;white-space:pre}
+.kw{color:#ff7b72}.fn{color:#d2a8ff}.cn{color:#79c0ff}.st{color:#a5d6ff}
+.cm{color:#8b949e}.num{color:#79c0ff}.op{color:#ff7b72}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px}
+th{background:#21262d;color:#8b949e;padding:7px 10px;text-align:left;font-weight:600}
+td{padding:7px 10px;border-bottom:1px solid #21262d;color:#e6edf3}
 tr:last-child td{border-bottom:none}
-footer{text-align:center;padding:24px 0 12px;color:#8b949e;font-size:.85rem}
-footer a{color:#58a6ff;text-decoration:none}
+.footer{text-align:center;padding:20px 0 10px;color:#8b949e;font-size:12px}
+.footer a{color:#58a6ff;text-decoration:none}
 </style>
 </head>
 <body>
-<h1>&#127919; Greedy</h1>
-<div class="date">2026-06-18 | LeetCode Daily</div>
+<div class="header">
+  <h1>🧩 Greedy</h1>
+  <div class="date">LeetCode Daily &nbsp;|&nbsp; 2026-06-19</div>
+</div>
 
+<!-- EASY -->
 <div class="card">
-<div class="card-header">
-<span class="ptitle">LeetCode #455 - Assign Cookies</span>
-<span class="badge easy">Easy</span>
-</div>
-<p style="color:#8b949e;font-size:.85rem">by LeetCode</p>
-<div class="sl">Algorithm Visualization</div>
-<div class="ascii">Greed Factor:  [1, 2, 3]
-Cookie Size:   [1, 1]
-Sort both arrays:
-  g: [1, 2, 3]   s: [1, 1]
-i=0(g=1), j=0(s=1): 1&gt;=1 OK assign, count=1, i++, j++
-i=1(g=2), j=1(s=1): 1&lt;2  NG skip
-j exhausted -&gt; result = 1
-Rule: smallest valid cookie to smallest needy child</div>
-<div class="sl">Basic Solution</div>
-<div class="cb"><span class="kw">class</span> <span class="fn">Solution</span>:
-  <span class="kw">def</span> <span class="fn">findContentChildren</span>(self, g, s):
-    g.<span class="fn">sort</span>(); s.<span class="fn">sort</span>()
-    <span class="nm">child</span> <span class="op">=</span> <span class="nm">cookie</span> <span class="op">=</span> 0
-    <span class="kw">while</span> <span class="nm">child</span> <span class="op">&lt;</span> <span class="fn">len</span>(g) <span class="kw">and</span> <span class="nm">cookie</span> <span class="op">&lt;</span> <span class="fn">len</span>(s):
-      <span class="kw">if</span> s[<span class="nm">cookie</span>] <span class="op">&gt;=</span> g[<span class="nm">child</span>]: <span class="nm">child</span> <span class="op">+=</span> 1
-      <span class="nm">cookie</span> <span class="op">+=</span> 1
-    <span class="kw">return</span> <span class="nm">child</span></div>
-<div class="sl">Optimized Solution</div>
-<div class="cb"><span class="kw">class</span> <span class="fn">Solution</span>:
-  <span class="kw">def</span> <span class="fn">findContentChildren</span>(self, g, s):
-    g.<span class="fn">sort</span>(); s.<span class="fn">sort</span>()
-    <span class="nm">i</span> <span class="op">=</span> <span class="nm">j</span> <span class="op">=</span> 0
-    <span class="kw">while</span> <span class="nm">i</span> <span class="op">&lt;</span> <span class="fn">len</span>(g) <span class="kw">and</span> <span class="nm">j</span> <span class="op">&lt;</span> <span class="fn">len</span>(s):
-      <span class="kw">if</span> s[<span class="nm">j</span>] <span class="op">&gt;=</span> g[<span class="nm">i</span>]: <span class="nm">i</span> <span class="op">+=</span> 1
-      <span class="nm">j</span> <span class="op">+=</span> 1
-    <span class="kw">return</span> <span class="nm">i</span></div>
-<div class="sl">Complexity Analysis</div>
-<table>
-<tr><th>Solution</th><th>Time</th><th>Space</th><th>Reason</th></tr>
-<tr><td>Basic</td><td>O(n log n)</td><td>O(1)</td><td>Sort dominates; two-pointer is O(n)</td></tr>
-<tr><td>Optimized</td><td>O(n log n)</td><td>O(1)</td><td>Same complexity, cleaner form</td></tr>
-</table>
+  <div class="card-header">
+    <span class="problem-title">LeetCode #455 – Assign Cookies</span>
+    <span class="badge easy">Easy</span>
+    <span class="by">by LeetCode</span>
+  </div>
+  <div class="section-label">📊 Algorithm Visualization</div>
+  <div class="ascii-box">greed:  [1, 2, 3]    (sorted child greed factors)
+cookie: [1, 1, 2]  (sorted cookie sizes)
+
+  g=1, c=1 → satisfy ✓  content=1
+  g=2, c=1 → skip  ✗   (c too small)
+  g=2, c=2 → satisfy ✓  content=2
+  g=3, no more cookies   content=2
+
+Result: 2 children satisfied</div>
+  <div class="section-label">🐍 Basic Solution</div>
+  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">findContentChildren</span>(<span class="cn">self</span>, g, s):
+        g.<span class="fn">sort</span>()
+        s.<span class="fn">sort</span>()
+        child <span class="op">=</span> <span class="num">0</span>
+        cookie <span class="op">=</span> <span class="num">0</span>
+        <span class="kw">while</span> child <span class="op">&lt;</span> <span class="fn">len</span>(g) <span class="kw">and</span> cookie <span class="op">&lt;</span> <span class="fn">len</span>(s):
+            <span class="kw">if</span> s[cookie] <span class="op">&gt;=</span> g[child]:
+                child <span clas="op">+=</span> <span class="num">1</span>
+            cookie <span class="op">+=</span> <span class="num">1</span>
+        <span class="kw">return</span> child</div>
+  <div class="section-label">⚡ Optimized Solution</div>
+  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">findContentChildren</span>(<span class="cn">self</span>, g, s):
+        g.<span class="fn">sort</span>()
+        s.<span class="fn">sort</span>()
+        gi <span class="op">=</span> si <span class="op">=</span> <span class="num">0</span>
+        <span class="cm"># Two-pointer greedy: smallest cookie that satisfies</span>
+        <span class="kw">while</span> gi <span class="op">&lt;</span> <span class="fn">len</span>(g) <span class="kw">and</span> si <span class="op">&lt;</span> <span class="fn">len</span>(s):
+            <span class="kw">if</span> s[si] <span class="op">&gt;=</span> g[gi]:
+                gi <span class="op">+=</span> <span class="num">1</span>
+            si <span class="op">+=</span> <span class="num">1</span>
+        <span class="kw">return</span> gi</div>
+  <div class="section-label">📈 Complexity Analysis</div>
+  <table>
+    <tr><th>Operation</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>Sort g, s</td><td>O(m log m + n log n)</td><td>O(1)</td><td>In-place sort</td></tr>
+    <tr><td>Two-pointer scan</td><td>O(m + n)</td><td>O(1)</td><td>Single pass each</td></tr>
+    <tr><td><strong>Total</strong></td><td><strong>O(m log m + n log n)</strong></td><td><strong>O(1)</strong></td><td>Sort dominates</td></tr>
+  </table>
 </div>
 
+<!-- MEDIUM -->
 <div class="card">
-<div class="card-header">
-<span class="ptitle">LeetCode #435 - Non-overlapping Intervals</span>
-<span class="badge medium">Medium</span>
-</div>
-<p style="color:#8b949e;font-size:.85rem">by LeetCode</p>
-<div class="sl">Algorithm Visualization</div>
-<div class="ascii">intervals = [[1,2],[2,3],[3,4],[1,3]]
-Sort by END time: [1,2] [2,3] [1,3] [3,4]
-Track kept end:
-  [1,2] keep -&gt; end=2  removed=0
-  [2,3] 2&gt;=2 keep -&gt; end=3  removed=0
-  [1,3] 1&lt;3  skip (overlap) removed=1
-  [3,4] 3&gt;=3 keep -&gt; end=4
-Answer: 1 removal</div>
-<div class="sl">Basic Solution</div>
-<div class="cb"><span class="kw">class</span> <span class="fn">Solution</span>:
-  <span class="kw">def</span> <span class="fn">eraseOverlapIntervals</span>(self, intervals):
-    <span class="kw">if</span> <span class="kw">not</span> intervals: <span class="kw">return</span> 0
-    intervals.<span class="fn">sort</span>(key=<span class="kw">lambda</span> x: x[1])
-    <span class="nm">removed</span> <span class="op">=</span> 0; <span class="nm">end</span> <span class="op">=</span> intervals[0][1]
-    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(1, <span class="fn">len</span>(intervals)):
-      <span class="kw">if</span> intervals[i][0] <span class="op">&lt;</span> <span class="nm">end</span>: <span class="nm">removed</span> <span class="op">+=</span> 1
-      <span class="kw">else</span>: <span class="nm">end</span> <span class="op">=</span> intervals[i][1]
-    <span class="kw">return</span> <span class="nm">removed</span></div>
-<div class="sl">Optimized Solution</div>
-<div class="cb"><span class="kw">class</span> <span class="fn">Solution</span>:
-  <span class="kw">def</span> <span class="fn">eraseOverlapIntervals</span>(self, intervals):
-    <span class="cm"># Activity Selection: count max non-overlapping then subtract</span>
-    intervals.<span class="fn">sort</span>(key=<span class="kw">lambda</span> x: x[1])
-    <span class="nm">keep</span> <span class="op">=</span> 1; <span class="nm">end</span> <span class="op">=</span> intervals[0][1]
-    <span class="kw">for</span> s, e <span class="kw">in</span> intervals[1:]:
-      <span class="kw">if</span> s <span class="op">&gt;=</span> <span class="nm">end</span>: <span class="nm">keep</span> <span class="op">+=</span> 1; <span class="nm">end</span> <span class="op">=</span> e
-    <span class="kw">return</span> <span class="fn">len</span>(intervals) <span class="op">-</span> <span class="nm">keep</span></div>
-<div class="sl">Complexity Analysis</div>
-<table>
-<tr><th>Solution</th><th>Time</th><th>Space</th><th>Reason</th></tr>
-<tr><td>Basic</td><td>O(n log n)</td><td>O(1)</td><td>Sort + single linear scan</td></tr>
-<tr><td>Optimized</td><td>O(n log n)</td><td>O(1)</td><td>Same; count kept then subtract</td></tr>
-</table>
+  <div class="card-header">
+    <span class="problem-title">LeetCode #435 – Non-overlapping Intervals</span>
+    <span class="badge medium">Medium</span>
+    <span class="by">by LeetCode</span>
+  </div>
+  <div class="section-label">📊 Algorithm Visualization</div>
+  <div class="ascii-box">intervals: [[1,2],[2,3],[3,4],[1,3]]
+sorted by end: [[1,2],[2,3],[1,3],[3,4]]
+
+  keep [1,2]  → prev_end=2
+  keep [2,3]  → prev_end=3  (start==prev_end OK)
+  skip [1,3]  → remove! (start 1 &lt; prev_end 3)  removed=1
+  keep [3,4]  → prev_end=4
+
+Total removed: 1</div>
+  <div class="section-label">🐍 Basic Solution</div>
+  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">eraseOverlapIntervals</span>(<span class="cn">self</span>, intervals):
+        <span class="kw">if</span> <span class="kw">not</span> intervals:
+            <span class="kw">return</span> <span class="num">0</span>
+        intervals.<span class="fn">sort</span>(key<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="num">1</span>])
+        removed <span class="op">=</span> <span class="num">0</span>
+        prev_end <span class="op">=</span> intervals[<span class="num">0</span>][<span class="num">1</span>]
+        <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="fn">len</span>(intervals)):
+            <span class="kw">if</span> intervals[i][<span class="num">0</span>] <span class="op">&lt;</span> prev_end:
+                removed <span class="op">+=</span> <span class="num">1</span>
+            <span class="kw">else</span>:
+                prev_end <span class="op">=</span> intervals[i][<span class="num">1</span>]
+        <span class="kw">return</span> removed</div>
+  <div class="section-label">⚩ Optimized Solution</div>
+  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">eraseOverlapIntervals</span>(<span class="cn">self</span>, intervals):
+        intervals.<span class="fn">sort</span>(key<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="num">1</span>])
+        removed, prev_end <span class="op">=</span> <span class="num">0</span>, <span class="fn">float</span>(<span class="st">'-inf'</span>)
+        <span class="kw">for</span> start, end <span class="kw">in</span> intervals:
+            <span class="kw">if</span> start <span class="op">&lt;</span> prev_end:
+                removed <span class="op">+=</span> <span class="num">1</span>
+                <span class="cm"># Keep interval with smaller end (already sorted)</span>
+            <span class="kw">else</span>:
+                prev_end <span class="op">=</span> end
+        <span class="kw">return</span> removed</div>
+  <div class="section-label">📈 Complexity Analysis</div>
+  <table>
+    <tr><th>Operation</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>Sort by end</td><td>O(n log n)</td><td>O(1)</td><td>Greedy: earliest end first</td></tr>
+    <tr><td>Linear scan</td><td>O(n)</td><td>O(1)</td><td>Single pass, O(1) state</td></tr>
+    <tr><td><strong>Total</strong></td><td><strong>O(n log n)</strong></td><td><strong>O(1)</strong></td><td>Sort dominates</td></tr>
+  </table>
 </div>
 
+<!-- HARD -->
 <div class="card">
-<div class="card-header">
-<span class="ptitle">LeetCode #45 - Jump Game II</span>
-<span class="badge hard">Hard</span>
-</div>
-<p style="color:#8b949e;font-size:.85rem">by LeetCode</p>
-<div class="sl">Algorithm Visualization</div>
-<div class="ascii">nums = [2, 3, 1, 1, 4]
-idx:    0  1  2  3  4
-BFS-level greedy (each level = 1 jump):
-Level 0: idx0 -&gt; far=2, reach level end: jumps=1, end=2
-Level 1: idx1: 1+3=4(new far!), idx2: 2+1=3
-         reach level end(idx2): jumps=2, end=4
-end(4) &gt;= last(4) DONE -&gt; Answer: 2 jumps</div>
-<div class="sl">Basic Solution</div>
-<div class="cb"><span class="kw">class</span> <span class="fn">Solution</span>:
-  <span class="kw">def</span> <span class="fn">jump</span>(self, nums):
-    <span class="nm">jumps</span> <span class="op">=</span> <span class="nm">curr_end</span> <span class="op">=</span> <span class="nm">farthest</span> <span class="op">=</span> 0
-    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(nums) <span class="op">-</span> 1):
-      <span class="nm">farthest</span> <span class="op">=</span> <span class="fn">max</span>(<span class="nm">farthest</span>, i <span class="op">+</span> nums[i])
-      <span class="kw">if</span> i <span class="op">==</span> <span class="nm">curr_end</span>:
-        <span class="nm">jumps</span> <span class="op">+=</span> 1; <span class="nm">curr_end</span> <span class="op">=</span> <span class="nm">farthest</span>
-        <span class="kw">if</span> <span class="nm">curr_end</span> <span class="op">&gt;=</span> <span class="fn">len</span>(nums) <span class="op">-</span> 1: <span class="kw">break</span>
-    <span class="kw">return</span> <span class="nm">jumps</span></div>
-<div class="sl">Optimized Solution</div>
-<div class="cb"><span class="kw">class</span> <span class="fn">Solution</span>:
-  <span class="kw">def</span> <span class="fn">jump</span>(self, nums):
-    <span class="nm">jumps</span> <span class="op">=</span> <span class="nm">cur</span> <span class="op">=</span> <span class="nm">far</span> <span class="op">=</span> 0
-    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(nums) <span class="op">-</span> 1):
-      <span class="nm">far</span> <span class="op">=</span> <span class="fn">max</span>(<span class="nm">far</span>, i <span class="op">+</span> nums[i])
-      <span class="kw">if</span> i <span class="op">==</span> <span class="nm">cur</span>: <span class="nm">jumps</span> <span class="op">+=</span> 1; <span class="nm">cur</span> <span class="op">=</span> <span class="nm">far</span>
-    <span class="kw">return</span> <span class="nm">jumps</span></div>
-<div class="sl">Complexity Analysis</div>
-<table>
-<tr><th>Solution</th><th>Time</th><th>Space</th><th>Reason</th></tr>
-<tr><td>Basic</td><td>O(n)</td><td>O(1)</td><td>Single pass; early break when end reachable</td></tr>
-<tr><td>Optimized</td><td>O(n)</td><td>O(1)</td><td>Same; early-exit removed for brevity</td></tr>
-</table>
+  <div class="card-header">
+    <span class="problem-title">LeetCode #502 – IPO</span>
+    <span class="badge hard">Hard</span>
+    <span class="by">by LeetCode</span>
+  </div>
+  <div class="section-label">📊 Algorithm Visualization</div>
+  <div class="ascii-box">k=2, W=0, profits=[1,2,3], capital=[0,1,1]
+
+  Available (cap&lt;=0): [(0,1)]
+  Max heap → pick profit=1  W=1
+
+  Available (cap&lt;=1): [(1,2),(1,3)]
+  Max heap → pick profit=3  W=4
+
+  k=2 done. Final capital = 4
+
+Strategy: always pick highest profit among affordable projects</div>
+  <div class="section-label">🐍 Basic Solution</div>
+  <div class="code-block"><span class="kw">import</span> heapq
+<span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">findMaximizedCapital</span>(<span class="cn">self</span>, k, w, profits, capital):
+        projects <span class="op">=</span> <span class="fn">sorted</span>(<span class="fn">zip</span>(capital, profits))
+        max_heap <span class="op">=</span> []
+        i <span class="op">=</span> <span class="num">0</span>
+        <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(k):
+            <span class="kw">while</span> i <span class="op">&lt;</span> <span class="fn">len</span>(projects) <span class="kw">and</span> projects[i][<span class="num">0</span>] <span class="op">&lt;=</span> w:
+                heapq.<span class="fn">heappush</span>(max_heap, <span class="op">-</span>projects[i][<span class="num">1</span>])
+                i <span class="op">+=</span> <span class="num">1</span>
+            <span class="kw">if</span> <span class="kw">not</span> max_heap:
+                <span class="kw">break</span>
+            w <span class="op">+=</span> <span class="op">-</span>heapq.<span class="fn">heappop</span>(max_heap)
+        <span class="kw">return</span> w:</div>
+  <div class="section-label">⚡ Optimized Solution</div>
+  <div class="code-block"><span class="kw">import</span> heapq
+<span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">findMaximizedCapital</span>(<span class="cn">self</span>, k, w, profits, capital):
+        <span class="cm"># Sort projects by capital requirement (ascending)</span>
+        projects <span class="op">=</span> <span class="fn">sorted</span>(<span class="fn">zip</span>(capital, profits))
+        max_heap <span class="op">=</span> []
+        idx <span clas="op">=</span> <span class="num">0</span>
+        n <span class="op">=</span> <span class="fn">len</span>(projects)
+        <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(k):
+            <span class="cm"># Push all affordable projects into max-heap (negate for max)</span>
+            <span class="kw">while</span> idx <span class="op">&lt;</span> n <span class="kw">and</span> projects[idx][<span class="num">0</span>] <span class="op">&lt;=</span> w:
+                heapq.<span class="fn">heappush</span>(max_heap, <span class="op">-</span>projects[idx][<span class="num">1</span>])
+                idx <span class="op">+=</span> <span class="num">1</span>
+            <span class="kw">if</span> <span class="kw">not</span> max_heap:
+                <span class="kw">break</span>
+            w <span class="op">-=</span> heapq.<span class="fn">heappop</span>(max_heap)
+        <span class="kw">return</span> w</div>
+  <div class="section-label">📈 Complexity Analysis</div>
+  <table>
+    <tr><th>Operation</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>Sort projects</td><td>O(n log n)</td><td>O(n)</td><td>Sort all n projects</td></tr>
+    <tr><td>k iterations</td><td>O(k log n)</td><td>O(n)</td><td>Each heappush/pop is O(log n)</td></tr>
+    <tr><td><strong>Total</strong></td><td><strong>O(n log n + k log n)</strong></td><td><strong>O(n)</strong></td><td>Heap stores up to n elements</td></tr>
+  </table>
 </div>
 
-<footer>
-<a href="https://chloeyeo.github.io/leetcode-explanations">&#127760; chloeyeo.github.io/leetcode-explanations</a>
-<p style="margin-top:6px;font-size:.75rem">LeetCode Daily Study &#183; 2026-06-18</p>
-</footer>
+<div class="footer">
+  <p>🌒 <a href="https://chloeyeo.github.io/leetcode-explanations">chloeyeo.github.io/leetcode-explanations</a></p>
+</div>
 </body>
 </html>

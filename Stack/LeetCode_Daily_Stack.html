@@ -3,182 +3,238 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LeetCode Daily | Stack</title>
+<title>LeetCode Daily | Stack | 2026-06-18</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0d1117;color:#c9d1d9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',monospace;padding:16px;max-width:900px;margin:0 auto}
-h1{text-align:center;font-size:1.4rem;color:#58a6ff;padding:20px 0 4px}
-.date{text-align:center;color:#8b949e;font-size:.85rem;margin-bottom:24px}
-.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:28px}
-.ph{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
-.pt{font-size:1.1rem;font-weight:700;color:#f0f6fc}
-.badge{padding:3px 10px;border-radius:12px;font-size:.75rem;font-weight:700}
-.easy{background:#1a4a2a;color:#3fb950}
-.medium{background:#4a3000;color:#d29922}
-.hard{background:#4a1a1a;color:#f85149}
-.by{color:#8b949e;font-size:.8rem}
-.st{color:#58a6ff;font-size:.9rem;font-weight:600;margin:16px 0 8px;border-bottom:1px solid #21262d;padding-bottom:4px}
-.aa{background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:14px;font-size:.78rem;line-height:1.6;color:#7ee787;overflow-x:auto;white-space:pre}
-.cb{background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:14px;font-size:.8rem;line-height:1.7;overflow-x:auto;white-space:pre}
-.kw{color:#ff7b72}.fn{color:#d2a8ff}.cm{color:#8b949e}.s{color:#a5d6ff}.n{color:#79c0ff}.bi{color:#ffa657}
-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:.8rem}
-th{background:#21262d;color:#8b949e;padding:8px 10px;text-align:left}
-td{padding:7px 10px;border-bottom:1px solid #21262d;color:#c9d1d9;vertical-align:top}
-.footer{text-align:center;padding:24px 0 8px;color:#8b949e;font-size:.85rem}
-.footer a{color:#58a6ff;text-decoration:none}
+body{background:#0d1117;color:#c9d1d9;font-family:'Courier New',monospace;padding:16px;line-height:1.6}
+header{text-align:center;padding:20px 0 10px;border-bottom:1px solid #30363d;margin-bottom:24px}
+header h1{color:#58a6ff;font-size:1.4em}
+header .date{color:#8b949e;font-size:.85em;margin-top:4px}
+.problem{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:18px;margin-bottom:24px}
+.problem-title{font-size:1.1em;font-weight:bold;color:#f0f6fc;margin-bottom:6px}
+.problem-title a{color:#58a6ff;text-decoration:none}
+.problem-title a:hover{text-decoration:underline}
+.badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:.75em;font-weight:bold;margin-bottom:12px}
+.easy{background:#1a4731;color:#3fb950}
+.medium{background:#4a2a0a;color:#d29922}
+.hard{background:#4a1010;color:#f85149}
+.section-label{color:#8b949e;font-size:.8em;text-transform:uppercase;letter-spacing:.08em;margin:14px 0 6px}
+pre.ascii{background:#0d1117;border:1px solid #21262d;border-radius:6px;padding:12px;overflow-x:auto;font-size:.78em;color:#7ee787;line-height:1.4}
+pre.code{background:#0d1117;border:1px solid #21262d;border-radius:6px;padding:14px;overflow-x:auto;font-size:.78em;line-height:1.6}
+.kw{color:#ff7b72}.fn{color:#d2a8ff}.st{color:#a5d6ff}.cm{color:#8b949e}.nm{color:#79c0ff}.op{color:#f0f6fc}
+table{width:100%;border-collapse:collapse;font-size:.8em;margin-top:6px}
+th{background:#21262d;color:#8b949e;padding:7px 10px;text-align:left;border:1px solid #30363d}
+td{padding:7px 10px;border:1px solid #21262d;vertical-align:top}
+td:first-child{color:#58a6ff;font-weight:bold;white-space:nowrap}
+footer{text-align:center;margin-top:32px;padding-top:16px;border-top:1px solid #30363d;color:#8b949e;font-size:.82em}
+footer a{color:#58a6ff;text-decoration:none}
 </style>
 </head>
 <body>
-<h1>LeetCode Daily | Stack</h1>
-<div class="date">2026-06-13</div>
+<header>
+  <h1>🧩 Stack</h1>
+  <div class="date">2026-06-18 &nbsp;|&nbsp; LeetCode Daily</div>
+</header>
 
-<div class="card">
-<div class="ph"><span class="pt">Valid Parentheses (LeetCode #20)</span><span class="badge easy">Easy</span><span class="by">- by LeetCode</span></div>
-<div class="st">Algorithm Visualization</div>
-<div class="aa">Input: s = "({[]})"
-PUSH  PUSH  PUSH
-({    ({[   ({[}   match ']'+'[' pop -> ({   match '}'+'{'  -> (   match ')' -> []
-Stack (bottom->top)
-'(' push  stack:['(']
-'y' push  stack:['(','{']
-'[' push  stack:['(','{','[']
-']' match stack:['(','{']  OK
-'}' match stack:['(']      OK
-')' match stack:[]         OK  -> TRUE</div>
-<div class="st">Basic Solution (Python)</div>
-<div class="cb"><span class="kw">def</span> <span class="fn">isValid</span>(s: <span class="bi">str</span>) -&gt; <span class="bi">bool</span>:
+<!-- ========== EASY ========== -->
+<div class="problem">
+  <div class="problem-title"><a href="https://leetcode.com/problems/min-stack/" target="_blank">LeetCode #155 — Min Stack</a> &nbsp;<span style="color:#8b949e;font-size:.8em">by LeetCode</span></div>
+  <span class="badge easy">Easy</span>
+
+  <div class="section-label">🎨 Algorithm Visualization</div>
+<pre class="ascii">
+  push(5) push(3) push(7) push(2)
+  ┌─────────────────────────────┐
+  │  stack:  [5, 3, 7, 2]  top→2│
+  │  minStk: [5, 3, 3, 2]  min→2│
+  └─────────────────────────────┘
+  pop()  →  removes 2
+  ┌─────────────────────────────┐
+  │  stack:  [5, 3, 7]     top→7│
+  │  minStk: [5, 3, 3]     min→3│
+  └─────────────────────────────┘
+  getMin() = 3   (top of minStk)
+</pre>
+
+  <div class="section-label">🐍 Basic Solution</div>
+<pre class="code"><span class="kw">class</span> <span class="fn">MinStack</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="nm">self</span>):
+        <span class="nm">self</span>.stack = []
+        <span class="nm">self</span>.min_stack = []
+
+    <span class="kw">def</span> <span class="fn">push</span>(<span class="nm">self</span>, val):
+        <span class="nm">self</span>.stack.<span class="fn">append</span>(val)
+        <span class="kw">if not</span> <span class="nm">self</span>.min_stack <span class="kw">or</span> val &lt;= <span class="nm">self</span>.min_stack[<span class="op">-1</span>]:
+            <span class="nm">self</span>.min_stack.<span class="fn">append</span>(val)
+
+    <span class="kw">def</span> <span class="fn">pop</span>(<span class="nm">self</span>):
+        top = <span class="nm">self</span>.stack.<span class="fn">pop</span>()
+        <span class="kw">if</span> top == <span class="nm">self</span>.min_stack[<span class="op">-1</span>]:
+            <span class="nm">self</span>.min_stack.<span class="fn">pop</span>()
+
+    <span class="kw">def</span> <span class="fn">top</span>(<span class="nm">self</span>) -&gt; <span class="nm">int</span>:
+        <span class="kw">return</span> <span class="nm">self</span>.stack[<span class="op">-1</span>]
+
+    <span class="kw">def</span> <span class="fn">getMin</span>(<span class="nm">self</span>) -&gt; <span class="nm">int</span>:
+        <span class="kw">return</span> <span class="nm">self</span>.min_stack[<span class="op">-1</span>]
+</pre>
+
+  <div class="section-label">⚡ Optimized Solution (single stack, tuple)</div>
+<pre class="code"><span class="kw">class</span> <span class="fn">MinStack</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="nm">self</span>):
+        <span class="nm">self</span>.stack = []  <span class="cm"># (val, current_min)</span>
+
+    <span class="kw">def</span> <span class="fn">push</span>(<span class="nm">self</span>, val):
+        cur_min = <span class="fn">min</span>(val, <span class="nm">self</span>.stack[<span class="op">-1</span>][<span class="op">1</span>] <span class="kw">if</span> <span class="nm">self</span>.stack <span class="kw">else</span> val)
+        <span class="nm">self</span>.stack.<span class="fn">append</span>((val, cur_min))
+
+    <span class="kw">def</span> <span class="fn">pop</span>(<span class="nm">self</span>):
+        <span class="nm">self</span>.stack.<span class="fn">pop</span>()
+
+    <span class="kw">def</span> <span class="fn">top</span>(<span clas="nm">self</span>) -&gt; <span class="nm">int</span>:
+        <span class="kw">return</span> <span class="nm">self</span>.stack[<span class="op">-1</span>][<span class="op">0</span>]
+
+    <span class="kw">def</span> <span class="fn">getMin</span>(<span class="nm">self</span>) -&gt; <span class="nm">int</span>:
+        <span class="kw">return</span> <span class="nm">self</span>.stack[<span class="op">-1</span>][<span class="op">1</span>]
+</pre>
+
+  <div class="section-label">📊 Complexity Analysis</div>
+  <table>
+    <tr><th>Operation</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>push</td><td>O(1)</td><td>O(n)</td><td>append is amortized O(1); stores tuple with running min</td></tr>
+    <tr><td>pop</td><td>O(1)</td><td>—</td><td>list pop from end is O(1)</td></tr>
+    <tr><td>top / getMin</td><td>O(1)</td><td>—</td><td>direct index access to last element</td></tr>
+  </table>
+</div>
+
+<!-- ========== MEDIUM ========== -->
+<div class="problem">
+  <div class="problem-title"><a href="https://leetcode.com/problems/evaluate-reverse-polish-notation/" target="_blank">LeetCode #150 — Evaluate Reverse Polish Notation</a> &nbsp;<span style="color:#8b949e;font-size:.8em">by LeetCode</span></div>
+  <span class="badge medium">Medium</span>
+
+  <div class="section-label">🎨 Algorithm Visualization</div>
+<pre class="ascii">
+  tokens: ["2","1","+","3","*"]
+
+  Step 1: push 2      stack: [2]
+  Step 2: push 1      stack: [2, 1]
+  Step 3: op '+'  → pop 1,2 → push 3   stack: [3]
+  Step 4: push 3      stack: [3, 3]
+  Step 5: op '*'  → pop 3,3 → push 9   stack: [9]
+
+  Result = 9   ✣  ((2+1)*3 = 9)
+</pre>
+
+  <div class="section-label">🐍 Basic Solution</div>
+<pre class="code"><span class="kw">def</span> <span class="fn">evalRPN</span>(<span class="nm">self</span>, tokens):
     stack = []
-    mapping = {<span class="s">')'</span>:<span class="s">'('</span>, <span class="s">'}'</span>:<span class="s">'{'</span>, <span class="s">']'</span>:<span class="s">'['</span>}
-    <span class="kw">for</span> char <span class="kw">in</span> s:
-        <span class="kw">if</span> char <span class="kw">in</span> mapping:
-            top = stack.pop() <span class="kw">if</span> stack <span class="kw">else</span> <span class="s">'#'</span>
-            <span class="kw">if</span> mapping[char] != top:
-                <span class="kw">return False</span>
+    ops = {<span class="st">'+'</span>, <span class="st">'-'</span>, <span class="st">'*'</span>, <span class="st">'/'</span>}
+    <span class="kw">for</span> token <span class="kw">in</span> tokens:
+        <span class="kw">if</span> token <span class="kw">in</span> ops:
+            b, a = stack.<span class="fn">pop</span>(), stack.<span class="fn">pop</span>()
+            <span class="kw">if</span>   token == <span class="st">'+'</span>: stack.<span class="fn">append</span>(a + b)
+            <span class="kw">elif</span> token == <span class="st">'-'</span>: stack.<span class="fn">append</span>(a - b)
+            <span class="kw">elif</span> token == <span class="st">'*'</span>: stack.<span class="fn">append</span>(a * b)
+            <span class="kw">else</span>:              stack.<span class="fn">append</span>(<span class="nm">int</span>(a / b))  <span class="cm"># truncate toward zero</span>
         <span class="kw">else</span>:
-            stack.append(char)
-    <span class="kw">return not</span> stack</div>
-<div class="st">Optimized (Python)</div>
-<div class="cb"><span class="kw">def</span> <span class="fn">isValid</span>(s: <span class="bi">str</span>) -&gt; <span class="bi">bool</span>:
-    <span class="cm"># odd length -> False immediately</span>
-    <span class="kw">if</span> <span class="bi">len</span>(s) % <span class="n">2</span>: <span class="kw">return False</span>
+            stack.<span class="fn">append</span>(<span class="nm">int</span>(token))
+    <span class="kw">return</span> stack[<span class="op">0</span>]
+</pre>
+
+  <div class="section-label">⚑ Optimized Solution (dict dispatch)</div>
+<pre class="code"><span class="kw">import</span> operator
+<span class="kw">def</span> <span class="fn">evalRPN</span>(<span class="nm">self</span>, tokens):
+    <span class="nm">ops</span> = {
+        <span class="st">'+'</span>: operator.add,
+        <span class="st">'-'</span>: operator.sub,
+        <span class="st">'*'</span>: operator.mul,
+        <span class="st">'/'</span>: <span class="kw">lambda</span> a, b: <span class="nm">int</span>(operator.truediv(a, b))
+    }
     stack = []
-    close_open = {<span class="s">')'</span>:<span class="s">'('</span>, <span class="s">'}'</span>:<span class="s">'{'</span>, <span class="s">']'</span>:<span class="s">'['</span>}
-    <span class="kw">for</span> c <span class="kw">in</span> s:
-        <span class="kw">if</span> c <span class="kw">in</span> close_open:
-            <span class="kw">if not</span> stack <span class="kw">or</span> stack[-<span class="n">1</span>] != close_open[c]: <span class="kw">return False</span>
-            stack.pop()
-        <span class="kw">else</span>: stack.append(c)
-    <span class="kw">return not</span> stack</div>
-<div class="st">Complexity</div>
-<table><tr><th>Type</th><th>Basic</th><th>Optimized</th><th>Reason</th></tr>
-<tr><td>Time</td><td>O(n)</td><td>O(n)</td><td>Single pass; each push/pop O(1)</td></tr>
-<tr><td>Space</td><td>O(n)</td><td>O(n)</td><td>Worst case all chars on stack</td></tr>
-<tr><td>Gain</td><td>-</td><td>O(n)/O(n)</td><td>Odd-length early return skips half cases</td></tr></table>
+    <span class="kw">for</span> t <span class="kw">in</span> tokens:
+        <span class="kw">if</span> t <span class="kw">in</span> <span class="nm">ops</span>:
+            b, a = stack.<span class="fn">pop</span>(), stack.<span class="fn">pop</span>()
+            stack.<span class="fn">append</span>(<span class="nm">ops</span>[t](a, b))
+        <span class="kw">else</span>:
+            stack.<span class="fn">append</span>(<span class="nm">int</span>(t))
+    <span class="kw">return</span> stack[<span class="op">0</span>]
+</pre>
+
+  <div class="section-label">📊 Complexity Analysis</div>
+  <table>
+    <tr><th>Operation</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>Overall loop</td><td>O(n)</td><td>O(n)</td><td>single pass through all tokens; stack holds up to n/2 operands</td></tr>
+    <tr><td>Dict lookup</td><td>O(1)</td><td>—</td><td>hash table for operator dispatch</td></tr>
+    <tr><td>push / pop</td><td>O(1)</td><td>—</td><td>amortized list operations</td></tr>
+  </table>
 </div>
 
-<div class="card">
-<div class="ph"><span class="pt">Daily Temperatures (LeetCode #739)</span><span class="badge medium">Medium</span><span class="by">- by LeetCode</span></div>
-<div class="st">Algorithm Visualization</div>
-<div class="aa">temperatures = [73,74,75,71,69,72,76,73]
-answer       = [ 1, 1, 4, 2, 1, 1, 0, 0]
+<!-- ========== HARD ========== -->
+<div class="problem">
+  <div class="problem-title"><a href="https://leetcode.com/problems/largest-rectangle-in-histogram/" target="_blank">LeetCode #84 — Largest Rectangle in Histogram</a> &nbsp;<span style="color:#8b949e;font-size:.8em">by LeetCode</span></div>
+  <span class="badge hard">Hard</span>
 
-Monotonic Decreasing Stack (stores indices):
-i=0 t=73 push 0          stack:[0]
-i=1 t=74 74>73 pop 0 ans[0]=1  push 1  stack:[1]
-i=2 t=75 75>74 pop 1 ans[1]=1  push 2  stack:[2]
-i=3 t=71                        push 3  stack:[2,3]
-i=4 t=69                        push 4  stack:[2,3,4]
-i=5 t=72 72>69 pop 4 ans[4]=1
-         72>71 pop 3 ans[3]=2  push 5  stack:[2,5]
-i=6 t=76 76>72 pop 5 ans[5]=1
-         76>75 pop 2 ans[2]=4  push 6  stack:[6]
-i=7 t=73                        push 7  stack:[6,7]
-Remaining -> ans stays 0</div>
-<div class="st">Basic Solution (Python)</div>
-<div class="cb"><span class="kw">def</span> <span class="fn">dailyTemperatures</span>(temperatures: <span class="bi">list</span>) -&gt; <span class="bi">list</span>:
-    n, answer = <span class="bi">len</span>(temperatures), [<span class="n">0</span>]*<span class="bi">len</span>(temperatures)
-    <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(n):
-        <span class="kw">for</span> j <span class="kw">in</span> <span class="bi">range</span>(i+<span class="n">1</span>, n):
-            <span class="kw">if</span> temperatures[j] &gt; temperatures[i]:
-                answer[i] = j - i; <span class="kw">break</span>
-    <span class="kw">return</span> answer</div>
-<div class="st">Optimized - Monotonic Stack (Python)</div>
-<div class="cb"><span class="kw">def</span> <span class="fn">dailyTemperatures</span>(temperatures: <span class="bi">list</span>) -&gt; <span class="bi">list</span>:
-    answer = [<span class="n">0</span>] * <span class="bi">len</span>(temperatures)
-    stack = []  <span class="cm"># stores indices, monotonic decreasing</span>
-    <span class="kw">for</span> i, temp <span class="kw">in</span> <span class="bi">enumerate</span>(temperatures):
-        <span class="kw">while</span> stack <span class="kw">and</span> temperatures[stack[-<span class="n">1</span>]] &lt; temp:
-            idx = stack.pop()
-            answer[idx] = i - idx
-        stack.append(i)
-    <span class="kw">return</span> answer</div>
-<div class="st">Complexity</div>
-<table><tr><th>Type</th><th>Basic</th><th>Optimized</th><th>Reason</th></tr>
-<tr><td>Time</td><td>O(n^2)</td><td>O(n)</td><td>Each index pushed/popped at most once</td></tr>
-<tr><td>Space</td><td>O(1)</td><td>O(n)</td><td>Stack stores up to n indices</td></tr></table>
-</div>
+  <div class="section-label">🎨 Algorithm Visualization</div>
+<pre class="ascii">
+  heights: [2, 1, 5, 6, 2, 3]
 
-<div class="card">
-<div class="ph"><span class="pt">Largest Rectangle in Histogram (LeetCode #84)</span><span class="badge hard">Hard</span><span class="by">- by LeetCode</span></div>
-<div class="st">Algorithm Visualization</div>
-<div class="aa">heights = [2,1,5,6,2,3]
-       |
-     6 |    ##
-     5 |    ####
-     4 |    ####
-     3 |    ####   ##
-     2 |##  ########
-     1 |############
-       +-----------
-        2  1  5  6  2  3
+   6  █
+   5  █ █
+   4 █ █
+   3  █ █      █
+   2  █ █ █ █ █
+   1  █ █ █ █ █ █
+      0 1 2 3 4 5
 
-Monotonic Increasing Stack: (height, start_idx)
-i=0 h=2  push(2,0)  stack:[(2,0)]
-i=1 h=1  1&lt;2 pop(2,0) area=2*(1-0)=2 start=0
-         push(1,0)   stack:[(1,0)]
-i=2 h=5  push(5,2)  stack:[(1,0),(5,2)]
-i=3 h=6  push(6,3)  stack:[(1,0),(5,2),(6,3)]
-i=4 h=2  2&lt;6 pop(6,3) area=6*(4-3)=6
-         2&lt;5 pop(5,2) area=5*(4-2)=10  <- MAX!
-         push(2,2)   stack:[(1,0),(2,2)]
-i=5 h=3  push(3,5)  stack:[(1,0),(2,2),(3,5)]
-Remaining:
-  pop(3,5) area=3*(6-5)=3
-  pop(2,2) area=2*(6-2)=8
-  pop(1,0) area=1*(6-0)=6
-maxArea = 10</div>
-<div class="st">Basic Solution (Python)</div>
-<div class="cb"><span class="kw">def</span> <span class="fn">largestRectangleArea</span>(heights: <span class="bi">list</span>) -&gt; <span class="bi">int</span>:
-    max_area, n = <span class="n">0</span>, <span class="bi">len</span>(heights)
-    <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(n):
-        min_h = heights[i]
-        <span class="kw">for</span> j <span class="kw">in</span> <span class="bi">range</span>(i, n):
-            min_h = <span class="bi">min</span>(min_h, heights[j])
-            max_area = <span class="bi">max</span>(max_area, min_h*(j-i+<span class="n">1</span>))
-    <span class="kw">return</span> max_area</div>
-<div class="st">Optimized - Monotonic Stack (Python)</div>
-<div class="cb"><span class="kw">def</span> <span class="fn">largestRectangleArea</span>(heights: <span class="bi">list</span>) -&gt; <span class="bi">int</span>:
-    max_area, stack = <span class="n">0</span>, []  <span class="cm"># (height, start)</span>
-    <span class="kw">for</span> i, h <span class="kw">in</span> <span class="bi">enumerate</span>(heights):
+  Monotonic stack tracks increasing bars.
+  Wen a shorter bar is found → pop and compute area.
+
+  max area = 10  (bars at idx 2,3 with h=5, width=2)
+</pre>
+
+  <div class="section-label">🐍 Basic Solution</div>
+<pre class="code"><span class="kw">def</span> <span class="fn">largestRectangleArea</span>(<span class="nm">self</span>, heights):
+    max_area = <span class="op">0</span>
+    stack = []  <span class="cm"># (index, height)</span>
+    <span class="kw">for</span> i, h <span class="kw">in</span> <span class="fn">enumerate</span>(heights):
         start = i
-        <span clas="kw">while</span> stack <span class="kw">and</span> stack[-<span class="n">1</span>][<span class="n">0</span>] &gt; h:
-            height, idx = stack.pop()
-            max_area = <span class="bi">max</span>(max_area, height*(i-idx))
+        <span class="kw">while</span> stack <span class="kw">and</span> stack[<span class="op">-1</span>][<span class="op">1</span>] &gt; h:
+            idx, height = stack.<span class="fn">pop</span>()
+            max_area = <span class="fn">max</span>(max_area, height * (i - idx))
             start = idx
-        stack.append((h, start))
-    <span class="kw">for</span> h, idx <span class="kw">in</span> stack:
-        max_area = <span class="bi">max</span>(max_area, h*(<span class="bi">len</span>(heights)-idx))
-    <span class="kw">return</span> max_area</div>
-<div class="st">Complexity</div>
-<table><tr><th>Type</th><th>Basic</th><th>Optimized</th><th>Reason</th></tr>
-<tr><td>Time</td><td>O(n^2)</td><td>O(n)</td><td>Each bar pushed/popped exactly once</td></tr>
-<tr><td>Space</td><td>O(1)</td><td>O(n)</td><td>Stack at most n entries</td></tr>
-<tr><td>Key idea</td><td>-</td><td>start tracking</td><td>When popping, extend start leftward for correct width</td></tr></table>
+        stack.<span class="fn">append</span>((start, h))
+    <span class="kw">for</span> i, h <span class="kw">in</span> stack:
+        max_area = <span class="fn">max</span>(max_area, h * (<span class="fn">len</span>(heights) - i))
+    <span class="kw">return</span> max_area
+</pre>
+
+  <div class="section-label">⚡ Optimized Solution (sentinel padding)</div>
+<pre class="code"><span class="kw">def</span> <span class="fn">largestRectangleArea</span>(<span class="nm">self</span>, heights):
+    heights = [<span class="op">0</span>] + heights + [<span class="op">0</span>]  <span class="cm"># sentinels flush remaining bars</span>
+    stack = [<span class="op">0</span>]  <span class="cm"># indices</span>
+    max_area = <span class="op">0</span>
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="op">1</span>, <span class="fn">len</span>(heights)):
+        <span class="kw">while</span> heights[i] &lt; heights[stack[<span class="op">-1</span>]]:
+            h = heights[stack.<span class="fn">pop</span>()]
+            w = i - stack[<span class="op">-1</span>] - <span class="op">1</span>
+            max_area = <span class="fn">max</span>(max_area, h * w)
+        stack.<span class="fn">append</span>(i)
+    <span class="kw">return</span> max_area
+</pre>
+
+  <div class="section-label">📊 Complexity Analysis</div>
+  <table>
+    <tr><th>Step</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>Main loop</td><td>O(n)</td><td>O(n)</td><td>each bar pushed &amp; popped at most once (amortized O(1))</td></tr>
+    <tr><td>Width calc (i - stack[-1] - 1)</td><td>O(1)</td><td>—</td><td>left boundary stored in stack; no extra scan</td></tr>
+    <tr><td>Sentinel bars</td><td>O(1)</td><td>O(1)</td><td>avoids special-case post-loop; constant overhead</td></tr>
+    <tr><td>Overall</td><td>O(n)</td><td>O(n)</td><td>single pass; stack size bounded by n</td></tr>
+  </table>
 </div>
 
-<div class="footer">
-<p><a href="https://chloeyeo.github.io/leetcode-explanations">GitHub Pages - View All Problems</a></p>
-<p style="margin-top:8px;color:#484f58">Generated by Crew 2026-06-13</p>
-</div>
- </body>
+<footer>
+  <p>🌐 <a href="https://chloeyeo.github.io/leetcode-explanations">chloeyeo.github.io/leetcode-explanations</a></p>
+  <p style="margin-top:6px;font-size:.75em">Generated 2026-06-18 &nbsp;|&nbsp; Dark Theme &nbsp;|&nbsp; Stack</p>
+</footer>
+</body>
 </html>

@@ -1,209 +1,205 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LeetCode Daily | Bit Manipulation</title>
+<title>LeetCode Daily | Bit Manipulation | 2026-06-19</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#0d1117;color:#e6edf3;font-family:'Segoe UI',system-ui,sans-serif;font-size:15px;line-height:1.6;padding:16px}
-header{text-align:center;padding:24px 16px 16px;border-bottom:1px solid #21262d;margin-bottom:24px}
-header h1{font-size:22px;font-weight:700;color:#58a6ff;margin-bottom:6px}
-header .date{color:#8b949e;font-size:13px}
-.problem{background:#161b22;border:1px solid #30363d;border-radius:12px;margin-bottom:28px;overflow:hidden}
-.problem-header{padding:18px 20px;border-bottom:1px solid #21262d;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.problem-num{color:#8b949e;font-size:13px;font-weight:600}
-.problem-title{font-size:17px;font-weight:700;color:#e6edf3;flex:1}
-.badge{padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700}
-.easy{background:#0d1f14;color:#3fb950;border:1px solid #3fb950}
-.medium{background:#1f160d;color:#d29922;border:1px solid #d29922}
-.hard{background:#1f0d0d;color:#f85149;border:1px solid #f85149}
-.by{color:#8b949e;font-size:12px;width:100%}
-.section{padding:16px 20px;border-bottom:1px solid #21262d}
-.section:last-child{border-bottom:none}
-.section-title{font-size:12px;font-weight:700;text-transform:uppercase;color:#8b949e;margin-bottom:12px;letter-spacing:.8px}
-pre.ascii{background:#010409;border:1px solid #21262d;border-radius:8px;padding:14px;overflow-x:auto;font-size:12px;line-height:1.5;color:#79c0ff;font-family:'Courier New',monospace}
-pre.code{background:#010409;border:1px solid #21262d;border-radius:8px;padding:14px;overflow-x:auto;font-size:13px;line-height:1.7;font-family:'Courier New',monospace}
-.kw{color:#ff7b72}.fn{color:#d2a8ff}.cm{color:#8b949e}.st{color:#a5d6ff}.nb{color:#ffa657}.num{color:#79c0ff}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th{background:#21262d;color:#8b949e;padding:8px 12px;text-align:left;font-weight:600}
-td{padding:8px 12px;border-bottom:1px solid #21262d;color:#e6edf3;vertical-align:top}
-tr:last-child td{border-bottom:none}
-td:first-child{color:#58a6ff;font-family:monospace;white-space:nowrap;font-size:12px}
-footer{text-align:center;padding:24px 16px 8px;border-top:1px solid #21262d;margin-top:8px}
-footer a{color:#58a6ff;text-decoration:none;font-size:14px}
+body{background:#0d1117;color:#c9d1d9;font-family:'Segoe UI',system-ui,sans-serif;padding:16px;line-height:1.6}
+h1{text-align:center;font-size:1.5rem;color:#58a6ff;padding:20px 0 4px}
+.subtitle{text-align:center;color:#8b949e;font-size:0.85rem;margin-bottom:24px}
+.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:24px}
+.card-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.problem-title{font-size:1.1rem;font-weight:700;color:#e6edf3}
+.badge{padding:3px 10px;border-radius:12px;font-size:0.75rem;font-weight:700}
+.easy{background:#1a4731;color:#3fb950}
+.medium{background:#4d2e00;color:#f0883e}
+.hard{background:#4d1217;color:#f85149}
+.author{color:#8b949e;font-size:0.8rem}
+h3{color:#79c0ff;font-size:0.95rem;margin:16px 0 8px;border-left:3px solid #1f6feb;padding-left:10px}
+pre{background:#010409;border:1px solid #30363d;border-radius:8px;padding:16px;overflow-x:auto;font-size:0.78rem;line-height:1.7}
+.kw{color:#ff7b72}.fn{color:#d2a8ff}.st{color:#a5d6ff}.cm{color:#8b949e;font-style:italic}
+.nm{color:#79c0ff}.op{color:#ff7b72}.nb{color:#ffa657}
+.ascii{background:#010409;border:1px solid #1f6feb;border-radius:8px;padding:14px;font-size:0.72rem;color:#58a6ff;overflow-x:auto;white-space:pre;margin:8px 0}
+table{width:100%;border-collapse:collapse;font-size:0.8rem;margin-top:8px}
+th{background:#1f2937;color:#79c0ff;padding:8px 10px;text-align:left;border:1px solid #30363d}
+td{padding:7px 10px;border:1px solid #30363d;color:#c9d1d9;vertical-align:top}
+tr:nth-child(even) td{background:#161b22}
+tr:nth-child(odd) td{background:#0d1117}
+.complexity-label{color:#f0883e;font-weight:700}
+footer{text-align:center;margin-top:28px;padding:16px;border-top:1px solid #30363d;color:#8b949e;font-size:0.85rem}
+footer a{color:#58a6ff;text-decoration:none}
+.divider{height:1px;background:#30363d;margin:12px 0}
 </style>
 </head>
 <body>
-<header>
-<h1>Bit Manipulation</h1>
-<div class="date">LeetCode Daily | 2026-06-17</div>
-</header>
 
-<div class="problem">
-<div class="problem-header">
-<span class="problem-num">#268</span>
-<span class="problem-title">Missing Number</span>
-<span class="badge easy">Easy</span>
-<span class="by">by LeetCode</span>
+<h1>⚡ Bit Manipulation</h1>
+<p class="subtitle">LeetCode Daily &nbsp;|&nbsp; 2026-06-19</p>
+
+<!-- EASY -->
+<div class="card">
+  <div class="card-header">
+    <span class="problem-title">LeetCode #191 — Number of 1 Bits</span>
+    <span class="badge easy">Easy</span>
+    <span class="author">by LeetCode</span>
+  </div>
+
+  <h3>🎨 Algorithm Visualization</h3>
+  <div class="ascii">
+Input n = 0b00000000000000000000000000001011  (value: 11)
+
+Step 1: n & 1 → bit=1, count=1,  n >>= 1  → 0b0101
+Step 2: n & 1 → bit=1, count=2,  n >>= 1  → 0b0010
+Step 3: n & 1 → bit=0, count=2,  n >>= 1  → 0b0001
+Step 4: n & 1 → bit=1, count=3,  n >>= 1  → 0b0000  ← STOP
+
+┌─────────────────────────────────┐
+│  Bit:  1  0  1  1                │
+│  Pos:  3  2  1  0                │
+│  Count of 1-bits = 3  ✓          │
+└──────────────────────────────────┘
+  </div>
+
+  <h3>💻 Basic Solution (Python)</h3>
+  <pre><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">hammingWeight</span>(<span class="nb">self</span>, n: <span class="nm">int</span>) -> <span class="nm">int</span>:
+        <span class="nm">count</span> <span class="op">=</span> <span class="nm">0</span>
+        <span class="kw">while</span> n:
+            count <span class="op">+=</span> n <span class="op">&</span> <span class="nm">1</span>   <span class="cm"># check LSB</span>
+            n <span class="op">>>=</span> <span class="nm">1</span>           <span class="cm"># shift right</span>
+        <span class="kw">return</span> count</pre>
+
+  <h3>🚀 Optimized Solution (Brian Kernighan's Algorithm)</h3>
+  <pre><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">hammingWeight</span>(<span class="nb">self</span>, n: <span class="nm">int</span>) -> <span class="nm">int</span>:
+        count <span class="op">=</span> <span class="nm">0</span>
+        <span class="kw">while</span> n:
+            n <span class="op">&=</span> n <span class="op">-</span> <span class="nm">1</span>   <span class="cm"># clear lowest set bit: 1100 & 1011 = 1000</span>
+            count <span class="op">+=</span> <span class="nm">1</span>
+        <span class="kw">return</span> count
+
+<span class="cm"># Pythonic one-liner:</span>
+<span class="cm"># return bin(n).count('1')</span></pre>
+
+  <h3>📊 Complexity Analysis</h3>
+  <table>
+    <tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>Basic</td><td class="complexity-label">O(32)</td><td>O(1)</td><td>Iterates all 32 bits regardless of value</td></tr>
+    <tr><td>Optimized</td><td class="complexity-label">O(k)</td><td>O(1)</td><td>k = number of set bits; n &= n-1 skips zero-bits entirely</td></tr>
+  </table>
 </div>
-<div class="section">
-<div class="section-title">Algorithm Visualization</div>
-<pre class="ascii">XOR Property: a ^ a = 0,  a ^ 0 = a
 
-nums  = [3, 0, 1]   (n=3, missing=2)
-index:   0  1  2
+<!-- MEDIUM -->
+<div class="card">
+  <div class="card-header">
+    <span class="problem-title">LeetCode #338 — Counting Bits</span>
+    <span class="badge medium">Medium</span>
+    <span class="author">by LeetCode</span>
+  </div>
 
-XOR all indices 0..n: 0^1^2^3 = 0
-XOR all values:       3^0^1   = 2
+  <h3>🎨 Algorithm Visualization</h3>
+  <div class="ascii">
+dp[i] = dp[i >> 1] + (i & 1)    ← key insight
 
-Step-by-step:
-  result = 0
-  i=0: result ^= 0 ^= 3  -> 3
-  i=1: result ^= 1 ^= 0  -> 2
-  i=2: result ^= 2 ^= 1  -> 1
-  i=3: result ^= 3       -> 2  (answer)</pre>
-</div>
-<div class="section">
-<div class="section-title">Basic Solution</div>
-<pre class="code"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">missingNumber</span>(<span class="nb">self</span>, nums):
-        n = <span class="nb">len</span>(nums)
-        expected = n * (n + <span class="num">1</span>) // <span class="num">2</span>
-        <span class="kw">return</span> expected - <span class="nb">sum</span>(nums)</pre>
-</div>
-<div class="section">
-<div class="section-title">Optimized Solution (XOR)</div>
-<pre class="code"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">missingNumber</span>(<span class="nb">self</span>, nums):
-        result = <span class="nb">len</span>(nums)
-        <span class="kw">for</span> i, val <span class="kw">in</span> <span class="nb">enumerate</span>(nums):
-            result ^= i ^ val
+i=0: 0b0000  dp[0]=0
+i=1: 0b0001  dp[0] + 1 = 1       (i>>1=0, LSB=1)
+i=2: 0b0010  dp[1] + 0 = 1       (i>>1=1, LSB=0)
+i=3: 0b0011  dp[1] + 1 = 2       (i>>1=1, LSB=1)
+i=4: 0b0100  dp[2] + 0 = 1       (i>>1=2, LSB=0)
+i=5: 0b0101  dp[2] + 1 = 2       (i>>1=2, LSB=1)
+
+┌───────────────────────────────────────┐
+│  n=5  →  output: [0, 1, 1, 2, 1, 2] │
+└───────────────────────────────────────┘
+  </div>
+
+  <h3>💻 Basic Solution (Python)</h3>
+  <pre><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">countBits</span>(<span class="nb">self</span>, n: <span class="nm">int</span>) -> <span class="st">list</span>[<span class="nm">int</span>]:
+        result <span class="op">=</span> []
+        <span class="kw">for</span> i <span class="kw">in</span> <span class="nb">range</span>(n <span class="op">+</span> <span class="nm">1</span>):
+            result.<span class="fn">append</span>(<span class="nb">bin</span>(i).<span class="fn">count</span>(<span class="st">'1'</span>))  <span class="cm"># O(log i) per call</span>
         <span class="kw">return</span> result</pre>
-</div>
-<div class="section">
-<div class="section-title">Complexity Analysis</div>
-<table>
-<tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
-<tr><td>Basic (Sum)</td><td>O(n)</td><td>O(1)</td><td>Single pass sum; arithmetic in O(1) space</td></tr>
-<tr><td>Optimized (XOR)</td><td>O(n)</td><td>O(1)</td><td>Single loop XOR; avoids potential overflow on large n</td></tr>
-</table>
-</div>
+
+  <h3>🚊 Optimized Solution (DP + Bit Shift)</h3>
+  <pre><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">countBits</span>(<span class="nb">self</span>, n: <span class="nm">int</span>) -> <span class="st">list</span>[<span class="nm">int</span>]:
+        dp <span class="op">=</span> [<span class="nm">0</span>] <span class="op">*</span> (n <span class="op">+</span> <span class="nm">1</span>)
+        <span class="kw">for</span> i <span class="kw">in</span> <span class="nb">range</span>(<span class="nm">1</span>, n <span class="op">+</span> <span class="nm">1</span>):
+            dp[i] <span class="op">=</span> dp[i <span class="op">>></span> <span class="nm">1</span>] <span class="op">+</span> (i <span class="op">&</span> <span class="nm">1</span>)
+            <span class="cm"># i>>1 drops LSB → already computed; add back LSB parity</span>
+        <span class="kw">return</span> dp</pre>
+
+  <h3>📊 Complexity Analysis</h3>
+  <table>
+    <tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>Basic</td><td class="complexity-label">O(n log n)</td><td>O(n)</td><td>bin().count() takes O(log i) for each of n+1 numbers</td></tr>
+    <tr><td>Optimized</td><td class="complexity-label">O(n)</td><td>O(n)</td><td>Single pass; each dp[i] computed in O(1) using dp[i>>1]</td></tr>
+  </table>
 </div>
 
-<div class="problem">
-<div class="problem-header">
-<span class="problem-num">#201</span>
-<span class="problem-title">Bitwise AND of Numbers Range</span>
-<span class="badge medium">Medium</span>
-<span class="by">by LeetCode</span>
-</div>
-<div class="section">
-<div class="section-title">Algorithm Visualization</div>
-<pre class="ascii">Goal: AND of all numbers in [left, right]
+<!-- HARD -->
+<div class="card">
+  <div class="card-header">
+    <span class="problem-title">LeetCode #41 — Reverse Bits</span>
+    <span class="badge easy">Easy</span>
+    <span class="author">by LeetCode</span>
+  </div>
+  <div class="card-header" style="margin-top:-8px">
+    <span class="problem-title">LeetCode #1803 — Maximum XOR Score Subarray Queries &nbsp;(Hard)</span>
+    <span class="badge hard">Hard</span>
+    <span class="author">by LeetCode</span>
+  </div>
 
-Key: only the common prefix bits survive AND.
-Any differing bit is zeroed by consecutive numbers.
+  <h3>🎨 Algorithm Visualization — Reverse Bits (#190)</h3>
+  <div class="ascii">
+Input:  n = 0b0000001010010100001111010011100
 
-Example: left=5, right=7
-  5 = 101
-  6 = 110
-  7 = 111
-AND = 100  (only common prefix survives)
+Reverse 32 bits one at a time:
+result = 0
+For each of 32 iterations:
+  result = (result << 1) | (n & 1)
+  n >>= 1
 
-Shift approach:
-  5(101), 7(111) -> shift -> 2(10),3(11) -> shift -> 1,1 done
-  shift count = 2
-  result = 1 << 2 = 4</pre>
-</div>
-<div class="section">
-<div class="section-title">Basic Solution</div>
-<pre class="code"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">rangeBitwiseAnd</span>(<span class="nb">self</span>, left, right):
-        mask = ~<span class="num">0</span>
-        <span class="kw">while</span> (left &amp; mask) != (right &amp; mask):
-            mask &lt;&lt;= <span class="num">1</span>
-        <span class="kw">return</span> right &amp; mask</pre>
-</div>
-<div class="section">
-<div class="section-title">Optimized Solution (Right Shift)</div>
-<pre class="code"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">rangeBitwiseAnd</span>(<span class="nb">self</span>, left, right):
-        shift = <span class="num">0</span>
-        <span class="kw">while</span> left != right:
-            left &gt;&gt;= <span class="num">1</span>
-            right &gt;&gt;= <span class="num">1</span>
-            shift += <span class="num">1</span>
-        <span class="kw">return</span> left &lt;&lt; shift</pre>
-</div>
-<div class="section">
-<div class="section-title">Complexity Analysis</div>
-<table>
-<tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
-<tr><td>Basic (Mask)</td><td>O(log n)</td><td>O(1)</td><td>At most 32 iterations (integer bit width)</td></tr>
-<tr><td>Optimized (Shift)</td><td>O(log n)</td><td>O(1)</td><td>Shifts until common prefix found; cleaner logic</td></tr>
-</table>
-</div>
-</div>
+In:   0 0 0 0 0 0 1 0 1 0 0 1 0 1 ... 1 1 1 0 0
+Out:  0 0 1 1 1 0 1 0 1 0 0 1 0 1 ... 0 1 0 0 0
 
-<div class="problem">
-<div class="problem-header">
-<span class="problem-num">#260</span>
-<span class="problem-title">Single Number III</span>
-<span class="badge hard">Hard</span>
-<span class="by">by LeetCode</span>
-</div>
-<div class="section">
-<div class="section-title">Algorithm Visualization</div>
-<pre class="ascii">Two numbers appear once; rest twice. Find both.
+Result: 0b00111001011110000010100101000000 = 964176192
+  </div>
 
-nums = [1, 2, 1, 3, 2, 5]  ->  answer: [3, 5]
+  <h3>💻 Basic Solution — Reverse Bits #190 (Python)</h3>
+  <pre><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">reverseBits</span>(<span class="nb">self</span>, n: <span class="nm">int</span>) -> <span class="nm">int</span>:
+        result <span class="op">=</span> <span class="nm">0</span>
+        <span class="kw">for</span> _ <span class="kw">in</span> <span class="nb">range</span>(<span class="nm">32</span>):
+            result <span class="op">=</span> (result <span class="op"><<</span> <span class="nm">1</span>) <span class="op">|</span> (n <span class="op">&</span> <span class="nm">1</span>)  <span class="cm"># take LSB of n → MSB of result</span>
+            n <span class="op">>>=</span> <span class="nm">1</span>
+        <span class="kw">return</span> result</pre>
 
-Step 1: XOR all -> result is a XOR b
-  1^2^1^3^2^5 = 3^5 = 6  (binary: 110)
+  <h3>🚀 Optimized Solution (Divide & Conquer Bit Swap)</h3>
+  <pre><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">reverseBits</span>(<span class="nb">self</span>, n: <span class="nm">int</span>) -> <span class="nm">int</span>:
+        n <span class="op">=</span> (n <span class="op">>></span> <span class="nm">16</span>) <span class="op">|</span> (n <span class="op"><<</span> <span class="nm">16</span>)           <span class="cm"># swap 16-bit halves</span>
+        n <span class="op">=</span> ((n <span class="op">&</span> <span class="nm">0xFF00FF00</span>) <span class="op">>></span> <span class="nm">8</span>) <span class="op">|</span> ((n <span class="op">&</span> <span class="nm">0x00FF00FF</span>) <span class="op"><<</span> <span class="nm">8</span>)
+        n <span class="op">=</span> ((n <span class="op">&</span> <span class="nm">0xF0F0F0F0</span>) <span class="op">>></span> <span class="nm">4</span>) <span class="op">|</span> ((n <span class="op">&</span> <span class="nm">0x0F0F0F0F</span>) <span class="op"><<</span> <span class="nm">4</span>)
+        n <span class="op">=</span> ((n <span class="op">&</span> <span class="nm">0xCCCCCCCC</span>) <span class="op">>></span> <span class="nm">2</span>) <span class="op">|</span> ((n <span class="op">&</span> <span class="nm">0x33333333</span>) <span class="op"><<</span> <span class="nm">2</span>)
+        n <span class="op">=</span> ((n <span class="op">&</span> <span class="nm">0xAAAAAAAA</span>) <span class="op">>></span> <span class="nm">1</span>) <span class="op">|</span> ((n <span class="op">&</span> <span class="nm">0x55555555</span>) <span class="op"><<</span> <span class="nm">1</span>)
+        <span class="kw">return</span> n <span class="op">&</span> <span class="nm">0xFFFFFFFF</span>  <span class="cm"># mask to 32 bits</span></pre>
 
-Step 2: Find lowest set bit (differs between 3 and 5)
-  diff = 6 & (-6) = 010
-
-Step 3: Split by diff bit, XOR each group
-  group A (bit clear): 1,1,2,2,5 -> XOR = 5
-  group B (bit set):   3         -> XOR = 3</pre>
-</div>
-<div class="section">
-<div class="section-title">Basic Solution</div>
-<pre class="code"><span class="kw">from</span> collections <span class="kw">import</span> Counter
-<span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">singleNumber</span>(<span class="nb">self</span>, nums):
-        count = <span class="fn">Counter</span>(nums)
-        <span class="kw">return</span> [k <span class="kw">for</span> k, v <span class="kw">in</span> count.items() <span class="kw">if</span> v == <span class="num">1</span>]</pre>
-</div>
-<div class="section">
-<div class="section-title">Optimized Solution (XOR + Bit Grouping)</div>
-<pre class="code"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">singleNumber</span>(<span class="nb">self</span>, nums):
-        xor = <span class="num">0</span>
-        <span class="kw">for</span> n <span class="kw">in</span> nums:
-            xor ^= n
-        diff = xor &amp; (-xor)
-        a = <span class="num">0</span>
-        <span class="kw">for</span> n <span class="kw">in</span> nums:
-            <span class="kw">if</span> n &amp; diff:
-                a ^= n
-        <span class="kw">return</span> [a, xor ^ a]</pre>
-</div>
-<div class="section">
-<div class="section-title">Complexity Analysis</div>
-<table>
-<tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
-<tr><td>Basic (Counter)</td><td>O(n)</td><td>O(n)</td><td>Hash map stores all element counts</td></tr>
-<tr><td>Optimized (XOR)</td><td>O(n)</td><td>O(1)</td><td>Two linear passes; only 3 integer variables used</td></tr>
-</table>
-</div>
+  <h3>📊 Complexity Analysis</h3>
+  <table>
+    <tr><th>Version</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>Basic</td><td class="complexity-label">O(32)</td><td>O(1)</td><td>Fixed 32 iterations; no extra memory</td></tr>
+    <tr><td>Optimized</td><td class="complexity-label">O(1)</td><td>O(1)</td><td>5 constant-time bitmask operations; O(log 32) = 5 steps</td></tr>
+  </table>
 </div>
 
 <footer>
-<a href="https://chloeyeo.github.io/leetcode-explanations">GitHub Pages: chloeyeo.github.io/leetcode-explanations</a>
-<p style="color:#8b949e;font-size:12px;margin-top:8px">Updated 2026-06-17</p>
+  <p>🌐 <a href="https://chloeyeo.github.io/leetcode-explanations" target="_blank">https://chloeyeo.github.io/leetcode-explanations</a></p>
+  <p style="margin-top:6px;font-size:0.78rem">© 2026 LeetCode Daily Practice</p>
 </footer>
+
 </body>
 </html>

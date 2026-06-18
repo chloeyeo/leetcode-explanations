@@ -1,248 +1,222 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LeetCode Daily | Two Pointers | 2026-06-16</title>
+<title>LeetCode Daily | Two Pointers | 2026-06-18</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0d1117;color:#e6edf3;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',monospace;padding:16px;max-width:800px;margin:0 auto}
-h1{font-size:1.4rem;color:#58a6ff;margin-bottom:4px;text-align:center}
-.date{text-align:center;color:#8b949e;font-size:.85rem;margin-bottom:20px}
-.problem{background:#161b22;border:1px solid #30363d;border-radius:12px;margin-bottom:24px;overflow:hidden}
-.problem-header{padding:16px;border-bottom:1px solid #30363d;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.problem-title{font-size:1.05rem;font-weight:700;color:#e6edf3}
-.badge{padding:3px 10px;border-radius:20px;font-size:.75rem;font-weight:700}
+body{background:#0d1117;color:#c9d1d9;font-family:'Segoe UI',system-ui,sans-serif;padding:16px;max-width:800px;margin:0 auto}
+h1{color:#58a6ff;font-size:1.5rem;text-align:center;padding:20px 0 4px}
+.date{text-align:center;color:#8b949e;font-size:.85rem;margin-bottom:24px}
+.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:24px}
+.card-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.ptitle{color:#e6edf3;font-size:1.1rem;font-weight:700}
+.badge{padding:3px 10px;border-radius:12px;font-size:.75rem;font-weight:700}
 .easy{background:#1a4731;color:#3fb950}
-.medium{background:#4a2800;color:#f79000}
-.hard{background:#4a1a1a;color:#f85149}
-.section{padding:14px 16px}
-.section h3{color:#8b949e;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
-pre{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:14px;overflow-x:auto;font-size:.82rem;line-height:1.6}
-.ascii{color:#79c0ff;font-size:.78rem;white-space:pre;font-family:monospace}
-.kw{color:#ff7b72}
-.fn{color:#d2a8ff}
-.cm{color:#8b949e}
-.st{color:#a5d6ff}
-.nm{color:#f2cc60}
-.op{color:#79c0ff}
-table{width:100%;border-collapse:collapse;font-size:.82rem}
-th{background:#21262d;color:#8b949e;padding:8px 10px;text-align:left;border:1px solid #30363d}
-td{padding:8px 10px;border:1px solid #30363d;color:#e6edf3;vertical-align:top}
-.divider{border-top:1px solid #21262d;margin:0}
-footer{text-align:center;padding:20px 0 8px;color:#8b949e;font-size:.82rem}
+.medium{background:#4a2f00;color:#d29922}
+.hard{background:#4a1010;color:#f85149}
+.sl{color:#8b949e;font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;margin:16px 0 8px}
+.ascii{background:#010409;border:1px solid #21262d;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:.72rem;color:#8b949e;overflow-x:auto;white-space:pre;margin-bottom:4px}
+.cb{background:#010409;border:1px solid #21262d;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:.78rem;overflow-x:auto;white-space:pre;line-height:1.6}
+.kw{color:#ff7b72}.fn{color:#d2a8ff}.cm{color:#8b949e}.nm{color:#79c0ff}.op{color:#ff7b72}.st{color:#a5d6ff}
+table{width:100%;border-collapse:collapse;font-size:.8rem;margin-top:8px}
+th{background:#21262d;color:#8b949e;padding:8px 10px;text-align:left}
+td{padding:8px 10px;border-bottom:1px solid #21262d;vertical-align:top}
+td:first-child{color:#79c0ff;font-family:monospace;white-space:nowrap}
+td:nth-child(2){color:#d29922;font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+footer{text-align:center;padding:24px 0 12px;color:#8b949e;font-size:.85rem}
 footer a{color:#58a6ff;text-decoration:none}
 </style>
 </head>
 <body>
-<h1>🔁 Two Pointers</h1>
-<div class="date">LeetCode Daily &nbsp;|&nbsp; 2026-06-16</div>
+<h1>&#128260; Two Pointers</h1>
+<div class="date">2026-06-18 | LeetCode Daily</div>
 
-<!-- EASY -->
-<div class="problem">
-  <div class="problem-header">
-    <span class="problem-title">LeetCode #125 — Valid Palindrome</span>
-    <span class="badge easy">Easy</span>
-    <span style="color:#8b949e;font-size:.8rem">by LeetCode</span>
-  </div>
-  <div class="section">
-    <h3>Algorithm Visualization</h3>
-    <pre class="ascii">Input: "A man, a plan, a canal: Panama"
-Cleaned: "amanaplanacanalpanama"
+<div class="card">
+<div class="card-header">
+<span class="ptitle">LeetCode #283 - Move Zeroes</span>
+<span class="badge easy">Easy</span>
+</div>
+<p style="color:#8b949e;font-size:.85rem">by LeetCode</p>
+<div class="sl">Algorithm Visualization</div>
+<div class="ascii">nums = [0, 1, 0, 3, 12]
+Two pointers: slow=0 (insertion pos), fast scans
 
-  L                   R
-  a m a n a p l a n a c a n a l p a n a m a
-  ^                                       ^   ✓ match → move inward
-    ^                                   ^     ✓ match
-          ...
-                    ^   ^               ✓ match
-               → All pairs match → PALINDROME ✓</pre>
-  </div>
-  <hr class="divider">
-  <div class="section">
-    <h3>Basic Solution</h3>
-    <pre><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">isPalindrome</span>(<span class="st">self</span>, s: <span class="fn">str</span>) -&gt; <span class="fn">bool</span>:
-        <span class="cm"># Filter to alphanumeric and lowercase</span>
-        cleaned = [c.lower() <span class="kw">for</span> c <span class="kw">in</span> s <span class="kw">if</span> c.isalnum()]
-        left, right = <span class="nm">0</span>, <span class="fn">len</span>(cleaned) - <span class="nm">1</span>
-        <span class="kw">while</span> left &lt; right:
-            <span class="kw">if</span> cleaned[left] != cleaned[right]:
-                <span class="kw">return</span> <span class="kw">False</span>
-            left += <span class="nm">1</span>
-            right -= <span class="nm">1</span>
-        <span class="kw">return</span> <span class="kw">True</span></pre>
-  </div>
-  <hr class="divider">
-  <div class="section">
-    <h3>Optimized Solution (O(1) Space)</h3>
-    <pre><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">isPalindrome</span>(<span class="st">self</span>, s: <span class="fn">str</span>) -&gt; <span class="fn">bool</span>:
-        left, right = <span class="nm">0</span>, <span class="fn">len</span>(s) - <span class="nm">1</span>
-        <span class="kw">while</span> left &lt; right:
-            <span class="cm"># Skip non-alphanumeric from left</span>
-            <span class="kw">while</span> left &lt; right <span class="kw">and not</span> s[left].isalnum():
-                left += <span class="nm">1</span>
-            <span class="cm"># Skip non-alphanumeric from right</span>
-            <span class="kw">while</span> left &lt; right <span class="kw">and not</span> s[right].isalnum():
-                right -= <span class="nm">1</span>
-            <span class="kw">if</span> s[left].lower() != s[right].lower():
-                <span class="kw">return</span> <span class="kw">False</span>
-            left += <span class="nm">1</span>
-            right -= <span class="nm">1</span>
-        <span class="kw">return</span> <span class="kw">True</span></pre>
-  </div>
-  <hr class="divider">
-  <div class="section">
-    <h3>Complexity Analysis</h3>
-    <table>
-      <tr><th>Metric</th><th>Basic</th><th>Optimized</th><th>Reason</th></tr>
-      <tr><td>Time</td><td>O(n)</td><td>O(n)</td><td>Single pass through string of length n</td></tr>
-      <tr><td>Space</td><td>O(n)</td><td>O(1)</td><td>Optimized skips in-place, no extra list</td></tr>
-    </table>
-  </div>
+fast=0: nums[0]=0  skip
+fast=1: nums[1]=1  nonzero -> swap(slow=0, fast=1) -> [1,0,0,3,12], slow=1
+fast=2: nums[2]=0  skip
+fast=3: nums[3]=3  nonzero -> swap(slow=1, fast=3) -> [1,3,0,0,12], slow=2
+fast=4: nums[4]=12 nonzero -> swap(slow=2, fast=4) -> [1,3,12,0,0], slow=3
+
+Result: [1, 3, 12, 0, 0]  ✓ relative order preserved</div>
+<div class="sl">Basic Solution</div>
+<div class="cb"><span class="kw">class</span> <span class="fn">Solution</span>:
+  <span class="kw">def</span> <span class="fn">moveZeroes</span>(<span class="st">self</span>, nums):
+    <span class="nm">slow</span> <span class="op">=</span> 0
+    <span class="kw">for</span> fast <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(nums)):
+      <span class="kw">if</span> nums[fast] <span class="op">!=</span> 0:
+        nums[<span class="nm">slow</span>], nums[fast] <span class="op">=</span> nums[fast], nums[<span class="nm">slow</span>]
+        <span class="nm">slow</span> <span class="op">+=</span> 1</div>
+<div class="sl">Optimized Solution</div>
+<div class="cb"><span class="kw">class</span> <span class="fn">Solution</span>:
+  <span class="kw">def</span> <span class="fn">moveZeroes</span>(<span class="st">self</span>, nums):
+    <span class="nm">insert</span> <span class="op">=</span> 0
+    <span class="kw">for</span> n <span class="kw">in</span> nums:
+      <span class="kw">if</span> n:
+        nums[<span class="nm">insert</span>] <span class="op">=</span> n
+        <span class="nm">insert</span> <span class="op">+=</span> 1
+    <span class="cm"># Fill rest with zeros</span>
+    nums[<span class="nm">insert</span>:] <span class="op">=</span> [0] <span class="op">*</span> (<span class="fn">len</span>(nums) <span class="op">-</span> <span class="nm">insert</span>)</div>
+<div class="sl">Complexity Analysis</div>
+<table>
+<tr><th>Solution</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+<tr><td>Basic</td><td>O(n)</td><td>O(1)</td><td>Single pass; swap in-place</td></tr>
+<tr><td>Optimized</td><td>O(n)</td><td>O(1)</td><td>Single pass; overwrite then fill zeros — fewer swaps</td></tr>
+</table>
 </div>
 
-<!-- MEDIUM -->
-<div class="problem">
-  <div class="problem-header">
-    <span class="problem-title">LeetCode #167 — Two Sum II - Input Array Is Sorted</span>
-    <span class="badge medium">Medium</span>
-    <span style="color:#8b949e;font-size:.8rem">by LeetCode</span>
-  </div>
-  <div class="section">
-    <h3>Algorithm Visualization</h3>
-    <pre class="ascii">nums = [2, 7, 11, 15],  target = 9
-
- L              R
-[2,  7,  11,  15]
- ^              ^   sum=17 > 9  → R--
- ^       ^          sum=13 > 9  → R--
- ^   ^              sum=9  = 9  → ✓ FOUND! [1, 2] (1-indexed)</pre>
-  </div>
-  <hr class="divider">
-  <div class="section">
-    <h3>Basic Solution</h3>
-    <pre><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">twoSum</span>(<span class="st">self</span>, numbers: <span class="fn">list</span>[<span class="fn">int</span>], target: <span class="fn">int</span>) -&gt; <span class="fn">list</span>[<span class="fn">int</span>]:
-        left, right = <span class="nm">0</span>, <span class="fn">len</span>(numbers) - <span class="nm">1</span>
-        <span class="kw">while</span> left &lt; right:
-            current_sum = numbers[left] + numbers[right]
-            <span class="kw">if</span> current_sum == target:
-                <span class="kw">return</span> [left + <span class="nm">1</span>, right + <span class="nm">1</span>]  <span class="cm"># 1-indexed</span>
-            <span class="kw">elif</span> current_sum &lt; target:
-                left += <span class="nm">1</span>   <span class="cm"># need larger sum</span>
-            <span class="kw">else</span>:
-                right -= <span class="nm">1</span>  <span class="cm"># need smaller sum</span>
-        <span class="kw">return</span> []  <span class="cm"># guaranteed one solution</span></pre>
-  </div>
-  <hr class="divider">
-  <div class="section">
-    <h3>Optimized Solution (Early Exit)</h3>
-    <pre><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">twoSum</span>(<span class="st">self</span>, numbers: <span class="fn">list</span>[<span class="fn">int</span>], target: <span class="fn">int</span>) -&gt; <span class="fn">list</span>[<span class="fn">int</span>]:
-        left, right = <span class="nm">0</span>, <span class="fn">len</span>(numbers) - <span class="nm">1</span>
-        <span class="kw">while</span> left &lt; right:
-            s = numbers[left] + numbers[right]
-            <span class="kw">if</span> s == target:
-                <span class="kw">return</span> [left + <span class="nm">1</span>, right + <span class="nm">1</span>]
-            <span class="cm"># Sorted array: use binary insight for faster convergence</span>
-            left, right = (left + <span class="nm">1</span>, right) <span class="kw">if</span> s &lt; target <span class="kw">else</span> (left, right - <span class="nm">1</span>)
-        <span class="kw">return</span> [-<span class="nm">1</span>, -<span class="nm">1</span>]</pre>
-  </div>
-  <hr class="divider">
-  <div class="section">
-    <h3>Complexity Analysis</h3>
-    <table>
-      <tr><th>Metric</th><th>Basic</th><th>Optimized</th><th>Reason</th></tr>
-      <tr><td>Time</td><td>O(n)</td><td>O(n)</td><td>Two pointers meet in the middle — at most n/2 steps</td></tr>
-      <tr><td>Space</td><td>O(1)</td><td>O(1)</td><td>No extra data structures; only two index variables</td></tr>
-    </table>
-  </div>
+<div class="card">
+<div class="card-header">
+<span class="ptitle">LeetCode #15 - 3Sum</span>
+<span class="badge medium">Medium</span>
+</div>
+<p style="color:#8b949e;font-size:.85rem">by LeetCode</p>
+<div class="sl">Algorithm Visualization</div>
+<div class="ascii">nums = [-4,-1,-1,0,1,2]  (sorted)
+Fix i=0 (-4): L=1(-1), R=5(2)
+  sum=-3 < 0 -> L++
+  L=2(-1), R=5(2): sum=-3 < 0 -> L++
+  L=3(0),  R=5(2): sum=-2 < 0 -> L++
+  L=4(1),  R=5(2): sum=-1 < 0 -> L++
+  L==R -> stop
+Fix i=1 (-1): L=2(-1), R=5(2)
+  sum=0  == 0 -> FOUND [-1,-1,2], L++, R--
+  L=3(0),  R=4(1): sum=0  == 0 -> FOUND [-1,0,1], L++, R--
+  L==R -> stop
+Fix i=2: nums[2]==nums[1] -> SKIP (dedup)
+Fix i=3 (0): L=4(1), R=5(2)
+  sum=3  > 0 -> R--  L==R -> stop
+Result: [[-1,-1,2],[-1,0,1]]</div>
+<div class="sl">Basic Solution</div>
+<div class="cb"><span class="kw">class</span> <span class="fn">Solution</span>:
+  <span class="kw">def</span> <span class="fn">threeSum</span>(<span class="st">self</span>, nums):
+    nums.<span class="fn">sort</span>()
+    res <span class="op">=</span> []
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(nums) <span class="op">-</span> 2):
+      <span class="kw">if</span> i <span class="op">></span> 0 <span class="kw">and</span> nums[i] <span class="op">==</span> nums[i <span class="op">-</span> 1]: <span class="kw">continue</span>
+      L, R <span class="op">=</span> i <span class="op">+</span> 1, <span class="fn">len</span>(nums) <span class="op">-</span> 1
+      <span class="kw">while</span> L <span class="op"><</span> R:
+        s <span class="op">=</span> nums[i] <span class="op">+</span> nums[L] <span class="op">+</span> nums[R]
+        <span class="kw">if</span> s <span class="op">==</span> 0:
+          res.<span class="fn">append</span>([nums[i], nums[L], nums[R]])
+          <span class="kw">while</span> L <span class="op"><</span> R <span class="kw">and</span> nums[L] <span class="op">==</span> nums[L <span class="op">+</span> 1]: L <span class="op">+=</span> 1
+          <span class="kw">while</span> L <span class="op"><</span> R <span class="kw">and</span> nums[R] <span class="op">==</span> nums[R <span class="op">-</span> 1]: R <span class="op">-=</span> 1
+          L <span class="op">+=</span> 1; R <span class="op">-=</span> 1
+        <span class="kw">elif</span> s <span class="op"><</span> 0: L <span class="op">+=</span> 1
+        <span class="kw">else</span>: R <span class="op">-=</span> 1
+    <span class="kw">return</span> res</div>
+<div class="sl">Optimized Solution</div>
+<div class="cb"><span class="kw">class</span> <span class="fn">Solution</span>:
+  <span class="kw">def</span> <span class="fn">threeSum</span>(<span class="st">self</span>, nums):
+    nums.<span class="fn">sort</span>()
+    res <span class="op">=</span> []
+    <span class="kw">for</span> i, v <span class="kw">in</span> <span class="fn">enumerate</span>(nums):
+      <span class="kw">if</span> v <span class="op">></span> 0: <span class="kw">break</span>  <span class="cm"># sorted: no triplet sums to 0 if pivot > 0</span>
+      <span class="kw">if</span> i <span class="kw">and</span> v <span class="op">==</span> nums[i <span class="op">-</span> 1]: <span class="kw">continue</span>
+      L, R <span class="op">=</span> i <span class="op">+</span> 1, <span class="fn">len</span>(nums) <span class="op">-</span> 1
+      <span class="kw">while</span> L <span class="op"><</span> R:
+        s <span class="op">=</span> v <span class="op">+</span> nums[L] <span class="op">+</span> nums[R]
+        <span class="kw">if</span> s <span class="op">></span> 0: R <span class="op">-=</span> 1
+        <span class="kw">elif</span> s <span class="op"><</span> 0: L <span class="op">+=</span> 1
+        <span class="kw">else</span>:
+          res.<span class="fn">append</span>([v, nums[L], nums[R]])
+          L <span class="op">+=</span> 1; R <span class="op">-=</span> 1
+          <span class="kw">while</span> L <span class="op"><</span> R <span class="kw">and</span> nums[L] <span class="op">==</span> nums[L <span class="op">-</span> 1]: L <span class="op">+=</span> 1
+    <span class="kw">return</span> res</div>
+<div class="sl">Complexity Analysis</div>
+<table>
+<tr><th>Solution</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+<tr><td>Basic</td><td>O(n&#178;)</td><td>O(1)</td><td>Sort O(n log n) + O(n) outer * O(n) inner two-pointer</td></tr>
+<tr><td>Optimized</td><td>O(n&#178;)</td><td>O(1)</td><td>Early break when pivot > 0 prunes significant portion</td></tr>
+</table>
 </div>
 
-<!-- HARD -->
-<div class="problem">
-  <div class="problem-header">
-    <span class="problem-title">LeetCode #42 — Trapping Rain Water</span>
-    <span class="badge hard">Hard</span>
-    <span style="color:#8b949e;font-size:.8rem">by LeetCode</span>
-  </div>
-  <div class="section">
-    <h3>Algorithm Visualization</h3>
-    <pre class="ascii">height = [0,1,0,2,1,0,1,3,2,1,2,1]
+<div class="card">
+<div class="card-header">
+<span class="ptitle">LeetCode #4 - Median of Two Sorted Arrays</span>
+<span class="badge hard">Hard</span>
+</div>
+<p style="color:#8b949e;font-size:.85rem">by LeetCode</p>
+<div class="sl">Algorithm Visualization</div>
+<div class="ascii">nums1=[1,3]  nums2=[2]  -> total=3, median=2.0
+Binary search on the SMALLER array (nums1):
 
-        #               ← walls trap water in between
-   # ~ # ~ ~ ~ # # ~ # #
-   # ~ # ~ # ~ # # ~ # #   ~ = trapped water
-   # ~ # ~ # ~ # # ~ # #
-idx: 0 1 2 3 4 5 6 7 8 9 10 11
+Partition nums1 at mid1=1, nums2 at mid2=1:
+  nums1: [1] | [3]
+  nums2: [2] | []
+  left side:  max(1,2)=2
+  right side: min(3,inf)=3
+  left_max > right_min? 2 > 3? NO
+  -> valid partition! median = (2+3)/2 = 2.5? No, total odd
+  -> median = right_min = min(3,inf) = 2?
 
-Two Pointers:
-  L→               ←R
-  Track max_left, max_right
-  Water at pos = min(max_left, max_right) - height[pos]
-  Move the side with smaller max inward</pre>
-  </div>
-  <hr class="divider">
-  <div class="section">
-    <h3>Basic Solution (Two Arrays)</h3>
-    <pre><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">trap</span>(<span class="st">self</span>, height: <span class="fn">list</span>[<span class="fn">int</span>]) -&gt; <span class="fn">int</span>:
-        n = <span class="fn">len</span>(height)
-        <span class="kw">if</span> n == <span class="nm">0</span>:
-            <span class="kw">return</span> <span class="nm">0</span>
-        left_max = [<span class="nm">0</span>] * n
-        right_max = [<span class="nm">0</span>] * n
-        left_max[<span class="nm">0</span>] = height[<span class="nm">0</span>]
-        <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">1</span>, n):
-            left_max[i] = <span class="fn">max</span>(left_max[i - <span class="nm">1</span>], height[i])
-        right_max[n - <span class="nm">1</span>] = height[n - <span class="nm">1</span>]
-        <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n - <span class="nm">2</span>, -<span class="nm">1</span>, -<span class="nm">1</span>):
-            right_max[i] = <span class="fn">max</span>(right_max[i + <span class="nm">1</span>], height[i])
-        water = <span class="nm">0</span>
-        <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n):
-            water += <span class="fn">min</span>(left_max[i], right_max[i]) - height[i]
-        <span class="kw">return</span> water</pre>
-  </div>
-  <hr class="divider">
-  <div class="section">
-    <h3>Optimized Solution (O(1) Space Two Pointers)</h3>
-    <pre><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">trap</span>(<span class="st">self</span>, height: <span class="fn">list</span>[<span class="fn">int</span>]) -&gt; <span class="fn">int</span>:
-        left, right = <span class="nm">0</span>, <span class="fn">len</span>(height) - <span class="nm">1</span>
-        max_left = max_right = water = <span class="nm">0</span>
-        <span class="kw">while</span> left &lt; right:
-            <span class="kw">if</span> height[left] &lt;= height[right]:
-                <span class="cm"># Left side is the bottleneck</span>
-                <span class="kw">if</span> height[left] &gt;= max_left:
-                    max_left = height[left]  <span class="cm"># update wall</span>
-                <span class="kw">else</span>:
-                    water += max_left - height[left]  <span class="cm"># trap water</span>
-                left += <span class="nm">1</span>
-            <span class="kw">else</span>:
-                <span class="cm"># Right side is the bottleneck</span>
-                <span class="kw">if</span> height[right] &gt;= max_right:
-                    max_right = height[right]
-                <span class="kw">else</span>:
-                    water += max_right - height[right]
-                right -= <span class="nm">1</span>
-        <span class="kw">return</span> water</pre>
-  </div>
-  <hr class="divider">
-  <div class="section">
-    <h3>Complexity Analysis</h3>
-    <table>
-      <tr><th>Metric</th><th>Basic</th><th>Optimized</th><th>Reason</th></tr>
-      <tr><td>Time</td><td>O(n)</td><td>O(n)</td><td>Single pass; each index visited once</td></tr>
-      <tr><td>Space</td><td>O(n)</td><td>O(1)</td><td>Optimized eliminates left_max/right_max arrays</td></tr>
-    </table>
-  </div>
+Correct: mid1=1 means 1 element from nums1 on left
+  left_max1=nums1[0]=1, left_max2=nums2[0]=2
+  right_min1=nums1[1]=3, right_min2=inf
+  1 <= inf AND 2 <= 3 -> valid
+  total=3 odd -> median = max(1,2) = 2  ✓</div>
+<div class="sl">Basic Solution</div>
+<div class="cb"><span class="kw">class</span> <span class="fn">Solution</span>:
+  <span class="kw">def</span> <span class="fn">findMedianSortedArrays</span>(<span class="st">self</span>, nums1, nums2):
+    <span class="kw">if</span> <span class="fn">len</span>(nums1) <span class="op">></span> <span class="fn">len</span>(nums2):
+      nums1, nums2 <span class="op">=</span> nums2, nums1  <span class="cm"># ensure nums1 is smaller</span>
+    m, n <span class="op">=</span> <span class="fn">len</span>(nums1), <span class="fn">len</span>(nums2)
+    lo, hi <span class="op">=</span> 0, m
+    <span class="kw">while</span> lo <span class="op"><=</span> hi:
+      mid1 <span class="op">=</span> (lo <span class="op">+</span> hi) <span class="op">//</span> 2
+      mid2 <span class="op">=</span> (m <span class="op">+</span> n <span class="op">+</span> 1) <span class="op">//</span> 2 <span class="op">-</span> mid1
+      L1 <span class="op">=</span> nums1[mid1 <span class="op">-</span> 1] <span class="kw">if</span> mid1 <span class="op">></span> 0 <span class="kw">else</span> <span class="fn">float</span>(<span class="st">'-inf'</span>)
+      R1 <span class="op">=</span> nums1[mid1] <span class="kw">if</span> mid1 <span class="op"><</span> m <span class="kw">else</span> <span class="fn">float</span>(<span class="st">'inf'</span>)
+      L2 <span class="op">=</span> nums2[mid2 <span class="op">-</span> 1] <span class="kw">if</span> mid2 <span class="op">></span> 0 <span class="kw">else</span> <span class="fn">float</span>(<span class="st">'-inf'</span>)
+      R2 <span class="op">=</span> nums2[mid2] <span class="kw">if</span> mid2 <span class="op"><</span> n <span class="kw">else</span> <span class="fn">float</span>(<span class="st">'inf'</span>)
+      <span class="kw">if</span> L1 <span class="op"><=</span> R2 <span class="kw">and</span> L2 <span class="op"><=</span> R1:
+        <span class="kw">if</span> (m <span class="op">+</span> n) <span class="op">%</span> 2 <span class="op">==</span> 0:
+          <span claq�="kw">return</span> (<span class="fn">max</span>(L1, L2) <span class="op">+</span> <span class="fn">min</span>(R1, R2)) <span class="op">/</span> 2
+        <span class="kw">return</span> <span class="fn">max</span>(L1, L2)
+      <span class="kw">elif</span> L1 <span class="op">></span> R2: hi <span class="op">=</span> mid1 <span class="op">-</span> 1
+      <span class="kw">else</span>: lo <span class="op">=</span> mid1 <span class="op">+</span> 1</div>
+<div class="sl">Optimized Solution</div>
+<div class="cb"><span class="kw">class</span> <span class="fn">Solution</span>:
+  <span class="kw">def</span> <span class="fn">findMedianSortedArrays</span>(<span class="st">self</span>, nums1, nums2):
+    A, B <span class="op">=</span> nums1, nums2
+    <span class="kw">if</span> <span class="fn">len</span>(A) <span class="op">></span> <span class="fn">len</span>(B): A, B <span class="op">=</span> B, A
+    m, n, half <span class="op">=</span> <span class="fn">len</span>(A), <span class="fn">len</span>(B), (<span class="fn">len</span>(A) <span class="op">+</span> <span class="fn">len</span>(B)) <span class="op">//</span> 2
+    lo, hi <span class="op">=</span> 0, m
+    <span class="kw">while</span> <span class="kw">True</span>:
+      i <span class="op">=</span> (lo <span class="op">+</span> hi) <span class="op">//</span> 2
+      j <span class="op">=</span> half <span class="op">-</span> i
+      Aleft  <span class="op">=</span> A[i <span class="op">-</span> 1] <span class="kw">if</span> i <span class="kw">else</span> <span class="fn">float</span>(<span class="st">'-inf'</span>)
+      Aright <span class="op">=</span> A[i]     <span class="kw">if</span> i <span class="op"><</span> m <span class="kw">else</span> <span class="fn">float</span>(<span class="st">'inf'</span>)
+      Bleft  <span class="op">=</span> B[j <span class="op">-</span> 1] <span class="kw">if</span> j <span class="kw">else</span> <span class="fn">float</span>(<span class="st">'-inf'</span>)
+      Bright <span class="op">=</span> B[j]     <span class="kw">if</span> j <span class="op"><</span> n <span class="kw">else</span> <span class="fn">float</span>(<span class="st">'inf'</span>)
+      <span class="kw">if</span> Aleft <span class="op"><=</span> Bright <span class="kw">and</span> Bleft <span class="op"><=</span> Aright:
+        <span class="kw">if</span> (m <span class="op">+</span> n) <span class="op">%</span> 2: <span class="kw">return</span> <span class="fn">min</span>(Aright, Bright)
+        <span class="kw">return</span> (<span class="fn">max</span>(Aleft, Bleft) <span class="op">+</span> <span class="fn">min</span>(Aright, Bright)) <span class="op">/</span> 2
+      <span class="kw">elif</span> Aleft <span class="op">></span> Bright: hi <span class="op">=</span> i <span class="op">-</span> 1
+      <span class="kw">else</span>: lo <span class="op">=</span> i <span class="op">+</span> 1</div>
+<div class="sl">Complexity Analysis</div>
+<table>
+<tr><th>Solution</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+<tr><td>Basic</td><td>O(log min(m,n))</td><td>O(1)</td><td>Binary search on smaller array only</td></tr>
+<tr><td>Optimized</td><td>O(log min(m,n))</td><td>O(1)</td><td>Cleaner partition logic; A/B naming improves clarity</td></tr>
+</table>
 </div>
 
 <footer>
-  <a href="https://chloeyeo.github.io/leetcode-explanations" target="_blank">���� GitHub Pages</a>
-  &nbsp;|&nbsp; Two Pointers &nbsp;|&nbsp; 2026-06-16
+<a href="https://chloeyeo.github.io/leetcode-explanations">&#127760; chloeyeo.github.io/leetcode-explanations</a>
+<p style="margin-top:6px;font-size:.75rem">LeetCode Daily Study &#183; 2026-06-18</p>
 </footer>
 </body>
 </html>

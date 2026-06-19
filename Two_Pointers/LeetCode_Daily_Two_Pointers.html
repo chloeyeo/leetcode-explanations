@@ -3,220 +3,275 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LeetCode Daily | Two Pointers | 2026-06-18</title>
+<title>LeetCode Daily | Two Pointers</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0d1117;color:#c9d1d9;font-family:'Segoe UI',system-ui,sans-serif;padding:16px;max-width:800px;margin:0 auto}
-h1{color:#58a6ff;font-size:1.5rem;text-align:center;padding:20px 0 4px}
-.date{text-align:center;color:#8b949e;font-size:.85rem;margin-bottom:24px}
-.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:24px}
-.card-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
-.ptitle{color:#e6edf3;font-size:1.1rem;font-weight:700}
-.badge{padding:3px 10px;border-radius:12px;font-size:.75rem;font-weight:700}
+body{background:#0d1117;color:#e6edf3;font-family:'Segoe UI',system-ui,sans-serif;padding:16px;line-height:1.6}
+.header{text-align:center;padding:20px 0 16px;border-bottom:1px solid #30363d;margin-bottom:20px}
+.header h1{font-size:1.5rem;color:#58a6ff;margin-bottom:6px}
+.header .date{color:#8b949e;font-size:0.85rem}
+.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:20px}
+.problem-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.problem-title{font-size:1.1rem;font-weight:700;color:#e6edf3}
+.badge{padding:3px 10px;border-radius:20px;font-size:0.72rem;font-weight:700;letter-spacing:.5px}
 .easy{background:#1a4731;color:#3fb950}
-.medium{background:#4a2f00;color:#d29922}
-.hard{background:#4a1010;color:#f85149}
-.sl{color:#8b949e;font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;margin:16px 0 8px}
-.ascii{background:#010409;border:1px solid #21262d;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:.72rem;color:#8b949e;overflow-x:auto;white-space:pre;margin-bottom:4px}
-.cb{background:#010409;border:1px solid #21262d;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:.78rem;overflow-x:auto;white-space:pre;line-height:1.6}
-.kw{color:#ff7b72}.fn{color:#d2a8ff}.cm{color:#8b949e}.nm{color:#79c0ff}.op{color:#ff7b72}.st{color:#a5d6ff}
-table{width:100%;border-collapse:collapse;font-size:.8rem;margin-top:8px}
-th{background:#21262d;color:#8b949e;padding:8px 10px;text-align:left}
-td{padding:8px 10px;border-bottom:1px solid #21262d;vertical-align:top}
-td:first-child{color:#79c0ff;font-family:monospace;white-space:nowrap}
-td:nth-child(2){color:#d29922;font-weight:600;white-space:nowrap}
-tr:last-child td{border-bottom:none}
-footer{text-align:center;padding:24px 0 12px;color:#8b949e;font-size:.85rem}
-footer a{color:#58a6ff;text-decoration:none}
+.medium{background:#4d3200;color:#f0883e}
+.hard{background:#4d1f1f;color:#f85149}
+.section-title{font-size:0.8rem;text-transform:uppercase;letter-spacing:1px;color:#8b949e;margin:16px 0 8px;font-weight:600}
+.ascii-box{background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:0.72rem;color:#7ee787;overflow-x:auto;white-space:pre;line-height:1.5}
+.code-block{background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:0.72rem;overflow-x:auto;white-space:pre;line-height:1.6}
+.kw{color:#ff7b72}.fn{color:#d2a8ff}.cm{color:#8b949e}.st{color:#a5d6ff}
+.num{color:#79c0ff}.bi{color:#ffa657}.op{color:#ff7b72}
+table{width:100%;border-collapse:collapse;margin-top:8px;font-size:0.78rem}
+th{background:#21262d;color:#8b949e;padding:8px;text-align:left;font-weight:600}
+td{padding:8px;border-bottom:1px solid #21262d;vertical-align:top}
+td:first-child{color:#58a6ff;font-family:monospace;white-space:nowrap}
+td:nth-child(2){color:#3fb950;font-weight:600}
+td:nth-child(3){color:#8b949e}
+.footer{text-align:center;padding:20px 0 8px;color:#8b949e;font-size:0.82rem;border-top:1px solid #21262d;margin-top:8px}
+.footer a{color:#58a6ff;text-decoration:none}
+.divider{border:none;border-top:1px solid #21262d;margin:14px 0}
 </style>
 </head>
 <body>
-<h1>&#128260; Two Pointers</h1>
-<div class="date">2026-06-18 | LeetCode Daily</div>
 
-<div class="card">
-<div class="card-header">
-<span class="ptitle">LeetCode #283 - Move Zeroes</span>
-<span class="badge easy">Easy</span>
+<div class="header">
+  <h1>ğŸ§© Two Pointers</h1>
+  <div class="date">LeetCode Daily &nbsp;|&nbsp; 2026-06-19 (Fri)</div>
 </div>
-<p style="color:#8b949e;font-size:.85rem">by LeetCode</p>
-<div class="sl">Algorithm Visualization</div>
-<div class="ascii">nums = [0, 1, 0, 3, 12]
-Two pointers: slow=0 (insertion pos), fast scans
 
-fast=0: nums[0]=0  skip
-fast=1: nums[1]=1  nonzero -> swap(slow=0, fast=1) -> [1,0,0,3,12], slow=1
-fast=2: nums[2]=0  skip
-fast=3: nums[3]=3  nonzero -> swap(slow=1, fast=3) -> [1,3,0,0,12], slow=2
-fast=4: nums[4]=12 nonzero -> swap(slow=2, fast=4) -> [1,3,12,0,0], slow=3
+<!-- ===== EASY ===== -->
+<div class="card">
+  <div class="problem-header">
+    <span class="badge easy">Easy</span>
+    <span class="problem-title">#75 Sort Colors â€” by LeetCode</span>
+  </div>
 
-Result: [1, 3, 12, 0, 0]  âœ“ relative order preserved</div>
-<div class="sl">Basic Solution</div>
-<div class="cb"><span class="kw">class</span> <span class="fn">Solution</span>:
-  <span class="kw">def</span> <span class="fn">moveZeroes</span>(<span class="st">self</span>, nums):
-    <span class="nm">slow</span> <span class="op">=</span> 0
-    <span class="kw">for</span> fast <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(nums)):
-      <span class="kw">if</span> nums[fast] <span class="op">!=</span> 0:
-        nums[<span class="nm">slow</span>], nums[fast] <span class="op">=</span> nums[fast], nums[<span class="nm">slow</span>]
-        <span class="nm">slow</span> <span class="op">+=</span> 1</div>
-<div class="sl">Optimized Solution</div>
-<div class="cb"><span class="kw">class</span> <span class="fn">Solution</span>:
-  <span class="kw">def</span> <span class="fn">moveZeroes</span>(<span class="st">self</span>, nums):
-    <span class="nm">insert</span> <span class="op">=</span> 0
+  <div class="section-title">ğŸ¨ ì•Œê³ ë¦¬ì¦˜ ì‹œê°í™” (Dutch National Flag)</div>
+  <div class="ascii-box">
+nums = [2,0,2,1,1,0]   â† 3ê°€ì§€ ìƒ‰ (0=ë¹¨, 1=í°, 2=íŒŒ)
+
+í¬ì¸í„° ì„¤ì •:
+lo=0  mid=0  hi=5
+
+Step 1: nums[mid]=2 â†’ swap(mid,hi), hi--
+  [2,0,2,1,1,0]          [0,0,2,1,1,2]
+   ^           ^           ^           ^
+  lo,mid       hi         lo,mid       hi
+
+Step 2: nums[mid]=0 â†’ swap(lo,mid), lo++, mid++
+  [0,0,2,1,1,2]          [0,0,2,1,1,2]
+   ^           ^              ^ ^     ^
+  lo,mid       hi           lo mid    hi
+
+Step 3~6: mid ê³„ì† ì´ë™...
+ìµœì¢…: [0,0,1,1,2,2]  âœ…
+</div>
+
+  <div class="section-title">ğŸ’¡ ê¸°ë³¸ í’€ì´ (Dutch National Flag)</div>
+  <div class="code-block"><span class="kw">def</span> <span class="fn">sortColors</span>(self, nums: <span class="bi">list</span>[<span class="bi">int</span>]) -> <span class="kw">None</span>:
+    lo, mid, hi = <span class="num">0</span>, <span class="num">0</span>, <span class="bi">len</span>(nums) - <span class="num">1</span>
+
+    <span class="kw">while</span> mid <= hi:
+        <span class="kw">if</span> nums[mid] == <span class="num">0</span>:
+            nums[lo], nums[mid] = nums[mid], nums[lo]
+            lo += <span class="num">1</span>
+            mid += <span class="num">1</span>
+        <span class="kw">elif</span> nums[mid] == <span class="num">1</span>:
+            mid += <span class="num">1</span>
+        <span class="kw">else</span>:  <span class="cm"># nums[mid] == 2</span>
+            nums[mid], nums[hi] = nums[hi], nums[mid]
+            hi -= <span class="num">1</span>
+            <span class="cm"># midëŠ” ì¦ê°€í•˜ì§€ ì•ŠìŒ (êµí™˜ëœ ê°’ ì¬ê²€ì‚¬)</span></div>
+
+  <div class="section-title">âš¡ ìµœì í™” ë²„ì „ (ë™ì¼ â€” ì´ë¯¸ O(n) 1-pass)</div>
+  <div class="code-block"><span class="cm"># ìµœì í™”: count array ë°©ì‹ (2-pass, ë” ì§ê´€ì )</span>
+<span class="kw">def</span> <span class="fn">sortColors</span>(self, nums: <span class="bi">list</span>[<span class="bi">int</span>]) -> <span class="kw">None</span>:
+    count = [<span class="num">0</span>] * <span class="num">3</span>
     <span class="kw">for</span> n <span class="kw">in</span> nums:
-      <span class="kw">if</span> n:
-        nums[<span class="nm">insert</span>] <span class="op">=</span> n
-        <span class="nm">insert</span> <span class="op">+=</span> 1
-    <span class="cm"># Fill rest with zeros</span>
-    nums[<span class="nm">insert</span>:] <span class="op">=</span> [0] <span class="op">*</span> (<span class="fn">len</span>(nums) <span class="op">-</span> <span class="nm">insert</span>)</div>
-<div class="sl">Complexity Analysis</div>
-<table>
-<tr><th>Solution</th><th>Time</th><th>Space</th><th>Reason</th></tr>
-<tr><td>Basic</td><td>O(n)</td><td>O(1)</td><td>Single pass; swap in-place</td></tr>
-<tr><td>Optimized</td><td>O(n)</td><td>O(1)</td><td>Single pass; overwrite then fill zeros â€” fewer swaps</td></tr>
-</table>
+        count[n] += <span class="num">1</span>
+    i = <span class="num">0</span>
+    <span class="kw">for</span> val, cnt <span class="kw">in</span> <span class="fn">enumerate</span>(count):
+        <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(cnt):
+            nums[i] = val
+            i += <span class="num">1</span>
+    <span class="cm"># Dutch Flag = O(n) 1-pass, count = O(n) 2-pass</span>
+    <span class="cm"># ë‘ ë°©ë²• ëª¨ë‘ O(1) space</span></div>
+
+  <hr class="divider">
+  <div class="section-title">ğŸ“Š ë³µì¡ë„ ë¶„ì„</div>
+  <table>
+    <tr><th>êµ¬ë¶„</th><th>ë³µì¡ë„</th><th>ì´ìœ </th></tr>
+    <tr><td>ì‹œê°„ (ê¸°ë³¸)</td><td>O(n)</td><td>mid í¬ì¸í„°ê°€ ë°°ì—´ì„ í•œ ë²ˆë§Œ ìˆœíšŒ</td></tr>
+    <tr><td>ê³µê°„ (ê¸°ë³¸)</td><td>O(1)</td><td>ì¶”ê°€ ë°°ì—´ ì—†ì´ in-place ìŠ¤ì™‘</td></tr>
+    <tr><td>ì‹œê°„ (ìµœì í™”)</td><td>O(n)</td><td>2ë²ˆ ìˆœíšŒí•˜ì§€ë§Œ ì—¬ì „íˆ O(n)</td></tr>
+    <tr><td>ê³µê°„ (ìµœì í™•
+</td><td>O(1)</td><td>ê¸° 3 ê³ ì • ë°°ì—´ë§Œ ì‚¬ìš©</td></tr>
+  </table>
 </div>
 
+<!-- ===== MEDIUM ===== -->
 <div class="card">
-<div class="card-header">
-<span class="ptitle">LeetCode #15 - 3Sum</span>
-<span class="badge medium">Medium</span>
+  <div class="problem-header">
+    <span class="badge medium">Medium</span>
+    <span class="problem-title">#167 Two Sum II (Input Array Is Sorted) â€” by LeetCode</span>
+  </div>
+
+  <div class="section-title">ğŸ¨ ì•Œê³ ë¦¬ì¦˜ ì‹œê°í™” (Two Pointers)</div>
+  <div class="ascii-box">
+numbers = [2, 7, 11, 15],  target = 9
+
+  L=0                R=3
+  [2,   7,  11,  15]
+   ^               ^
+  sum = 2+15 = 17 > 9  â†’  R--
+
+  L=0         R=2
+  [2,   7,  11,  15]
+   ^         ^
+  sum = 2+11 = 13 > 9  â†’  R--
+
+  L=0    R=1
+  [2,   7,  11,  15]
+   ^    ^
+  sum = 2+7 = 9 == 9  âœ…  return [1,2] (1-indexed)
 </div>
-<p style="color:#8b949e;font-size:.85rem">by LeetCode</p>
-<div class="sl">Algorithm Visualization</div>
-<div class="ascii">nums = [-4,-1,-1,0,1,2]  (sorted)
-Fix i=0 (-4): L=1(-1), R=5(2)
-  sum=-3 < 0 -> L++
-  L=2(-1), R=5(2): sum=-3 < 0 -> L++
-  L=3(0),  R=5(2): sum=-2 < 0 -> L++
-  L=4(1),  R=5(2): sum=-1 < 0 -> L++
-  L==R -> stop
-Fix i=1 (-1): L=2(-1), R=5(2)
-  sum=0  == 0 -> FOUND [-1,-1,2], L++, R--
-  L=3(0),  R=4(1): sum=0  == 0 -> FOUND [-1,0,1], L++, R--
-  L==R -> stop
-Fix i=2: nums[2]==nums[1] -> SKIP (dedup)
-Fix i=3 (0): L=4(1), R=5(2)
-  sum=3  > 0 -> R--  L==R -> stop
-Result: [[-1,-1,2],[-1,0,1]]</div>
-<div class="sl">Basic Solution</div>
-<div class="cb"><span class="kw">class</span> <span class="fn">Solution</span>:
-  <span class="kw">def</span> <span class="fn">threeSum</span>(<span class="st">self</span>, nums):
-    nums.<span class="fn">sort</span>()
-    res <span class="op">=</span> []
-    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(nums) <span class="op">-</span> 2):
-      <span class="kw">if</span> i <span class="op">></span> 0 <span class="kw">and</span> nums[i] <span class="op">==</span> nums[i <span class="op">-</span> 1]: <span class="kw">continue</span>
-      L, R <span class="op">=</span> i <span class="op">+</span> 1, <span class="fn">len</span>(nums) <span class="op">-</span> 1
-      <span class="kw">while</span> L <span class="op"><</span> R:
-        s <span class="op">=</span> nums[i] <span class="op">+</span> nums[L] <span class="op">+</span> nums[R]
-        <span class="kw">if</span> s <span class="op">==</span> 0:
-          res.<span class="fn">append</span>([nums[i], nums[L], nums[R]])
-          <span class="kw">while</span> L <span class="op"><</span> R <span class="kw">and</span> nums[L] <span class="op">==</span> nums[L <span class="op">+</span> 1]: L <span class="op">+=</span> 1
-          <span class="kw">while</span> L <span class="op"><</span> R <span class="kw">and</span> nums[R] <span class="op">==</span> nums[R <span class="op">-</span> 1]: R <span class="op">-=</span> 1
-          L <span class="op">+=</span> 1; R <span class="op">-=</span> 1
-        <span class="kw">elif</span> s <span class="op"><</span> 0: L <span class="op">+=</span> 1
-        <span class="kw">else</span>: R <span class="op">-=</span> 1
-    <span class="kw">return</span> res</div>
-<div class="sl">Optimized Solution</div>
-<div class="cb"><span class="kw">class</span> <span class="fn">Solution</span>:
-  <span class="kw">def</span> <span class="fn">threeSum</span>(<span class="st">self</span>, nums):
-    nums.<span class="fn">sort</span>()
-    res <span class="op">=</span> []
-    <span class="kw">for</span> i, v <span class="kw">in</span> <span class="fn">enumerate</span>(nums):
-      <span class="kw">if</span> v <span class="op">></span> 0: <span class="kw">break</span>  <span class="cm"># sorted: no triplet sums to 0 if pivot > 0</span>
-      <span class="kw">if</span> i <span class="kw">and</span> v <span class="op">==</span> nums[i <span class="op">-</span> 1]: <span class="kw">continue</span>
-      L, R <span class="op">=</span> i <span class="op">+</span> 1, <span class="fn">len</span>(nums) <span class="op">-</span> 1
-      <span class="kw">while</span> L <span class="op"><</span> R:
-        s <span class="op">=</span> v <span class="op">+</span> nums[L] <span class="op">+</span> nums[R]
-        <span class="kw">if</span> s <span class="op">></span> 0: R <span class="op">-=</span> 1
-        <span class="kw">elif</span> s <span class="op"><</span> 0: L <span class="op">+=</span> 1
+
+  <div class="section-title">ğŸ’¡ ê¸°ë³¸ í’€ì´ (Two Pointers)</div>
+  <div class="code-block"><span class="kw">def</span> <span class="fn">twoSum</span>(self, numbers: <span class="bi">list</span>[<span class="bi">int</span>], target: <span class="bi">int</span>) -> <span class="bi">list</span>[<span class="bi">int</span>]:
+    left, right = <span class="num">0</span>, <span class="bi">len</span>(numbers) - <span class="num">1</span>
+
+    <span class="kw">while</span> left < right:
+        curr_sum = numbers[left] + numbers[right]
+        <span class="kw">if</span> curr_sum == target:
+            <span class="kw">return</span> [left + <span class="num">1</span>, right + <span class="num">1</span>]  <span class="cm"># 1-indexed</span>
+        <span class="kw">elif</span> curr_sum < target:
+            left += <span class="num">1</span>   <span class="cm"># í•©ì´ ì‘ìœ¼ë©´ ì™¼ìª½ í¬ì¸í„° ì¦ê°€</span>
         <span class="kw">else</span>:
-          res.<span class="fn">append</span>([v, nums[L], nums[R]])
-          L <span class="op">+=</span> 1; R <span class="op">-=</span> 1
-          <span class="kw">while</span> L <span class="op"><</span> R <span class="kw">and</span> nums[L] <span class="op">==</span> nums[L <span class="op">-</span> 1]: L <span class="op">+=</span> 1
-    <span class="kw">return</span> res</div>
-<div class="sl">Complexity Analysis</div>
-<table>
-<tr><th>Solution</th><th>Time</th><th>Space</th><th>Reason</th></tr>
-<tr><td>Basic</td><td>O(n&#178;)</td><td>O(1)</td><td>Sort O(n log n) + O(n) outer * O(n) inner two-pointer</td></tr>
-<tr><td>Optimized</td><td>O(n&#178;)</td><td>O(1)</td><td>Early break when pivot > 0 prunes significant portion</td></tr>
-</table>
+            right -= <span class="num">1</span>  <span class="cm"># í•©ì´ í¬ë©´ ì˜¤ë¥¸ìª½ í¬ì¸í„° ê°ì†Œ</span>
+
+    <span class="kw">return</span> [-<span class="num">1</span>, -<span class="num">1</span>]  <span class="cm"># ë¬¸ì œ ì¡°ê±´ìƒ í•­ìƒ í•´ ì¡´ì¬</span></div>
+
+  <div class="section-title">âš¡ ìµœì í™” ë²„ì „ (Binary Search í™œìš©)</div>
+  <div class="code-block"><span class="kw">import</span> bisect
+
+<span class="kw">def</span> <span class="fn">twoSum</span>(self, numbers: <span class="bi">list</span>[<span class="bi">int</span>], target: <span class="bi">int</span>) -> <span class="bi">list</span>[<span class="bi">int</span>]:
+    <span class="kw">for</span> i, n <span class="kw">in</span> <span class="fn">enumerate</span>(numbers):
+        complement = target - n
+        <span class="cm"># i+1 ì´í›„ êµ¬ê°„ì—ì„œ ì´ì§„íƒìƒ‰</span>
+        j = <span class="fn">bisect.bisect_left</span>(numbers, complement, i + <span class="num">1</span>)
+        <span class="kw">if</span> j < <span class="bi">len</span>(numbers) <span class="kw">and</span> numbers[j] == complement:
+            <span class="kw">return</span> [i + <span class="num">1</span>, j + <span class="num">1</span>]
+    <span class="kw">return</span> [-<span class="num">1</span>, -<span class="num">1</span>]
+<span class="cm"># Two Pointers O(n) vs Binary Search O(n log n)</span>
+<span class="cm"># ì‹¤ì œë¡œëŠ” Two Pointersê°€ ë” ë¹ ë¦„ (ì •ë ¬ ë³´ì¥ ì‹œ)</span></div>
+
+  <hr class="divider">
+  <div class="section-title">ğŸ“Š ë³µì¡ë„ ë¶„ì„</div>
+  <table>
+    <tr><th>êµ¬ë¶„</th><th>ë³µì¡ë„</th><th>ì´ìœ </th></tr>
+    <tr><td>ì‹œê°„ (Two Ptr)</td><td>O(n)</td><td>left/rightê°€ ì„œë¡œ í–¥í•´ ì´ë™, ìµœëŒ€ në²ˆ</td></tr>
+    <tr><td>ê³µê°„ (Two Ptr)</td><td>O(1)</td><td>í¬ì¸í„° 2ê°œë§Œ ì‚¬ìš©</td></tr>
+    <tr><td>ì‹œê°„ (BSearch)</td><td>O(n log n)</td><td>ê° ì›ì†Œë§ˆë‹¤ ì´ì§„íƒìƒ‰ O(log n)</td></tr>
+    <tr><td>ê³µê°„ (BSearch)</td><td>O(1)</td><td>ì¶”ê°€ ìë£Œêµ¬ì¡° ì—†ìŒ</td></tr>
+  </table>
 </div>
 
+<!-- ===== HARD ===== -->
 <div class="card">
-<div class="card-header">
-<span class="ptitle">LeetCode #4 - Median of Two Sorted Arrays</span>
-<span class="badge hard">Hard</span>
-</div>
-<p style="color:#8b949e;font-size:.85rem">by LeetCode</p>
-<div class="sl">Algorithm Visualization</div>
-<div class="ascii">nums1=[1,3]  nums2=[2]  -> total=3, median=2.0
-Binary search on the SMALLER array (nums1):
+  <div class="problem-header">
+    <span class="badge hard">Hard</span>
+    <span class="problem-title">#42 Trapping Rain Water â€” by LeetCode</span>
+  </div>
 
-Partition nums1 at mid1=1, nums2 at mid2=1:
-  nums1: [1] | [3]
-  nums2: [2] | []
-  left side:  max(1,2)=2
-  right side: min(3,inf)=3
-  left_max > right_min? 2 > 3? NO
-  -> valid partition! median = (2+3)/2 = 2.5? No, total odd
-  -> median = right_min = min(3,inf) = 2?
+  <div class="section-title">ğŸ¨ ì•Œê³ ë¦¬ì¦˜ ì‹œê°í™” (Two Pointers)</div>
+  <div class="ascii-box">
+height = [0,1,0,2,1,0,1,3,1,0,1,2]
 
-Correct: mid1=1 means 1 element from nums1 on left
-  left_max1=nums1[0]=1, left_max2=nums2[0]=2
-  right_min1=nums1[1]=3, right_min2=inf
-  1 <= inf AND 2 <= 3 -> valid
-  total=3 odd -> median = max(1,2) = 2  âœ“</div>
-<div class="sl">Basic Solution</div>
-<div class="cb"><span class="kw">class</span> <span class="fn">Solution</span>:
-  <span class="kw">def</span> <span class="fn">findMedianSortedArrays</span>(<span class="st">self</span>, nums1, nums2):
-    <span class="kw">if</span> <span class="fn">len</span>(nums1) <span class="op">></span> <span class="fn">len</span>(nums2):
-      nums1, nums2 <span class="op">=</span> nums2, nums1  <span class="cm"># ensure nums1 is smaller</span>
-    m, n <span class="op">=</span> <span class="fn">len</span>(nums1), <span class="fn">len</span>(nums2)
-    lo, hi <span class="op">=</span> 0, m
-    <span class="kw">while</span> lo <span class="op"><=</span> hi:
-      mid1 <span class="op">=</span> (lo <span class="op">+</span> hi) <span class="op">//</span> 2
-      mid2 <span class="op">=</span> (m <span class="op">+</span> n <span class="op">+</span> 1) <span class="op">//</span> 2 <span class="op">-</span> mid1
-      L1 <span class="op">=</span> nums1[mid1 <span class="op">-</span> 1] <span class="kw">if</span> mid1 <span class="op">></span> 0 <span class="kw">else</span> <span class="fn">float</span>(<span class="st">'-inf'</span>)
-      R1 <span class="op">=</span> nums1[mid1] <span class="kw">if</span> mid1 <span class="op"><</span> m <span class="kw">else</span> <span class="fn">float</span>(<span class="st">'inf'</span>)
-      L2 <span class="op">=</span> nums2[mid2 <span class="op">-</span> 1] <span class="kw">if</span> mid2 <span class="op">></span> 0 <span class="kw">else</span> <span class="fn">float</span>(<span class="st">'-inf'</span>)
-      R2 <span class="op">=</span> nums2[mid2] <span class="kw">if</span> mid2 <span class="op"><</span> n <span class="kw">else</span> <span class="fn">float</span>(<span class="st">'inf'</span>)
-      <span class="kw">if</span> L1 <span class="op"><=</span> R2 <span class="kw">and</span> L2 <span class="op"><=</span> R1:
-        <span class="kw">if</span> (m <span class="op">+</span> n) <span class="op">%</span> 2 <span class="op">==</span> 0:
-          <span claqÃ="kw">return</span> (<span class="fn">max</span>(L1, L2) <span class="op">+</span> <span class="fn">min</span>(R1, R2)) <span class="op">/</span> 2
-        <span class="kw">return</span> <span class="fn">max</span>(L1, L2)
-      <span class="kw">elif</span> L1 <span class="op">></span> R2: hi <span class="op">=</span> mid1 <span class="op">-</span> 1
-      <span class="kw">else</span>: lo <span class="op">=</span> mid1 <span class="op">+</span> 1</div>
-<div class="sl">Optimized Solution</div>
-<div class="cb"><span class="kw">class</span> <span class="fn">Solution</span>:
-  <span class="kw">def</span> <span class="fn">findMedianSortedArrays</span>(<span class="st">self</span>, nums1, nums2):
-    A, B <span class="op">=</span> nums1, nums2
-    <span class="kw">if</span> <span class="fn">len</span>(A) <span class="op">></span> <span class="fn">len</span>(B): A, B <span class="op">=</span> B, A
-    m, n, half <span class="op">=</span> <span class="fn">len</span>(A), <span class="fn">len</span>(B), (<span class="fn">len</span>(A) <span class="op">+</span> <span class="fn">len</span>(B)) <span class="op">//</span> 2
-    lo, hi <span class="op">=</span> 0, m
-    <span class="kw">while</span> <span class="kw">True</span>:
-      i <span class="op">=</span> (lo <span class="op">+</span> hi) <span class="op">//</span> 2
-      j <span class="op">=</span> half <span class="op">-</span> i
-      Aleft  <span class="op">=</span> A[i <span class="op">-</span> 1] <span class="kw">if</span> i <span class="kw">else</span> <span class="fn">float</span>(<span class="st">'-inf'</span>)
-      Aright <span class="op">=</span> A[i]     <span class="kw">if</span> i <span class="op"><</span> m <span class="kw">else</span> <span class="fn">float</span>(<span class="st">'inf'</span>)
-      Bleft  <span class="op">=</span> B[j <span class="op">-</span> 1] <span class="kw">if</span> j <span class="kw">else</span> <span class="fn">float</span>(<span class="st">'-inf'</span>)
-      Bright <span class="op">=</span> B[j]     <span class="kw">if</span> j <span class="op"><</span> n <span class="kw">else</span> <span class="fn">float</span>(<span class="st">'inf'</span>)
-      <span class="kw">if</span> Aleft <span class="op"><=</span> Bright <span class="kw">and</span> Bleft <span class="op"><=</span> Aright:
-        <span class="kw">if</span> (m <span class="op">+</span> n) <span class="op">%</span> 2: <span class="kw">return</span> <span class="fn">min</span>(Aright, Bright)
-        <span class="kw">return</span> (<span class="fn">max</span>(Aleft, Bleft) <span class="op">+</span> <span class="fn">min</span>(Aright, Bright)) <span class="op">/</span> 2
-      <span class="kw">elif</span> Aleft <span class="op">></span> Bright: hi <span class="op">=</span> i <span class="op">-</span> 1
-      <span class="kw">else</span>: lo <span class="op">=</span> i <span class="op">+</span> 1</div>
-<div class="sl">Complexity Analysis</div>
-<table>
-<tr><th>Solution</th><th>Time</th><th>Space</th><th>Reason</th></tr>
-<tr><td>Basic</td><td>O(log min(m,n))</td><td>O(1)</td><td>Binary search on smaller array only</td></tr>
-<tr><td>Optimized</td><td>O(log min(m,n))</td><td>O(1)</td><td>Cleaner partition logic; A/B naming improves clarity</td></tr>
-</table>
+ë§‰ëŒ€ ì‹œê°í™”:
+         _
+ _      | |     _
+| |  _  | | _  | |  _
+|_|_|_|_|_|_|_|_|_|_|_|_|
+
+ë¬¼ ì±„ìš´ í›„:
+         _
+ _  ~~~| |~~~ _
+| |_~_| |_|_| |~~_
+|_|_|_|_|_|_|_|_|_|_|_|_|
+
+Two Pointers ë°©ì‹:
+L=0, R=11, maxL=0, maxR=0
+
+â†’ height[L] <= height[R]:
+  water += max(0, maxL - height[L])
+  maxL ê°±ì‹ , L++
+â†’ ë°˜ëŒ€ì˜ ê²½ìš°: R ìª½ ì²˜ë¦¬
+ì´ ë¬¼ = 6
 </div>
 
-<footer>
-<a href="https://chloeyeo.github.io/leetcode-explanations">&#127760; chloeyeo.github.io/leetcode-explanations</a>
-<p style="margin-top:6px;font-size:.75rem">LeetCode Daily Study &#183; 2026-06-18</p>
-</footer>
+  <div class="section-title">ğŸ’¡ ê¸°ë³¸ í’€ì´ (Extra Space â€” Prefix/Suffix Max)</div>
+  <div class="code-block"><span class="kw">def</span> <span class="fn">trap</span>(self, height: <span class="bi">list</span>[<span class="bi">int</span>]) -> <span class="bi">int</span>:
+    n = <span class="bi">len</span>(height)
+    <span class="kw">if</span> n == <span class="num">0</span>:
+        <span class="kw">return</span> <span class="num">0</span>
+
+    <span class="cm"># ê° ìœ„ì¹˜ì—ì„œ ì™¼ìª½/ì˜¤ë¥¸ìª½ ìµœëŒ€ ë†’ì´ ë¯¸ë¦¬ ê³„ì‚°</span>
+    left_max = [<span class="num">0</span>] * n
+    right_max = [<span class="num">0</span>] * n
+
+    left_max[<span class="num">0</span>] = height[<span class="num">0</span>]
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, n):
+        left_max[i] = <span class="fn">max</span>(left_max[i-<span class="num">1</span>], height[i])
+
+    right_max[n-<span class="num">1</span>] = height[n-<span class="num">1</span>]
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n-<span class="num">2</span>, -<span class="num">1</span>, -<span class="num">1</span>):
+        right_max[i] = <span class="fn">max</span>(right_max[i+<span class="num">1</span>], height[i])
+
+    water = <span class="num">0</span>
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n):
+        <span class="cm"># ì´ ìœ„ì¹˜ì— ê³ ì¼ ìˆ˜ ìˆëŠ” ë¬¼ = min(ì–‘ìª½ ìµœëŒ€) - í˜„ì¬ ë†’ì´</span>
+        water += <span class="fn">min</span>(left_max[i], right_max[i]) - height[i]
+    <span class="kw">return</span> water</div>
+
+  <div class="section-title">âš¡ ìµœì í™”ƒ®Ê²‚€¡Qİ¼A½¥¹Ñ•ÉÌ°< Ä¤MÁ…”¤ğ½‘¥Øø(€€ñ‘¥Ø±…ÍÌô‰½‘”µ‰±½¬ˆøñÍÁ…¸±…ÍÌô‰­Üˆù‘•˜ğ½ÍÁ…¸ø€ñÍÁ…¸±…ÍÌô‰™¸ˆùÑÉ…Àğ½ÍÁ…¸ø¡Í•±˜°¡•¥¡Ğè€ñÍÁ…¸±…ÍÌô‰‰¤ˆù±¥ÍĞğ½ÍÁ…¸ùlñÍÁ…¸±…ÍÌô‰‰¤ˆù¥¹Ğğ½ÍÁ…¸ùt¤€´ø€ñÍÁ…¸±…ÍÌô‰‰¤ˆù¥¹Ğğ½ÍÁ…¸øè(€€€±•™Ğ°É¥¡Ğ€ô€ñÍÁ…¸±…ÍÌô‰¹Õ´ˆøÀğ½ÍÁ…¸ø°€ñÍÁ…¸±…ÍÌô‰‰¤ˆù±•¸ğ½ÍÁ…¸ø¡¡•¥¡Ğ¤€´€ñÍÁ…¸±…ÍÌô‰¹Õ´ˆøÄğ½ÍÁ…¸ø(€€€µ…á}±•™Ğ°µ…á}É¥¡Ğ€ô€ñÍÁ…¸±…ÍÌô‰¹Õ´ˆøÀğ½ÍÁ…¸ø°€ñÍÁ…¸±…ÍÌô‰¹Õ´ˆøÀğ½ÍÁ…¸ø(€€€İ…Ñ•È€ô€ñÍÁ…¸±…ÍÌô‰¹Õ´ˆøÀğ½ÍÁ…¸ø((€€€€ñÍÁ…¸±…ÍÌô‰­Üˆùİ¡¥±”ğ½ÍÁ…¸ø±•™Ğ€ğÉ¥¡Ğè(€€€€€€€€ñÍÁ…¸±…ÍÌô‰­Üˆù¥˜ğ½ÍÁ…¸ø¡•¥¡Ñm±•™Ñt€ğô¡•¥¡ÑmÉ¥¡Ñtè(€€€€€€€€€€€€ñÍÁ…¸±…ÍÌô‰´ˆøŒƒ²b³²–c²ªôƒ²Êc®š°èµ…á}±•™ÓªÂ ƒ®ÎG®ª¤</span>
+            <span class="kw">if</span> height[left] >= max_left:
+                max_left = height[left]   <span class="cm"># ìƒˆ ìµœëŒ€ê°’ ê°±ì‹ </span>
+            <span class="kw">else</span>:
+                water += max_left - height[left]  <span class="cm"># ë¬¼ ì¶”ê°€</span>
+            left += <span class="num">1</span>
+        <span class="kw">else</span>:
+            <span class="cm"># ì˜¤ë¥¸ìª½ ì²˜ë¦¬: max_rightê°€ ë³‘ëª©</span>
+            <span class="kw">if</span> height[right] >= max_right:
+                max_right = height[right]
+            <span class="kw">else</span>:
+                water += max_right - height[right]
+            right -= <span class="num">1</span>
+
+    <span class="kw">return</span> water
+<span class="cm"># ìµ‰ì‹¬: ë” ì‘ì€ ìª½ í¬ì¸í„° ì´ë™ â†’ ë°˜ëŒ€í¸ ìµœëŒ€ê°’ ë³´ì¥ë¨</span></div>
+
+  <hr class="divider">
+  <div class="section-title">ğŸ“Š ë³µì¡ë„ ë¶„ì„</div>
+  <table>
+    <tr><th>êµ¬ë¶„</th><th>ë³µì¡ë„</th><th>ì´ìœ </th></tr>
+    <tr><td>ì‹œê°„ (ê¸°ë³¸)</td><td>O(n)</td><td>ë°°ì—´ 3ë²ˆ ìˆœíšŒ (ëª¨ë‘ ì„ í˜•)</td></tr>
+    <tr><td>ê³µê°„ (ê¸°ë³¸)</td><td>O(n)</td><td>left_max, right_max ë°°ì—´ ªÂÀëŠ” ° ë°˜ µˆ: n</td></tr>
+    <tr><td>ì‹œê°„ (Two Ptr)</td><td>O(n)</td><td>left+rightê°€ ì„œë¡œ ë§Œë‚  ë•Œê¹Œì§€ ì´ë™</td></tr>
+    <tr><td>ê³µê°„ (Two Ptr)</td><td>O(1)</td><td>í¬ì¸í„°Â·ìµœëŒ€ê°’ ë³€ìˆ˜ 4ê°œë§Œ ì‚¬ìš©</td></tr>
+  </table>
+</div>
+
+<div class="footer">
+  <p>ğŸ“š ë” ë§ì€ ìœ í˜• â†’
+    <a href="https://chloeyeo.github.io/leetcode-explanations" target="_blank">
+      chloeyeo.github.io/leetcode-explanations
+    </a>
+  </p>
+  <p style="margin-top:6px;font-size:0.75rem">
+    Generated 2026-06-19 &nbsp;|&nbsp; Two Pointers
+  </p>
+</div>
+
 </body>
 </html>

@@ -3,161 +3,276 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LeetCode Daily | Trie 유형</title>
+<title>LeetCode Daily | Trie</title>
 <style>
-  :root {
-    --bg: #0d1117;
-    --surface: #161b22;
-    --surface2: #21262d;
-    --border: #30363d;
-    --text: #e6edf3;
-    --muted: #8b949e;
-    --easy: #3fb950;
-    --medium: #f0883e;
-    --hard: #f85149;
-    --accent: #58a6ff;
-    --purple: #bc8cff;
-    --yellow: #e3b341;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    font-size: 15px;
-    line-height: 1.6;
-    padding: 16px;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  header {
-    text-align: center;
-    padding: 28px 16px 20px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 24px;
-  }
-  header h1 {
-    font-size: 1.8rem;
-    color: var(--accent);
-    font-weight: 700;
-    letter-spacing: -0.5px;
-  }
-  header .subtitle {
-    color: var(--muted);
-    font-size: 0.9rem;
-    margin-top: 6px;
-  }
-  .badge {
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    margin-bottom: 12px;
-  }
-  .easy   { background: rgba(63,185,80,0.15);  color: var(--easy);   border: 1px solid var(--easy);   }
-  .medium { background: rgba(240,136,62,0.15); color: var(--medium); border: 1px solid var(--medium); }
-  .hard   { background: rgba(248,81,73,0.15);  color: var(--hard);   border: 1px solid var(--hard);   }
-
-  .problem-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 28px;
-  }
-  .problem-title {
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 4px;
-  }
-  .problem-meta {
-    font-size: 0.8rem;
-    color: var(--muted);
-    margin-bottom: 14px;
-  }
-  .section-label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--purple);
-    margin: 16px 0 8px;
-  }
-  pre.ascii {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 14px;
-    overflow-x: auto;
-    font-family: 'Courier New', monospace;
-    font-size: 0.78rem;
-    line-height: 1.5;
-    color: var(--yellow);
-    white-space: pre;
-  }
-  .code-block {
-    background: #0d1117;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 14px;
-    overflow-x: auto;
-    font-family: 'Courier New', monospace;
-    font-size: 0.82rem;
-    line-height: 1.7;
-    white-space: pre;
-  }
-  .kw  { color: #ff7b72; }
-  .fn  { color: #d2a8ff; }
-  .cls { color: #ffa657; }
-  .str { color: #a5d6ff; }
-  .num { color: #79c0ff; }
-  .cm  { color: #8b949e; font-style: italic; }
-  .op  { color: #ff7b72; }
-  .var { color: #e6edf3; }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 6px;
-    font-size: 0.82rem;
-  }
-  th {
-    background: var(--surface2);
-    padding: 8px 10px;
-    text-align: left;
-    border: 1px solid var(--border);
-    color: var(--accent);
-    font-weight: 600;
-  }
-  td {
-    padding: 7px 10px;
-    border: 1px solid var(--border);
-    color: var(--text);
-    vertical-align: top;
-  }
-  tr:nth-child(even) td { background: var(--surface2); }
-  footer {
-    text-align: center;
-    padding: 24px 0 12px;
-    border-top: 1px solid var(--border);
-    margin-top: 12px;
-    color: var(--muted);
-    font-size: 0.85rem;
-  }
-  footer a { color: var(--accent); text-decoration: none; }
-  footer a:hover { text-decoration: underline; }
-  .tag-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d1117;color:#c9d1d9;font-family:'Segoe UI',system-ui,sans-serif;font-size:15px;line-height:1.6;padding:16px}
+h1{color:#58a6ff;font-size:1.5em;text-align:center;margin-bottom:4px}
+.date{text-align:center;color:#8b949e;font-size:0.85em;margin-bottom:20px}
+.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:16px;margin-bottom:24px}
+.card-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.card-header h2{color:#e6edf3;font-size:1.1em}
+.badge{padding:3px 10px;border-radius:20px;font-size:0.78em;font-weight:700;letter-spacing:.5px}
+.easy{background:#1a4731;color:#3fb950}
+.medium{background:#4a2e00;color:#d29922}
+.hard{background:#4a1515;color:#f85149}
+.author{color:#8b949e;font-size:0.8em;margin-left:auto}
+.section-title{color:#58a6ff;font-size:0.88em;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin:14px 0 8px}
+pre.ascii{background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:12px;font-size:0.75em;color:#7ee787;overflow-x:auto;line-height:1.4}
+.code-block{background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:12px;overflow-x:auto;margin-bottom:10px}
+code{font-family:'Courier New',monospace;font-size:0.82em;line-height:1.6}
+.kw{color:#ff7b72}.fn{color:#d2a8ff}.cm{color:#8b949e;font-style:italic}
+.st{color:#a5d6ff}.num{color:#79c0ff}.cls{color:#ffa657}
+table{width:100%;border-collapse:collapse;font-size:0.82em;margin-top:6px}
+th{background:#21262d;color:#8b949e;padding:8px;text-align:left;font-weight:600}
+td{padding:8px;border-top:1px solid #21262d;color:#c9d1d9;vertical-align:top}
+td:first-child{color:#58a6ff;font-family:monospace;white-space:nowrap}
+td.cmp{color:#3fb950;font-weight:600}
+footer{text-align:center;margin-top:28px;padding:16px;border-top:1px solid #21262d}
+footer a{color:#58a6ff;text-decoration:none;font-size:0.9em}
+.divider{border:none;border-top:1px solid #21262d;margin:16px 0}
 </style>
 </head>
 <body>
+<h1>&#127795; Trie</h1>
+<div class="date">LeetCode Daily | 2026-06-19</div>
 
-<header>
-  <h1>🌳 Trie (트라이) 유형</h1>
-  <p class="subtitle">LeetCode Daily Practice · 2026-06-13</p>
-</header>
+<div class="card">
+  <div class="card-header">
+    <span class="badge easy">Easy</span>
+    <h2>#1408 String Matching in an Array</h2>
+    <span class="author">by LeetCode</span>
+  </div>
+  <div class="section-title">Algorithm Visualization</div>
+<pre class="ascii">
+words = ["mass", "as", "hero", "superhero"]
 
-<!-- ═══════════════════════════════════════════════
-     PROBLEM 1 — EASY: #208 Implement Trie (Prefix Tree)
-     ═══════════════════════════════════════════════ -->
+Trie insert (all suffixes):
+root
++-- m -> a -> s -> s [END]
++-- a -> s [END]
++-- h -> e -> r -> o [END]
++-- s -> u -> p -> e -> r -> h -> e -> r -> o [END]
+
+"as"   in "mass"?      YES
+"hero" in "superhero"? YES
+Result: ["as", "hero"]
+</pre>
+  <div class="section-title">Basic Solution (Brute Force)</div>
+  <div class="code-block"><code>
+<span class="kw">from</span> typing <span class="kw">import</span> List
+
+<span class="kw">class</span> <span class="cls">Solution</span>:
+    <span class="kw">def</span> <span class="fn">stringMatching</span>(<span class="kw">self</span>, words: List[<span class="cls">str</span>]) -&gt; List[<span class="cls">str</span>]:
+        result = []
+        <span class="kw">for</span> i, word <span class="kw">in</span> <span class="fn">enumerate</span>(words):
+            <span class="kw">for</span> j, other <span class="kw">in</span> <span class="fn">enumerate</span>(words):
+                <span class="kw">if</span> i != j <span class="kw">and</span> word <span class="kw">in</span> other:
+                    result.<span class="fn">append</span>(word)
+                    <span class="kw">break</span>
+        <span class="kw">return</span> result
+  </code></div>
+  <div class="section-title">Optimized Solution (Trie)</div>
+  <div class="code-block"><code>
+<span class="kw">class</span> <span class="cls">TrieNode</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="kw">self</span>):
+        <span class="kw">self</span>.children = {}
+        <span class="kw">self</span>.is_end = <span class="kw">False</span>
+
+<span class="kw">class</span> <span class="cls">Solution</span>:
+    <span class="kw">def</span> <span class="fn">stringMatching</span>(<span class="kw">self</span>, words):
+        root = <span class="cls">TrieNode</span>()
+        <span class="kw">for</span> word <span class="kw">in</span> words:
+            <span class="kw">for</span> start <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(word)):
+                node = root
+                <span class="kw">for</span> ch <span class="kw">in</span> word[start:]:
+                    <span class="kw">if</span> ch <span class="kw">not in</span> node.children:
+                        node.children[ch] = <span class="cls">TrieNode</span>()
+                    node = node.children[ch]
+                    <span class="kw">if</span> node.is_end: <span class="kw">break</span>
+                node.is_end = <span class="kw">True</span>
+        result = []
+        <span class="kw">for</span> word <span class="kw">in</span> words:
+            node = root
+            <span class="kw">for</span> ch <span class="kw">in</span> word: node = node.children[ch]
+            <span class="kw">if not</span> node.is_end: result.<span class="fn">append</span>(word)
+        <span class="kw">return</span> result
+  </code></div>
+  <div class="section-title">Complexity Analysis</div>
+  <table>
+    <tr><th>Type</th><th>Complexity</th><th>Reason</th></tr>
+    <tr><td>Time (basic)</td><td class="cmp">O(n2L)</td><td>Substring check for each word pair</td></tr>
+    <tr><td>Time (opt)</td><td class="cmp">O(nL2)</td><td>Insert all suffixes of each word into Trie</td></tr>
+    <tr><td>Space (opt)</td><td clas="cmp">O(nL2)</td><td>Total suffix length stored in Trie</td></tr>
+  </table>
+</div>
+
+<hr class="divider">
+
+<div class="card">
+  <div class="card-header">
+    <span class="badge medium">Medium</span>
+    <h2>#208 Implement Trie (Prefix Tree)</h2>
+    <span class="author">by LeetCode</span>
+  </div>
+  <div class="section-title">Algorithm Visualization</div>
+<pre class="ascii">
+insert("apple"), insert("app")
+
+root
+ +O- a
+      +O- p
+           +O- p [END:"app"]
+                +O- l
+                     +O- e [END:"apple"]
+
+search("app")    -> node 'p' is_end=True  -> True
+search("ap")     -> node 'p' is_end=False -> False
+startsWith("app")-> node exists          -> True
+</pre>
+  <div class="section-title">Basic Solution (Dictionary)</div>
+  <div class="code-block"><code>
+<span class="kw">class</span> <span class="cls">Trie</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="kw">self</span>):
+        <span class="kw">self</span>.children = {}
+        <span class="kw">self</span>.is_end = <span class="kw">False</span>
+    <span class="kw">def</span> <span class="fn">insert</span>(<span class="kw">self</span>, word):
+        node = <span class="kw">self</span>
+        <span class="kw">for</span> ch <span class="kw">in</span> word:
+            <span class="kw">if</span> ch <span class="kw">not in</span> node.children: node.children[ch] = <span class="cls">Trie</span>()
+            node = node.children[ch]
+        node.is_end = <span class="kw">True</span>
+    <span class="kw">def</span> <span class="fn">search</span>(<span class="kw">self</span>, word):
+        node = <span class="kw">self</span>
+        <span clas="kw">for</span> ch <span class="kw">in</span> word:
+            <span class="kw">if</span> ch <span class="kw">not in</span> node.children: <span class="kw">return False</span>
+            node = node.children[ch]
+        <span class="kw">return</span> node.is_end
+    <span class="kw">def</span> <span class="fn">startsWith</span>(<span class="kw">self</span>, prefix):
+        node = <span class="kw">self</span>
+        <span class="kw">for</span> ch <span class="kw">in</span> prefix:
+            <span class="kw">if</span> ch <span class="kw">not in</span> node.children: <span class="kw">return False</span>
+            node = node.children[ch]
+        <span class="kw">return True</span>
+  </code></div>
+  <div class="section-title">Optimized Solution (Array-based, O(1) access)</div>
+  <div class="code-block"><code>
+<span class="kw">class</span> <span class="cls">Trie</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="kw">self</span>):
+        <span class="kw">self</span>.children = [<span class="kw">None</span>] * <span class="num">26</span>
+        <span class="kw">self</span>.is_end = <span class="kw">False</span>
+    <span class="kw">def</span> <span class="fn">_idx</span>(<span class="kw">self</span>, ch): <span class="kw">return</span> <span class="fn">ord</span>(ch) - <span class="num">97</span>
+    <span class="kw">def</span> <span class="fn">insert</span>(<span class="kw">self</span>, w):
+        n = <span class="kw">self</span>
+        <span class="kw">for</span> ch <span class="kw">in</span> w:
+            i = <span class="kw">self</span>.<span class="fn">_idx</span>(ch)
+            <span class="kw">if not</span> n.children[i]: n.children[i] = <span class="cls">Trie</span>()
+            n = n.children[i]
+        n.is_end = <span class="kw">True</span>
+    <span class="kw">def</span> <span class="fn">_go</span>(<span class="kw">self</span>, s):
+        n = <span class="kw">self</span>
+        <span class="kw">for</span> ch <span class="kw">in</span> s:
+            n = n.children[<span class="kw">self</span>.<span class="fn">_idx</span>(ch)]
+            <span class="kw">if not</span> n: <span class="kw">return None</span>
+        <span class="kw">return</span> n
+    <span class="kw">def</span> <span class="fn">search</span>(<span class="kw">self</span>, w): n = <span class="kw">self</span>.<span class="fn">_go</span>(w); <span class="kw">return</span> n <span class="kw">is not None and</span> n.is_end
+    <span class="kw">def</span> <span class="fn">startsWith</span>(<span class="kw">self</span>, p): <span class="kw">return</span> <span class="kw">self</span>.<span class="fn">_go</span>(p) <span class="kw">is not None</span>
+  </code></div>
+  <div class="section-title">Complexity Analysis</div>
+  <table>
+    <tr><th>Type</th><th>Complexity</th><th>Reason</th></tr>
+    <tr><td>insert / search Time</td><td class="cmp">O(L)</td><td>Traverse L nodes for word of length L</td></tr>
+    <tr><td>Space</td><td class="cmp">O(N*L)</td><td>N words x avg length L nodes created</td></tr>
+    <tr><td>Array vs Dict access</td><td class="cmp">O(1)</td><td>Fixed index (ord-97), no hash overhead</td></tr>
+  </table>
+</div>
+
+<hr class="divider">
+
+<div class="card">
+  <div class="card-header">
+    <span class="badge hard">Hard</span>
+    <h2>#212 Word Search II</h2>
+    <span class="author">by LeetCode</span>
+  </div>
+  <div class="section-title">Algorithm Visualization</div>
+<pre class="ascii">
+board:               words: ["oath","pea","eat","rain"]
+o a a n
+e t a e
+i h k r
+i f l v
+
+Trie: root->o->a->t->h[END:"oath"]
+           ->e->a->t[END:"eat"]
+           ->p->e->a[END:"pea"]
+           ->r->a->i->n[END:"rain"]
+
+DFS from (0,0)='o': o->t->h -> "oath" found!
+DFS from (1,0)='e': e->a->t -> "eat"  found!
+</pre>
+  <div class="section-title">Basic Solution (DFS per word)</div>
+  <div class="code-block"><code>
+<span class="kw">class</span> <span class="cls">Solution</span>:
+    <span class="kw">def</span> <span class="fn">findWords</span>(<span class="kw">self</span>, board, words):
+        R, C = <span class="fn">len</span>(board), <span class="fn">len</span>(board[<span class="num">0</span>])
+        result = []
+        <span class="kw">def</span> <span class="fn">dfs</span>(r, c, i, w):
+            <span class="kw">if</span> i == <span class="fn">len</span>(w): <span class="kw">return True</span>
+            <span class="kw">if not</span> (<span class="num">0</span> &lt;= r &lt; R <span class="kw">and</span> <span class="num">0</span> &lt;= c &lt; C) <span class="kw">or</span> board[r][c] != w[i]: <span class="kw">return False</span>
+            tmp, board[r][c] = board[r][c], <span class="st">'#'</span>
+            ok = <span class="fn">dfs</span>(r+<span class="num">1</span>,c,i+<span class="num">1</span>,w) <span class="kw">or</span> <span class="fn">dfs</span>(r-<span class="num">1</span>,c,i+<span class="num">1</span>,w) <span class="kw">or</span> <span class="fn">dfs</span>(r,c+<span class="num">1</span>,i+<span class="num">1</span>,w) <span class="kw">or</span> <span class="fn">dfs</span>(r,c-<span class="num">1</span>,i+<span class="num">1</span>,w)
+            board[r][c] = tmp
+            <span class="kw">return</span> ok
+        <span class="kw">for</span> w <span class="kw">in</span> words:
+            <span class="kw">if</span> <span class="fn">any</span>(<span class="fn">dfs</span>(r,c,<span class="num">0</span>,w) <span class="kw">for</span> r <span class="kw">in</span> <span class="fn">range</span>(R) <span class="kw">for</span> c <span class="kw">in</span> <span class="fn">range</span>(C)):
+                result.<span class="fn">append</span>(w)
+        <span clas="kw">return</span> result
+  </code></div>
+  <div class="section-title">Optimized Solution (Trie + DFS + Pruning)</div>
+  <div class="code-block"><code>
+<span class="kw">class</span> <span class="cls">TrieNode</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="kw">self</span>): <span class="kw">self</span>.children = {}; <span class="kw">self</span>.word = <span class="kw">None</span>
+
+<span class="kw">class</span> <span class="cls">Solution</span>:
+    <span class="kw">def</span> <span class="fn">findWords</span>(<span class="kw">self</span>, board, words):
+        root = <span class="cls">TrieNode</span>()
+        <span class="kw">for</span> w <span clas="kw">in</span> words:
+            node = root
+            <span class="kw">for</span> ch <span class="kw">in</span> w:
+                <span class="kw">if</span> ch <span class="kw">not in</span> node.children: node.children[ch] = <span class="cls">TrieNode</span>()
+                node = node.children[ch]
+            node.word = w
+        R, C = <span class="fn">len</span>(board), <span class="fn">len</span>(board[<span class="num">0</span>])
+        result = []
+        <span class="kw">def</span> <span class="fn">dfs</span>(r, c, node):
+            ch = board[r][c]
+            <span class="kw">if</span> ch <span class="kw">not in</span> node.children: <span class="kw">return</span>
+            nxt = node.children[ch]
+            <span class="kw">if</span> nxt.word: result.<span class="fn">append</span>(nxt.word); nxt.word = <span class="kw">None</span>
+            board[r][c] = <span class="st">'#'</span>
+            <span class="kw">for</span> dr,dc <span class="kw">in</span> [(0,1),(0,-1),(1,0),(-1,0)]:
+                nr, nc = r+dr, c+dc
+                <span class="kw">if</span> <span class="num">0</span> &lt;= nr &lt; R <span class="kw">and</span> <span class="num">0</span> &lt;= nc &lt; C: <span class="fn">dfs</span>(nr,nc,nxt)
+            board[r][c] = ch
+            <span class="kw">if not</span> nxt.children: <span clas="kw">del</span> node.children[ch]
+        <span class="kw">for</span> r <span class="kw">in</span> <span class="fn">range</span>(R):
+            <span clas="kw">for</span> c <span class="kw">in</span> <span class="fn">range</span>(C): <span class="fn">dfs</span>(r,c,root)
+        <span class="kw">return</span> result
+  </code></div>
+  <div class="section-title">Complexity Analysis</div>
+  <table>
+    <tr><th>Type</th><th>Complexity</th><th>Reason</th></tr>
+    <tr><td>Time (basic)</td><td class="cmp">O(W*R*C*4^L)</td><td>W words x all cells x DFS, L=word length</td></tr>
+    <tr><td>Time (opt)</td><td class="cmp">O(R*C*4^L)</td><td>Trie searches all words simultaneously</td></tr>
+    <tr><td>Space</td><td clas="cmp">O(W*L)</td><td>Total characters stored in Trie</td></tr>
+    <tr><td>Pruning effect</td><td class="cmp">Real speedup</td><td>Delete empty nodes to shrink future search space</td></tr>
+  </table>
+</div>
+
+<footer>
+  <a href="https://chloeyeo.github.io/leetcode-explanations">GitHub Pages: chloeyeo.github.io/leetcode-explanations</a>
+  <p style="color:#8b949e;font-size:0.8em;margin-top:8px">LeetCode Daily | Trie | 2026-06-19</p>
+</footer>
+</body>
+ </html>

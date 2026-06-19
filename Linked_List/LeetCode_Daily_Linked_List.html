@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LeetCode Daily | Linked List</title>
+<title>LeetCode Daily | Linked List | 2026-06-19</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#0d1117;color:#e6edf3;font-family:'Segoe UI',system-ui,sans-serif;padding:16px;line-height:1.6}
@@ -33,63 +33,57 @@ footer a:hover{text-decoration:underline}
 </head>
 <body>
 <header>
-  <h1>🔗 Linked List</h1>
-  <div class="date">2025-06-17 &nbsp;|&nbsp; LeetCode Daily</div>
+  <h1>&#128279; Linked List</h1>
+  <div class="date">2026-06-19 &nbsp;|&nbsp; LeetCode Daily</div>
 </header>
 
 <!-- ===== EASY ===== -->
 <div class="problem">
   <div class="problem-header">
     <span class="badge easy">Easy</span>
-    <span class="problem-title">#876 Middle of the Linked List &mdash; by LeetCode</span>
+    <span class="problem-title">#206 Reverse Linked List &mdash; by LeetCode</span>
   </div>
 
-  <div class="section-title">📐 Algorithm Visualization (Slow &amp; Fast Pointer)</div>
-  <div class="ascii-box">Head
- 1  →  2  →  3  →  4  →  5  →  None
- S        F
- 1  →  2  →  3  →  4  →  5
-          S              F
-              S   (F → None, stop)
-Return node at S = 3
+  <div class="section-title">&#128208; Algorithm Visualization (Iterative Reversal)</div>
+  <div class="ascii-box">Input:  1 &#8594; 2 &#8594; 3 &#8594; 4 &#8594; 5 &#8594; None
 
-Even length: 1→2→3→4
- S     F
- 1  →  2  →  3  →  4
-    S              F(None)
-Return node at S = 3</div>
+  prev=None  curr=1
+  Step 1:  nxt=2,  1&#8592;None,  prev=1,  curr=2
+  Step 2:  nxt=3,  2&#8592;1,     prev=2,  curr=3
+  Step 3:  nxt=4,  3&#8592;2,     prev=3,  curr=4
+  Step 4:  nxt=5,  4&#8592;3,     prev=4,  curr=5
+  Step 5:  nxt=None, 5&#8592;4,  prev=5,  curr=None
 
-  <div class="section-title">🐍 Basic Solution (Python)</div>
-  <div class="code-block"><span class="kw">class</span> <span class="cl">ListNode</span>:
-    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="fn">self</span>, val=<span class="num">0</span>, <span class="fn">next</span>=<span class="kw">None</span>):
-        <span class="fn">self</span>.val = val
-        <span class="fn">self</span>.<span class="fn">next</span> = <span class="fn">next</span>
+  Output: 5 &#8594; 4 &#8594; 3 &#8594; 2 &#8594; 1 &#8594; None
+          &#8593; new head = prev</div>
 
-<span class="kw">class</span> <span class="cl">Solution</span>:
-    <span class="kw">def</span> <span class="fn">middleNode</span>(<span class="fn">self</span>, head: <span class="cl">ListNode</span>) -> <span class="cl">ListNode</span>:
-        <span class="cm"># 모든 노드를 리스트에 저장</span>
-        nodes = []
-        curr = head
-        <span class="kw">while</span> curr:
-            nodes.append(curr)
-            curr = curr.<span class="fn">next</span>
-        <span class="cm"># 중간 인덱스 반환</span>
-        <span class="kw">return</span> nodes[<span class="fn">len</span>(nodes) // <span class="num">2</span>]</div>
-
-  <div class="section-title">⚡ Optimized Solution (Slow &amp; Fast Pointer)</div>
+  <div class="section-title">&#128013; Basic Solution (Python)</div>
   <div class="code-block"><span class="kw">class</span> <span class="cl">Solution</span>:
-    <span class="kw">def</span> <span class="fn">middleNode</span>(<span class="fn">self</span>, head: <span class="cl">ListNode</span>) -> <span class="cl">ListNode</span>:
-        slow = fast = head
-        <span class="kw">while</span> fast <span class="kw">and</span> fast.<span class="fn">next</span>:
-            slow = slow.<span class="fn">next</span>        <span class="cm"># 1칸 이동</span>
-            fast = fast.<span class="fn">next</span>.<span class="fn">next</span>  <span class="cm"># 2칸 이동</span>
-        <span class="kw">return</span> slow                 <span class="cm"># fast가 끝에 도달하면 slow=중간</span></div>
+    <span class="kw">def</span> <span class="fn">reverseList</span>(<span class="fn">self</span>, head: <span class="cl">ListNode</span>) -&gt; <span class="cl">ListNode</span>:
+        <span class="cm"># 재귀 방식: 끝까지 내려간 뒤 역찅 연결</span>
+        <span class="kw">if not</span> head <span class="kw">or not</span> head.<span class="fn">next</span>:
+            <span class="kw">return</span> head
+        new_head = <span class="fn">self</span>.<span class="fn">reverseList</span>(head.<span class="fn">next</span>)
+        head.<span class="fn">next</span>.<span class="fn">next</span> = head  <span class="cm"># 다음 노드가 현재를 가리키게</span>
+        head.<span class="fn">next</span> = <span class="kw">None</span>       <span class="cm"># 현재 노드 포인터 끊기</span>
+        <span class="kw">return</span> new_head</div>
 
-  <div class="section-title">📊 Complexity Analysis</div>
+  <div class="section-title">&#9889; Optimized Solution (Iterative)</div>
+  <div class="code-block"><span class="kw">class</span> <span class="cl">Solution</span>:
+    <span class="kw">def</span> <span class="fn">reverseList</span>(<span class="fn">self</span>, head: <span class="cl">ListNode</span>) -&gt; <span class="cl">ListNode</span>:
+        prev, curr = <span class="kw">None</span>, head
+        <span class="kw">while</span> curr:
+            nxt = curr.<span class="fn">next</span>   <span class="cm"># 다음 저장</span>
+            curr.<span class="fn">next</span> = prev  <span class="cm"># 포인터 역전</span>
+            prev = curr        <span class="cm"># prev 전진</span>
+            curr = nxt         <span class="cm"># curr 전진</span>
+        <span class="kw">return</span> prev           <span class="cm"># 새로운 헤드</span></div>
+
+  <div class="section-title">&#128202; Complexity Analysis</div>
   <table>
-    <tr><th>Metric</th><th>Basic</th><th>Optimized</th><th>Why</th></tr>
-    <tr><td><span class="tag-time">Time</span></td><td>O(n)</td><td>O(n)</td><td>리스트 1회 순회</td></tr>
-    <tr><td><span class="tag-space">Space</span></td><td>O(n)</td><td>O(1)</td><td>최적화: 포인터 2개만 사용</td></tr>
+    <tr><th>Metric</th><th>Recursive</th><th>Iterative</th><th>Who</th></tr>
+    <tr><td><span class="tag-time">Time</span></td><td>O(n)</td><td>O(n)</td><td>모든 노드 1회 방문</td></tr>
+    <tr><td><span class="tag-space">Space</span></td><td>O(n)</td><td>O(1)</td><td>재귀: 콜스택 O(n) / 반복: 포인터 2개만</td></tr>
   </table>
 </div>
 
@@ -97,60 +91,73 @@ Return node at S = 3</div>
 <div class="problem">
   <div class="problem-header">
     <span class="badge medium">Medium</span>
-    <span class="problem-title">#19 Remove Nth Node From End of List &mdash; by LeetCode</span>
+    <span class="problem-title">#143 Reorder List &mdash; by LeetCode</span>
   </div>
 
-  <div class="section-title">📐 Algorithm Visualization (Two-Pass &amp; One-Pass)</div>
-  <div class="ascii-box">Remove 2nd from end: 1→2→3→4→5, n=2
+  <div class="section-title">&#128208; Algorithm Visualization (3-Step Strategy)</div>
+  <div class="ascii-box">Input: 1 &#8594; 2 &#8594; 3 &#8594; 4 &#8594; 5
 
-One-Pass with gap of n:
-dummy → 1 → 2 → 3 → 4 → 5
- L                   R        ← advance R n+1 steps
-Move both until R = None:
-dummy → 1 → 2 → 3 → 4 → 5
-              L         R(None)
-L.next = L.next.next → skip node 4
-Result: 1 → 2 → 3 → 5</div>
+Step 1: Find middle with slow/fast pointer
+  slow=3 (middle)
+  Split: L1=[1&#8594;2&#8594;3]  L2=[4&#8594;5]
 
-  <div class="section-title">🐍 Basic Solution (Two-Pass)</div>
+Step 2: Reverse second half
+  L2 reversed = [5&#8594;4]
+
+Step 3: Interleave L1 and L2
+  1 &#8594; 5 &#8594; 2 &#8594; 4 &#8594; 3
+
+  L1: 1 &#8594; 2 &#8594; 3
+  L2: 5 &#8594; 4
+  merge: take 1 from L1, 1 from L2 alternately</div>
+
+  <div class="section-title">&#128013; Basic Solution (Python)</div>
   <div class="code-block"><span class="kw">class</span> <span class="cl">Solution</span>:
-    <span class="kw">def</span> <span class="fn">removeNthFromEnd</span>(<span class="fn">self</span>, head: <span class="cl">ListNode</span>, n: <span class="fn">int</span>) -> <span class="cl">ListNode</span>:
-        <span class="cm"># 1번째 패스: 길이 별산</span>
-        length = <span class="num">0</span>
+    <span class="kw">def</span> <span class="fn">reorderList</span>(<span class="fn">self</span>, head: <span class="cl">ListNode</span>) -&gt; <span class="kw">None</span>:
+        <span class="cm"># 배열로 변환 후 인덱스로 재연결</span>
+        nodes = []
         curr = head
         <span class="kw">while</span> curr:
-            length += <span class="num">1</span>
+            nodes.append(curr)
             curr = curr.<span class="fn">next</span>
-        <span class="cm"># 2번째 댨스: (length-n)뷸째 노드 삭제</span>
-        dummy = <span class="cl">ListNode</span>(<span class="num">0</span>, head)
-        curr = dummy
-        <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(length - n):
-            curr = curr.<span class="fn">next</span>
-        curr.<span class="fn">next</span> = curr.<span class="fn">next</span>.<span class="fn">next</span>
-        <span class="kw">return</span> dummy.<span class="fn">next</span></div>
+        lo, hi = <span class="num">0</span>, <span class="fn">len</span>(nodes) - <span class="num">1</span>
+        <span class="kw">while</span> lo &lt; hi:
+            nodes[lo].<span class="fn">next</span> = nodes[hi]
+            lo += <span class="num">1</span>
+            <span class="kw">if</span> lo == hi: <span class="kw">break</span>
+            nodes[hi].<span class="fn">next</span> = nodes[lo]
+            hi -= <span class="num">1</span>
+        nodes[lo].<span class="fn">next</span> = <span class="kw">None</span></div>
 
-  <div class="section-title">⚡ Optimized Solution (One-Pass)</div>
+  <div class="section-title">&#9889; Optimized Solution (O(1) Space)</div>
   <div class="code-block"><span class="kw">class</span> <span class="cl">Solution</span>:
-    <span class="kw">def</span> <span class="fn">removeNthFromEnd</span>(<span class="fn">self</span>, head: <span class="cl">ListNode</span>, n: <span class="fn">int</span>) -> <span class="cl">ListNode</span>:
-        dummy = <span class="cl">ListNode</span>(<span class="num">0</span>, head)
-        left = dummy
-        right = head
-        <span class="cm"># right을 n��� 앞으로</span>
-        <span class="kw">while</span> n > <span class="num">0</span>:
-            right = right.<span class="fn">next</span>
-            n -= <span class="num">1</span>
-        <span class="cm"># 둘 룤이동 → right=Non^이면 left가 삭제 대상 직전</span>
-        <span class="kw">while</span> right:
-            left = left.<span class="fn">next</span>
-            right = right.<span class="fn">next</span>
-        left.<span class="fn">next</span> = left.<span class="fn">next</span>.<span class="fn">next</span>  <span class="cm"># 노드 제거</span>
-        <span class="kw">return</span> dummy.<span class="fn">next</span></div>
+    <span class="kw">def</span> <span class="fn">reorderList</span>(<span class="fn">self</span>, head: <span class="cl">ListNode</span>) -&gt; <span class="kw">None</span>:
+        <span class="cm"># 1. 중간 찾기</span>
+        slow = fast = head
+        <span class="kw">while</span> fast <span class="kw">and</span> fast.<span class="fn">next</span>:
+            slow = slow.<span class="fn">next</span>
+            fast = fast.<span class="fn">next</span>.<span class="fn">next</span>
+        <span class="cm"># 2. 후반부 역전</span>
+        prev, curr = <span class="kw">None</span>, slow.<span class="fn">next</span>
+        slow.<span class="fn">next</span> = <span class="kw">None</span>  <span class="cm"># 전반부 끊기</span>
+        <span class="kw">while</span> curr:
+            nxt = curr.<span class="fn">next</span>
+            curr.<span class="fn">next</span> = prev
+            prev = curr
+            curr = nxt
+        <span class="cm"># 3. 인터리브 합병</span>
+        first, second = head, prev
+        <span class="kw">while</span> second:
+            tmp1, tmp2 = first.<span class="fn">next</span>, second.<span class="fn">next</span>
+            first.<span class="fn">next</span> = second
+            second.<span class="fn">next</span> = tmp1
+            first, second = tmp1, tmp2</div>
 
-  <div class="section-title">📊 Complexity Analysis</div>
+  <div class="section-title">&#128202; Complexity Analysis</div>
   <table>
-    <tr><th>Metric</th><th>Basic</th><th>Optimized</th><th>Why</th></tr>
-    <tr><td><span class="tag-time">Time</span></td><td>O(n)</td><td>O(n)</td><td>최적화: 1회 패스로 완료</td></tr>
-    <tr><td><span class="tag-space">Space</span></td><td>O(1)</td><td>O(1)</td><td>포인터 2개만 사용</td></tr>
+    <tr><th>Metric</th><th>Array</th><th>Optimized</th><th>Why</th></tr>
+    <tr><td><span class="tag-time">Time</span></td><td>O(n)</td><td>O(n)</td><td>3번의 선형 패스: 중간찾기+역전+합병</td></tr>
+    <tr><td><span class="tag-space">Space</span></td><td>O(n)</td><td>O(1)</td><td>배열: 노드 전체 저장 / 최적: 포인터만</td></tr>
   </table>
 </div>
 
@@ -158,92 +165,80 @@ Result: 1 → 2 → 3 → 5</div>
 <div class="problem">
   <div class="problem-header">
     <span class="badge hard">Hard</span>
-    <span class="problem-title">#25 Reverse Nodes in k-Group &mdash; by LeetCode</span>
+    <span class="problem-title">#23 Merge k Sorted Lists &mdash; by LeetCode</span>
   </div>
 
-  <div class="section-title">📐 Algorithm Visualization</div>
-  <div class="ascii-box">Input: 1→2→3→4→5, k=2
+  <div class="section-title">&#128208; Algorithm Visualization (Min-Heap)</div>
+  <div class="ascii-box">lists = [1&#8594;4&#8594;5,  1&#8594;3&#8594;4,  2&#8594;6]
 
-Step 1: reverse first k=2 nodes
-  [1→2] → 3→4→5
-  becomes: 2→1→ | 3→4→5
-           tail of group points to next group
+Min-Heap (priority queue) approach:
+Init heap with head of each list:
+  heap = [(1, list0), (1, list1), (2, list2)]
 
-Step 2: recurse on 3→4→5
-  [3→4] → 5
-  becomes: 4→3→ | 5
+Step 1: pop (1,list0) &#8594; output: 1, push list0.next=(4)
+  heap = [(1,list1), (2,list2), (4,list0)]
+Step 2: pop (1,list1) &#8594; output: 1, push (3)
+  heap = [(2,list2), (3,list1), (4,list0)]
+Step 3: pop (2,list2) &#8594; output: 2, push (6)
+  heap = [(3,list1), (4,list0), (6,list2)]
+...continues until heap empty
 
-Step 3: 5 alone (< k), leave as-is
+Final: 1 &#8594; 1 &#8594; 2 &#8594; 3 &#8594; 4 &#8594; 4 &#8594; 5 &#8594; 6
 
-Final: 2→1→4→3→5</div>
+Divide &amp; Conquer alternative:
+Round 1: merge(L0,L1), merge(L2,_) = 2 lists
+Round 2: merge those 2 = final answer
+Total: O(n log k)</div>
 
-  <div class="section-title">🐍 Basic Solution (Recursive)</div>
+  <div class="section-title">&#128013; Basic Solution (Brute Force)</div>
   <div class="code-block"><span class="kw">class</span> <span class="cl">Solution</span>:
-    <span class="kw">def</span> <span class="fn">reverseKGroup</span>(<span class="fn">self</span>, head: <span class="cl">ListNode</span>, k: <span class="fn">int</span>) -> <span class="cl">ListNode</span>:
-        <span class="cm"># k개 노드가 있는지 확인</span>
-        curr = head
-        count = <span class="num">0</span>
-        <span class="kw">while</span> curr <span class="kw">and</span> count < k:
+    <span class="kw">def</span> <span class="fn">mergeKLists</span>(<span class="fn">self</span>, lists):
+        <span class="cm"># 모든 값 수집 후 정렬 후 재연결</span>
+        vals = []
+        <span class="kw">for</span> node <span class="kw">in</span> lists:
+            <span class="kw">while</span> node:
+                vals.append(node.val)
+                node = node.<span class="fn">next</span>
+        vals.sort()
+        dummy = curr = <span class="cl">ListNode</span>(<span class="num">0</span>)
+        <span class="kw">for</span> v <span class="kw">in</span> vals:
+            curr.<span class="fn">next</span> = <span class="cl">ListNode</span>(v)
             curr = curr.<span class="fn">next</span>
-            count += <span class="num">1</span>
-        <span class="kw">if</span> count < k:          <span class="cm"># 남은 노드가 k 미만이면 그대로 반환</span>
-            <span class="kw">return</span> head
-        <span class="cm"># k개 노드 뒤집기</span>
-        prev, curr = <span class="kw">None</span>, head
-        <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(k):
-            nxt = curr.<span class="fn">next</span>
-            curr.<span class="fn">next</span> = prev
-            prev = curr
-            curr = nxt
-        <span class="cm"># head는 이제 그룹의 꼬리 → 다음 그룹과 연결</span>
-        head.<span class="fn">next</span> = <span class="fn">self</span>.<span class="fn">reverseKGroup</span>(curr, k)
-        <span class="kw">return</span> prev</div>
+        <span class="kw">return</span> dummy.<span class="fn">next</span></div>
 
-  <div class="section-title">⚡ Optimized Solution (Iterative)</div>
-  <div class="code-block"><span class="kw">class</span> <span class="cl">Solution</span>:
-    <span class="kw">def</span> <span class="fn">reverseKGroup</span>(<span class="fn">self</span>, head: <span class="cl">ListNode</span>, k: <span class="fn">int</span>) -> <span class="cl">ListNode</span>:
-        dummy = <span class="cl">ListNode</span>(<span class="num">0</span>, head)
-        group_prev = dummy
+  <div class="section-title">&#9889; Optimized Solution (Min-Heap)</div>
+  <div class="code-block"><span class="kw">import</span> heapq
 
-        <span class="kw">while</span> <span class="kw">True</span>:
-            <span class="cm"># k번째 노드 찾기</span>
-            kth = <span class="fn">self</span>.<span class="fn">getKth</span>(group_prev, k)
-            <span class="kw">if</span> <span class="kw">not</span> kth: <span class="kw">break</span>
-            group_next = kth.<span class="fn">next</span>
-
-            <span class="cm"># 그룹 뒤집기</span>
-            prev, curr = group_next, group_prev.<span class="fn">next</span>
-            <span class="kw">while</span> curr != group_next:
-                nxt = curr.<span class="fn">next</span>
-                curr.<span class="fn">next</span> = prev
-                prev = curr
-                curr = nxt
-
-            <span class="cm"># 연결 갱신</span>
-            tmp = group_prev.<span class="fn">next</span>
-            group_prev.<span class="fn">next</span> = kth
-            group_prev = tmp
-
-        <span class="kw">return</span> dummy.<span class="fn">next</span>
-
-    <span class="kw">def</span> <span class="fn">getKth</span>(<span class="fn">self</span>, curr: <span class="cl">ListNode</span>, k: <span class="fn">int</span>) -> <span class="cl">ListNode</span>:
-        <span class="kw">while</span> curr <span class="kw">and</span> k > <span class="num">0</span>:
+<span class="kw">class</span> <span class="cl">Solution</span>:
+    <span class="kw">def</span> <span class="fn">mergeKLists</span>(<span class="fn">self</span>, lists):
+        heap = []
+        <span class="kw">for</span> i, node <span class="kw">in</span> <span class="fn">enumerate</span>(lists):
+            <span class="kw">if</span> node:
+                heapq.<span class="fn">heappush</span>(heap, (node.val, i, node))
+        dummy = curr = <span class="cl">ListNode</span>(<span class="num">0</span>)
+        <span class="kw">while</span> heap:
+            val, i, node = heapq.<span class="fn">heappop</span>(heap)
+            curr.<span class="fn">next</span> = node
             curr = curr.<span class="fn">next</span>
-            k -= <span class="num">1</span>
-        <span class="kw">return</span> curr</div>
+            <span class="kw">if</span> node.<span class="fn">next</span>:
+                heapq.<span class="fn">heappush</span>(heap, (node.<span class="fn">next</span>.val, i, node.<span class="fn">next</span>))
+        <span class="kw">return</span> dummy.<span class="fn">next</span></div>
 
-  <div class="section-title">📊 Complexity Analysis</div>
+  <div class="section-title">&#128202; Complexity Analysis</div>
   <table>
-    <tr><th>Metric</th><th>Recursive</th><th>Iterative</th><th>Why</th></tr>
-    <tr><td><span class="tag-time">Time</span></td><td>O(n)</td><td>O(n)</td><td>각 노드를 정확히 한 번 방문</td></tr>
-    <tr><td><span class="tag-space">Space</span></td><td>O(n/k)</td><td>O(1)</td><td>재귀: 콜스택 n/k / 반복: 포인터만</td></tr>
+    <tr><th>Operation</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>Brute Force</td><td>O(n log n)</td><td>O(n)</td><td>전체 n개 값 정렬; 새 노드 생성</td></tr>
+    <tr><td>Min-Heap push/pop</td><td>O(log k)</td><td>O(k)</td><td>힙 크기 = k (리스트 수); 각 노드 1회</td></tr>
+    <tr><td>Min-Heap overall</td><td>O(n log k)</td><td>O(k)</td><td>n개 노드 * log k 힙 연산</td></tr>
+    <tr><td>Divide &amp; Conquer</td><td>O(n log k)</td><td>O(1)</td><td>log k 라운드 * n 합병; 추가 공간 없음</td></tr>
   </table>
 </div>
 
 <footer>
   <a href="https://chloeyeo.github.io/leetcode-explanations" target="_blank">
-    🌐 GitHub Pages: chloeyeo.github.io/leetcode-explanations
+    &#127760; GitHub Pages: chloeyeo.github.io/leetcode-explanations
   </a>
+  <p style="margin-top:6px;font-size:.75em;color:#8b949e">Generated 2026-06-19 &nbsp;|&nbsp; Dark Theme &nbsp;|&nbsp; Linked List</p>
 </footer>
 </body>
 </html>

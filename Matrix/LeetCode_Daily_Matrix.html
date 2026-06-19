@@ -6,194 +6,299 @@
 <title>LeetCode Daily | Matrix</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0d1117;color:#c9d1d9;font-family:'Segoe UI',sans-serif;padding:16px;line-height:1.6}
-.header{text-align:center;padding:24px 16px;background:linear-gradient(135deg,#1a3a5c,#0d1117);border-radius:12px;margin-bottom:24px;border:1px solid #30363d}
+body{background:#0d1117;color:#e6edf3;font-family:'Segoe UI',system-ui,sans-serif;padding:16px;max-width:900px;margin:0 auto}
+.header{text-align:center;padding:24px 16px;background:linear-gradient(135deg,#161b22,#21262d);border-radius:12px;margin-bottom:24px;border:1px solid #30363d}
 .header h1{font-size:1.8rem;color:#58a6ff;margin-bottom:8px}
-.header .date{color:#8b949e;font-size:.9rem}
-.problem-card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:28px}
-.problem-title{font-size:1.2rem;font-weight:700;color:#e6edf3;margin-bottom:8px}
-.problem-title span.num{color:#58a6ff}
-.badge{display:inline-block;padding:3px 12px;border-radius:20px;font-size:.75rem;font-weight:700;margin-bottom:14px}
+.header .date{color:#8b949e;font-size:0.9rem}
+.problem-card{background:#161b22;border:1px solid #30363d;border-radius:12px;margin-bottom:28px;overflow:hidden}
+.problem-header{padding:16px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #30363d;background:#21262d}
+.problem-header h2{font-size:1.1rem;color:#e6edf3;flex:1}
+.badge{padding:4px 10px;border-radius:20px;font-size:0.75rem;font-weight:700;text-transform:uppercase}
 .easy{background:#1a4731;color:#3fb950}
-.medium{background:#4a2e00;color:#f0883e}
-.hard{background:#4a1a1a;color:#f85149}
-.section-title{font-size:.85rem;font-weight:700;color:#8b949e;text-transform:uppercase;letter-spacing:.08em;margin:16px 0 8px}
-.ascii-art{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:.72rem;color:#7ee787;overflow-x:auto;white-space:pre;line-height:1.5;margin-bottom:8px}
-.code-block{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:.72rem;overflow-x:auto;line-height:1.7;margin-bottom:8px}
-.kw{color:#ff7b72}.fn{color:#d2a8ff}.cm{color:#8b949e}.st{color:#a5d6ff}.nm{color:#79c0ff}.op{color:#e6edf3}
-.complexity-table{width:100%;border-collapse:collapse;font-size:.78rem;margin-top:8px}
-.complexity-table th{background:#21262d;color:#8b949e;padding:8px 10px;text-align:left;font-weight:600;border:1px solid #30363d}
-.complexity-table td{padding:8px 10px;border:1px solid #30363d;color:#c9d1d9}
-.complexity-table tr:nth-child(even) td{background:#161b22}
-.footer{text-align:center;margin-top:32px;padding:20px;border-top:1px solid #30363d}
-.footer a{color:#58a6ff;text-decoration:none;font-size:.9rem}
+.medium{background:#4a3000;color:#d29922}
+.hard{background:#4a1515;color:#f85149}
+.by{font-size:0.75rem;color:#8b949e}
+.section{padding:16px 20px}
+.section h3{font-size:0.85rem;color:#8b949e;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px;border-bottom:1px solid #21262d;padding-bottom:8px}
+.ascii-art{background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:0.78rem;color:#79c0ff;white-space:pre;overflow-x:auto;line-height:1.5}
+pre.code{background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:14px;font-size:0.8rem;overflow-x:auto;line-height:1.6;white-space:pre}
+.kw{color:#ff7b72}
+.fn{color:#d2a8ff}
+.cm{color:#8b949e}
+.st{color:#a5d6ff}
+.nb{color:#ffa657}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:0.82rem;margin-top:8px}
+th{background:#21262d;color:#8b949e;padding:8px 12px;text-align:left;font-weight:600}
+td{padding:8px 12px;border-top:1px solid #21262d;color:#e6edf3;vertical-align:top}
+tr:hover td{background:#1c2128}
+.tag{display:inline-block;background:#1f3b5a;color:#58a6ff;padding:2px 8px;border-radius:4px;font-size:0.72rem;margin:2px}
+footer{text-align:center;padding:20px;color:#8b949e;font-size:0.85rem;border-top:1px solid #21262d;margin-top:12px}
+footer a{color:#58a6ff;text-decoration:none}
+.divider{margin:4px 0 12px;border:none;border-top:1px solid #21262d}
 </style>
 </head>
 <body>
 <div class="header">
-  <h1>&#128306; Matrix &#50976;&#54805;</h1>
-  <div class="date">LeetCode Daily Practice &nbsp;|&nbsp; 2026-06-17 (Wed)</div>
+  <h1>🔲 Matrix</h1>
+  <div class="date">📅 2026-06-20 (Saturday)</div>
+  <div style="margin-top:8px"><span class="tag">LeetCode Daily</span></div>
 </div>
 
+<!-- EASY -->
 <div class="problem-card">
-  <div class="problem-title"><span class="num">#74</span> Search a 2D Matrix &#8212; <em style="color:#8b949e;font-size:.85rem">by LeetCode</em></div>
-  <div><span class="badge easy">Easy</span></div>
-  <div class="section-title">&#127912; &#50508;&#44256;&#47532;&#51998; &#49884;&#44033;&#54868;</div>
-  <div class="ascii-art">Matrix (m x n treated as sorted 1-D array):
-  [  1,  3,  5,  7 ]
-  [ 10, 11, 16, 20 ]   target = 3
-  [ 23, 30, 34, 60 ]
+  <div class="problem-header">
+    <div>
+      <h2>LeetCode #766 — Toeplitz Matrix</h2>
+      <div class="by">by LeetCode</div>
+    </div>
+    <span class="badge easy">Easy</span>
+  </div>
+  <div class="section">
+    <h3>🎨 Algorithm Visualization</h3>
+    <div class="ascii-art">Matrix: [[1,2,3,4],
+           [5,1,2,3],
+           [9,5,1,2]]
 
-  lo=0   hi=11  (m*n-1)
-  mid=5 -> matrix[1][1] = 11  &gt; 3 -&gt; hi=4
-  mid=2 -> matrix[0][2] =  5  &gt; 3 -&gt; hi=1
-  mid=0 -> matrix[0][0] =  1  &lt; 3 -&gt; lo=1
-  mid=1 -> matrix[0][1] =  3  FOUND!</div>
-  <div class="section-title">&#128161; &#44592;&#48376; &#54480;&#51060; (Binary Search on flat index)</div>
-  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">searchMatrix</span>(self, matrix, target):
-        m, n = len(matrix), len(matrix[0])
-        lo, hi = 0, m * n - 1
-        <span class="kw">while</span> lo &lt;= hi:
-            mid = (lo + hi) // 2
-            val = matrix[mid // n][mid % n]
-            <span class="kw">if</span> val == target: <span class="kw">return True</span>
-            <span class="kw">elif</span> val &lt; target: lo = mid + 1
-            <span class="kw">else</span>: hi = mid - 1
-        <span class="kw">return False</span></div>
-  <div class="section-title">&#9889; &#52572;&#51201;&#54868;&#46108; &#54480;&#51060; (bisect)</div>
-  <div class="code-block"><span class="kw">import</span> bisect
+Diagonals (top-left to bottom-right):
+  [1,1,1] ✓  [2,2,2] ✓  [3,3] ✓  [4] ✓
+  [5,5] ✓    [9] ✓
+
+Check: matrix[i][j] == matrix[i-1][j-1]?
+
+  (0,0)=1  (1,1)=1 ✓  (2,2)=1 ✓
+  (0,1)=2  (1,2)=2 ✓  (2,3)=2 ✓
+  → All diagonals match → True</div>
+  </div>
+  <div class="section">
+    <h3>🐍 Basic Solution (Python)</h3>
+<pre class="code"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">isToeplitzMatrix</span>(<span class="nb">self</span>, matrix):
+        rows = <span class="fn">len</span>(matrix)
+        cols = <span class="fn">len</span>(matrix[<span class="nb">0</span>])
+        <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nb">1</span>, rows):
+            <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(<span class="nb">1</span>, cols):
+                <span class="kw">if</span> matrix[i][j] != matrix[i<span class="nb">-1</span>][j<span class="nb">-1</span>]:
+                    <span class="kw">return</span> <span class="nb">False</span>
+        <span class="kw">return</span> <span class="nb">True</span></pre>
+  </div>
+  <div class="section">
+    <h3>⚡ Optimized Solution (Python)</h3>
+<pre class="code"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">isToeplitzMatrix</span>(<span class="nb">self</span>, matrix):
+        <span class="cm"># Compare each row (except first) with previous row shifted right</span>
+        <span class="kw">return</span> <span class="fn">all</span>(
+            r1[:<span class="nb">-1</span>] == r2[<span class="nb">1</span>:]
+            <span class="kw">for</span> r1, r2 <span class="kw">in</span> <span class="fn">zip</span>(matrix, matrix[<span class="nb">1</span>:])
+        )</pre>
+  </div>
+  <div class="section">
+    <h3>📊 Complexity Analysis</h3>
+    <div class="table-wrap">
+    <table>
+      <tr><th>Type</th><th>Complexity</th><th>Reason</th></tr>
+      <tr><td>Time (Basic)</td><td>O(M×N)</td><td>Visit each cell once to compare diagonal</td></tr>
+      <tr><td>Time (Optimized)</td><td>O(M×N)</td><td>zip + slice compares all rows pairwise</td></tr>
+      <tr><td>Space</td><td>O(1)</td><td>No extra data structures used</td></tr>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- MEDIUM -->
+<div class="problem-card">
+  <div class="problem-header">
+    <div>
+      <h2>LeetCode #54 — Spiral Matrix</h2>
+      <div class="by">by LeetCode</div>
+    </div>
+    <span class="badge medium">Medium</span>
+  </div>
+  <div class="section">
+    <h3>🎨 Algorithm Visualization</h3>
+    <div class="ascii-art">Matrix: [[1,2,3],
+           [4,5,6],
+           [7,8,9]]
+
+Peel layers outward:
+  → Right:  1  2  3
+  → Down:      6  9
+  → Left:   8  7
+  → Up:        4
+  → Center: 5
+
+Result: [1,2,3,6,9,8,7,4,5]
+
+Boundaries shrink each pass:
+  top↓  bottom↑  left→  right←</div>
+  </div>
+  <div class="section">
+    <h3>🐍 Basic Solution (Python)</h3>
+<pre class="code"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">spiralOrder</span>(<span class="nb">self</span>, matrix):
+        result = []
+        top, bottom = <span class="nb">0</span>, <span class="fn">len</span>(matrix) <span class="nb">- 1</span>
+        left, right = <span class="nb">0</span>, <span class="fn">len</span>(matrix[<span class="nb">0</span>]) <span class="nb">- 1</span>
+        <span class="kw">while</span> top <= bottom <span class="kw">and</span> left <= right:
+            <span class="cm"># Move right across top row</span>
+            <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(left, right <span class="nb">+ 1</span>):
+                result.<span class="fn">append</span>(matrix[top][i])
+            top += <span class="nb">1</span>
+            <span class="cm"># Move down right column</span>
+            <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(top, bottom <span class="nb">+ 1</span>):
+                result.<span class="fn">append</span>(matrix[i][right])
+            right -= <span class="nb">1</span>
+            <span class="cm"># Move left across bottom row</span>
+            <span class="kw">if</span> top <= bottom:
+                <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(right, left <span class="nb">- 1</span>, <span class="nb">-1</span>):
+                    result.<span class="fn">append</span>(matrix[bottom][i])
+                bottom -= <span class="nb">1</span>
+            <span class="cm"># Move up left column</span>
+            <span class="kw">if</span> left <= right:
+                <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(bottom, top <span class="nb">- 1</span>, <span class="nb">-1</span>):
+                    result.<span class="fn">append</span>(matrix[i][left])
+                left += <span class="nb">1</span>
+        <span class="kw">return</span> result</pre>
+  </div>
+  <div class="section">
+    <h3>⚡ Optimized Solution (Python)</h3>
+<pre class="code"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">spiralOrder</span>(<span class="nb">self</span>, matrix):
+        result = []
+        <span class="kw">while</span> matrix:
+            <span class="cm"># Take top row</span>
+            result += matrix.<span class="fn">pop</span>(<span class="nb">0</span>)
+            <span class="cm"># Take right column of remaining rows</span>
+            <span class="kw">if</span> matrix <span class="kw">and</span> matrix[<span class="nb">0</span>]:
+                <span class="kw">for</span> row <span class="kw">in</span> matrix:
+                    result.<span class="fn">append</span>(row.<span class="fn">pop</span>())
+            <span class="cm"># Take bottom row reversed</span>
+            <span class="kw">if</span> matrix:
+                result += matrix.<span class="fn">pop</span>()[:<span class="nb">:-1</span>]
+            <span class="cm"># Take left column reversed</span>
+            <span class="kw">if</span> matrix <span class="kw">and</span> matrix[<span clas="nb">0</span>]:
+                <span class="kw">for</span> row <span class="kw">in</span> matrix[:<span class="nb">:-1</span>]:
+                    result.<span class="fn">append</span>(row.<span class="fn">pop</span>(<span class="nb">0</span>))
+        <span class="kw">return</span> result</pre>
+  </div>
+  <div class="section">
+    <h3>📊 Complexity Analysis</h3>
+    <div class="table-wrap">
+    <table>
+      <tr><th>Type</th><th>Complexity</th><th>Reason</th></tr>
+      <tr><td>Time</td><td>O(M×N)</td><td>Each cell visited exactly once</td></tr>
+      <tr><td>Space (Basic)</td><td>O(1)</td><td>Only boundary pointers used (output excluded)</td></tr>
+      <tr><td>Space (Optimized)</td><td>O(M×N)</td><td>Matrix is modified in-place (destructive)</td></tr>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- HARD -->
+<div class="problem-card">
+  <div class="problem-header">
+    <div>
+      <h2>LeetCode #329 — Longest Increasing Path in a Matrix</h2>
+      <div class="by">by LeetCode</div>
+    </div>
+    <span class="badge hard">Hard</span>
+  </div>
+  <div class="section">
+    <h3>🎨 Algorithm Visualization</h3>
+    <div class="ascii-art">Matrix: [[9,9,4],
+           [6,6,8],
+           [2,1,1]]
+
+DFS + Memoization:
+  Start at each cell, explore 4 dirs if value increases
+
+  From 1>2>6>9 = length 4  ← LONGEST
+  From 1>6>9   = length 3
+  From 1>8>9   = length 3
+
+  memo[i][j] = longest path starting from (i,j)
+
+  memo table:
+  [1, 1, 2]
+  [2, 2, 3]
+  [3, 4, 3]
+
+  Answer: max(memo) = 4</div>
+  </div>
+  <div class="section">
+    <h3>🐍 Basic Solution (Python)</h3>
+<pre class="code"><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">longestIncreasingPath</span>(<span class="nb">self</span>, matrix):
+        <span class="kw">if not</span> matrix: <span class="kw">return</span> <span class="nb">0</span>
+        rows, cols = <span class="fn">len</span>(matrix), <span class="fn">len</span>(matrix[<span class="nb">0</span>])
+        memo = {}
+
+        <span class="kw">def</span> <span class="fn">dfs</span>(i, j):
+            <span class="kw">if</span> (i, j) <span class="kw">in</span> memo: <span class="kw">return</span> memo[(i, j)]
+            best = <span class="nb">1</span>
+            <span class="kw">for</span> di, dj <span class="kw">in</span> [(<span class="nb">0</span>,<span class="nb">1</span>),(<span class="nb">0</span>,<span class="nb">-1</span>),(<span class="nb">1</span>,<span class="nb">0</span>),(<span class="nb">-1</span>,<span class="nb">0</span>)]:
+                ni, nj = i + di, j + dj
+                <span class="kw">if</span> <span class="nb">0</span> <= ni < rows <span class="kw">and</span> <span class="nb">0</span> <= nj < cols:
+                    <span class="kw">if</span> matrix[ni][nj] > matrix[i][j]:
+                        best = <span class="fn">max</span>(best, <span class="nb">1</span> + <span class="fn">dfs</span>(ni, nj))
+            memo[(i, j)] = best
+            <span class="kw">return</span> best
+
+        <span class="kw">return</span> <span class="fn">max</span>(<span class="fn">dfs</span>(i, j) <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(rows) <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(cols))</pre>
+  </div>
+  <div class="section">
+    <h3>⚡ Optimized Solution (Python — Topological Sort)</h3>
+<pre class="code"><span class="kw">from</span> collections <span class="kw">import</span> deque
+
 <span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">searchMatrix</span>(self, matrix, target):
-        m, n = len(matrix), len(matrix[0])
-        row = bisect.bisect_right([matrix[i][0] <span class="kw">for</span> i <span class="kw">in</span> range(m)], target) - 1
-        <span class="kw">if</span> row &lt; 0: <span class="kw">return False</span>
-        col = bisect.bisect_left(matrix[row], target)
-        <span class="kw">return</span> col &lt; n <span class="kw">and</span> matrix[row][col] == target</div>
-  <div class="section-title">&#128202; &#48373;&#51161;&#46020; &#48516;&#49437;</div>
-  <table class="complexity-table">
-    <tr><th>&#48260;&#51204;</th><th>&#49884;&#44036;</th><th>&#44277;&#44036;</th><th>&#51060;&#50976;</th></tr>
-    <tr><td>&#44592;&#48376;</td><td>O(log mn)</td><td>O(1)</td><td>m&#215;n &#50896;&#49548;&#47484; 1-D&#47196; &#48372;&#44256; &#51060;&#51652; &#53049;&#49353; 1&#54924;</td></tr>
-    <tr><td>&#52572;&#51201;&#54868;</td><td>O(log m + log n)</td><td>O(m)</td><td>row &#47785;&#47197; &#49373;&#49457; &#54980; bisect 2&#54924;</td></tr>
-  </table>
+    <span class="kw">def</span> <span class="fn">longestIncreasingPath</span>(<span class="nb">self</span>, matrix):
+        <span class="kw">if not</span> matrix: <span class="kw">return</span> <span class="nb">0</span>
+        rows, cols = <span class="fn">len</span>(matrix), <span class="fn">len</span>(matrix[<span class="nb">0</span>])
+        dirs = [(<span class="nb">0</span>,<span class="nb">1</span>),(<span class="nb">0</span>,<span class="nb">-1</span>),(<span class="nb">1</span>,<span class="nb">0</span>),(<span class="nb">-1</span>,<span class="nb">0</span>)]
+        <span class="cm"># Count in-degrees (how many neighbors are smaller)</span>
+        indegree = [[<span class="nb">0</span>]*cols <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(rows)]
+        <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(rows):
+            <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(cols):
+                <span class="kw">for</span> di, dj <span class="kw">in</span> dirs:
+                    ni, nj = i+di, j+dj
+                    <span class="kw">if</span> <span class="nb">0</span><=ni<rows <span class="kw">and</span> <span class="nb">0</span><=nj<cols <span class="kw">and</span> matrix[ni][nj]<matrix[i][j]:
+                        indegree[i][j] += <span class="nb">1</span>
+        <span class="cm"># Start BFS from all local minima (indegree == 0)</span>
+        queue = <span class="fn">deque</span>()
+        <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(rows):
+            <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(cols):
+                <span class="kw">if</span> indegree[i][j] == <span class="nb">0</span>:
+                    queue.<span class="fn">append</span>((i, j))
+        length = <span class="nb">0</span>
+        <span class="kw">while</span> queue:
+            length += <span class="nb">1</span>
+            <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(queue)):
+                i, j = queue.<span class="fn">popleft</span>()
+                <span class="kw">for</span> di, dj <span class="kw">in</span> dirs:
+                    ni, nj = i+di, j+dj
+                    <span class="kw">if</span> <span class="nb">0</span><=ni<rows <span class="kw">and</span> <span class="nb">0</span><=nj<cols <span class="kw">and</span> matrix[ni][nj]>matrix[i][j]:
+                        indegree[ni][ni] -= <span class="nb">1</span>
+                        <span class="kw">if</span> indegree[ni][nj] == <span class="nb">0</span>:
+                            queue.<span class="fn">append</span>((ni, nj))
+        <span class="kw">return</span> length</pre>
+  </div>
+  <div class="section">
+    <h3>📊 Complexity Analysis</h3>
+    <div class="table-wrap">
+    <table>
+      <tr><th>Type</th><th>Complexity</th><th>Reason</th></tr>
+      <tr><td>Time (DFS+Memo)</td><td>O(M×N)</td><td>Each cell computed once, cached in memo dict</td></tr>
+      <tr><td>Time (Topo BFS)</td><td>O(M×N)</td><td>Each cell processed once; BFS level = path length</td></tr>
+      <tr><td>Space (DFS+Memo)</td><td>O(M×N)</td><td>Recursion stack depth + memo dict</td></tr>
+      <tr><td>Space (Topo BFS)</td><td>O(M×N)</td><td>indegree table + BFS queue</td></tr>
+    </table>
+    </div>
+  </div>
 </div>
 
-<div class="problem-card">
-  <div class="problem-title"><span class="num">#54</span> Spiral Matrix &#8212; <em style="color:#8b949e;font-size:.85rem">by LeetCode</em></div>
-  <div><span class="badge medium">Medium</span></div>
-  <div class="section-title">&#127912; &#50508;&#44256;&#47532;&#51998; &#49884;&#44033;&#54868;</div>
-  <div class="ascii-art">Matrix:
-  [ 1  2  3 ]   Boundaries: top=0 bot=2 left=0 right=2
-  [ 4  5  6 ]
-  [ 7  8  9 ]
-
-  Right (top row):    1 2 3   top++  -&gt; top=1
-  Down  (right col):  6 9     right- -&gt; right=1
-  Left  (bot row):    8 7     bot--  -&gt; bot=1
-  Up    (left col):   4       left++ -&gt; left=1
-  Right (single):     5
-  Result: [1,2,3,6,9,8,7,4,5]</div>
-  <div class="section-title">&#128161; &#44592;&#48376; &#54480;&#51060; (Layer-by-layer)</div>
-  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">spiralOrder</span>(self, matrix):
-        res = []
-        top, bot = 0, len(matrix) - 1
-        left, right = 0, len(matrix[0]) - 1
-        <span class="kw">while</span> top &lt;= bot <span class="kw">and</span> left &lt;= right:
-            <span class="kw">for</span> c <span class="kw">in</span> range(left, right+1): res.append(matrix[top][c])
-            top += 1
-            <span class="kw">for</span> r <span class="kw">in</span> range(top, bot+1): res.append(matrix[r][right])
-            right -= 1
-            <span class="kw">if</span> top &lt;= bot:
-                <span class="kw">for</span> c <span class="kw">in</span> range(right, left-1, -1): res.append(matrix[bot][c])
-                bot -= 1
-            <span class="kw">if</span> left &lt;= right:
-                <span class="kw">for</span> r <span class="kw">in</span> range(bot, top-1, -1): res.append(matrix[r][left])
-                left += 1
-        <span class="kw">return</span> res</div>
-  <div class="section-title">&#9889; &#52572;&#51201;&#54868;&#46108; &#54480;&#51060; (Direction Vector)</div>
-  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">spiralOrder</span>(self, matrix):
-        m, n = len(matrix), len(matrix[0])
-        dirs = [(0,1),(1,0),(0,-1),(-1,0)]
-        seen = [[False]*n <span class="kw">for</span> _ <span class="kw">in</span> range(m)]
-        r = c = di = 0; res = []
-        <span class="kw">for</span> _ <span class="kw">in</span> range(m*n):
-            res.append(matrix[r][c]); seen[r][c] = True
-            nr, nc = r+dirs[di][0], c+dirs[di][1]
-            <span class="kw">if</span> 0&lt;=nr&lt;m <span class="kw">and</span> 0&lt;=nc&lt;n <span class="kw">and not</span> seen[nr][nc]: r,c=nr,nc
-            <span class="kw">else</span>: di=(di+1)%4; r,c=r+dirs[di][0],c+dirs[di][1]
-        <span class="kw">return</span> res</div>
-  <div class="section-title">&#128202; &#48373;&#51161;&#46020; &#48516;&#49437;</div>
-  <table class="complexity-table">
-    <tr><th>&#48260;&#51204;</th><th>&#49884;&#44036;</th><th>&#44277;&#44036;</th><th>&#51060;&#50976;</th></tr>
-    <tr><td>&#44592;&#48376;</td><td>O(m&#183;n)</td><td>O(1)</td><td>&#44033; &#50896;&#49548;&#47484; &#51095;&#54869;&#55176; 1&#54924; &#BC29;&#BB38;, &#CD94;&#AC00; &#BA54;&#BAA8;&#B9AC; &#C5C6;&#C74C;</td></tr>
-    <tr><td>&#52572;&#51201;&#54868;</td><td>O(m&#183;n)</td><td>O(m&#183;n)</td><td>seen &#BC30;&#C5F4; &#D544;&#C694; &#8212; &#AE30;&#BCF8; &#D480;&#C774;&#AC00; &#ACF5;&#AC04; &#D6A8;&#C728; &#C6B0;&#C218;</td></tr>
-  </table>
-</div>
-
-<div class="problem-card">
-  <div class="problem-title"><span class="num">#85</span> Maximal Rectangle &#8212; <em style="color:#8b949e;font-size:.85rem">by LeetCode</em></div>
-  <div><span class="badge hard">Hard</span></div>
-  <div class="section-title">&#127912; &#50508;&#44256;&#47532;&#51998; &#49884;&#44033;&#54868;</div>
-  <div class="ascii-art">Binary Matrix:
-  [ 1 0 1 0 0 ]
-  [ 1 0 1 1 1 ]   Cumulative heights per row:
-  [ 1 1 1 1 1 ]   row0: [1,0,1,0,0]
-  [ 1 0 0 1 0 ]   row1: [2,0,2,1,1]
-                  row2: [3,1,3,2,2]  &lt;- largest histogram
-                  row3: [4,0,0,3,0]
-
-  row2 histogram [3,1,3,2,2]:
-  Stack-based largest rect -&gt; area = 6
-  Answer: 6</div>
-  <div class="section-title">&#128161; &#44592;&#48376; &#54480;&#51060; (DP heights + histogram)</div>
-  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">maximalRectangle</span>(self, matrix):
-        <span class="kw">if not</span> matrix: <span class="kw">return</span> 0
-        n = len(matrix[0]); heights = [0]*n; max_area = 0
-        <span class="kw">def</span> <span class="fn">largest_rect</span>(h):
-            stack, area = [], 0
-            <span class="kw">for</span> i, v <span class="kw">in</span> enumerate(h+[0]):
-                <span class="kw">while</span> stack <span class="kw">and</span> h[stack[-1]] &gt; v:
-                    ht = h[stack.pop()]
-                    w = i <span class="kw">if not</span> stack <span class="kw">else</span> i-stack[-1]-1
-                    area = max(area, ht*w)
-                stack.append(i)
-            <span class="kw">return</span> area
-        <span class="kw">for</span> row <span class="kw">in</span> matrix:
-            heights = [heights[j]+1 <span class="kw">if</span> row[j]=='1' <span class="kw">else</span> 0 <span class="kw">for</span> j <span class="kw">in</span> range(n)]
-            max_area = max(max_area, largest_rect(heights))
-        <span class="kw">return</span> max_area</div>
-  <div class="section-title">&#9889; &#52572;&#51201;&#54868;&#46108; &#54480;&#51060; (DP left/right/height &#BC30;&#C5F4;)</div>
-  <div class="code-block"><span class="kw">class</span> <span class="fn">Solution</span>:
-    <span class="kw">def</span> <span class="fn">maximalRectangle</span>(self, matrix):
-        <span class="kw">if not</span> matrix: <span class="kw">return</span> 0
-        m, n = len(matrix), len(matrix[0])
-        left=[0]*n; right=[n]*n; height=[0]*n; max_area=0
-        <span class="kw">for</span> i <span class="kw">in</span> range(m):
-            cl, cr = 0, n
-            <span class="kw">for</span> j <span class="kw">in</span> range(n):
-                <span class="kw">if</span> matrix[i][j]=='1': height[j]+=1; left[j]=max(left[j],cl)
-                <span class="kw">else</span>: height[j]=0; left[j]=0; cl=j+1
-            <span class="kw">for</span> j <span class="kw">in</span> range(n-1,-1,-1):
-                <span class="kw">if</span> matrix[i][j]=='1': right[j]=min(right[j],cr)
-                <span class="kw">else</span>: right[j]=n; cr=j
-                max_area=max(max_area, height[j]*(right[j]-left[j]))
-        <span class="kw">return</span> max_area</div>
-  <div class="section-title">&#128202; &#48373;&#51161;&#46020; &#48516;&#49437;</div>
-  <table class="complexity-table">
-    <tr><th>&#48260;&#51204;</th><th>&#49884;&#44036;</th><th>&#44277;&#44036;</th><th>&#51060;&#50976;</th></tr>
-    <tr><td>&#44592;&#48376;</td><td>O(m&#183;n)</td><td>O(n)</td><td>&#44033; row&#C5D0; &#B300;&#D574; O(n) histogram; &#C2A4;&#D0DD;&#B3C4; O(n)</td></tr>
-    <tr><td>&#52572;&#51201;&#54868;</td><td>O(m&#183;n)</td><td>O(n)</td><td>left/right/height 3&#AC1C; &#BC30;&#C5F4;, &#C2A4;&#D0DD; &#C5C6;&#C774; &#C0C1;&#C218; &#D328;&#C2A4;&#B9CC; &#C218;&#D589;</td></tr>
-  </table>
-</div>
-
-<div class="footer">
-  <a href="https://chloeyeo.github.io/leetcode-explanations" target="_blank">
-    &#127760; GitHub Pages: chloeyeo.github.io/leetcode-explanations
-  </a>
-  <p style="margin-top:8px;color:#8b949e;font-size:.8rem">Matrix &#50976;&#54805; &nbsp;|&nbsp; 2026-06-17</p>
-</div>
+<footer>
+  <p>🍀 <a href="https://chloeyeo.github.io/leetcode-explanations" target="_blank">GitHub Pages: chloeyeo.github.io/leetcode-explanations</a></p>
+  <p style="margin-top:6px;font-size:0.8rem">LeetCode Daily Practice · Matrix ķ 2026-06-20</p>
+</footer>
 </body>
 </html>

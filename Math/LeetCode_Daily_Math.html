@@ -1,76 +1,218 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LeetCode Daily | Math uyheong | 2026-06-13</title>
+<title>LeetCode Daily ‚Äî Math | 2026-06-20</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#0d1117;color:#e6edf3;font-family:'Courier New',monospace;padding:16px;font-size:14px}
-.header{text-align:center;padding:20px 0;border-bottom:2px solid #21262d;margin-bottom:24px}
-.header h1{color:#58a6ff;font-size:22px;margin-bottom:6px}
-.header .date{color:#8b949e;font-size:13px}
-.problem{background:#161b22;border:1px solid #21262d;border-radius:10px;margin-bottom:28px;overflow:hidden}
-.problem-header{padding:16px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #21262d}
-.problem-header h2{font-size:16px;color:#e6edf3;flex:1}
-.badge{padding:3;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:bold;letter-spacing:.5px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d1117;color:#e6edf3;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;padding:16px;max-width:900px;margin:0 auto}
+header{text-align:center;padding:24px 0 16px;border-bottom:1px solid #30363d;margin-bottom:24px}
+header h1{font-size:1.6rem;color:#58a6ff;letter-spacing:1px}
+header p{color:#8b949e;margin-top:6px;font-size:.9rem}
+.problem{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:20px;margin-bottom:28px}
+.problem-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.problem-header h2{font-size:1.1rem;color:#e6edf3}
+.badge{padding:3px 10px;border-radius:12px;font-size:.75rem;font-weight:700;letter-spacing:.5px}
 .easy{background:#1a4731;color:#3fb950}
-.medium{background:#4a3000;color:#d29922}
- hard{background:#4a0000;color:#f85149}
-.section{padding:16px 18px;border-bottom:1px solid #21262d}
-.section:last-child{border-bottom:none}
-.section-title{color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
-.ascii{background:#0d1117;border-radius:6px;padding:12px;font-size:12px;color:#39d353;overflow-x:auto;white-space:pre;line-height:1.6}
-.code-block{background:#0d1117;border-radius:6px;padding:14px;overflow-x:auto;line-height:1.7;font-size:13px}
+.medium{background:#4d2d00;color:#d29922}
+.hard{background:#4d1414;color:#f85149}
+.by{color:#8b949e;font-size:.8rem}
+.section-title{color:#58a6ff;font-size:.85rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin:16px 0 8px;border-bottom:1px solid #21262d;padding-bottom:4px}
+pre{background:#0d1117;border:1px solid #21262d;border-radius:6px;padding:14px;overflow-x:auto;font-size:.82rem;line-height:1.6;font-family:'Courier New',monospace}
+.ascii{background:#0d1117;border:1px solid #21262d;border-radius:6px;padding:14px;font-family:'Courier New',monospace;font-size:.78rem;line-height:1.5;color:#8b949e;margin-bottom:8px;overflow-x:auto}
+.ascii .hl{color:#58a6ff}
+.ascii .hl2{color:#3fb950}
+.ascii .hl3{color:#d29922}
+table{width:100%;border-collapse:collapse;font-size:.82rem;margin-top:8px}
+th{background:#21262d;color:#8b949e;padding:7px 10px;text-align:left;font-weight:600}
+td{padding:7px 10px;border-bottom:1px solid #21262d;vertical-align:top}
+tr:last-child td{border-bottom:none}
 .kw{color:#ff7b72}
 .fn{color:#d2a8ff}
-.str{color:#a5d6ff}
 .cm{color:#8b949e;font-style:italic}
-.num{color:#79c0ff}
-.var{color:#e6edf3}
-.op{color:#ff7b72}
-.builtin{color:#ffa657}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th{background:#21262d;color:#8b949e;padding:8px 10px;text-align:left;font-size:11px;text-transform:uppercase}
-td{padding:8px 10px;border-bottom:1px solid #21262d;color:#e6edf3;vertical-align:top}
-td:first-child{color:#58a6ff;white-space:nowrap;width:120px}
-td:nth-child(2){color:#3fb950;width:100px}
-.footer{text-align:center;margin-top:28px;padding:16px;border-top:1px solid #21262d;color:#8b949e;font-size:12px}
-.footer a{color:#58a6ff;text-decoration:none}
+.nm{color:#79c0ff}
+.nb{color:#ffa657}
+.op{color:#e6edf3}
+footer{text-align:center;padding:20px 0;border-top:1px solid #30363d;margin-top:8px;color:#8b949e;font-size:.85rem}
+footer a{color:#58a6ff;text-decoration:none}
 </style>
 </head>
 <body>
-<div class="header">
-  <h1>üí¢ Math Ïú†Ìôâ</h1>
-  <div class="date">üÑÖ 2026ÎÑ∏Áâò 6Êúà 13Áßä (‰±©) ¬∑ LeetCode Daily</div>
-</div>
+<header>
+  <h1>üßÆ Math</h1>
+  <p>LeetCode Daily Practice &nbsp;|&nbsp; 2026-06-20 (Saturday)</p>
+</header>
 
-<!-- PROBLEM 1: EASY -->
 <div class="problem">
   <div class="problem-header">
-    <h2>#9 ÌÅ¨Ìã8Ìè†Î•∏ (Palindrome Number)</h2>
-    <span class="badge easy">Easy</span>
+    <span class="badge easy">EASY</span>
+    <h2>LeetCode #9 ‚Äî Palindrome Number</h2>
+    <span class="by">by LeetCode</span>
   </div>
-  <div class="section">
-    <div class="section-title">üéÿ Ï,ßÏΩîÎç∞Ïõ® Ïã†Í∞ÄÌä∏</div>
-    <div class="ascii">
-Input: x = 121
-
-ÌïúÏä§Î•º Îß∏Îºô!ÏóÖÏõå ÏïÑÎ≤àÍ∞Ä Í≤ÄÏûî Í∂åÍµ¨ Ï∏îÏä§
+  <div class="section-title">Algorithm Visualization</div>
+  <div class="ascii">
+<span class="hl">Input: x = 121</span>
+<span class="hl2">
+Reverse second half:
 
   x = 121
-  ‚îå‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îê‚îÄ
-  ‚îÇ  Step 1: rev=0, x=121        ‚îÇ
-  ‚îÇ          x%10=1 ‚Äì rev=1    ‚îÇ
-  ‚îÇ          x=12                     ‚îÇ
-  ‚îÇ  Step 2: rev=1, x=12          ‚îÇ
-  ‚îÇ          x%10=2 ‚Äì rev=12    ‚îÇ
-  ‚îÇ          x=1                     ‚îÇ
-  ‚îÇ  Step 3: rev=12, x=1         ‚îÇ
-  ‚îÇ           x%10=1 ‚Äì rev=121   ‚îÇ
-  ‚îÇ          x=0                     ‚îÇ
-  ‚îî‚îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îÄ"îò
-  original(121) == rev(121) ‚Üí True ‚úÖ
+  |
+  +-- last digit: 121 % 10 = 1  ->  reversed = 1,  x = 12
+  +-- last digit:  12 % 10 = 2  ->  reversed = 12, x = 1
+  |
+  +-- stop: x (1) &lt;= reversed (12)
+  |
+  +-- x == reversed (1 == 1) PASS  OR  x == reversed // 10 (even length)
+</span>
+<span class="hl3">Input: x = 123  ->  reversed = 321, 12 != 1  FAIL</span>
+<span class="hl">Negative numbers: always False | Ends with 0 (except 0): always False</span>
+  </div>
+  <div class="section-title">Basic Solution (Python)</div>
+<pre><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">isPalindrome</span>(<span class="nm">self</span>, <span class="nm">x</span>: <span class="nb">int</span>) -> <span class="nb">bool</span>:
+        <span class="cm"># Convert to string and compare with its reverse</span>
+        <span class="kw">if</span> <span class="nm">x</span> &lt; <span class="nb">0</span>:
+            <span class="kw">return</span> <span class="nb">False</span>
+        <span class="nm">s</span> = <span class="nb">str</span>(<span class="nm">x</span>)
+        <span class="kw">return</span> <span class="nm">s</span> == <span class="nm">s</span>[::<span class="op">-1</span>]</pre>
+  <div class="section-title">Optimized Solution (No String Conversion)</div>
+<pre><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">isPalindrome</span>(<span class="nm">self</span>, <span class="nm">x</span>: <span class="nb">int</span>) -> <span class="nb">bool</span>:
+        <span class="kw">if</span> <span class="nm">x</span> &lt; <span class="nb">0</span> <span class="kw">or</span> (<span class="nm">x</span> % <span class="nb">10</span> == <span class="nb">0</span> <span class="kw">and</span> <span class="nm">x</span> != <span class="nb">0</span>):
+            <span class="kw">return</span> <span class="nb">False</span>
+        <span class="nm">rev</span> = <span class="nb">0</span>
+        <span class="kw">while</span> <span class="nm">x</span> > <span class="nm">rev</span>:
+            <span class="nm">rev</span> = <span class="nm">rev</span> * <span class="nb">10</span> + <span class="nm">x</span> % <span class="nb">10</span>
+            <span class="nm">x</span> //= <span class="nb">10</span>
+        <span class="kw">return</span> <span class="nm">x</span> == <span class="nm">rev</span> <span class="kw">or</span> <span class="nm">x</span> == <span class="nm">rev</span> // <span class="nb">10</span></pre>
+  <div class="section-title">Complexity Analysis</div>
+  <table>
+    <tr><th>Approach</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>String reversal</td><td>O(d)</td><td>O(d)</td><td>d = digits; string copy needed</td></tr>
+    <tr><td>Half reversal</td><td>O(d/2)</td><td>O(1)</td><td>Only reverse half the digits</td></tr>
+  </table>
+</div>
 
-Input: x = -121  ‚Äí Ïü§Ïä§ ‚áí ÌñâÏä∑Ü
-ânput: x    -10   ‚Äí ‰±£ÌåÖ n0 Îü≠ 
+<div class="problem">
+  <div class="problem-header">
+    <span class="badge medium">MEDIUM</span>
+    <h2>LeetCode #50 ‚Äî Pow(x, n)</h2>
+    <span class="by">by LeetCode</span>
+  </div>
+  <div class="section-title">Algorithm Visualization</div>
+  <div class="ascii">
+<span class="hl">Fast Exponentiation -- x^10</span>
+<span class="hl2">
+n=10 (even)  ->  x^10 = (x^5)^2
+  n=5 (odd)  ->  x^5  = x * (x^2)^2
+    n=2 (even)->  x^2  = (x^1)^2
+      n=1(odd)->  x^1  = x * (x^0)^2
+        n=0   ->  return 1
+
+Call tree depth = log2(n) levels
+</span>
+<span class="hl3">Negative n: pow(x,n) = 1 / pow(x,-n)</span>
+  </div>
+  <div class="section-title">Basic Solution (Python)</div>
+<pre><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">myPow</span>(<span class="nm">self</span>, <span class="nm">x</span>: <span class="nb">float</span>, <span class="nm">n</span>: <span class="nb">int</span>) -> <span class="nb">float</span>:
+        <span class="kw">if</span> <span class="nm">n</span> == <span class="nb">0</span>: <span class="kw">return</span> <span class="nb">1.0</span>
+        <span class="kw">if</span> <span class="nm">n</span> &lt; <span class="nb">0</span>: <span class="nm">x</span>, <span class="nm">n</span> = <span class="nb">1</span>/<span class="nm">x</span>, -<span class="nm">n</span>
+        <span class="nm">res</span> = <span class="nb">1.0</span>
+        <span class="kw">for</span> <span class="nm">_</span> <span class="kw">in</span> <span class="nb">range</span>(<span class="nm">n</span>): <span class="nm">res</span> *= <span class="nm">x</span>
+        <span class="kw">return</span> <span class="nm">res</span>  <span class="cm"># O(n) time</span></pre>
+  <div class="section-title">Optimized Solution (Fast Power)</div>
+<pre><span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">myPow</span>(<span class="nm">self</span>, <span class="nm">x</span>: <span class="nb">float</span>, <span class="nm">n</span>: <span class="nb">int</span>) -> <span class="nb">float</span>:
+        <span class="kw">def</span> <span class="fn">fp</span>(<span class="nm">b</span>, <span class="nm">e</span>):
+            <span class="kw">if</span> <span class="nm">e</span> == <span class="nb">0</span>: <span class="kw">return</span> <span class="nb">1.0</span>
+            <span class="kw">if</span> <span class="nm">e</span> % <span class="nb">2</span> == <span class="nb">0</span>:
+                <span class="nm">h</span> = <span class="fn">fp</span>(<span class="nm">b</span>, <span class="nm">e</span>//<span class="nb">2</span>); <span class="kw">return</span> <span class="nm">h</span>*<span class="nm">h</span>
+            <span class="kw">return</span> <span class="nm">b</span> * <span class="fn">fp</span>(<span class="nm">b</span>, <span class="nm">e</span>-<span class="nb">1</span>)
+        <span class="kw">if</span> <span class="nm">n</span> &lt; <span class="nb">0</span>: <span class="nm">x</span>, <span class="nm">n</span> = <span class="nb">1</span>/<span class="nm">x</span>, -<span class="nm">n</span>
+        <span class="kw">return</span> <span class="fn">fp</span>(<span class="nm">x</span>, <span class="nm">n</span>)</pre>
+  <div class="section-title">Complexity Analysis</div>
+  <table>
+    <tr><th>Approach</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>Naive loop</td><td>O(n)</td><td>O(1)</td><td>Multiply n times</td></tr>
+    <tr><td>Fast power</td><td>O(log n)</td><td>O(log n)</td><td>Halve exponent each call</td></tr>
+  </table>
+</div>
+
+<div class="problem">
+  <div class="problem-header">
+    <span class="badge hard">HARD</span>
+    <h2>LeetCode #149 ‚Äî Max Points on a Line</h2>
+    <span class="by">by LeetCode</span>
+  </div>
+  <div class="section-title">Algorithm Visualization</div>
+  <div class="ascii">
+<span class="hl">Points: [[1,1],[2,2],[3,3],[4,5]]</span>
+<span class="hl2">
+Fix anchor [1,1], compute slopes to others:
+  -> [2,2]: slope = 1/1  (gcd-normalized)
+  -> [3,3]: slope = 1/1  <- SAME LINE!
+  -> [4,5]: slope = 4/3
+
+slope_map = { (1,1):2, (4,3):1 }
+max for anchor = 2  ->  total on line = 3
+
+Repeat for each anchor point...
+</span>
+<span class="hl3">Key: normalize slope as (dy/gcd, dx/gcd) tuple
+     dx=0 -> vertical line key=(0,1)
+     track exact duplicates separately</span>
+  </div>
+  <div class="section-title">Basic Solution (Python)</div>
+<pre><span class="kw">from</span> <span class="nm">math</span> <span class="kw">import</span> <span class="nm">gcd</span>
+<span class="kw">from</span> <span class="nm">collections</span> <span class="kw">import</span> <span class="nm">defaultdict</span>
+
+<span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">maxPoints</span>(<span class="nm">self</span>, <span class="nm">pts</span>):
+        <span class="nm">n</span> = <span class="nb">len</span>(<span class="nm">pts</span>)
+        <span class="kw">if</span> <span class="nm">n</span> &lt;= <span class="nb">2</span>: <span class="kw">return</span> <span class="nm">n</span>
+        <span class="nm">res</span> = <span class="nb">2</span>
+        <span class="kw">for</span> <span class="nm">i</span> <span class="kw">in</span> <span class="nb">range</span>(<span class="nm">n</span>):
+            <span class="nm">slopes</span> = <span class="nm">defaultdict</span>(<span class="nb">int</span>)
+            <span class="kw">for</span> <span class="nm">j</span> <span class="kw">in</span> <span class="nb">range</span>(<span class="nm">i</span>+<span class="nb">1</span>, <span class="nm">n</span>):
+                <span class="nm">dx</span> = <span class="nm">pts</span>[<span class="nm">j</span>][<span class="nb">0</span>]-<span class="nm">pts</span>[<span class="nm">i</span>][<span class="nb">0</span>]
+                <span class="nm">dy</span> = <span class="nm">pts</span>[<span class="nm">j</span>][<span class="nb">1</span>]-<span class="nm">pts</span>[<span class="nm">i</span>][<span class="nb">1</span>]
+                <span class="nm">g</span> = <span class="nm">gcd</span>(<span class="nb">abs</span>(<span class="nm">dx</span>),<span class="nb">abs</span>(<span class="nm">dy</span>)) <span class="kw">if</span> <span class="nm">dx</span> <span class="kw">else</span> <span class="nb">1</span>
+                <span class="nm">k</span> = (<span class="nb">0</span>,<span class="nb">1</span>) <span class="kw">if</span> <span class="nm">dx</span>==<span class="nb">0</span> <span class="kw">else</span> (<span class="nm">dy</span>//<span class="nm">g</span>,<span class="nm">dx</span>//<span class="nm">g</span> <span class="kw">if</span> <span class="nm">dx</span>><span class="nb">0</span> <span class="kw">else</span> -<span class="nm">dy</span>//<span class="nm">g</span>,-<span class="nm">dx</span>//<span class="nm">g</span>)
+                <span class="nm">slopes</span>[<span class="nm">k</span>] += <span class="nb">1</span>
+            <span class="nm">res</span> = <span class="nb">max</span>(<span class="nm">res</span>, <span class="nb">max</span>(<span class="nm">slopes</span>.values())+<span class="nb">1</span>)
+        <span class="kw">return</span> <span class="nm">res</span></pre>
+  <div class="section-title">Optimized Solution (with Duplicate Handling)</div>
+<pre><span class="kw">from</span> <span class="nm">math</span> <span class="kw">import</span> <span class="nm">gcd</span>
+<span class="kw">from</span> <span class="nm">collections</span> <span class="kw">import</span> <span class="nm">defaultdict</span>
+
+<span class="kw">class</span> <span class="fn">Solution</span>:
+    <span class="kw">def</span> <span class="fn">maxPoints</span>(<span class="nm">self</span>, <span class="nm">pts</span>):
+        <span class="nm">n</span> = <span class="nb">len</span>(<span class="nm">pts</span>)
+        <span class="kw">if</span> <span class="nm">n</span> &lt;= <span class="nb">2</span>: <span class="kw">return</span> <span class="nm">n</span>
+        <span class="nm">res</span> = <span class="nb">2</span>
+        <span class="kw">for</span> <span class="nm">i</span> <span class="kw">in</span> <span class="nb">range</span>(<span class="nm">n</span>-<span class="nb">1</span>):
+            <span class="nm">slopes</span>, <span class="nm">dups</span> = <span class="nm">defaultdict</span>(<span class="nb">int</span>), <span class="nb">1</span>
+            <span class="kw">for</span> <span class="nm">j</span> <span class="kw">in</span> <span class="nb">range</span>(<span class="nm">i</span>+<span class="nb">1</span>,<span class="nm">n</span>):
+                <span class="nm">dx</span>=<span class="nm">pts</span>[<span class="nm">j</span>][<span class="nb">0</span>]-<span class="nm">pts</span>[<span class="nm">i</span>][<span class="nb">0</span>]; <span class="nm">dy</span>=<span class="nm">pts</span>[<span class="nm">j</span>][<span class="nb">1</span>]-<span class="nm">pts</span>[<span class="nm">i</span>][<span class="nb">1</span>]
+                <span class="kw">if</span> <span class="nm">dx</span>==<span class="nb">0</span> <span class="kw">and</span> <span class="nm">dy</span>==<span class="nb">0</span>: <span class="nm">dups</span>+=<span class="nb">1</span>; <span class="kw">continue</span>
+                <span class="nm">g</span>=<span class="nm">gcd</span>(<span class="nb">abs</span>(<span class="nm">dx</span>),<span class="nb">abs</span>(<span class="nm">dy</span>))
+                <span class="nm">k</span>=(<span class="nb">0</span>,<span class="nb">1</span>) <span class="kw">if</span> <span class="nm">dx</span>==<span class="nb">0</span> <span class="kw">else</span> ((<span class="nm">dy</span>//<span class="nm">g</span>,<span class="nm">dx</span>//<span class="nm">g</span>) <span class="kw">if</span> <span class="nm">dx</span>><span class="nb">0</span> <span class="kw">else</span> (-<span class="nm">dy</span>//<span class="nm">g</span>,-<span class="nm">dx</span>//<span class="nm">g</span>))
+                <span class="nm">slopes</span>[<span class="nm">k</span>]+=<span class="nb">1</span>
+            <span class="nm">res</span>=<span class="nb">max</span>(<span class="nm">res</span>,<span class="nb">max</span>(<span class="nm">slopes</span>.values(),default=<span class="nb">0</span>)+<span class="nm">dups</span>)
+        <span class="kw">return</span> <span class="nm">res</span></pre>
+  <div class="section-title">Complexity Analysis</div>
+  <table>
+    <tr><th>Step</th><th>Time</th><th>Space</th><th>Reason</th></tr>
+    <tr><td>Outer loop</td><td>O(n)</td><td>‚Äî</td><td>Each point as anchor</td></tr>
+    <tr><td>Inner loop + GCD</td><td>O(n log m)</td><td>O(n)</td><td>n pairs, GCD in O(log m)</td></tr>
+    <tr><td>Overall</td><td>O(n¬≤ log m)</td><td>O(n)</td><td>m = max coordinate</td></tr>
+  </table>
+</div>
+
+<footer>
+  <p>üåê <a href="https://chloeyeo.github.io/leetcode-explanations" target="_blank">chloeyeo.github.io/leetcode-explanations</a></p>
+</footer>
+</body>
+</html>
